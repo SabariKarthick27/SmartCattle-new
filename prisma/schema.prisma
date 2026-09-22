@@ -1,0 +1,321 @@
+// SmartCattle Prisma Schema
+// Neon (serverless Postgres) via @prisma/client
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────────────────────────
+
+enum Role {
+  farmer
+  vet
+  admin
+}
+
+enum CaseStatus {
+  open
+  in_progress
+  resolved
+  closed
+}
+
+enum Urgency {
+  low
+  medium
+  high
+  critical
+}
+
+enum AlertSeverity {
+  watch
+  warning
+  critical
+}
+
+enum AlertStatus {
+  active
+  resolved
+}
+
+// ─────────────────────────────────────────────────────────────
+// User & Auth
+// ─────────────────────────────────────────────────────────────
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  phone          String
+  email          String   @unique
+  passwordHash   String
+  role           Role
+  farmId         String?
+  assignedRegion String?
+  isVerified     Boolean  @default(false)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  // Relations
+  cattle         Cattle[]              @relation("FarmerCattle")
+  vetCases       VetCase[]             @relation("VetCases")
+  farmerCases    VetCase[]             @relation("FarmerCases")
+  feedback       VetFeedback[]         @relation("VetFeedback")
+  auditLogs      AuditLog[]            @relation("ActorLogs")
+  resetTokens    PasswordResetToken[]
+}
+
+// ─────────────────────────────────────────────────────────────
+// Cattle & Logs
+// ─────────────────────────────────────────────────────────────
+
+model Cattle {
+  id           String   @id @default(cuid())
+  farmerId     String
+  tagId        String   @unique
+  qrToken      String   @unique
+  breed        String
+  dob          DateTime
+  name         String?
+  gender       String?   @default("female")
+  photoUrl     String?
+  region       String?
+  purpose      String    @default("dairy") // "dairy" | "breeding" | "draft"
+  ageGroup     String?   // "calf" | "adult" | "senior"
+  previousCalvings Int   @default(0)
+  pastVaccinations String[] @default([])
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+
+  // Relations
+  farmer          User          @relation("FarmerCattle", fields: [farmerId], references: [id])
+  weightLogs      WeightLog[]
+  feedLogs        FeedLog[]
+  activityLogs    ActivityLog[]
+  scanLogs        ScanLog[]
+  milkLogs        MilkLog[]
+  chdiHistory     CHDIEntry[]
+  vetCases        VetCase[]
+  vaccinations    VaccinationRecord[]
+  vaccinationLogs VaccinationLog[]
+}
+
+/// Every logged data point carries a `source` field so sparse-vs-rich accuracy
+/// comparisons are possible (primary academic experiment).
+model WeightLog {
+  id        String   @id @default(cuid())
+  cattleId  String
+  value     Float    // kg
+  timestamp DateTime @default(now())
+  /// "manual" | "qr_scan" | "sensor"
+  source    String
+
+  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+}
+
+model FeedLog {
+  id        String   @id @default(cuid())
+  cattleId  String
+  quantity  Float    // kg
+  feedType  String
+  timestamp DateTime @default(now())
+  /// "manual" | "qr_scan" | "sensor"
+  source    String
+
+  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  cattleId  String
+  value     Float    // arbitrary activity score 0–100
+  timestamp DateTime @default(now())
+  /// "manual" | "qr_scan" | "sensor"
+  source    String
+
+  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+}
+
+model MilkLog {
+  id        String   @id @default(cuid())
+  cattleId  String
+  litres    Float    // daily milk yield in litres
+  timestamp DateTime @default(now())
+  /// "manual" | "qr_scan" | "sensor"
+  source    String   @default("manual")
+
+  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+}
+
+model ScanLog {
+  id        String   @id @default(cuid())
+  cattleId  String
+  timestamp DateTime @default(now())
+  gps       String?  // "lat,lng" string
+
+  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+}
+
+model VaccinationLog {
+  id          String    @id @default(cuid())
+  cattleId    String
+  vaccineName String
+  dateGiven   DateTime?
+  nextDueDate DateTime?
+  createdAt   DateTime  @default(now())
+
+  cattle      Cattle    @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+}
+
+// ─────────────────────────────────────────────────────────────
+// CHDI Engine
+// ─────────────────────────────────────────────────────────────
+
+/// CHDI score history per animal.
+/// status: "healthy" | "watch" | "at-risk" | "abstain"
+model CHDIEntry {
+  id         String   @id @default(cuid())
+  cattleId   String
+  score      Float?   // 0–100; higher = healthier; null when abstaining
+  status     String   // healthy | watch | at-risk | abstain
+  confidence Float    // 0–1
+  /// JSON array of { factor: string, contribution: number, direction: "up"|"down" }
+  topFactors Json
+  timestamp  DateTime @default(now())
+
+  cattle     Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+}
+
+// ─────────────────────────────────────────────────────────────
+// Vet Cases & Feedback
+// ─────────────────────────────────────────────────────────────
+
+model VetCase {
+  id            String    @id @default(cuid())
+  cattleId      String
+  farmerId      String
+  vetId         String?
+  status        CaseStatus @default(open)
+  urgency       Urgency    @default(medium)
+  /// Snapshot of the CHDIEntry at case creation time
+  chdiSnapshot  Json
+  symptoms      String?
+  diagnosis     String?
+  treatment     String?
+  medication    String?
+  followUpDate  DateTime?
+  createdAt     DateTime  @default(now())
+  resolvedAt    DateTime?
+
+  cattle        Cattle       @relation(fields: [cattleId], references: [id])
+  farmer        User         @relation("FarmerCases", fields: [farmerId], references: [id])
+  vet           User?        @relation("VetCases", fields: [vetId], references: [id])
+  feedback      VetFeedback?
+}
+
+model VetFeedback {
+  id               String   @id @default(cuid())
+  cattleId         String
+  vetId            String
+  caseId           String   @unique
+  predictedStatus  String   // CHDI status that triggered the case
+  confirmedOutcome String   // what the vet confirmed actually happened
+  timestamp        DateTime @default(now())
+
+  vet              User     @relation("VetFeedback", fields: [vetId], references: [id])
+  case             VetCase  @relation(fields: [caseId], references: [id])
+}
+
+// ─────────────────────────────────────────────────────────────
+// Vaccination / Deworming
+// ─────────────────────────────────────────────────────────────
+
+model VaccinationRecord {
+  id           String   @id @default(cuid())
+  cattleId     String
+  vaccineType  String
+  administeredAt DateTime?
+  dueAt        DateTime
+  status       String   @default("upcoming") // upcoming | done | overdue
+  notes        String?
+
+  cattle       Cattle   @relation(fields: [cattleId], references: [id])
+}
+
+// ─────────────────────────────────────────────────────────────
+// Alerts
+// ─────────────────────────────────────────────────────────────
+
+model RegionAlert {
+  id             String      @id @default(cuid())
+  region         String
+  triggeredAt    DateTime    @default(now())
+  /// JSON array of farm IDs affected
+  affectedFarmIds Json
+  severity       AlertSeverity
+  status         AlertStatus  @default(active)
+  /// Aggregation metadata: { animalCount, farmCount, avgCHDIDrop, windowHours }
+  metadata       Json?
+}
+
+// ─────────────────────────────────────────────────────────────
+// Admin / System
+// ─────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String
+  actorRole String
+  action    String
+  targetId  String?
+  timestamp DateTime @default(now())
+  metadata  Json?
+
+  actor     User     @relation("ActorLogs", fields: [actorId], references: [id])
+}
+
+/// Admin-configurable CHDI thresholds (no hardcoded constants in engine code).
+model Settings {
+  id                   String  @id @default(cuid())
+  key                  String  @unique
+  value                String
+  description          String?
+  updatedAt            DateTime @updatedAt
+}
+
+/// ML model version history for the admin dashboard.
+model ModelVersion {
+  id             String   @id @default(cuid())
+  stage          Int      // 1 | 2 | 3
+  version        String
+  precision      Float?
+  recall         Float?
+  f1Score        Float?
+  abstentionRate Float?
+  trainedAt      DateTime @default(now())
+  isActive       Boolean  @default(false)
+  metadata       Json?
+}
+
+// ─────────────────────────────────────────────────────────────
+// Password Reset
+// ─────────────────────────────────────────────────────────────
+
+/// One-time token for password reset emails. Expires in 1 hour.
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
