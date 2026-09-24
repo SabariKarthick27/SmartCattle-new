@@ -161,12 +161,12 @@ async function runExperiment(): Promise<void> {
           condition,
           trueStatus,
           predictedStatus: chdi.status,
-          chdiScore: chdi.score,
+          chdiScore: chdi.score ?? 0,
           confidence: chdi.confidence,
           detectionDelay: null,
         });
 
-        console.log(`  Animal ${String(i + 1).padStart(2)} | True: ${trueStatus.padEnd(8)} | CHDI: ${chdi.status.padEnd(8)} | Score: ${Math.round(chdi.score).toString().padStart(3)} | Conf: ${(chdi.confidence * 100).toFixed(0)}%`);
+        console.log(`  Animal ${String(i + 1).padStart(2)} | True: ${trueStatus.padEnd(8)} | CHDI: ${chdi.status.padEnd(8)} | Score: ${Math.round(chdi.score ?? 0).toString().padStart(3)} | Conf: ${(chdi.confidence * 100).toFixed(0)}%`);
       } catch (e) {
         console.error(`  Animal ${i + 1}: Error — ${(e as Error).message}`);
       }

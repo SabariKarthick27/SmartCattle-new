@@ -3,7 +3,14 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { getCHDIBadgeConfig, timeAgo } from "@/lib/utils";
 import Link from "next/link";
-import { IconCattle, IconSyringe, IconActivity, IconShieldAlert } from "@/components/icons";
+import {
+  IconCattle,
+  IconSyringe,
+  IconActivity,
+  IconShieldAlert,
+  IconScan,
+  IconCow,
+} from "@/components/icons";
 
 export default async function FarmerOverview() {
   const session = await getServerSession(authOptions);
@@ -42,7 +49,7 @@ export default async function FarmerOverview() {
     }),
   ]);
 
-  // Stats
+  // Status Metrics Breakdown
   const total = cattle.length;
   const healthy = cattle.filter((c: any) => c.chdiHistory[0]?.status === "healthy").length;
   const atRisk = cattle.filter((c: any) => c.chdiHistory[0]?.status === "at-risk").length;
@@ -50,164 +57,252 @@ export default async function FarmerOverview() {
   const abstain = cattle.filter((c: any) => !c.chdiHistory[0] || c.chdiHistory[0].status === "abstain").length;
 
   const stats = [
-    { label: "Total Animals", value: total, color: "text-slate-900", bg: "bg-slate-50" },
-    { label: "Healthy", value: healthy, color: "text-emerald-700", bg: "bg-emerald-50" },
-    { label: "Watch", value: watch, color: "text-amber-700", bg: "bg-amber-50" },
-    { label: "At Risk", value: atRisk, color: "text-red-700", bg: "bg-red-50" },
-    { label: "Open Cases", value: openCases, color: "text-blue-700", bg: "bg-blue-50" },
-    { label: "No Data Yet", value: abstain, color: "text-slate-500", bg: "bg-slate-50" },
+    { label: "Total Cattle", value: total, badge: "TOTAL", color: "text-slate-900", border: "border-slate-300" },
+    { label: "Healthy", value: healthy, badge: "GOOD", color: "text-emerald-700", border: "border-emerald-300" },
+    { label: "Needs Attention", value: watch, badge: "WATCH", color: "text-amber-700", border: "border-amber-300" },
+    { label: "Sick / At Risk", value: atRisk, badge: "URGENT", color: "text-red-700", border: "border-red-300" },
+    { label: "Vet Cases", value: openCases, badge: "DOCTOR", color: "text-blue-700", border: "border-blue-300" },
+    { label: "New (Calibrating)", value: abstain, badge: "NEW", color: "text-slate-600", border: "border-slate-300" },
   ];
 
   return (
-    <div className="p-8 space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6">
+      {/* ── Operational Header & Quick Action Strip ────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">
-            Good {getGreeting()}, {session!.user.name?.split(" ")[0]}!
-          </h1>
-          <p className="text-slate-500 mt-1">Here&apos;s your herd health overview</p>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+              My Farm Dashboard
+            </h1>
+            <span className="text-[11px] font-mono font-bold px-2 py-0.5 bg-emerald-100 text-emerald-900 rounded border border-emerald-300">
+              ACTIVE
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 font-mono mt-0.5">
+            Farmer: {session!.user.name ?? "Farmer"} · All cattle records up to date
+          </p>
         </div>
-        <Link href="/farmer/cattle/new" id="add-cattle-btn" className="btn-primary">
-          + Add Cattle
-        </Link>
+
+        {/* Tactical Actions */}
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/farmer/scan"
+            id="quick-scan-btn"
+            className="btn btn-primary btn-sm font-mono text-xs font-bold"
+          >
+            <IconScan className="w-4 h-4 text-emerald-300" />
+            <span>SCAN EAR TAG</span>
+          </Link>
+          <Link
+            href="/farmer/cattle/new"
+            id="add-cattle-btn"
+            className="btn btn-secondary btn-sm text-xs font-semibold"
+          >
+            + Add New Cow
+          </Link>
+        </div>
       </div>
 
-      {/* Regional Alert Banner */}
+      {/* ── Regional Surveillance Callout ─────────────────── */}
       {regionAlerts.length > 0 && (
-        <div className="animate-pulse-ring rounded-2xl border-2 border-red-200 bg-red-50 p-5">
+        <div className="rounded-lg border border-red-300 bg-red-50/90 p-4 shadow-xs">
           <div className="flex items-start gap-3">
-            <IconShieldAlert className="w-5 h-5 text-red-600 mt-0.5 shrink-0" />
-            <div>
-              <p className="font-semibold text-red-800">Regional Health Alert</p>
-              {regionAlerts.map((a: any) => (
-                <p key={a.id} className="text-red-700 text-sm mt-0.5">
-                  <strong>{a.severity.toUpperCase()}</strong> alert in <strong>{a.region}</strong> — {timeAgo(a.triggeredAt)}
-                </p>
-              ))}
+            <IconShieldAlert className="w-5 h-5 text-red-700 mt-0.5 shrink-0" />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-red-900">
+                  District Health Alert
+                </span>
+                <span className="badge-critical text-[10px] py-0">IMPORTANT</span>
+              </div>
+              <div className="mt-1 space-y-1">
+                {regionAlerts.map((a: any) => (
+                  <p key={a.id} className="text-xs text-red-800 font-medium">
+                    District: <span className="font-bold underline">{a.region}</span> · Severity: <span className="font-bold">{a.severity.toUpperCase()}</span> · Posted {timeAgo(a.triggeredAt)}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {/* ── Status Metrics Strip ──────────────────────────── */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {stats.map((s) => (
-          <div key={s.label} className={`card p-4 ${s.bg}`}>
-            <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
-            <div className="text-xs text-slate-500 mt-1 font-medium">{s.label}</div>
+          <div key={s.label} className={`card p-3.5 bg-white border ${s.border} flex flex-col justify-between`}>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-mono font-bold text-slate-500">{s.badge}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+            </div>
+            <div className="mt-2">
+              <div className={`text-2xl font-extrabold tracking-tight font-display tnum ${s.color}`}>
+                {s.value}
+              </div>
+              <div className="text-[11px] font-semibold text-slate-600 truncate mt-0.5">{s.label}</div>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Main grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Cattle list (recent) */}
-        <div className="lg:col-span-2 card">
-          <div className="p-5 border-b border-slate-100 flex items-center justify-between">
-            <h2 className="font-semibold text-slate-900 flex items-center gap-2">
-              <IconCattle className="w-4 h-4 text-brand-700" />
-              Your Herd
-            </h2>
-            <Link href="/farmer/cattle" className="text-sm text-brand-700 hover:underline">
-              View all →
-            </Link>
-          </div>
-          <div className="divide-y divide-slate-100">
-            {cattle.slice(0, 6).map((c: any) => {
-              const latest = c.chdiHistory[0];
-              const badge = getCHDIBadgeConfig(latest?.status ?? "abstain");
-              return (
-                <Link
-                  key={c.id}
-                  href={`/farmer/cattle/${c.id}`}
-                  id={`cattle-row-${c.id}`}
-                  className="flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors"
-                >
-                  <div className="w-10 h-10 bg-brand-100 rounded-xl flex items-center justify-center font-bold text-brand-700 text-sm">
-                    {c.name?.[0]?.toUpperCase() ?? "C"}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-slate-900 truncate">{c.name ?? c.tagId}</p>
-                    <p className="text-xs text-slate-500">{c.breed}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {latest && (
-                      <span className="text-lg font-bold text-slate-700">{Math.round(latest.score)}</span>
-                    )}
-                    <span className={`badge-${latest?.status ?? "abstain"}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${badge.dot}`}></span>
-                      {badge.label}
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-            {cattle.length === 0 && (
-              <div className="p-8 text-center text-slate-400">
-                <IconCattle className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-                <p className="font-medium">No cattle added yet</p>
-                <Link href="/farmer/cattle/new" className="btn-primary mt-3 inline-flex">Add your first animal</Link>
+      {/* ── Main Operational Grid ─────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Column: Cattle Roster */}
+        <div className="lg:col-span-8 space-y-4">
+          <div className="card border border-slate-200 bg-white overflow-hidden shadow-xs">
+            <div className="p-3.5 bg-[#f8faf9] border-b border-slate-200 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <IconCattle className="w-4 h-4 text-[#123326]" />
+                <h2 className="font-bold text-sm text-slate-900 uppercase font-mono tracking-wider">
+                  Cattle Health Summary
+                </h2>
               </div>
-            )}
+              <Link
+                href="/farmer/cattle"
+                className="text-xs font-mono font-semibold text-emerald-900 hover:text-emerald-700 underline"
+              >
+                View All ({total}) →
+              </Link>
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {cattle.slice(0, 7).map((c: any) => {
+                const latest = c.chdiHistory[0];
+                const badge = getCHDIBadgeConfig(latest?.status ?? "abstain");
+                return (
+                  <Link
+                    key={c.id}
+                    href={`/farmer/cattle/${c.id}`}
+                    id={`cattle-row-${c.id}`}
+                    className="flex items-center justify-between p-3.5 hover:bg-slate-50 transition-colors group"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-9 h-9 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center font-mono font-bold text-xs text-slate-700 group-hover:border-[#123326]">
+                        {c.tagId.slice(-4)}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="font-bold text-sm text-slate-900 truncate">{c.name ?? c.tagId}</p>
+                          <span className="text-[11px] font-mono text-slate-500">{c.tagId}</span>
+                        </div>
+                        <p className="text-xs text-slate-500 truncate">
+                          {c.breed} · {c.gender} · Born {new Date(c.dob).getFullYear()}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 shrink-0">
+                      {latest && (
+                        <div className="text-right hidden sm:block">
+                          <div className="text-xs font-mono font-bold text-slate-700 tnum">
+                            Score: {latest.score != null ? `${Math.round(latest.score)}/100` : "—"}
+                          </div>
+                          <div className="text-[10px] text-slate-400 font-mono">
+                            {timeAgo(latest.timestamp)}
+                          </div>
+                        </div>
+                      )}
+                      <span className={`badge-${latest?.status ?? "abstain"}`}>
+                        {badge.label}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+
+              {cattle.length === 0 && (
+                <div className="p-10 text-center text-slate-400 space-y-3">
+                  <IconCow className="w-10 h-10 text-slate-300 mx-auto" />
+                  <p className="font-bold text-sm text-slate-700">No cattle registered yet</p>
+                  <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                    Add your first cow or buffalo with an ear tag to track daily health and milk records.
+                  </p>
+                  <div>
+                    <Link href="/farmer/cattle/new" className="btn btn-primary btn-sm">
+                      + Add First Cow
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Right column */}
-        <div className="space-y-6">
-          {/* Upcoming vaccinations */}
-          <div className="card">
-            <div className="p-4 border-b border-slate-100">
-              <h2 className="font-semibold text-slate-900 flex items-center gap-2">
-                <IconSyringe className="w-4 h-4 text-brand-700" />
-                Upcoming Vaccinations
-              </h2>
+        {/* Right Column: Vaccinations & Telemetry Feed */}
+        <div className="lg:col-span-4 space-y-5">
+          {/* Upcoming Vaccinations */}
+          <div className="card border border-slate-200 bg-white overflow-hidden shadow-xs">
+            <div className="p-3.5 bg-[#f8faf9] border-b border-slate-200 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <IconSyringe className="w-4 h-4 text-[#123326]" />
+                <h2 className="font-bold text-xs text-slate-900 uppercase font-mono tracking-wider">
+                  Upcoming Vaccines
+                </h2>
+              </div>
+              <span className="text-[10px] font-mono text-slate-500">NEXT 30 DAYS</span>
             </div>
+
             <div className="divide-y divide-slate-100">
               {upcomingVaccinations.slice(0, 4).map((v: any) => (
-                <div key={v.id} className="p-3.5 flex items-center gap-3">
-                  <div className={`w-2 h-2 rounded-full ${v.status === "overdue" ? "bg-red-500" : "bg-amber-500"}`}></div>
+                <div key={v.id} className="p-3 flex items-center gap-2.5">
+                  <div className={`w-2 h-2 rounded-full ${v.status === "overdue" ? "bg-red-600" : "bg-amber-500"}`}></div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-slate-800 truncate">{v.vaccineType}</p>
-                    <p className="text-xs text-slate-500">{v.cattle.name ?? v.cattle.tagId}</p>
+                    <p className="text-xs font-bold text-slate-900 truncate">{v.vaccineType}</p>
+                    <p className="text-[11px] font-mono text-slate-500">{v.cattle.name ?? v.cattle.tagId}</p>
                   </div>
-                  <p className="text-xs text-slate-400 whitespace-nowrap">
+                  <span className="text-[11px] font-mono font-semibold text-slate-700 px-1.5 py-0.5 bg-slate-100 rounded border border-slate-200">
                     {new Date(v.dueAt).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
-                  </p>
+                  </span>
                 </div>
               ))}
+
               {upcomingVaccinations.length === 0 && (
-                <p className="p-4 text-sm text-slate-400 text-center">No upcoming vaccinations</p>
+                <p className="p-4 text-xs font-mono text-slate-400 text-center">
+                  All vaccines are currently up to date
+                </p>
               )}
             </div>
           </div>
 
-          {/* Recent CHDI activity */}
-          <div className="card">
-            <div className="p-4 border-b border-slate-100">
-              <h2 className="font-semibold text-slate-900 flex items-center gap-2">
-                <IconActivity className="w-4 h-4 text-brand-700" />
-                Recent Health Events
-              </h2>
+          {/* Recent CHDI Inference Stream */}
+          <div className="card border border-slate-200 bg-white overflow-hidden shadow-xs">
+            <div className="p-3.5 bg-[#f8faf9] border-b border-slate-200 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <IconActivity className="w-4 h-4 text-[#123326]" />
+                <h2 className="font-bold text-xs text-slate-900 uppercase font-mono tracking-wider">
+                  Recent Health Checks
+                </h2>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-800 font-bold">LATEST</span>
             </div>
+
             <div className="divide-y divide-slate-100">
               {recentCHDI.map((e: any) => {
                 const badge = getCHDIBadgeConfig(e.status);
                 return (
-                  <div key={e.id} className="p-3.5 flex items-center gap-3">
-                    <span className={`w-2 h-2 rounded-full ${badge.dot}`}></span>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-slate-700 truncate">
-                        {e.cattle.name ?? e.cattle.tagId} → <span className={badge.color}>{badge.label}</span>
-                      </p>
-                      <p className="text-xs text-slate-400">{timeAgo(e.timestamp)}</p>
+                  <div key={e.id} className="p-3 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className={`w-2 h-2 rounded-full ${badge.dot}`}></span>
+                      <div className="min-w-0">
+                        <p className="text-xs font-semibold text-slate-800 truncate">
+                          {e.cattle.name ?? e.cattle.tagId}
+                        </p>
+                        <p className="text-[10px] font-mono text-slate-400">{timeAgo(e.timestamp)}</p>
+                      </div>
                     </div>
-                    <p className="text-sm font-bold text-slate-600">{Math.round(e.score)}</p>
+                    <div className="text-right">
+                      <span className={`badge-${e.status} text-[10px]`}>
+                        {e.score != null ? `${Math.round(e.score)} pts` : "—"}
+                      </span>
+                    </div>
                   </div>
                 );
               })}
+
               {recentCHDI.length === 0 && (
-                <p className="p-4 text-sm text-slate-400 text-center">No health events yet</p>
+                <p className="p-4 text-xs font-mono text-slate-400 text-center">
+                  No health checks logged recently
+                </p>
               )}
             </div>
           </div>
@@ -215,11 +310,4 @@ export default async function FarmerOverview() {
       </div>
     </div>
   );
-}
-
-function getGreeting() {
-  const h = new Date().getHours();
-  if (h < 12) return "morning";
-  if (h < 17) return "afternoon";
-  return "evening";
 }

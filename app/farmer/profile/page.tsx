@@ -12,6 +12,7 @@ interface UserProfile {
   role: string;
   farmId: string | null;
   assignedRegion: string | null;
+  photoUrl: string | null;
   isVerified: boolean;
   isActive: boolean;
   createdAt: string;
@@ -30,6 +31,7 @@ export default function FarmerProfilePage() {
     phone: "",
     farmId: "",
     assignedRegion: "",
+    photoUrl: "",
   });
   const [detailsSaving, setDetailsSaving] = useState(false);
   const [detailsMsg, setDetailsMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -61,6 +63,7 @@ export default function FarmerProfilePage() {
           phone: data.user.phone ?? "",
           farmId: data.user.farmId ?? "",
           assignedRegion: data.user.assignedRegion ?? "Tamil Nadu - Coimbatore",
+          photoUrl: data.user.photoUrl ?? "",
         });
       }
     } catch (err) {
@@ -73,6 +76,26 @@ export default function FarmerProfilePage() {
   useEffect(() => {
     fetchProfile();
   }, []);
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 4 * 1024 * 1024) {
+      setDetailsMsg({ type: "error", text: "Photo file size must be less than 4 MB." });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setDetailsForm((prev) => ({ ...prev, photoUrl: reader.result as string }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemovePhoto = () => {
+    setDetailsForm((prev) => ({ ...prev, photoUrl: "" }));
+  };
 
   // Save profile details
   const handleSaveDetails = async (e: React.FormEvent) => {
@@ -96,8 +119,8 @@ export default function FarmerProfilePage() {
       }
 
       setProfile(data.user);
-      setDetailsMsg({ type: "success", text: "Profile details updated successfully!" });
-    } catch (err) {
+      setDetailsMsg({ type: "success", text: "Profile details & photo updated successfully!" });
+    } catch {
       setDetailsSaving(false);
       setDetailsMsg({ type: "error", text: "An error occurred while saving profile." });
     }
@@ -134,13 +157,13 @@ export default function FarmerProfilePage() {
       setPassSaving(false);
 
       if (!res.ok) {
-        setPassMsg({ type: "error", text: data.error ?? "Password reset failed." });
+        setPassMsg({ type: "error", text: data.error ?? "Password update failed." });
         return;
       }
 
-      setPassMsg({ type: "success", text: "Password changed successfully! Keep your new password secure." });
+      setPassMsg({ type: "success", text: "Password changed successfully!" });
       setPassForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-    } catch (err) {
+    } catch {
       setPassSaving(false);
       setPassMsg({ type: "error", text: "An error occurred while updating password." });
     }
@@ -149,21 +172,26 @@ export default function FarmerProfilePage() {
   if (loading) {
     return (
       <div className="p-8 text-center text-slate-400 max-w-4xl mx-auto">
-        <div className="w-8 h-8 border-4 border-slate-300 border-t-brand-700 rounded-full animate-spin mx-auto mb-3" />
-        Loading your farmer profile...
+        <div className="w-8 h-8 border-2 border-slate-300 border-t-[#123326] rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-xs font-mono">Loading profile details...</p>
       </div>
     );
   }
 
   return (
-    <div className="p-8 space-y-6 max-w-5xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-5xl mx-auto">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2 font-sans">
-          Farmer Profile & Account Settings
-        </h1>
-        <p className="text-slate-500 mt-1">
-          Manage your personal details, farm information, and security settings
+      <div className="pb-4 border-b border-slate-200">
+        <div className="flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+            Farm Profile &amp; Settings
+          </h1>
+          <span className="text-xs font-mono font-bold px-2 py-0.5 bg-slate-200 text-slate-700 rounded">
+            SETTINGS
+          </span>
+        </div>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Manage your contact information, farm district, and account password.
         </p>
       </div>
 
@@ -171,17 +199,17 @@ export default function FarmerProfilePage() {
         {/* Left Column (Forms) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Card 1: Personal & Farm Details */}
-          <div className="card p-6 md:p-8">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
-              <h2 className="text-lg font-bold text-slate-900">Personal & Farm Information</h2>
-              <span className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">
-                Farmer Details
+          <div className="card p-5 sm:p-6 bg-white border border-slate-300 shadow-xs rounded-xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h2 className="text-base font-bold text-slate-900 font-display">Personal &amp; Farm Details</h2>
+              <span className="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">
+                PROFILE
               </span>
             </div>
 
             {detailsMsg && (
               <div
-                className={`mb-5 p-3.5 rounded-xl text-sm border ${
+                className={`p-3 rounded-lg text-xs font-medium border ${
                   detailsMsg.type === "success"
                     ? "bg-emerald-50 text-emerald-800 border-emerald-200"
                     : "bg-red-50 text-red-800 border-red-200"
@@ -192,6 +220,51 @@ export default function FarmerProfilePage() {
             )}
 
             <form onSubmit={handleSaveDetails} className="space-y-4">
+              {/* Photo Upload Section */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div className="w-16 h-16 rounded-full overflow-hidden bg-[#123326] text-emerald-300 flex items-center justify-center font-bold text-xl border-2 border-emerald-600 shrink-0 shadow-xs">
+                  {detailsForm.photoUrl ? (
+                    <img
+                      src={detailsForm.photoUrl}
+                      alt="Farmer Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span>{detailsForm.name?.[0]?.toUpperCase() || "F"}</span>
+                  )}
+                </div>
+
+                <div className="space-y-1 text-center sm:text-left flex-1">
+                  <p className="text-xs font-bold text-slate-800">Profile Photo</p>
+                  <p className="text-[11px] text-slate-500">
+                    Upload a square PNG, JPG, or WebP (max 4 MB). Visible on your profile &amp; sidebar.
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1.5">
+                    <label className="btn btn-secondary btn-sm text-xs cursor-pointer inline-flex items-center gap-1.5">
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                      </svg>
+                      <span>Upload Photo</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handlePhotoUpload}
+                      />
+                    </label>
+                    {detailsForm.photoUrl && (
+                      <button
+                        type="button"
+                        onClick={handleRemovePhoto}
+                        className="text-xs text-rose-600 hover:text-rose-700 hover:underline font-medium px-2 py-1"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="prof-name" className="label">Full Name *</label>
@@ -205,11 +278,11 @@ export default function FarmerProfilePage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="prof-phone" className="label">Phone Number *</label>
+                  <label htmlFor="prof-phone" className="label">Mobile Phone *</label>
                   <input
                     id="prof-phone"
                     type="tel"
-                    className="input"
+                    className="input font-mono"
                     value={detailsForm.phone}
                     onChange={(e) => setDetailsForm({ ...detailsForm, phone: e.target.value })}
                     required
@@ -218,22 +291,19 @@ export default function FarmerProfilePage() {
               </div>
 
               <div>
-                <label htmlFor="prof-email" className="label">Email Address (Read-only)</label>
+                <label htmlFor="prof-email" className="label">Email Address (Login ID)</label>
                 <input
                   id="prof-email"
                   type="email"
-                  className="input bg-slate-50 text-slate-500 cursor-not-allowed"
+                  className="input bg-slate-50 text-slate-600 cursor-not-allowed font-mono"
                   value={profile?.email ?? ""}
                   disabled
                 />
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Email is bound to your account credentials and cannot be modified.
-                </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="prof-region" className="label">Farm District / Region *</label>
+                  <label htmlFor="prof-region" className="label">District / Location *</label>
                   <select
                     id="prof-region"
                     className="input"
@@ -243,19 +313,17 @@ export default function FarmerProfilePage() {
                   >
                     <option value="">Select District</option>
                     {TAMIL_NADU_DISTRICTS.map((d) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
+                      <option key={d} value={d}>{d}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="prof-farmid" className="label">Farm ID / Name</label>
+                  <label htmlFor="prof-farmid" className="label">Farm Name or ID</label>
                   <input
                     id="prof-farmid"
                     type="text"
                     className="input"
-                    placeholder="e.g. FARM-001 or Kovai Dairy Farm"
+                    placeholder="e.g. Kovai Dairy Farm"
                     value={detailsForm.farmId}
                     onChange={(e) => setDetailsForm({ ...detailsForm, farmId: e.target.value })}
                   />
@@ -265,29 +333,27 @@ export default function FarmerProfilePage() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="btn-primary"
+                  className="btn btn-primary btn-sm font-semibold text-xs px-4"
                   disabled={detailsSaving}
                 >
-                  {detailsSaving ? (
-                    <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Saving...</>
-                  ) : "Save Changes"}
+                  {detailsSaving ? "Saving..." : "Save Profile Details"}
                 </button>
               </div>
             </form>
           </div>
 
           {/* Card 2: Security & Password Reset */}
-          <div className="card p-6 md:p-8">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
-              <h2 className="text-lg font-bold text-slate-900">Security & Password Reset</h2>
-              <span className="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-medium">
-                Password Settings
+          <div className="card p-5 sm:p-6 bg-white border border-slate-300 shadow-xs rounded-xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h2 className="text-base font-bold text-slate-900 font-display">Change Password</h2>
+              <span className="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">
+                SECURITY
               </span>
             </div>
 
             {passMsg && (
               <div
-                className={`mb-5 p-3.5 rounded-xl text-sm border ${
+                className={`p-3 rounded-lg text-xs font-medium border ${
                   passMsg.type === "success"
                     ? "bg-emerald-50 text-emerald-800 border-emerald-200"
                     : "bg-red-50 text-red-800 border-red-200"
@@ -304,8 +370,8 @@ export default function FarmerProfilePage() {
                   <input
                     id="pass-current"
                     type={showPass.current ? "text" : "password"}
-                    className="input pr-11"
-                    placeholder="Enter current password"
+                    className="input pr-10 font-mono"
+                    placeholder="Enter your current password"
                     value={passForm.currentPassword}
                     onChange={(e) => setPassForm({ ...passForm, currentPassword: e.target.value })}
                     required
@@ -313,31 +379,21 @@ export default function FarmerProfilePage() {
                   <button
                     type="button"
                     onClick={() => setShowPass({ ...showPass, current: !showPass.current })}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                    aria-label="Toggle password visibility"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
                   >
-                    {showPass.current ? (
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                      </svg>
-                    ) : (
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    )}
+                    {showPass.current ? "✕" : "👁"}
                   </button>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="pass-new" className="label">New Password *</label>
+                  <label htmlFor="pass-new" className="label">New Password (Min 8 chars) *</label>
                   <div className="relative">
                     <input
                       id="pass-new"
                       type={showPass.new ? "text" : "password"}
-                      className="input pr-11"
+                      className="input pr-10 font-mono"
                       placeholder="At least 8 characters"
                       value={passForm.newPassword}
                       onChange={(e) => setPassForm({ ...passForm, newPassword: e.target.value })}
@@ -347,19 +403,9 @@ export default function FarmerProfilePage() {
                     <button
                       type="button"
                       onClick={() => setShowPass({ ...showPass, new: !showPass.new })}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                      aria-label="Toggle password visibility"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
                     >
-                      {showPass.new ? (
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                        </svg>
-                      ) : (
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                      )}
+                      {showPass.new ? "✕" : "👁"}
                     </button>
                   </div>
                 </div>
@@ -370,8 +416,8 @@ export default function FarmerProfilePage() {
                     <input
                       id="pass-confirm"
                       type={showPass.confirm ? "text" : "password"}
-                      className="input pr-11"
-                      placeholder="Re-enter new password"
+                      className="input pr-10 font-mono"
+                      placeholder="Repeat new password"
                       value={passForm.confirmPassword}
                       onChange={(e) => setPassForm({ ...passForm, confirmPassword: e.target.value })}
                       minLength={8}
@@ -380,46 +426,21 @@ export default function FarmerProfilePage() {
                     <button
                       type="button"
                       onClick={() => setShowPass({ ...showPass, confirm: !showPass.confirm })}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                      aria-label="Toggle password visibility"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
                     >
-                      {showPass.confirm ? (
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                        </svg>
-                      ) : (
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                      )}
+                      {showPass.confirm ? "✕" : "👁"}
                     </button>
                   </div>
                 </div>
               </div>
 
-              {passForm.newPassword && (
-                <div className="text-xs space-y-1 pt-1">
-                  <p className={passForm.newPassword.length >= 8 ? "text-emerald-600" : "text-slate-400"}>
-                    {passForm.newPassword.length >= 8 ? "✓" : "•"} Minimum 8 characters
-                  </p>
-                  <p className={passForm.confirmPassword && passForm.newPassword === passForm.confirmPassword ? "text-emerald-600" : "text-amber-600"}>
-                    {passForm.confirmPassword && passForm.newPassword === passForm.confirmPassword
-                      ? "✓ Passwords match"
-                      : "• Passwords must match"}
-                  </p>
-                </div>
-              )}
-
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="btn-secondary text-brand-800 border-brand-200 hover:bg-brand-50"
+                  className="btn btn-secondary btn-sm text-xs font-semibold px-4"
                   disabled={passSaving}
                 >
-                  {passSaving ? (
-                    <><span className="w-4 h-4 border-2 border-brand-700/30 border-t-brand-700 rounded-full animate-spin" /> Updating...</>
-                  ) : "Update Password →"}
+                  {passSaving ? "Updating Password..." : "Update Password →"}
                 </button>
               </div>
             </form>
@@ -428,35 +449,45 @@ export default function FarmerProfilePage() {
 
         {/* Right Column (Sidebar Summary Card) */}
         <div className="space-y-6">
-          <div className="card p-6 text-center">
-            <div className="w-20 h-20 bg-brand-100 text-brand-800 rounded-full flex items-center justify-center font-bold text-3xl mx-auto mb-4 border-4 border-brand-50 shadow-sm">
-              {profile?.name?.[0]?.toUpperCase() ?? "F"}
+          <div className="card p-5 bg-white border border-slate-300 shadow-xs rounded-xl text-center space-y-3">
+            <div className="w-16 h-16 bg-[#123326] text-emerald-300 rounded-full flex items-center justify-center font-bold text-2xl mx-auto shadow-xs border border-[#0b2219] overflow-hidden">
+              {profile?.photoUrl ? (
+                <img
+                  src={profile.photoUrl}
+                  alt={profile.name || "Farmer"}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                profile?.name?.[0]?.toUpperCase() ?? "F"
+              )}
             </div>
 
-            <h3 className="font-bold text-slate-900 text-lg">{profile?.name}</h3>
-            <p className="text-xs text-slate-500 mb-3">{profile?.email}</p>
+            <div>
+              <h3 className="font-bold text-slate-950 text-base">{profile?.name}</h3>
+              <p className="text-xs text-slate-500 font-mono">{profile?.email}</p>
+            </div>
 
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-900 text-xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-600" />
               Verified Farmer Account
             </div>
 
-            <div className="space-y-3 text-left border-t border-slate-100 pt-4 text-xs">
-              <div className="flex justify-between py-1">
-                <span className="text-slate-500">Registered Animals</span>
-                <span className="font-bold text-slate-900">{profile?._count?.cattle ?? 0} Head</span>
+            <div className="space-y-2 text-left border-t border-slate-100 pt-3 text-xs">
+              <div className="flex justify-between py-1 border-b border-slate-50">
+                <span className="text-slate-500">Registered Cows</span>
+                <span className="font-bold text-slate-900 font-mono">{profile?._count?.cattle ?? 0}</span>
               </div>
-              <div className="flex justify-between py-1">
-                <span className="text-slate-500">District / Region</span>
+              <div className="flex justify-between py-1 border-b border-slate-50">
+                <span className="text-slate-500">District</span>
                 <span className="font-medium text-slate-800">{profile?.assignedRegion ?? "Tamil Nadu"}</span>
               </div>
-              <div className="flex justify-between py-1">
-                <span className="text-slate-500">Farm Identifier</span>
-                <span className="font-mono text-slate-800">{profile?.farmId ?? "Not assigned"}</span>
+              <div className="flex justify-between py-1 border-b border-slate-50">
+                <span className="text-slate-500">Farm Name</span>
+                <span className="font-semibold text-slate-800">{profile?.farmId || "My Farm"}</span>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-slate-500">Account Joined</span>
-                <span className="text-slate-700">{fmtDate(profile?.createdAt)}</span>
+                <span className="text-slate-500">Member Since</span>
+                <span className="text-slate-700 font-mono">{fmtDate(profile?.createdAt)}</span>
               </div>
             </div>
           </div>

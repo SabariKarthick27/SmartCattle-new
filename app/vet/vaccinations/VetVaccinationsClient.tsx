@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { IconSyringe, IconCheckCircle, IconCalendar } from "@/components/icons";
+import { IconSyringe, IconCalendar } from "@/components/icons";
 
 interface CattleOption {
   id: string;
@@ -81,13 +81,12 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
     setLoading(false);
 
     if (!res.ok) {
-      setError(data.error || "Failed to schedule vaccination/checkup");
+      setError(data.error || "Failed to schedule vaccination");
       return;
     }
 
-    setSuccess("Checkup / Vaccination date scheduled successfully!");
+    setSuccess("Vaccination / Checkup date scheduled successfully!");
     setShowModal(false);
-    // Reload window to refresh state cleanly
     window.location.reload();
   };
 
@@ -116,49 +115,53 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="pb-4 border-b border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2.5">
-            <IconSyringe className="w-6 h-6 text-teal-700" />
-            Vaccination & Health Checkup Scheduler
-          </h1>
-          <p className="text-slate-500 mt-1">
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+              Vaccination &amp; Checkup Schedule
+            </h1>
+            <span className="text-xs font-mono font-bold px-2 py-0.5 bg-slate-200 text-slate-700 rounded">
+              CLINIC
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 mt-0.5">
             Assign checkup dates and schedule vaccination drives for cattle in{" "}
-            <span className="font-semibold text-slate-700">{vetRegion || "Assigned Coverage"}</span>
+            <span className="font-bold text-slate-800">{vetRegion || "Your District"}</span>
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="btn-primary flex items-center gap-2"
+          className="btn btn-primary btn-sm flex items-center gap-1.5 text-xs font-semibold"
         >
-          <IconCalendar className="w-4 h-4" />
-          <span>Schedule New Checkup / Vaccine</span>
+          <IconCalendar className="w-3.5 h-3.5" />
+          <span>+ Schedule Vaccine / Checkup</span>
         </button>
       </div>
 
       {success && (
-        <div className="p-4 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-medium">
-          {success}
+        <div className="p-3.5 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 text-xs font-medium">
+          ✓ {success}
         </div>
       )}
 
       {/* Schedule Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="card p-6 max-w-lg w-full space-y-4 animate-fade-in-up">
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="card p-6 max-w-lg w-full bg-white border border-slate-300 shadow-xl rounded-xl space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <IconSyringe className="w-5 h-5 text-teal-700" />
-                Schedule Checkup / Vaccination Date
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2 font-display">
+                <IconSyringe className="w-4 h-4 text-emerald-800" />
+                Schedule Vaccine / Checkup
               </h2>
-              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600 font-bold">
+              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600 font-bold text-sm">
                 ✕
               </button>
             </div>
 
             {error && (
-              <div className="p-3 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200">
+              <div className="p-3 rounded-lg bg-red-50 text-red-800 text-xs border border-red-200">
                 {error}
               </div>
             )}
@@ -167,7 +170,7 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
               <div>
                 <label className="label">Select Cattle / Animal *</label>
                 <select
-                  className="input"
+                  className="input text-xs"
                   value={form.cattleId}
                   onChange={(e) => setForm({ ...form, cattleId: e.target.value })}
                   required
@@ -184,7 +187,7 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
               <div>
                 <label className="label">Checkup / Vaccine Type *</label>
                 <select
-                  className="input"
+                  className="input text-xs"
                   value={form.vaccineType}
                   onChange={(e) => setForm({ ...form, vaccineType: e.target.value })}
                   required
@@ -194,16 +197,16 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
                       {v}
                     </option>
                   ))}
-                  <option value="Other">Other / Custom Checkup</option>
+                  <option value="Other">Other / Custom</option>
                 </select>
               </div>
 
               {form.vaccineType === "Other" && (
                 <div>
-                  <label className="label">Custom Checkup Name *</label>
+                  <label className="label">Custom Vaccine Name *</label>
                   <input
                     type="text"
-                    className="input"
+                    className="input text-xs"
                     placeholder="e.g. Deworming Drive"
                     value={form.customType}
                     onChange={(e) => setForm({ ...form, customType: e.target.value })}
@@ -213,32 +216,33 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
               )}
 
               <div>
-                <label className="label">Scheduled Checkup Date *</label>
+                <label className="label">Scheduled Date *</label>
                 <input
                   type="date"
-                  className="input"
+                  className="input text-xs"
                   value={form.dueAt}
                   onChange={(e) => setForm({ ...form, dueAt: e.target.value })}
                   required
-                />
+                >
+                </input>
               </div>
 
               <div>
                 <label className="label">Notes / Instructions (optional)</label>
                 <textarea
-                  className="input min-h-[70px] resize-none"
+                  className="input min-h-[60px] resize-none text-xs"
                   placeholder="e.g. Dosage: 5ml, Administer morning before feeding..."
                   value={form.notes}
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-2">
-                <button type="button" onClick={() => setShowModal(false)} className="btn-secondary">
+              <div className="flex items-center justify-end gap-2.5 pt-2">
+                <button type="button" onClick={() => setShowModal(false)} className="btn btn-secondary btn-sm text-xs">
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary" disabled={loading}>
-                  {loading ? "Scheduling..." : "Assign & Schedule Date"}
+                <button type="submit" className="btn btn-primary btn-sm text-xs font-bold" disabled={loading}>
+                  {loading ? "Scheduling..." : "Save Schedule →"}
                 </button>
               </div>
             </form>
@@ -247,28 +251,28 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
       )}
 
       {/* Scheduled Table */}
-      <div className="card overflow-hidden">
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-          <h2 className="font-bold text-slate-900">Assigned Schedule & Vaccination Drives</h2>
-          <span className="text-xs text-slate-500">{records.length} total scheduled</span>
+      <div className="card overflow-hidden bg-white border border-slate-300 shadow-xs rounded-xl">
+        <div className="p-3.5 bg-[#f8faf9] border-b border-slate-200 flex items-center justify-between">
+          <h2 className="font-bold text-xs uppercase font-mono text-slate-800">Vaccination Schedule &amp; Drives</h2>
+          <span className="text-[11px] font-mono text-slate-500">{records.length} total</span>
         </div>
 
         {records.length === 0 ? (
-          <div className="p-8 text-center text-slate-500">
-            No checkups or vaccination dates scheduled yet. Click &quot;Schedule New Checkup / Vaccine&quot; above to assign dates.
+          <div className="p-10 text-center text-slate-400 text-xs">
+            No vaccines scheduled yet. Click &quot;Schedule Vaccine / Checkup&quot; above to add dates.
           </div>
         ) : (
-          <div className="table-container">
+          <div className="table-container border-0 rounded-none">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Animal</th>
+                  <th>Cattle</th>
                   <th>Farmer</th>
-                  <th>Checkup / Vaccine</th>
-                  <th>Scheduled Date</th>
+                  <th>Vaccine / Checkup</th>
+                  <th>Due Date</th>
                   <th>Status</th>
                   <th>Notes</th>
-                  <th>Action</th>
+                  <th className="text-right">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -276,49 +280,49 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
                   <tr key={r.id}>
                     <td>
                       <div>
-                        <span className="font-mono font-bold text-slate-800">{r.cattleTagId}</span>
+                        <span className="font-mono font-bold text-slate-900 text-xs">{r.cattleTagId}</span>
                         {r.cattleName && <span className="text-xs text-slate-500 block">{r.cattleName}</span>}
-                        <span className="text-xs text-slate-400 block">{r.breed}</span>
+                        <span className="text-[11px] text-slate-400 block">{r.breed}</span>
                       </div>
                     </td>
                     <td>
                       <div>
-                        <span className="font-medium text-slate-800">{r.farmerName}</span>
-                        <span className="text-xs text-slate-400 block">{r.farmerPhone}</span>
+                        <span className="font-semibold text-slate-800 text-xs">{r.farmerName}</span>
+                        <span className="text-[11px] font-mono text-slate-500 block">{r.farmerPhone}</span>
                       </div>
                     </td>
                     <td>
-                      <span className="font-semibold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200/60 text-xs">
+                      <span className="font-semibold text-emerald-900 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-xs">
                         {r.vaccineType}
                       </span>
                     </td>
                     <td>
-                      <span className="font-medium text-slate-700">{r.dueAt}</span>
+                      <span className="font-mono text-xs text-slate-700">{r.dueAt}</span>
                     </td>
                     <td>
                       <span
-                        className={`text-xs px-2.5 py-1 rounded-full font-bold ${
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold uppercase ${
                           r.status === "done"
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-amber-100 text-amber-800"
+                            ? "bg-emerald-100 text-emerald-900 border border-emerald-200"
+                            : "bg-amber-100 text-amber-900 border border-amber-200"
                         }`}
                       >
-                        {r.status === "done" ? "✓ Completed" : "⏳ Scheduled"}
+                        {r.status === "done" ? "✓ Done" : "⏳ Due"}
                       </span>
                     </td>
                     <td className="max-w-xs truncate text-xs text-slate-500">
                       {r.notes || "—"}
                     </td>
-                    <td>
+                    <td className="text-right">
                       <button
                         onClick={() => handleToggleStatus(r.id, r.status)}
-                        className={`btn-sm text-xs ${
+                        className={`btn btn-sm text-xs font-semibold ${
                           r.status === "done"
-                            ? "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                            : "bg-emerald-600 text-white hover:bg-emerald-700"
+                            ? "btn-secondary"
+                            : "btn-primary"
                         }`}
                       >
-                        {r.status === "done" ? "Mark Scheduled" : "Mark Completed ✓"}
+                        {r.status === "done" ? "Mark Due" : "Mark Done ✓"}
                       </button>
                     </td>
                   </tr>

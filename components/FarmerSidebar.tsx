@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -9,44 +10,60 @@ import {
   IconBell,
   IconAudit,
   IconUser,
-  IconCow,
   IconSignOut,
 } from "@/components/icons";
+import { SmartCattleLogo } from "@/components/SmartCattleLogo";
 
 interface FarmerSidebarProps {
   userName?: string | null;
   userEmail?: string | null;
+  userImage?: string | null;
 }
 
-export default function FarmerSidebar({ userName, userEmail }: FarmerSidebarProps) {
+export default function FarmerSidebar({ userName, userEmail, userImage }: FarmerSidebarProps) {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const links = [
-    { href: "/farmer", label: "Overview", icon: IconOverview, exact: true },
+    { href: "/farmer", label: "My Farm Dashboard", icon: IconOverview, exact: true },
     { href: "/farmer/cattle", label: "My Cattle", icon: IconCattle },
-    { href: "/farmer/scan", label: "Scan QR", icon: IconScan },
-    { href: "/farmer/notifications", label: "Notifications", icon: IconBell },
+    { href: "/farmer/scan", label: "Scan Ear Tag", icon: IconScan, highlight: true },
     { href: "/farmer/records", label: "Health Records", icon: IconAudit },
-    { href: "/farmer/profile", label: "My Profile", icon: IconUser },
+    { href: "/farmer/notifications", label: "Alerts & Messages", icon: IconBell },
+    { href: "/farmer/profile", label: "Profile & Settings", icon: IconUser },
   ];
 
-  return (
-    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col fixed h-full z-40">
-      {/* Logo */}
-      <div className="px-5 py-5 border-b border-slate-100">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 gradient-hero rounded-xl flex items-center justify-center shadow-sm">
-            <IconCow className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <p className="font-bold text-slate-900 text-sm">SmartCattle</p>
-            <p className="text-xs text-slate-500">Farmer Portal</p>
-          </div>
-        </div>
+  const sidebarContent = (
+    <div className="flex flex-col h-full bg-slate-950 text-slate-200 border-r border-slate-800">
+      {/* Brand Header */}
+      <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+        <Link href="/farmer" className="flex items-center gap-2 group">
+          <SmartCattleLogo variant="light" subtitle="Farmer Portal" />
+        </Link>
+        <button
+          type="button"
+          onClick={() => setMobileOpen(false)}
+          className="md:hidden p-1.5 text-slate-400 hover:text-white"
+          aria-label="Close menu"
+        >
+          ✕
+        </button>
       </div>
 
-      {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      {/* Quick QR Launch Action */}
+      <div className="px-3 pt-3">
+        <Link
+          href="/farmer/scan"
+          onClick={() => setMobileOpen(false)}
+          className="btn btn-primary w-full btn-sm flex items-center justify-center gap-2 font-mono text-xs font-bold shadow-sm"
+        >
+          <IconScan className="w-4 h-4 text-emerald-300" />
+          <span>SCAN EAR TAG</span>
+        </Link>
+      </div>
+
+      {/* Nav Rail */}
+      <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
         {links.map((link) => {
           const Icon = link.icon;
           const isActive = link.exact
@@ -58,42 +75,102 @@ export default function FarmerSidebar({ userName, userEmail }: FarmerSidebarProp
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+              onClick={() => setMobileOpen(false)}
+              className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                 isActive
-                  ? "bg-brand-50 text-brand-900 font-semibold shadow-sm border border-brand-200/60"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-emerald-950/80 text-emerald-400 border border-emerald-500 shadow-xs font-bold"
+                  : "text-slate-400 hover:bg-slate-900 hover:text-white border border-transparent"
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? "text-brand-700" : "text-slate-400"}`} />
-              <span>{link.label}</span>
+              <Icon className={`w-4 h-4 ${isActive ? "text-emerald-400" : "text-slate-500"}`} />
+              <span className="flex-1 truncate">{link.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* User info */}
-      <div className="px-4 py-4 border-t border-slate-100">
+      {/* Operator Session Info */}
+      <div className="p-3 border-t border-slate-800 bg-slate-900/60">
         <Link
           href="/farmer/profile"
-          className="flex items-center gap-3 mb-3 p-2 rounded-xl hover:bg-slate-50 transition-colors group"
+          onClick={() => setMobileOpen(false)}
+          className="flex items-center gap-2.5 mb-2.5 p-1.5 rounded-lg hover:bg-slate-800/80 transition-colors"
         >
-          <div className="w-9 h-9 bg-brand-100 rounded-full flex items-center justify-center text-brand-700 text-sm font-bold group-hover:scale-105 transition-transform">
-            {userName?.[0]?.toUpperCase() ?? "F"}
-          </div>
+          {userImage ? (
+            <img
+              src={userImage}
+              alt=""
+              className="w-7 h-7 rounded-full object-cover border border-emerald-500 shrink-0"
+            />
+          ) : (
+            <div className="w-7 h-7 bg-slate-800 text-emerald-400 rounded font-mono text-xs font-bold flex items-center justify-center border border-slate-700 shrink-0">
+              {userName?.[0]?.toUpperCase() ?? "F"}
+            </div>
+          )}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-slate-900 truncate group-hover:text-brand-700 transition-colors">
+            <p className="text-xs font-bold text-white truncate">
               {userName ?? "Farmer"}
             </p>
-            <p className="text-xs text-slate-500 truncate">{userEmail ?? ""}</p>
+            <p className="text-[10px] font-mono text-slate-400 truncate">{userEmail ?? ""}</p>
           </div>
         </Link>
         <form action="/api/auth/signout" method="POST">
-          <button type="submit" className="btn-ghost btn-sm w-full justify-start text-slate-500 flex items-center gap-2">
-            <IconSignOut className="w-4 h-4 text-slate-400" />
-            <span>Sign out</span>
+          <button
+            type="submit"
+            className="btn btn-secondary btn-sm w-full justify-center text-slate-300 bg-slate-800 border-slate-700 hover:bg-slate-700 text-xs py-1"
+          >
+            <IconSignOut className="w-3.5 h-3.5 text-slate-400" />
+            <span>Sign Out</span>
           </button>
         </form>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Mobile Top App Bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-14 bg-slate-950 border-b border-slate-800 z-40 px-4 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="p-1.5 rounded-md border border-slate-800 text-slate-300 hover:bg-slate-900"
+            aria-label="Open Navigation"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <span className="font-bold text-white text-sm font-display">SmartCattle Farmer</span>
+        </div>
+        <Link
+          href="/farmer/scan"
+          className="btn btn-primary btn-sm py-1 px-2.5 font-mono text-[11px]"
+        >
+          <IconScan className="w-3.5 h-3.5" />
+          <span>SCAN</span>
+        </Link>
+      </div>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-0 z-50 flex">
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div className="relative w-72 max-w-full h-full z-50 shadow-2xl">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Fixed Sidebar */}
+      <aside className="hidden md:block w-60 fixed top-0 left-0 bottom-0 z-30">
+        {sidebarContent}
+      </aside>
+    </>
   );
 }
+

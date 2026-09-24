@@ -1,8 +1,9 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
-import { getCHDIBadgeConfig, calcAge, fmt } from "@/lib/utils";
+import { getCHDIBadgeConfig, calcAge } from "@/lib/utils";
 import Link from "next/link";
+import { IconScan, IconCow } from "@/components/icons";
 
 export default async function MyCattlePage() {
   const session = await getServerSession(authOptions);
@@ -17,16 +18,31 @@ export default async function MyCattlePage() {
   });
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">My Cattle</h1>
-          <p className="text-slate-500 mt-1">{cattle.length} animal{cattle.length !== 1 ? "s" : ""} registered</p>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+              My Cattle
+            </h1>
+            <span className="text-xs font-mono font-bold px-2 py-0.5 bg-slate-200 text-slate-700 rounded">
+              {cattle.length} COWS
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 mt-0.5">
+            View all your registered cows, check health scores, and record daily milk or feed.
+          </p>
         </div>
-        <div className="flex gap-3">
-          <Link href="/farmer/scan" className="btn-secondary">Scan QR</Link>
-          <Link href="/farmer/cattle/new" id="new-cattle-btn" className="btn-primary">+ Add Cattle</Link>
+
+        <div className="flex items-center gap-2.5">
+          <Link href="/farmer/scan" className="btn btn-secondary btn-sm font-mono text-xs font-bold">
+            <IconScan className="w-4 h-4 text-emerald-700" />
+            <span>Scan Tag</span>
+          </Link>
+          <Link href="/farmer/cattle/new" id="new-cattle-btn" className="btn btn-primary btn-sm font-semibold text-xs">
+            + Add New Cow
+          </Link>
         </div>
       </div>
 
@@ -40,28 +56,27 @@ export default async function MyCattlePage() {
               <div
                 key={c.id}
                 id={`cattle-card-${c.id}`}
-                className="card p-5 hover:shadow-md transition-all duration-200 group flex flex-col justify-between relative"
+                className="card p-4 bg-white border border-slate-300 hover:border-slate-400 shadow-xs flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-start justify-between mb-3">
                     <Link
                       href={`/farmer/cattle/${c.id}`}
-                      className="w-12 h-12 bg-brand-100 rounded-2xl flex items-center justify-center font-bold text-brand-700 text-lg group-hover:scale-105 transition-transform"
+                      className="w-10 h-10 bg-[#123326] text-emerald-300 rounded-lg flex items-center justify-center font-mono font-bold text-sm shadow-xs"
                     >
-                      {(c.name ?? c.tagId)[0]}
+                      {c.tagId.slice(-4)}
                     </Link>
                     <div className="flex items-center gap-2">
                       <span className={`badge-${latest?.status ?? "abstain"}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${badge.dot}`}></span>
                         {badge.label}
                       </span>
                       <Link
                         href={`/farmer/cattle/${c.id}/edit`}
                         id={`edit-cattle-btn-${c.id}`}
-                        className="p-1.5 text-slate-400 hover:text-brand-700 hover:bg-brand-50 rounded-lg transition-colors"
-                        title="Edit Cattle Details"
+                        className="p-1.5 text-slate-400 hover:text-slate-900 rounded hover:bg-slate-100 transition-colors"
+                        title="Edit Cow Details"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                         </svg>
                       </Link>
@@ -69,43 +84,48 @@ export default async function MyCattlePage() {
                   </div>
 
                   <Link href={`/farmer/cattle/${c.id}`} className="block">
-                    <h3 className="font-semibold text-slate-900 text-lg hover:text-brand-700 transition-colors">
+                    <h3 className="font-bold text-slate-950 text-base hover:text-emerald-900 transition-colors">
                       {c.name ?? c.tagId}
                     </h3>
-                    <p className="text-sm text-slate-500 mb-3">{c.breed} · {calcAge(c.dob)}</p>
+                    <p className="text-xs text-slate-500 mb-3">{c.breed} · {c.gender} · {calcAge(c.dob)}</p>
 
-                    <div className="grid grid-cols-2 gap-3 mb-3">
-                      <div className="bg-slate-50 rounded-xl p-2.5">
-                        <p className="text-xs text-slate-500">Tag ID</p>
-                        <p className="text-sm font-medium text-slate-700 font-mono">{c.tagId}</p>
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      <div className="bg-[#f8faf9] border border-slate-200 rounded p-2">
+                        <p className="text-[10px] font-mono uppercase text-slate-500">Ear Tag</p>
+                        <p className="text-xs font-mono font-bold text-slate-800 truncate">{c.tagId}</p>
                       </div>
-                      <div className="bg-slate-50 rounded-xl p-2.5">
-                        <p className="text-xs text-slate-500">CHDI Score</p>
-                        <p className={`text-sm font-bold ${badge.color}`}>
-                          {latest ? Math.round(latest.score) : "—"}
-                          {latest && <span className="text-xs font-normal"> / 100</span>}
+                      <div className="bg-[#f8faf9] border border-slate-200 rounded p-2">
+                        <p className="text-[10px] font-mono uppercase text-slate-500">Health Score</p>
+                        <p className={`text-xs font-mono font-bold ${badge.color}`}>
+                          {latest && latest.score != null ? Math.round(latest.score) : "—"}
+                          {latest && latest.score != null && <span className="text-[10px] font-normal text-slate-400"> / 100</span>}
                         </p>
                       </div>
                     </div>
 
-                    {/* CHDI mini bar */}
-                    {latest && (
-                      <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                    {/* CHDI mini progress indicator */}
+                    {latest && latest.score != null && (
+                      <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden mb-3">
                         <div
-                          className={`h-full rounded-full transition-all ${
-                            latest.status === "healthy" ? "bg-emerald-500" :
+                          className={`h-full rounded-full ${
+                            latest.status === "healthy" ? "bg-emerald-600" :
                             latest.status === "watch" ? "bg-amber-500" :
-                            latest.status === "at-risk" ? "bg-red-500" : "bg-slate-400"
+                            latest.status === "at-risk" ? "bg-red-600" : "bg-slate-400"
                           }`}
-                          style={{ width: `${Math.round(latest.score)}%` }}
+                          style={{ width: `${Math.min(100, Math.max(5, Math.round(latest.score)))}%` }}
                         />
                       </div>
                     )}
+                  </Link>
+                </div>
 
-                    <div className="flex justify-between mt-3 text-xs text-slate-400">
-                      <span>{c._count.weightLogs} weight logs</span>
-                      <span>{c._count.feedLogs} feed logs</span>
-                    </div>
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+                  <span>{c._count.weightLogs + c._count.feedLogs} logs recorded</span>
+                  <Link
+                    href={`/farmer/cattle/${c.id}`}
+                    className="font-bold text-emerald-900 hover:underline"
+                  >
+                    View Details →
                   </Link>
                 </div>
               </div>
@@ -113,10 +133,17 @@ export default async function MyCattlePage() {
           })}
         </div>
       ) : (
-        <div className="card p-16 text-center">
-          <h3 className="text-xl font-semibold text-slate-800 mb-2">No cattle added yet</h3>
-          <p className="text-slate-500 mb-6">Add your first animal to start tracking its health</p>
-          <Link href="/farmer/cattle/new" className="btn-primary">+ Add your first animal</Link>
+        <div className="card p-12 text-center text-slate-400 border border-slate-300 space-y-3">
+          <IconCow className="w-10 h-10 text-slate-300 mx-auto" />
+          <h3 className="font-bold text-base text-slate-800">No Cattle Added Yet</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            Click &quot;Add New Cow&quot; to add your first animal and get a printable QR ear tag.
+          </p>
+          <div className="pt-2">
+            <Link href="/farmer/cattle/new" className="btn btn-primary btn-sm">
+              + Add First Cow
+            </Link>
+          </div>
         </div>
       )}
     </div>

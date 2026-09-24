@@ -40,7 +40,7 @@ export async function generateWeeklyHealthAnalysis(cattleId: string): Promise<We
   const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
   // 1. Weekly CHDI Average
-  const scores = cattle.chdiHistory.map((h) => h.score);
+  const scores = cattle.chdiHistory.map((h) => h.score).filter((s): s is number => s !== null);
   const avgCHDIScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 85;
 
   let healthStatus: "healthy" | "watch" | "at-risk" = "healthy";

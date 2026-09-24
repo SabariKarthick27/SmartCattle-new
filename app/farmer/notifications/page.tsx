@@ -61,15 +61,19 @@ export default async function NotificationsPage() {
   });
 
   return (
-    <div className="p-8 space-y-6 max-w-5xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-5xl mx-auto">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2.5">
-          <IconBell className="w-6 h-6 text-brand-700" />
-          Farmer Notifications & Alerts
-        </h1>
-        <p className="text-slate-500 mt-1">
-          Real-time health alerts, veterinary updates, regional warnings, and vaccination schedules
+      <div className="pb-4 border-b border-slate-200">
+        <div className="flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+            Alerts &amp; Messages
+          </h1>
+          <span className="text-xs font-mono font-bold px-2 py-0.5 bg-slate-200 text-slate-700 rounded">
+            NOTIFICATIONS
+          </span>
+        </div>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Health warnings, doctor messages, disease alerts, and upcoming vaccine reminders.
         </p>
       </div>
 
@@ -79,19 +83,19 @@ export default async function NotificationsPage() {
           {regionAlerts.map((alert) => (
             <div
               key={alert.id}
-              className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 flex items-start justify-between"
+              className="p-4 rounded-xl bg-red-50 border border-red-300 text-red-900 flex items-start justify-between shadow-xs"
             >
               <div className="flex items-start gap-3">
-                <IconShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <IconShieldAlert className="w-5 h-5 text-red-700 shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-bold text-amber-900 text-sm">
-                    Regional Health Advisory ({alert.region})
+                  <h3 className="font-bold text-red-900 text-sm">
+                    District Disease Warning ({alert.region})
                   </h3>
-                  <p className="text-xs text-amber-800 mt-0.5">
-                    Health anomalies detected in your district. Severity: <span className="font-bold capitalize">{alert.severity}</span>. Keep cattle monitored and maintain hygiene.
+                  <p className="text-xs text-red-800 mt-0.5">
+                    Contagious animal sickness detected in your district. Severity: <span className="font-bold uppercase">{alert.severity}</span>. Keep your cows monitored and wash pens thoroughly.
                   </p>
-                  <p className="text-[11px] text-amber-600 mt-1">
-                    Triggered: {fmtDate(alert.triggeredAt)}
+                  <p className="text-[11px] font-mono text-red-700 mt-1 font-semibold">
+                    Posted {fmtDate(alert.triggeredAt)}
                   </p>
                 </div>
               </div>
@@ -101,7 +105,7 @@ export default async function NotificationsPage() {
       )}
 
       {/* Notifications List */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {/* Health Alerts */}
         {healthAlerts.map((alert) => {
           const badge = getCHDIBadgeConfig(alert.status);
@@ -109,34 +113,34 @@ export default async function NotificationsPage() {
           return (
             <div
               key={alert.id}
-              className="card p-5 hover:shadow-md transition-shadow flex items-start justify-between border-l-4 border-l-amber-500"
+              className="card p-4 bg-white border border-slate-300 hover:border-slate-400 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-l-4 border-l-amber-500 rounded-lg shadow-xs"
             >
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-amber-700 font-bold shrink-0">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 bg-amber-50 text-amber-800 border border-amber-200 rounded-lg flex items-center justify-center font-bold shrink-0">
                   <IconShieldAlert className="w-5 h-5 text-amber-700" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h4 className="font-bold text-slate-900 text-base">
-                      Health Drop Warning for {cattleName}
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <h4 className="font-bold text-slate-950 text-sm">
+                      Health Check Warning for {cattleName}
                     </h4>
-                    <span className={`badge-${alert.status}`}>
+                    <span className={`badge-${alert.status} text-[10px]`}>
                       {badge.label}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-600">
-                    CHDI Health Index dropped to <span className="font-bold text-amber-700">{Math.round(alert.score)}/100</span>. Animal requires observation.
+                  <p className="text-xs text-slate-600">
+                    Health score dropped to <span className="font-bold text-amber-800 font-mono">{alert.score != null ? Math.round(alert.score) : "—"}/100</span>. Please check feed and milk today.
                   </p>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Recorded on {fmtDate(alert.timestamp)}
+                  <p className="text-[10px] font-mono text-slate-400 mt-0.5">
+                    {fmtDate(alert.timestamp)}
                   </p>
                 </div>
               </div>
               <Link
                 href={`/farmer/cattle/${alert.cattleId}`}
-                className="btn-secondary btn-sm"
+                className="btn btn-secondary btn-sm text-xs font-semibold shrink-0"
               >
-                View Profile →
+                View Cow →
               </Link>
             </div>
           );
@@ -148,49 +152,42 @@ export default async function NotificationsPage() {
           return (
             <div
               key={vc.id}
-              className={`card p-5 hover:shadow-md transition-shadow flex items-start justify-between border-l-4 ${
+              className={`card p-4 bg-white border border-slate-300 hover:border-slate-400 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-l-4 rounded-lg shadow-xs ${
                 vc.status === "open" ? "border-l-blue-500" : "border-l-emerald-500"
               }`}
             >
-              <div className="flex items-start gap-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                  vc.status === "open" ? "bg-blue-100 text-blue-700" : "bg-emerald-100 text-emerald-700"
+              <div className="flex items-start gap-3">
+                <div className={`w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 ${
+                  vc.status === "open" ? "bg-blue-50 border-blue-200 text-blue-800" : "bg-emerald-50 border-emerald-200 text-emerald-800"
                 }`}>
                   <IconStethoscope className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h4 className="font-bold text-slate-900 text-base">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <h4 className="font-bold text-slate-950 text-sm">
                       {vc.symptoms?.includes("Weekly Health Analysis")
-                        ? `Weekly Veterinary Health Analysis (${cattleName})`
-                        : `Veterinary Case #${vc.id.slice(-6)} (${cattleName})`}
+                        ? `Weekly Health Report (${cattleName})`
+                        : `Doctor Visit for ${cattleName}`}
                     </h4>
-                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                      vc.symptoms?.includes("Weekly Health Analysis")
-                        ? "bg-teal-100 text-teal-800"
-                        : vc.status === "open" ? "bg-blue-100 text-blue-800" : "bg-emerald-100 text-emerald-800"
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
+                      vc.status === "open" ? "bg-blue-100 text-blue-800" : "bg-emerald-100 text-emerald-800"
                     }`}>
-                      {vc.symptoms?.includes("Weekly Health Analysis") ? "WEEKLY REPORT" : vc.status.toUpperCase()}
+                      {vc.status.toUpperCase()}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-600">
-                    {vc.treatment ? `Vet Notes: ${vc.treatment}` : vc.diagnosis ? `Diagnosis: ${vc.diagnosis}` : `Symptoms reported: ${vc.symptoms ?? "Under vet evaluation"}`}
+                  <p className="text-xs text-slate-600">
+                    {vc.treatment ? `Prescription: ${vc.treatment}` : vc.diagnosis ? `Doctor Diagnosis: ${vc.diagnosis}` : `Reported: ${vc.symptoms ?? "Doctor is reviewing"}`}
                   </p>
-                  {vc.symptoms?.includes("Weekly Health Analysis") && (
-                    <p className="text-xs text-teal-700 font-medium mt-1">
-                      Report Period: 7-Day Rolling Weekly Evaluation
-                    </p>
-                  )}
-                  <p className="text-xs text-slate-400 mt-1">
-                    Vet: {vc.vet?.name ?? "Assigned District Vet"} · Created {fmtDate(vc.createdAt)}
+                  <p className="text-[10px] font-mono text-slate-400 mt-0.5">
+                    Vet: {vc.vet?.name ?? "District Vet"} · {fmtDate(vc.createdAt)}
                   </p>
                 </div>
               </div>
               <Link
                 href={`/farmer/cattle/${vc.cattleId}`}
-                className="btn-secondary btn-sm"
+                className="btn btn-secondary btn-sm text-xs font-semibold shrink-0"
               >
-                Case Details →
+                View Details →
               </Link>
             </div>
           );
@@ -203,47 +200,45 @@ export default async function NotificationsPage() {
           return (
             <div
               key={vac.id}
-              className={`card p-5 hover:shadow-md transition-shadow flex items-start justify-between border-l-4 ${
+              className={`card p-4 bg-white border border-slate-300 hover:border-slate-400 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-l-4 rounded-lg shadow-xs ${
                 isOverdue ? "border-l-red-500" : vac.status === "done" ? "border-l-emerald-500" : "border-l-indigo-500"
               }`}
             >
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-700 font-bold shrink-0">
-                  <svg className="w-5 h-5 text-indigo-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5a3.75 3.75 0 01-7.5 0" />
-                  </svg>
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-lg flex items-center justify-center font-bold shrink-0">
+                  <IconBell className="w-4 h-4 text-emerald-800" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h4 className="font-bold text-slate-900 text-base">
-                      Vaccination Schedule: {vac.vaccineType}
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <h4 className="font-bold text-slate-950 text-sm">
+                      Upcoming Vaccine: {vac.vaccineType}
                     </h4>
-                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
                       isOverdue ? "bg-red-100 text-red-800" : vac.status === "done" ? "bg-emerald-100 text-emerald-800" : "bg-indigo-100 text-indigo-800"
                     }`}>
                       {isOverdue ? "OVERDUE" : vac.status.toUpperCase()}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-600">
-                    Animal: <span className="font-semibold">{cattleName}</span> · Due date: {fmtDate(vac.dueAt)}
+                  <p className="text-xs text-slate-600">
+                    Cow: <span className="font-bold text-slate-900">{cattleName}</span> · Due date: {fmtDate(vac.dueAt)}
                   </p>
                 </div>
               </div>
               <Link
                 href={`/farmer/cattle/${vac.cattleId}`}
-                className="btn-secondary btn-sm"
+                className="btn btn-secondary btn-sm text-xs font-semibold shrink-0"
               >
-                Record Vaccination →
+                Mark Vaccine Given →
               </Link>
             </div>
           );
         })}
 
         {healthAlerts.length === 0 && vetCases.length === 0 && vaccinations.length === 0 && (
-          <div className="card p-12 text-center">
-            <IconCheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-slate-800 mb-1">All Clear: No Pending Notifications</h3>
-            <p className="text-slate-500 text-sm">Your registered cattle have no critical health alerts or pending vaccination warnings.</p>
+          <div className="card p-12 text-center bg-white border border-slate-300 shadow-xs rounded-xl space-y-2">
+            <IconCheckCircle className="w-10 h-10 text-emerald-600 mx-auto" />
+            <h3 className="text-base font-bold text-slate-900">All Clear! No Pending Alerts</h3>
+            <p className="text-xs text-slate-500 max-w-sm mx-auto">Your cattle are healthy with no urgent doctor requests or overdue vaccines.</p>
           </div>
         )}
       </div>

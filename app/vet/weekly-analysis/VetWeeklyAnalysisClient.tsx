@@ -47,7 +47,7 @@ export default function VetWeeklyAnalysisClient({ initialReports, vetRegion }: P
       body: JSON.stringify({
         cattleId: report.cattleId,
         healthStatus: report.healthStatus,
-        vetNotes: vetNotes || `Weekly Health Report (${report.weekStartDate} to ${report.weekEndDate}): Average CHDI Score ${report.avgCHDIScore}/100. Herd condition is ${report.healthStatus.toUpperCase()}.`,
+        vetNotes: vetNotes || `Weekly Health Report (${report.weekStartDate} to ${report.weekEndDate}): Health Score is ${report.avgCHDIScore}/100. Overall condition: ${report.healthStatus.toUpperCase()}.`,
       }),
     });
 
@@ -56,7 +56,7 @@ export default function VetWeeklyAnalysisClient({ initialReports, vetRegion }: P
 
     if (res.ok) {
       setSentStatus((prev) => ({ ...prev, [report.cattleId]: true }));
-      setMsg(`Weekly analysis report sent to ${report.farmerName} (${report.farmerPhone})!`);
+      setMsg(`Weekly report sent to ${report.farmerName} (${report.farmerPhone})!`);
       setSelectedReport(null);
       setVetNotes("");
     } else {
@@ -64,107 +64,105 @@ export default function VetWeeklyAnalysisClient({ initialReports, vetRegion }: P
     }
   };
 
-  const getStatusBadge = (status: string) => {
-    if (status === "at-risk") return "bg-red-100 text-red-800 border-red-200";
-    if (status === "watch") return "bg-amber-100 text-amber-800 border-amber-200";
-    return "bg-emerald-100 text-emerald-800 border-emerald-200";
-  };
-
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="pb-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2.5">
-            <IconActivity className="w-6 h-6 text-teal-700" />
-            Weekly Cattle Health Analysis
-          </h1>
-          <p className="text-slate-500 mt-1">
-            7-day aggregated health trends, milk production averages, and once-a-week report dispatch for{" "}
-            <span className="font-semibold text-slate-700">{vetRegion || "Assigned Region"}</span>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+              Weekly Health Reports
+            </h1>
+            <span className="text-xs font-mono font-bold px-2 py-0.5 bg-slate-200 text-slate-700 rounded">
+              7-DAY SUMMARY
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 mt-0.5">
+            7-day aggregated milk, weight trends, and one-click health reports for{" "}
+            <span className="font-bold text-slate-800">{vetRegion || "Your District"}</span>
           </p>
         </div>
       </div>
 
       {msg && (
-        <div className="p-4 rounded-xl bg-teal-50 text-teal-900 border border-teal-200 font-medium text-sm flex items-center gap-2">
-          <IconCheckCircle className="w-5 h-5 text-teal-600" /> {msg}
+        <div className="p-3.5 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 font-medium text-xs flex items-center gap-2">
+          <IconCheckCircle className="w-4 h-4 text-emerald-700" /> {msg}
         </div>
       )}
 
       {/* Reports Grid */}
       {reports.length === 0 ? (
-        <div className="card p-8 text-center text-slate-500">
-          No cattle registered in {vetRegion || "your assigned region"} to analyze.
+        <div className="card p-12 text-center bg-white border border-slate-300 shadow-xs rounded-xl text-slate-500 text-xs">
+          No cattle found in {vetRegion || "your assigned region"} to analyze.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {reports.map((r) => {
             const isSent = r.sentToFarmer || sentStatus[r.cattleId];
             return (
-              <div key={r.cattleId} className="card p-6 flex flex-col justify-between hover:shadow-md transition-all">
+              <div key={r.cattleId} className="card p-5 bg-white border border-slate-300 shadow-xs rounded-xl flex flex-col justify-between space-y-4">
                 <div>
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-start justify-between mb-3">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-slate-900 text-lg">{r.tagId}</span>
-                        {r.name && <span className="text-sm font-semibold text-slate-600">({r.name})</span>}
+                        <span className="font-mono font-bold text-slate-950 text-base">{r.tagId}</span>
+                        {r.name && <span className="text-xs font-bold text-slate-700">({r.name})</span>}
                       </div>
-                      <p className="text-xs text-slate-500 mt-0.5">{r.breed} · {r.region || "Tamil Nadu"}</p>
+                      <p className="text-xs text-slate-500">{r.breed} · {r.region || "Tamil Nadu"}</p>
                     </div>
 
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getStatusBadge(r.healthStatus)}`}>
-                      CHDI Avg: {r.avgCHDIScore} / 100 ({r.healthStatus.toUpperCase()})
+                    <span className={`badge-${r.healthStatus} text-[10px]`}>
+                      Score: {r.avgCHDIScore} · {r.healthStatus.toUpperCase()}
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 bg-slate-50 rounded-xl p-3.5 mb-4 border border-slate-100 text-center">
+                  <div className="grid grid-cols-3 gap-2 bg-[#f8faf9] rounded-lg p-3 border border-slate-200 text-center">
                     <div>
-                      <p className="text-xs text-slate-400">7-Day Avg Milk</p>
-                      <p className="text-base font-bold text-slate-800 mt-0.5">{r.avgMilkYield} L/day</p>
+                      <p className="text-[10px] uppercase font-mono text-slate-500 font-bold">Avg Milk</p>
+                      <p className="text-sm font-bold text-slate-900 mt-0.5">{r.avgMilkYield} L/day</p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-400">Weight Trend</p>
-                      <p className={`text-base font-bold mt-0.5 ${r.weightTrendKg < 0 ? "text-red-600" : "text-emerald-600"}`}>
+                      <p className="text-[10px] uppercase font-mono text-slate-500 font-bold">Weight</p>
+                      <p className={`text-sm font-bold mt-0.5 font-mono ${r.weightTrendKg < 0 ? "text-red-700" : "text-emerald-700"}`}>
                         {r.weightTrendKg > 0 ? `+${r.weightTrendKg}` : r.weightTrendKg} kg
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-400">Activity Score</p>
-                      <p className="text-base font-bold text-slate-800 mt-0.5">{r.avgActivityScore} / 100</p>
+                      <p className="text-[10px] uppercase font-mono text-slate-500 font-bold">Activity</p>
+                      <p className="text-sm font-bold text-slate-900 mt-0.5">{r.avgActivityScore} / 100</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs text-slate-500 mb-4 px-1">
-                    <span className="flex items-center gap-1.5">
-                      <IconUser className="w-4 h-4 text-slate-400" />
-                      Farmer: <strong className="text-slate-700">{r.farmerName}</strong>
+                  <div className="flex items-center justify-between text-xs text-slate-500 mt-3">
+                    <span className="flex items-center gap-1">
+                      <IconUser className="w-3.5 h-3.5 text-slate-400" />
+                      Farmer: <strong className="text-slate-800">{r.farmerName}</strong>
                     </span>
-                    <span>Week: {r.weekStartDate.slice(5)} to {r.weekEndDate.slice(5)}</span>
+                    <span className="font-mono text-[11px]">{r.weekStartDate.slice(5)} to {r.weekEndDate.slice(5)}</span>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t border-slate-100">
                   {selectedReport?.cattleId === r.cattleId ? (
-                    <div className="space-y-3 animate-fade-in-up">
+                    <div className="space-y-2">
                       <textarea
-                        className="input min-h-[80px] text-xs resize-none"
-                        placeholder="Type weekly health notes & advice for farmer..."
+                        className="input min-h-[70px] text-xs resize-none"
+                        placeholder="Type doctor advice and notes for the farmer..."
                         value={vetNotes}
                         onChange={(e) => setVetNotes(e.target.value)}
                       />
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => setSelectedReport(null)}
-                          className="btn-secondary btn-sm"
+                          className="btn btn-secondary btn-sm text-xs"
                         >
                           Cancel
                         </button>
                         <button
                           onClick={() => handleSendToFarmer(r)}
-                          className="btn-primary btn-sm"
+                          className="btn btn-primary btn-sm text-xs font-bold"
                           disabled={sending}
                         >
-                          {sending ? "Sending..." : "Confirm & Send Weekly Report →"}
+                          {sending ? "Sending..." : "Send Report to Farmer →"}
                         </button>
                       </div>
                     </div>
@@ -173,16 +171,16 @@ export default function VetWeeklyAnalysisClient({ initialReports, vetRegion }: P
                       onClick={() => {
                         if (isSent) return;
                         setSelectedReport(r);
-                        setVetNotes(`Weekly Health Evaluation for Tag ${r.tagId}: 7-day average CHDI score is ${r.avgCHDIScore}/100. Average milk yield is ${r.avgMilkYield} L/day. Condition is ${r.healthStatus.toUpperCase()}.`);
+                        setVetNotes(`Weekly Health Evaluation for Tag ${r.tagId}: 7-day average health score is ${r.avgCHDIScore}/100. Average milk yield is ${r.avgMilkYield} L/day. Overall condition is ${r.healthStatus.toUpperCase()}.`);
                       }}
                       disabled={isSent}
-                      className={`btn-sm w-full justify-center ${
+                      className={`btn btn-sm w-full justify-center text-xs font-semibold ${
                         isSent
-                          ? "bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-default opacity-90"
-                          : "bg-teal-700 text-white hover:bg-teal-800"
+                          ? "bg-emerald-50 text-emerald-900 border border-emerald-300 cursor-default"
+                          : "btn-secondary"
                       }`}
                     >
-                      {isSent ? "✓ Report Sent for This Week (Once-a-Week Limit Active)" : "Send Weekly Analysis to Farmer →"}
+                      {isSent ? "✓ Report Sent This Week" : "Send Weekly Report to Farmer →"}
                     </button>
                   )}
                 </div>

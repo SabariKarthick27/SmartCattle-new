@@ -21,6 +21,7 @@ export async function GET() {
       role: true,
       farmId: true,
       assignedRegion: true,
+      photoUrl: true,
       isVerified: true,
       isActive: true,
       createdAt: true,
@@ -46,7 +47,7 @@ export async function PUT(request: Request) {
 
   try {
     const body = await request.json();
-    const { name, phone, farmId, assignedRegion, currentPassword, newPassword } = body;
+    const { name, phone, farmId, assignedRegion, photoUrl, currentPassword, newPassword } = body;
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
@@ -63,6 +64,10 @@ export async function PUT(request: Request) {
     if (phone) updateData.phone = phone;
     if (farmId !== undefined) updateData.farmId = farmId || null;
     if (assignedRegion !== undefined) updateData.assignedRegion = assignedRegion || null;
+    if (photoUrl !== undefined) {
+      updateData.photoUrl = photoUrl || null;
+      updateData.image = photoUrl || null;
+    }
 
     // 2. Password reset if requested
     if (newPassword) {
@@ -106,6 +111,7 @@ export async function PUT(request: Request) {
         role: true,
         farmId: true,
         assignedRegion: true,
+        photoUrl: true,
         isVerified: true,
         isActive: true,
         createdAt: true,

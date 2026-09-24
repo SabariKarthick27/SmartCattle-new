@@ -44,6 +44,7 @@ export const authOptions: NextAuthOptions = {
           role: user.role,
           farmId: user.farmId,
           assignedRegion: user.assignedRegion,
+          image: user.photoUrl || user.image || null,
         };
       },
     }),
@@ -57,6 +58,7 @@ export const authOptions: NextAuthOptions = {
         token.role = u.role;
         token.farmId = u.farmId;
         token.assignedRegion = u.assignedRegion;
+        token.picture = u.image;
       }
       return token;
     },
@@ -66,6 +68,7 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as string;
         session.user.farmId = token.farmId as string | null;
         session.user.assignedRegion = token.assignedRegion as string | null;
+        if (token.picture) session.user.image = token.picture as string;
       }
       return session;
     },

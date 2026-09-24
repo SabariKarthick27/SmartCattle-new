@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
-import { getCHDIBadgeConfig, getUrgencyConfig, timeAgo } from "@/lib/utils";
+import { getCHDIBadgeConfig, timeAgo } from "@/lib/utils";
 import Link from "next/link";
 import { IconStethoscope } from "@/components/icons";
 
@@ -43,96 +43,130 @@ export default async function VetQueuePage() {
   };
 
   return (
-    <div className="p-8 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2.5">
-            <IconStethoscope className="w-6 h-6 text-teal-700" />
-            Case Queue
-          </h1>
-          <p className="text-slate-500 mt-1">Cases requiring veterinary evaluation and diagnosis</p>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+              Urgent Cattle Cases &amp; Queue
+            </h1>
+            <span className="text-xs font-mono font-bold px-2 py-0.5 bg-red-100 text-red-900 rounded border border-red-300">
+              {stats.critical} CRITICAL
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Sick or at-risk cattle requiring veterinarian checkup and diagnosis.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Link href="/vet/weekly-analysis" className="btn btn-secondary btn-sm text-xs">
+            Weekly Reports →
+          </Link>
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Stats Summary Strip */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: "Open Cases", value: stats.total, color: "text-slate-900", bg: "bg-white" },
-          { label: "Critical", value: stats.critical, color: "text-red-700", bg: "bg-red-50" },
-          { label: "High Priority", value: stats.high, color: "text-orange-700", bg: "bg-orange-50" },
-          { label: "Unassigned", value: stats.unassigned, color: "text-amber-700", bg: "bg-amber-50" },
+          { label: "Total Cases", value: stats.total, badge: "QUEUE", color: "text-slate-900", border: "border-slate-300" },
+          { label: "Critical Cases", value: stats.critical, badge: "URGENT", color: "text-red-700", border: "border-red-300" },
+          { label: "High Risk Cows", value: stats.high, badge: "HIGH", color: "text-orange-700", border: "border-orange-300" },
+          { label: "New / Unclaimed", value: stats.unassigned, badge: "NEW", color: "text-amber-700", border: "border-amber-300" },
         ].map((s) => (
-          <div key={s.label} className={`card p-4 ${s.bg}`}>
-            <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
-            <div className="text-xs text-slate-500 mt-0.5">{s.label}</div>
+          <div key={s.label} className={`card p-3.5 bg-white border ${s.border} flex flex-col justify-between shadow-xs`}>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-mono font-bold text-slate-500">{s.badge}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+            </div>
+            <div className="mt-2">
+              <div className={`text-2xl font-extrabold tracking-tight font-display tnum ${s.color}`}>
+                {s.value}
+              </div>
+              <div className="text-[11px] font-semibold text-slate-600 truncate mt-0.5">{s.label}</div>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Cases table */}
-      <div className="card overflow-hidden">
-        <div className="table-container">
+      {/* Triage Cases Table */}
+      <div className="card overflow-hidden border border-slate-300 bg-white shadow-xs">
+        <div className="p-3 bg-[#f8faf9] border-b border-slate-200 flex items-center justify-between">
+          <span className="text-xs font-mono font-bold uppercase text-slate-700">
+            Active Case List ({sorted.length} Waiting)
+          </span>
+          <span className="text-[10px] font-mono text-slate-500">Sorted by Urgency</span>
+        </div>
+
+        <div className="table-container border-0 rounded-none">
           <table className="table">
             <thead>
               <tr>
-                <th>Animal</th>
-                <th>Farmer</th>
-                <th>Region</th>
-                <th>CHDI Score</th>
-                <th>Urgency</th>
+                <th>Cattle &amp; Tag</th>
+                <th>Farmer Contact</th>
+                <th>District</th>
+                <th>Health Score</th>
+                <th>Priority</th>
                 <th>Status</th>
-                <th>Requested</th>
-                <th></th>
+                <th>Reported</th>
+                <th className="text-right">Action</th>
               </tr>
             </thead>
             <tbody>
               {sorted.map((c) => {
                 const latestCHDI = c.cattle.chdiHistory[0];
                 const badge = getCHDIBadgeConfig(latestCHDI?.status ?? "abstain");
-                const urgency = getUrgencyConfig(c.urgency);
                 return (
-                  <tr key={c.id}>
+                  <tr key={c.id} className="hover:bg-[#f8faf9] transition-colors">
                     <td>
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-brand-100 rounded-lg flex items-center justify-center font-bold text-brand-700 text-xs">
-                          {(c.cattle.name ?? c.cattle.tagId)[0]}
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 bg-[#0f3d32] text-emerald-300 rounded font-mono font-bold text-xs flex items-center justify-center">
+                          {c.cattle.tagId.slice(-4)}
                         </div>
                         <div>
-                          <p className="font-medium text-slate-900">{c.cattle.name ?? c.cattle.tagId}</p>
-                          <p className="text-xs text-slate-500">{c.cattle.breed}</p>
+                          <p className="font-bold text-slate-900 text-xs">{c.cattle.name ?? c.cattle.tagId}</p>
+                          <p className="text-[11px] font-mono text-slate-500">{c.cattle.tagId} · {c.cattle.breed}</p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <p className="text-slate-700">{c.farmer.name}</p>
-                      <p className="text-xs text-slate-400">{c.farmer.phone}</p>
+                      <p className="text-xs font-semibold text-slate-800">{c.farmer.name}</p>
+                      <p className="text-[11px] font-mono text-slate-500">{c.farmer.phone}</p>
                     </td>
-                    <td className="text-slate-600">{c.cattle.region ?? "—"}</td>
+                    <td className="text-xs font-mono text-slate-600">{c.cattle.region ?? "—"}</td>
                     <td>
-                      {latestCHDI ? (
+                      {latestCHDI && latestCHDI.score !== null ? (
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-800">{Math.round(latestCHDI.score)}</span>
-                          <span className={`badge-${latestCHDI.status}`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${badge.dot}`}></span>
+                          <span className="font-mono font-bold text-slate-900 text-xs tnum">
+                            {Math.round(latestCHDI.score)}
+                          </span>
+                          <span className={`badge-${latestCHDI.status} text-[10px]`}>
                             {badge.label}
                           </span>
                         </div>
-                      ) : "—"}
+                      ) : (
+                        <span className="text-slate-400 text-xs">—</span>
+                      )}
                     </td>
-                    <td><span className={`badge-${c.urgency}`}>{c.urgency}</span></td>
                     <td>
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${c.status === "in_progress" ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-600"}`}>
+                      <span className={`badge-${c.urgency} text-[10px]`}>
+                        {c.urgency.toUpperCase()}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 uppercase">
                         {c.status.replace("_", " ")}
                       </span>
                     </td>
-                    <td className="text-slate-400 text-xs">{timeAgo(c.createdAt)}</td>
-                    <td>
+                    <td className="text-slate-500 text-[11px] font-mono whitespace-nowrap">{timeAgo(c.createdAt)}</td>
+                    <td className="text-right">
                       <Link
                         href={`/vet/cases/${c.id}`}
                         id={`case-view-${c.id}`}
-                        className="btn-secondary btn-sm"
+                        className="btn btn-secondary btn-sm text-xs font-semibold"
                       >
-                        View →
+                        Diagnose →
                       </Link>
                     </td>
                   </tr>
@@ -140,11 +174,12 @@ export default async function VetQueuePage() {
               })}
             </tbody>
           </table>
+
           {cases.length === 0 && (
-            <div className="p-12 text-center text-slate-400">
-              <IconStethoscope className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-              <p className="font-medium">No open cases</p>
-              <p className="text-sm mt-1">All cases have been resolved or are not yet assigned</p>
+            <div className="p-12 text-center text-slate-400 space-y-2">
+              <IconStethoscope className="w-8 h-8 text-slate-300 mx-auto" />
+              <p className="font-bold text-sm text-slate-700">No Pending Urgent Cases</p>
+              <p className="text-xs text-slate-500">All cattle in your area are currently healthy or treated.</p>
             </div>
           )}
         </div>

@@ -12,17 +12,21 @@ export default async function FarmerLayout({
   if (!session || session.user.role !== "farmer") redirect("/login");
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
-      {/* Sidebar */}
+    <div className="min-h-screen bg-[#f6f8f7] flex">
+      {/* Sidebar (handles desktop rail and mobile drawer) */}
       <FarmerSidebar
         userName={session.user.name}
         userEmail={session.user.email}
+        userImage={session.user.image}
       />
 
       {/* Main content */}
-      <main className="flex-1 ml-64 min-h-screen">
-        {children}
+      <main className="flex-1 md:ml-60 min-h-screen pt-14 md:pt-0">
+        <div className="max-w-7xl mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   );
 }
+

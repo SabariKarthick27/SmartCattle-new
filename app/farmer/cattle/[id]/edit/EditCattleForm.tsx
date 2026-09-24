@@ -9,6 +9,7 @@ import {
   COMMON_VACCINES,
   CATTLE_PURPOSES,
 } from "@/lib/constants";
+import { IconTrash } from "@/components/icons";
 
 interface CattleData {
   id: string;
@@ -34,10 +35,8 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
     name: cattle.name,
     breed: cattle.breed,
     gender: cattle.gender,
-    ageInputType: (cattle.dob ? "dob" : "approxAge") as "dob" | "approxAge",
-    dateOfBirth: cattle.dob,
-    approxAge: cattle.approxAge,
-    photoUrl: cattle.photoUrl,
+    dateOfBirth: cattle.dob ? new Date(cattle.dob).toISOString().split("T")[0] : "",
+    photoUrl: cattle.photoUrl || "",
     region: cattle.region,
     purpose: cattle.purpose as "dairy" | "breeding" | "draft",
     previousCalvings: cattle.previousCalvings,
@@ -49,6 +48,23 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+
+  const [deleting, setDeleting] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Image size should be under 5MB");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setForm((prev) => ({ ...prev, photoUrl: reader.result as string }));
+    };
+    reader.readAsDataURL(file);
+  };
 
   const toggleVaccine = (vaccine: string) => {
     setForm((prev) => {
@@ -81,6 +97,33 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
     }));
   };
 
+  const handleDeleteCattle = async () => {
+    setDeleting(true);
+    setError("");
+
+    try {
+      const res = await fetch(`/api/cattle/${cattle.id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+      setDeleting(false);
+
+      if (!res.ok) {
+        setError(data.error ?? "Failed to delete cow.");
+        setShowDeleteModal(false);
+        return;
+      }
+
+      router.push("/farmer/cattle");
+      router.refresh();
+    } catch {
+      setDeleting(false);
+      setShowDeleteModal(false);
+      setError("Network error while deleting cow.");
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -92,10 +135,8 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
       name: form.name.trim() || undefined,
       breed: form.breed,
       gender: form.gender,
-      dob: form.ageInputType === "dob" ? form.dateOfBirth : undefined,
-      approxAge:
-        form.ageInputType === "approxAge" ? parseFloat(form.approxAge) : undefined,
-      photoUrl: form.photoUrl.trim() || undefined,
+      dob: form.dateOfBirth,
+      photoUrl: form.photoUrl || undefined,
       region: form.region || undefined,
       purpose: form.purpose,
       previousCalvings: Math.max(0, parseInt(String(form.previousCalvings)) || 0),
@@ -114,27 +155,27 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
       setLoading(false);
 
       if (!res.ok) {
-        setError(data.error ?? "Failed to update cattle details.");
+        setError(data.error ?? "Failed to save changes.");
         return;
       }
 
-      setSuccessMsg("Cattle details updated successfully!");
+      setSuccessMsg("Cow details updated successfully!");
       setTimeout(() => {
         router.push(`/farmer/cattle/${cattle.id}`);
         router.refresh();
       }, 1000);
     } catch {
       setLoading(false);
-      setError("Network error while updating cattle details.");
+      setError("Network error while updating details.");
     }
   };
 
   return (
     <div className="space-y-6">
       {/* Header breadcrumb & title */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pb-4 border-b border-slate-200">
         <div>
-          <div className="flex items-center gap-2 text-sm text-slate-500 mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-500 mb-1">
             <Link href="/farmer/cattle" className="hover:text-slate-800 transition-colors">
               My Cattle
             </Link>
@@ -146,93 +187,75 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
               {cattle.name || cattle.tagId}
             </Link>
             <span>/</span>
-            <span className="text-slate-800 font-medium">Edit</span>
+            <span className="text-slate-800 font-bold">Edit</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">
-            Edit Cattle Details
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-950 font-display">
+            Edit Cow Details
           </h1>
-          <p className="text-sm text-slate-500 mt-0.5">
-            Modify identification, physical attributes, breed, and health registration facts
+          <p className="text-xs text-slate-500 mt-0.5">
+            Update tag number, name, breed, or vaccine history.
           </p>
         </div>
 
         <Link
           href={`/farmer/cattle/${cattle.id}`}
-          className="btn-secondary text-sm"
+          className="btn btn-secondary btn-sm text-xs"
         >
-          Cancel
+          ← Back to Cow Profile
         </Link>
       </div>
 
-      <div className="card p-6 md:p-8 bg-white shadow-sm border border-slate-200/80 rounded-2xl">
-        {error && (
-          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-center gap-3">
-            <svg className="w-5 h-5 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-            </svg>
-            <span>{error}</span>
-          </div>
-        )}
+      {error && (
+        <div className="p-3.5 rounded-lg bg-red-50 text-red-900 border border-red-300 font-medium text-xs">
+          {error}
+        </div>
+      )}
 
-        {successMsg && (
-          <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-3 animate-fade-in">
-            <svg className="w-5 h-5 flex-shrink-0 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <span className="font-medium">{successMsg} Redirecting...</span>
-          </div>
-        )}
+      {successMsg && (
+        <div className="p-3.5 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 font-medium text-xs">
+          {successMsg}
+        </div>
+      )}
 
+      <div className="card p-6 sm:p-8 bg-white border border-slate-300 shadow-sm rounded-xl">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Section 1: Identification */}
-          <div>
-            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-              <span className="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold text-xs flex items-center justify-center">
-                1
-              </span>
-              <h3 className="text-sm font-semibold text-slate-800">
-                Identification & Basic Info
-              </h3>
-            </div>
+          {/* Section 1: Basic identity */}
+          <div className="space-y-4">
+            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
+              1. Basic Identity
+            </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="cattle-tagid" className="label">
-                  Tag ID *
+                  Tag ID / Ear Tag Number *
                 </label>
                 <input
                   id="cattle-tagid"
                   type="text"
-                  className="input font-mono font-semibold text-brand-900"
-                  placeholder="e.g. TN-SC-4891"
+                  className="input font-mono font-bold"
                   value={form.tagId}
                   onChange={(e) => setForm({ ...form, tagId: e.target.value })}
                   required
                 />
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Official ear tag identifier. Unique per animal.
-                </p>
               </div>
 
               <div>
                 <label htmlFor="cattle-name" className="label">
-                  Animal Name / Pet Name
+                  Cow Name / Nickname (optional)
                 </label>
                 <input
                   id="cattle-name"
                   type="text"
                   className="input"
-                  placeholder="e.g. Lakshmi / Kamla"
+                  placeholder="e.g. Lakshmi"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                 />
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Optional friendly name to identify the cattle easily.
-                </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="cattle-breed" className="label">
                   Breed *
@@ -244,11 +267,9 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
                   onChange={(e) => setForm({ ...form, breed: e.target.value })}
                   required
                 >
-                  <option value="">Select breed</option>
+                  <option value="">Select Breed</option>
                   {CATTLE_BREEDS.map((b) => (
-                    <option key={b} value={b}>
-                      {b}
-                    </option>
+                    <option key={b} value={b}>{b}</option>
                   ))}
                 </select>
               </div>
@@ -264,92 +285,33 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
                   onChange={(e) => setForm({ ...form, gender: e.target.value })}
                 >
                   <option value="female">Female (Cow / Heifer)</option>
-                  <option value="male">Male (Bull / Steer)</option>
+                  <option value="male">Male (Bull / Ox)</option>
                 </select>
               </div>
             </div>
 
-            {/* Age Selection: Date of Birth OR Approx Age */}
-            <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-700">
-                  Animal Age / Date of Birth *
-                </span>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setForm({ ...form, ageInputType: "dob" })}
-                    className={`text-xs px-2.5 py-1 rounded-lg font-medium transition-all ${
-                      form.ageInputType === "dob"
-                        ? "bg-brand-950 text-white shadow-sm"
-                        : "bg-white text-slate-600 border border-slate-200"
-                    }`}
-                  >
-                    Exact Date
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setForm({ ...form, ageInputType: "approxAge" })}
-                    className={`text-xs px-2.5 py-1 rounded-lg font-medium transition-all ${
-                      form.ageInputType === "approxAge"
-                        ? "bg-brand-950 text-white shadow-sm"
-                        : "bg-white text-slate-600 border border-slate-200"
-                    }`}
-                  >
-                    Approx. Age
-                  </button>
-                </div>
-              </div>
-
-              {form.ageInputType === "dob" ? (
-                <div>
-                  <input
-                    id="cattle-dob"
-                    type="date"
-                    className="input bg-white"
-                    max={new Date().toISOString().split("T")[0]}
-                    value={form.dateOfBirth}
-                    onChange={(e) =>
-                      setForm({ ...form, dateOfBirth: e.target.value })
-                    }
-                    required={form.ageInputType === "dob"}
-                  />
-                  <p className="text-[11px] text-slate-400 mt-1">
-                    Age group (calf, adult, senior) is updated automatically from birth date.
-                  </p>
-                </div>
-              ) : (
-                <div>
-                  <div className="relative">
-                    <input
-                      id="cattle-approx-age"
-                      type="number"
-                      step="0.1"
-                      min="0.1"
-                      max="30"
-                      className="input bg-white pr-16"
-                      placeholder="e.g. 3.5"
-                      value={form.approxAge}
-                      onChange={(e) =>
-                        setForm({ ...form, approxAge: e.target.value })
-                      }
-                      required={form.ageInputType === "approxAge"}
-                    />
-                    <span className="absolute right-3 top-2.5 text-xs text-slate-400 font-medium">
-                      years
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 mt-1">
-                    Enter approximate age in years (e.g. 0.5 for a 6-month calf, 3 for 3-year adult).
-                  </p>
-                </div>
-              )}
+            {/* Birthday */}
+            <div>
+              <label htmlFor="cattle-dob" className="label">
+                Birthday / Date of Birth *
+              </label>
+              <input
+                id="cattle-dob"
+                type="date"
+                className="input bg-white"
+                max={new Date().toISOString().split("T")[0]}
+                value={form.dateOfBirth}
+                onChange={(e) =>
+                  setForm({ ...form, dateOfBirth: e.target.value })
+                }
+                required
+              />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="cattle-region" className="label">
-                  Region / District
+                  District / Location
                 </label>
                 <select
                   id="cattle-region"
@@ -359,243 +321,252 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
                 >
                   <option value="">Select District</option>
                   {TAMIL_NADU_REGIONS.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
-                    </option>
+                    <option key={r} value={r}>{r}</option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label htmlFor="cattle-photo" className="label">
-                  Photo URL (optional)
+                <label htmlFor="cattle-calvings" className="label">
+                  Past Deliveries / Calvings
                 </label>
                 <input
-                  id="cattle-photo"
-                  type="url"
+                  id="cattle-calvings"
+                  type="number"
+                  min="0"
+                  step="1"
                   className="input"
-                  placeholder="https://images.unsplash.com/..."
-                  value={form.photoUrl}
-                  onChange={(e) => setForm({ ...form, photoUrl: e.target.value })}
+                  placeholder="0"
+                  value={form.previousCalvings}
+                  onChange={(e) =>
+                    setForm({ ...form, previousCalvings: parseInt(e.target.value) || 0 })
+                  }
                 />
               </div>
             </div>
+
+            {/* Cow Photo Upload */}
+            <div>
+              <label className="label">Cow Photo (Optional)</label>
+              {form.photoUrl ? (
+                <div className="flex items-center gap-4 p-3 bg-[#f8faf9] border border-slate-200 rounded-xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={form.photoUrl}
+                    alt="Uploaded preview"
+                    className="w-16 h-16 object-cover rounded-lg border border-slate-300 shadow-xs"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-slate-800 truncate">Photo selected</p>
+                    <p className="text-[11px] text-slate-500">Ready to save</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setForm((prev) => ({ ...prev, photoUrl: "" }))}
+                    className="text-xs text-red-600 hover:text-red-800 font-semibold px-2.5 py-1.5 rounded-md hover:bg-red-50 transition-colors cursor-pointer"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-slate-300 hover:border-emerald-700 hover:bg-emerald-50/40 rounded-xl cursor-pointer transition-all bg-white text-center">
+                  <svg className="w-8 h-8 text-slate-400 mb-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                  </svg>
+                  <span className="text-xs font-bold text-slate-700">Click to upload photo from your device</span>
+                  <span className="text-[11px] text-slate-500 mt-0.5">PNG, JPG, JPEG or WEBP (Max 5MB)</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handlePhotoUpload}
+                  />
+                </label>
+              )}
+            </div>
           </div>
 
-          {/* Section 2: Purpose & Reproduction */}
-          <div className="pt-2">
-            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-              <span className="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold text-xs flex items-center justify-center">
-                2
-              </span>
-              <h3 className="text-sm font-semibold text-slate-800">
-                Purpose & History
-              </h3>
-            </div>
+          {/* Section 2: Purpose */}
+          <div className="pt-4 border-t border-slate-200 space-y-3">
+            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
+              2. Purpose &amp; Deliveries
+            </h3>
 
             <div>
-              <label className="label">Animal Purpose *</label>
               <div className="grid grid-cols-3 gap-3">
                 {CATTLE_PURPOSES.map((p) => (
                   <button
                     key={p}
                     type="button"
                     onClick={() => setForm({ ...form, purpose: p })}
-                    className={`p-3 rounded-xl border text-center font-medium capitalize transition-all ${
+                    className={`p-3 rounded-lg border text-center text-xs font-bold capitalize transition-all cursor-pointer ${
                       form.purpose === p
-                        ? "bg-brand-950 text-white border-brand-950 shadow-sm"
+                        ? "bg-[#123326] text-white border-[#0b2219] shadow-xs"
                         : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
                     }`}
                   >
-                    {p}
+                    {p === "dairy" ? "🥛 Dairy (Milk)" : p === "breeding" ? "🧬 Breeding" : "🚜 Draft (Work)"}
                   </button>
                 ))}
-              </div>
-              <p className="text-[11px] text-slate-400 mt-1">
-                {form.purpose === "dairy"
-                  ? "Dairy: Tracks daily milk yield and milk drops in CHDI scoring."
-                  : form.purpose === "breeding"
-                  ? "Breeding: Tracks reproductive status, calvings, and health."
-                  : "Draft: Tracks activity stamina and physical weight."}
-              </p>
-            </div>
-
-            <div className="mt-4">
-              <label htmlFor="cattle-calvings" className="label">
-                Previous Calvings
-              </label>
-              <input
-                id="cattle-calvings"
-                type="number"
-                min="0"
-                step="1"
-                className="input"
-                placeholder="0"
-                value={form.previousCalvings}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    previousCalvings: parseInt(e.target.value) || 0,
-                  })
-                }
-              />
-              <p className="text-[11px] text-slate-400 mt-1">
-                Number of deliveries prior to or during ownership.
-              </p>
-            </div>
-
-            {/* Past Vaccinations */}
-            <div className="mt-4">
-              <label className="label">
-                Past Vaccinations Received
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                {COMMON_VACCINES.map((vac) => {
-                  const selected = form.pastVaccinations.includes(vac);
-                  return (
-                    <button
-                      key={vac}
-                      type="button"
-                      onClick={() => toggleVaccine(vac)}
-                      className={`text-left text-xs p-2.5 rounded-xl border flex items-center justify-between transition-all ${
-                        selected
-                          ? "bg-brand-50 border-brand-300 text-brand-900 font-medium"
-                          : "bg-slate-50/70 border-slate-200 text-slate-600 hover:bg-slate-100/70"
-                      }`}
-                    >
-                      <span className="truncate pr-2">{vac}</span>
-                      <span
-                        className={`w-4 h-4 rounded flex items-center justify-center text-[10px] flex-shrink-0 ${
-                          selected
-                            ? "bg-brand-600 text-white font-bold"
-                            : "border border-slate-300 bg-white"
-                        }`}
-                      >
-                        {selected ? "✓" : ""}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Custom Vaccines Display */}
-              {form.pastVaccinations.some(
-                (v) => !(COMMON_VACCINES as readonly string[]).includes(v)
-              ) && (
-                <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-slate-100">
-                  {form.pastVaccinations
-                    .filter((v) => !(COMMON_VACCINES as readonly string[]).includes(v))
-                    .map((cv) => (
-                      <span
-                        key={cv}
-                        className="inline-flex items-center gap-1.5 text-xs bg-brand-100 text-brand-800 px-2.5 py-1 rounded-lg"
-                      >
-                        {cv}
-                        <button
-                          type="button"
-                          onClick={() => removeVaccine(cv)}
-                          className="hover:text-red-600 font-bold"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                </div>
-              )}
-
-              {/* Add other vaccine input */}
-              <div className="flex gap-2 mt-3">
-                <input
-                  type="text"
-                  className="input text-xs"
-                  placeholder="Other vaccine name..."
-                  value={form.customVaccine}
-                  onChange={(e) =>
-                    setForm({ ...form, customVaccine: e.target.value })
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      addCustomVaccine();
-                    }
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={addCustomVaccine}
-                  className="btn-secondary text-xs px-3 whitespace-nowrap"
-                >
-                  + Add
-                </button>
               </div>
             </div>
           </div>
 
-          {/* Section 3: Status / Activity */}
-          <div className="pt-2">
-            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-              <span className="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold text-xs flex items-center justify-center">
-                3
-              </span>
-              <h3 className="text-sm font-semibold text-slate-800">
-                Status
-              </h3>
+          {/* Section 3: Vaccine History */}
+          <div className="pt-4 border-t border-slate-200 space-y-3">
+            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
+              3. Past Vaccines Given
+            </h3>
+
+            <div className="space-y-1.5 max-h-40 overflow-y-auto p-3 rounded-lg bg-[#f8faf9] border border-slate-200">
+              {COMMON_VACCINES.map((vac) => (
+                <label
+                  key={vac}
+                  className="flex items-center gap-2.5 text-xs text-slate-700 cursor-pointer hover:text-slate-900"
+                >
+                  <input
+                    type="checkbox"
+                    checked={form.pastVaccinations.includes(vac)}
+                    onChange={() => toggleVaccine(vac)}
+                    className="rounded text-emerald-900 focus:ring-emerald-700 w-4 h-4 cursor-pointer"
+                  />
+                  <span>{vac}</span>
+                </label>
+              ))}
             </div>
 
-            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between">
+            {/* Existing custom vaccines tag list */}
+            {form.pastVaccinations.filter((v) => !(COMMON_VACCINES as readonly string[]).includes(v)).length > 0 && (
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {form.pastVaccinations
+                  .filter((v) => !(COMMON_VACCINES as readonly string[]).includes(v))
+                  .map((vac) => (
+                    <span
+                      key={vac}
+                      className="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-800 px-2.5 py-1 rounded-md border border-slate-200"
+                    >
+                      {vac}
+                      <button
+                        type="button"
+                        onClick={() => removeVaccine(vac)}
+                        className="text-slate-400 hover:text-red-600 font-bold ml-1 cursor-pointer"
+                        title="Remove vaccine"
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  ))}
+              </div>
+            )}
+
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder="Other vaccine name..."
+                className="input text-xs py-1.5 flex-1"
+                value={form.customVaccine}
+                onChange={(e) => setForm({ ...form, customVaccine: e.target.value })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addCustomVaccine();
+                  }
+                }}
+              />
+              <button
+                type="button"
+                onClick={addCustomVaccine}
+                className="btn btn-secondary text-xs px-3 cursor-pointer"
+              >
+                + Add
+              </button>
+            </div>
+          </div>
+
+          {/* Section 4: Status / Activity */}
+          <div className="pt-4 border-t border-slate-200">
+            <div className="p-3.5 rounded-lg border border-slate-200 bg-[#f8faf9] flex items-center justify-between">
               <div>
-                <span className="text-sm font-semibold text-slate-800">
+                <span className="text-xs font-bold text-slate-900">
                   Active Herd Member
                 </span>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Inactive cattle are archived from active monitoring and daily baseline tracking.
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Keep enabled for regular daily tracking and health alerts.
                 </p>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={form.isActive}
-                  onChange={(e) =>
-                    setForm({ ...form, isActive: e.target.checked })
-                  }
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
-              </label>
+              <input
+                type="checkbox"
+                checked={form.isActive}
+                onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
+                className="w-5 h-5 rounded text-emerald-900 focus:ring-emerald-700 cursor-pointer"
+              />
             </div>
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center justify-end gap-3 pt-6 border-t border-slate-100">
-            <Link
-              href={`/farmer/cattle/${cattle.id}`}
-              className="btn-secondary py-2.5 px-5"
-            >
-              Cancel
-            </Link>
+          <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-200">
             <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary py-2.5 px-6 font-semibold shadow-sm flex items-center gap-2 disabled:opacity-60"
+              type="button"
+              onClick={() => setShowDeleteModal(true)}
+              className="btn btn-secondary text-red-600 hover:bg-red-50 hover:border-red-300 btn-sm text-xs font-bold flex items-center gap-1.5"
             >
-              {loading ? (
-                <>
-                  <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                  </svg>
-                  <span>Saving Changes...</span>
-                </>
-              ) : (
-                <>
-                  <span>Save Changes</span>
-                  <span>→</span>
-                </>
-              )}
+              <IconTrash className="w-3.5 h-3.5" />
+              <span>Delete Cow</span>
             </button>
+            <div className="flex items-center gap-3">
+              <Link
+                href={`/farmer/cattle/${cattle.id}`}
+                className="btn btn-secondary btn-sm text-xs"
+              >
+                Cancel
+              </Link>
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn btn-primary btn-sm px-5 font-bold text-xs"
+              >
+                {loading ? "Saving Changes..." : "Save Changes →"}
+              </button>
+            </div>
           </div>
         </form>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+          <div className="card max-w-md w-full p-6 bg-white border border-slate-300 shadow-2xl rounded-2xl space-y-4 animate-in fade-in zoom-in-95 duration-150">
+            <div className="w-12 h-12 rounded-full bg-red-100 text-red-700 flex items-center justify-center text-xl font-bold mx-auto">
+              ⚠️
+            </div>
+            <div className="text-center space-y-1">
+              <h3 className="text-lg font-bold text-slate-950">Delete Cow Record?</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Are you sure you want to permanently delete <strong>{cattle.name || cattle.tagId}</strong> (Tag #{cattle.tagId})? All logged milk, weight, vaccination, and health records for this cow will be permanently removed.
+              </p>
+            </div>
+            <div className="flex gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowDeleteModal(false)}
+                disabled={deleting}
+                className="btn btn-secondary flex-1 text-xs"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteCattle}
+                disabled={deleting}
+                className="btn bg-red-600 hover:bg-red-700 text-white font-bold flex-1 text-xs justify-center border border-red-700"
+              >
+                {deleting ? "Deleting..." : "Yes, Delete Cow"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

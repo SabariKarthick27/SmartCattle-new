@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -9,14 +9,26 @@ const inter = Inter({
   display: "swap",
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "SmartCattle — Intelligent Cattle Health Management",
+  title: "SmartCattle — Intelligent Cattle Health Operations",
   description:
-    "QR-based cattle health management system for smallholder dairy farmers in India. Real-time CHDI scoring, vet coordination, and regional outbreak alerts.",
-  keywords: "cattle health, dairy farmers, QR management, veterinary, CHDI, India",
+    "QR-based operational cattle health intelligence platform for dairy farmers, field veterinarians, and livestock administrators.",
+  keywords: "cattle health, dairy operations, veterinary triage, QR livestock, CHDI model, livestock telemetry",
   openGraph: {
-    title: "SmartCattle",
-    description: "Intelligent QR-based cattle health management",
+    title: "SmartCattle — Precision Livestock Health",
+    description: "Operational QR-based cattle health management & clinical triage",
     type: "website",
   },
 };
@@ -27,8 +39,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans antialiased bg-slate-900/5 text-slate-900 selection:bg-emerald-600 selection:text-white" suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>

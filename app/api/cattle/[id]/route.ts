@@ -147,3 +147,68 @@ export async function PATCH(
   }
 }
 
+// DELETE /api/cattle/[id] — Delete cattle & associated records
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const session = await getServerSession(authOptions);
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const cattle = await prisma.cattle.findUnique({
+    where: { id },
+  });
+
+  if (!cattle) return NextResponse.json({ error: "Cattle not found" }, { status: 404 });
+
+  // Access control: farmers can only delete their own cattle, admin can delete any
+  if (session.user.role === "farmer" && cattle.farmerId !== session.user.id) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  try {
+    // 1. Find and clean up vet cases & feedback
+    const cases = await prisma.vetCase.findMany({
+      where: { cattleId: id },
+      select: { id: true },
+    });
+    const caseIds = cases.map((c) => c.id);
+
+    if (caseIds.length > 0) {
+      await prisma.vetFeedback.deleteMany({
+        where: { caseId: { in: caseIds } },
+      }).catch(() => {});
+
+      await prisma.vetCase.deleteMany({
+        where: { id: { in: caseIds } },
+      }).catch(() => {});
+    }
+
+    // 2. Clean up vaccination records
+    await prisma.vaccinationRecord.deleteMany({ where: { cattleId: id } }).catch(() => {});
+    await prisma.vaccinationLog.deleteMany({ where: { cattleId: id } }).catch(() => {});
+
+    // 3. Clean up health logs
+    await prisma.cHDIEntry.deleteMany({ where: { cattleId: id } }).catch(() => {});
+    await prisma.scanLog.deleteMany({ where: { cattleId: id } }).catch(() => {});
+    await prisma.milkLog.deleteMany({ where: { cattleId: id } }).catch(() => {});
+    await prisma.weightLog.deleteMany({ where: { cattleId: id } }).catch(() => {});
+    await prisma.feedLog.deleteMany({ where: { cattleId: id } }).catch(() => {});
+    await prisma.activityLog.deleteMany({ where: { cattleId: id } }).catch(() => {});
+
+    // 4. Delete the cattle record
+    await prisma.cattle.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true, message: "Cattle deleted successfully." });
+  } catch (error: any) {
+    console.error("Failed to delete cattle:", error);
+    return NextResponse.json(
+      { error: error?.message || "Failed to delete cattle." },
+      { status: 500 }
+    );
+  }
+}
+

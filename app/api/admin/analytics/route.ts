@@ -53,7 +53,9 @@ export async function GET() {
     const region = entry.cattle?.region ?? "Unknown";
     if (!regionMap[region]) regionMap[region] = { total: 0, avgScore: 0, scores: [] };
     regionMap[region].total++;
-    regionMap[region].scores.push(entry.score);
+    if (entry.score !== null) {
+      regionMap[region].scores.push(entry.score);
+    }
   }
   const regionStats = Object.entries(regionMap).map(([region, data]) => ({
     region,

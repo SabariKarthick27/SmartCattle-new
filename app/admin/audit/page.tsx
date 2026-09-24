@@ -38,90 +38,99 @@ export default function AdminAuditPage() {
   useEffect(() => { fetchLogs(); }, [page, filters]);
 
   return (
-    <div className="p-8 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Audit Log</h1>
-          <p className="text-slate-500 mt-1">{total} total events recorded</p>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight font-display">
+              Activity &amp; Audit Logs
+            </h1>
+            <span className="text-xs font-mono font-bold px-2 py-0.5 bg-slate-200 text-slate-700 rounded">
+              {total} EVENTS
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Security audit trail of user logins, cattle registrations, and clinical diagnoses.
+          </p>
         </div>
         <button
           onClick={fetchLogs}
           id="refresh-audit-btn"
-          className="btn-secondary"
+          className="btn btn-secondary btn-sm text-xs font-semibold"
         >
-          Refresh
+          Refresh Logs
         </button>
       </div>
 
       {/* Filters */}
-      <div className="card p-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="card p-4 bg-white border border-slate-300 shadow-xs rounded-xl grid grid-cols-2 md:grid-cols-4 gap-3">
         <div>
-          <label className="label">Action filter</label>
-          <input id="audit-action-filter" type="text" className="input" placeholder="e.g. login" value={filters.action} onChange={(e) => setFilters({ ...filters, action: e.target.value })} />
+          <label className="label">Action Search</label>
+          <input id="audit-action-filter" type="text" className="input text-xs" placeholder="e.g. login, create" value={filters.action} onChange={(e) => setFilters({ ...filters, action: e.target.value })} />
         </div>
         <div>
-          <label className="label">Role</label>
-          <select id="audit-role-filter" className="input" value={filters.role} onChange={(e) => setFilters({ ...filters, role: e.target.value })}>
+          <label className="label">Role Filter</label>
+          <select id="audit-role-filter" className="input text-xs" value={filters.role} onChange={(e) => setFilters({ ...filters, role: e.target.value })}>
             <option value="">All roles</option>
             <option value="admin">Admin</option>
-            <option value="vet">Vet</option>
+            <option value="vet">Veterinarian</option>
             <option value="farmer">Farmer</option>
             <option value="system">System</option>
           </select>
         </div>
         <div>
-          <label className="label">From date</label>
-          <input id="audit-from" type="date" className="input" value={filters.from} onChange={(e) => setFilters({ ...filters, from: e.target.value })} />
+          <label className="label">From Date</label>
+          <input id="audit-from" type="date" className="input text-xs" value={filters.from} onChange={(e) => setFilters({ ...filters, from: e.target.value })} />
         </div>
         <div>
-          <label className="label">To date</label>
-          <input id="audit-to" type="date" className="input" value={filters.to} onChange={(e) => setFilters({ ...filters, to: e.target.value })} />
+          <label className="label">To Date</label>
+          <input id="audit-to" type="date" className="input text-xs" value={filters.to} onChange={(e) => setFilters({ ...filters, to: e.target.value })} />
         </div>
       </div>
 
       {/* Table */}
-      <div className="card overflow-hidden">
-        <div className="table-container">
+      <div className="card overflow-hidden bg-white border border-slate-300 shadow-xs rounded-xl">
+        <div className="table-container border-0 rounded-none">
           <table className="table">
             <thead>
-              <tr><th>Time</th><th>Actor</th><th>Role</th><th>Action</th><th>Target</th></tr>
+              <tr><th>Timestamp</th><th>User / Actor</th><th>Role</th><th>Action</th><th>Target ID</th></tr>
             </thead>
             <tbody>
               {logs.map((log) => (
                 <tr key={log.id}>
-                  <td className="text-xs text-slate-400 whitespace-nowrap">
+                  <td className="text-xs font-mono text-slate-500 whitespace-nowrap">
                     {new Date(log.timestamp).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
                   </td>
                   <td>
-                    <p className="font-medium text-slate-800 text-sm">{log.actor.name}</p>
-                    <p className="text-xs text-slate-400">{log.actor.email}</p>
+                    <p className="font-bold text-slate-900 text-xs">{log.actor.name}</p>
+                    <p className="text-[11px] text-slate-500 font-mono">{log.actor.email}</p>
                   </td>
                   <td>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase bg-slate-100 text-slate-700">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold font-mono uppercase bg-slate-100 text-slate-700 border border-slate-200">
                       {log.actorRole}
                     </span>
                   </td>
                   <td>
-                    <code className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-mono">
+                    <code className="text-xs bg-slate-100 text-slate-800 px-2 py-0.5 rounded font-mono border border-slate-200">
                       {log.action}
                     </code>
                   </td>
-                  <td className="text-xs text-slate-400 font-mono">{log.targetId?.slice(-8) ?? "—"}</td>
+                  <td className="text-xs text-slate-500 font-mono">{log.targetId?.slice(-8) ?? "—"}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {loading && <p className="p-8 text-center text-slate-400">Loading...</p>}
-          {!loading && logs.length === 0 && <p className="p-8 text-center text-slate-400">No log entries found</p>}
+          {loading && <p className="p-8 text-center text-slate-400 text-xs font-mono">Loading activity...</p>}
+          {!loading && logs.length === 0 && <p className="p-8 text-center text-slate-400 text-xs">No audit events match filters</p>}
         </div>
 
         {/* Pagination */}
         {total > 20 && (
-          <div className="flex items-center justify-between px-4 py-3 border-t border-slate-100">
-            <p className="text-xs text-slate-500">Showing {(page - 1) * 20 + 1}–{Math.min(page * 20, total)} of {total}</p>
+          <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 bg-[#f8faf9]">
+            <p className="text-xs font-mono text-slate-500">Showing {(page - 1) * 20 + 1}–{Math.min(page * 20, total)} of {total}</p>
             <div className="flex gap-2">
-              <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="btn-secondary btn-sm">← Prev</button>
-              <button onClick={() => setPage((p) => p + 1)} disabled={page * 20 >= total} className="btn-secondary btn-sm">Next →</button>
+              <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="btn btn-secondary btn-sm text-xs">← Prev</button>
+              <button onClick={() => setPage((p) => p + 1)} disabled={page * 20 >= total} className="btn btn-secondary btn-sm text-xs">Next →</button>
             </div>
           </div>
         )}
