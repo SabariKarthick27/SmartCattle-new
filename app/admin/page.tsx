@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+import RecentSystemActivity from "./RecentSystemActivity";
 import {
   IconUsers,
   IconAudit,
@@ -12,7 +13,15 @@ export default async function AdminOverview() {
   const session = await getServerSession(authOptions);
 
   const [
-    totalCattle, totalFarmers, totalVets, pendingApprovals, openCases, resolvedThisMonth, regionAlerts
+    totalCattle,
+    totalFarmers,
+    totalVets,
+    pendingApprovals,
+    openCases,
+    resolvedThisMonth,
+    regionAlerts,
+    recentActivity,
+    pendingUsers,
   ] = await Promise.all([
     prisma.cattle.count({ where: { isActive: true } }),
     prisma.user.count({ where: { role: "farmer", isVerified: true } }),
@@ -21,20 +30,18 @@ export default async function AdminOverview() {
     prisma.vetCase.count({ where: { status: { in: ["open", "in_progress"] } } }),
     prisma.vetCase.count({ where: { status: "resolved", resolvedAt: { gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1) } } }),
     prisma.regionAlert.count({ where: { status: "active" } }),
+    prisma.auditLog.findMany({
+      orderBy: { timestamp: "desc" },
+      take: 8,
+      include: { actor: { select: { name: true, role: true } } },
+    }),
+    prisma.user.findMany({
+      where: { isVerified: false, isActive: true },
+      orderBy: { createdAt: "desc" },
+      take: 5,
+      select: { id: true, name: true, email: true, role: true, createdAt: true },
+    }),
   ]);
-
-  const recentActivity = await prisma.auditLog.findMany({
-    orderBy: { timestamp: "desc" },
-    take: 8,
-    include: { actor: { select: { name: true, role: true } } },
-  });
-
-  const pendingUsers = await prisma.user.findMany({
-    where: { isVerified: false, isActive: true },
-    orderBy: { createdAt: "desc" },
-    take: 5,
-    select: { id: true, name: true, email: true, role: true, createdAt: true },
-  });
 
   const stats = [
     { label: "Total Cattle", value: totalCattle, badge: "HERD", color: "text-slate-950", border: "border-slate-300" },
@@ -59,7 +66,7 @@ export default async function AdminOverview() {
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-0.5">
-            Admin: {session?.user?.name ?? "Administrator"} · Monitor registered farms, disease outbreaks, and pending user signups.
+            Admin: {session?.user?.name ?? "Administrator"}
           </p>
         </div>
 
@@ -141,43 +148,17 @@ export default async function AdminOverview() {
           </div>
         </div>
 
-        {/* Right Column: Recent Activity Logs */}
+        {/* Right Column: Live Recent Activity Logs */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="card border border-slate-300 bg-white overflow-hidden shadow-xs rounded-xl">
-            <div className="p-3.5 bg-[#f8faf9] border-b border-slate-200 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <IconAudit className="w-4 h-4 text-slate-800" />
-                <h2 className="font-bold text-xs uppercase font-mono text-slate-900 tracking-wider">
-                  Recent System Activity
-                </h2>
-              </div>
-              <Link href="/admin/audit" className="text-xs font-mono font-bold text-emerald-900 hover:underline">
-                Full Log →
-              </Link>
-            </div>
-
-            <div className="divide-y divide-slate-100">
-              {recentActivity.map((log) => (
-                <div key={log.id} className="p-3 flex items-start justify-between gap-2 text-xs">
-                  <div className="min-w-0">
-                    <p className="font-semibold text-slate-800 truncate font-mono">
-                      [{log.actorRole.toUpperCase()}] {log.actor?.name ?? "User"}
-                    </p>
-                    <p className="text-slate-600 text-[11px] truncate mt-0.5">{log.action}</p>
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-400 whitespace-nowrap">
-                    {new Date(log.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                  </span>
-                </div>
-              ))}
-
-              {recentActivity.length === 0 && (
-                <div className="p-8 text-center text-slate-400 text-xs font-mono">
-                  No recent audit events recorded.
-                </div>
-              )}
-            </div>
-          </div>
+          <RecentSystemActivity
+            initialLogs={recentActivity.map((log) => ({
+              id: log.id,
+              action: log.action,
+              actorRole: log.actorRole,
+              timestamp: log.timestamp.toISOString(),
+              actor: log.actor,
+            }))}
+          />
         </div>
       </div>
     </div>

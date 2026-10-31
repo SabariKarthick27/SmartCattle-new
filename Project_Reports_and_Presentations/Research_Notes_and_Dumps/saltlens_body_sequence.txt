@@ -1,0 +1,645 @@
+BODY_0 [P_0]: 
+BODY_1 [P_1]: SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS)
+BODY_2 [P_2]: ANNA UNIVERSITY: CHENNAI – 600 025
+BODY_3 [P_3]: BONAFIDE CERTIFICATE
+BODY_4 [P_4]: Certified that this Project titled “SALTLENS DSS: AN EVIDENCE-GATED DIGITAL TWIN FOR CLIMATE-RESILIE
+BODY_5 [TBL_0]: rows=5, cols=2 | ['Signature of the Supervisor', 'Signature of the Head of the Department']
+BODY_6 [P_5]: Submitted for the Project Viva-Voce Examination held on ____________
+BODY_7 [TBL_1]: rows=1, cols=2 | ['INTERNAL EXAMINER', 'EXTERNAL EXAMINER']
+BODY_8 [P_6]: 
+BODY_9 [P_7]: DECLARATION
+BODY_10 [P_8]: We hereby declare that the project report entitled “SaltLens DSS: An Evidence-Gated Digital Twin for
+BODY_11 [P_9]: The field data referred to in this report were reported by the site operator of the North Pan, Salem
+BODY_12 [P_10]: 
+BODY_13 [P_11]: Place: Salem
+BODY_14 [P_12]: Date: October 2026
+BODY_15 [P_13]: SACHIN S B
+BODY_16 [P_14]: THRISHNASANJAY S
+BODY_17 [P_15]: ACKNOWLEDGMENT
+BODY_18 [P_16]: We express our sincere gratitude to the Management of Sona College of Technology (Autonomous), Salem
+BODY_19 [P_17]: We are grateful to the Head of the Department of Information Technology for the facilities and the g
+BODY_20 [P_18]: We thank the site operator of the North Pan, Salem, whose notebook records and reported field readin
+BODY_21 [P_19]: We also thank the faculty members of the department, our classmates, and our families for their supp
+BODY_22 [P_20]: ABSTRACT
+BODY_23 [P_21]: Rainfall can rapidly dilute hypersaline brine in solar salt pans, but a weather forecast alone canno
+BODY_24 [P_22]: The central design principle is an explicit boundary between what was observed, what was forecast, w
+BODY_25 [P_23]: A North Pan case in Salem, India, uses a notebook-sourced pre-event record of 250 g/L salinity and 2
+BODY_26 [P_24]: The prototype therefore demonstrates reproducible software behaviour, provenance control and audit-p
+BODY_27 [P_25]: Keywords: solar salt pans, digital twin, decision support, provenance, rainfall dilution, field repo
+BODY_28 [P_26]: CONTENTS
+BODY_29 [P_27]: Declaration	i
+BODY_30 [P_28]: Acknowledgment	ii
+BODY_31 [P_29]: Abstract	iii
+BODY_32 [P_30]: List of Tables	vii
+BODY_33 [P_31]: List of Figures	viii
+BODY_34 [P_32]: CHAPTER 1  INTRODUCTION	1
+BODY_35 [P_33]: 1.1  Background	1
+BODY_36 [P_34]: 1.2  Rainfall and Brine Management in Solar Salt Pans	1
+BODY_37 [P_35]: 1.3  Motivation	2
+BODY_38 [P_36]: 1.4  Problem Statement	3
+BODY_39 [P_37]: 1.5  Objectives	3
+BODY_40 [P_38]: 1.6  Scope and Limitations	4
+BODY_41 [P_39]: 1.7  Summary of Contributions	4
+BODY_42 [P_40]: 1.8  Methodology Overview	5
+BODY_43 [P_41]: 1.9  Organisation of the Report	5
+BODY_44 [P_42]: CHAPTER 2  LITERATURE REVIEW	7
+BODY_45 [P_43]: 2.1  Overview	7
+BODY_46 [P_44]: 2.2  Digital Twins for Water–Salt Management	7
+BODY_47 [P_45]: 2.3  Remote Sensing of Salt Pans	8
+BODY_48 [P_46]: 2.4  Salt-Pond Hydrology and Hypersaline Dynamics	8
+BODY_49 [P_47]: 2.5  Machine-Learning Studies of Salinity	9
+BODY_50 [P_48]: 2.6  Decision Support, Explainability and Weather Sensitivity	10
+BODY_51 [P_49]: 2.7  Provenance and Evidence-Graded Reporting	10
+BODY_52 [P_50]: 2.8  Comparative Scope of Related Research	11
+BODY_53 [P_51]: 2.9  Research Gap	11
+BODY_54 [P_52]: 2.10  Summary	12
+BODY_55 [P_53]: CHAPTER 3  EXISTING TECHNIQUES AND THE PROPOSED APPROACH	13
+BODY_56 [P_54]: 3.1  Introduction	13
+BODY_57 [P_55]: 3.2  Experience-Based Operation	13
+BODY_58 [P_56]: 3.3  Notebook and Spreadsheet Records	13
+BODY_59 [P_57]: 3.4  Weather Forecasts Used Alone	14
+BODY_60 [P_58]: 3.5  Remote Sensing and Environmental Monitoring	14
+BODY_61 [P_59]: 3.6  Physics-Based and Hydrological Models	14
+BODY_62 [P_60]: 3.7  Machine-Learning Predictors	15
+BODY_63 [P_61]: 3.8  Generic Digital Twins and Decision-Support Platforms	15
+BODY_64 [P_62]: 3.9  Summary Comparison of Existing Techniques	15
+BODY_65 [P_63]: 3.10  Limitations That Motivate the Proposed Approach	16
+BODY_66 [P_64]: 3.11  How the Proposed Approach Addresses the Limitations	16
+BODY_67 [P_65]: 3.12  What the Proposed Approach Does Not Overcome	17
+BODY_68 [P_66]: 3.13  Summary	17
+BODY_69 [P_67]: CHAPTER 4  THE SALTLENS DSS: DESIGN AND IMPLEMENTATION	18
+BODY_70 [P_68]: 4.1  Introduction	18
+BODY_71 [P_69]: 4.2  Requirements Analysis	18
+BODY_72 [P_70]: 4.3  System Architecture	20
+BODY_73 [P_71]: 4.4  Evidence Categories and Provenance	21
+BODY_74 [P_72]: 4.5  Data Model	22
+BODY_75 [P_73]: 4.6  Pan-Specific Digital Twin	23
+BODY_76 [P_74]: 4.7  Rainfall-Only Mass Balance	24
+BODY_77 [P_75]: 4.8  Versioned Rule Engine	27
+BODY_78 [P_76]: 4.9  Machine-Learning Evidence Gate	29
+BODY_79 [P_77]: 4.10  Operator Decision Recording	30
+BODY_80 [P_78]: 4.11  Field-Event Reconciliation	30
+BODY_81 [P_79]: 4.12  Exports	32
+BODY_82 [P_80]: 4.13  Security, Authorisation and Integrity	32
+BODY_83 [P_81]: 4.14  User Interface	32
+BODY_84 [P_82]: 4.15  Operator Workflow Walkthrough	33
+BODY_85 [P_83]: 4.16  Testing and Verification Approach	35
+BODY_86 [P_84]: 4.17  Summary	35
+BODY_87 [P_85]: CHAPTER 5  RESULTS AND DISCUSSION	36
+BODY_88 [P_86]: 5.1  Introduction	36
+BODY_89 [P_87]: 5.2  Evaluation Framework: Three Validity Dimensions	36
+BODY_90 [P_88]: 5.3  Reproducible Scenario Calculations	37
+BODY_91 [P_89]: 5.4  March North Pan Field Comparison	37
+BODY_92 [P_90]: 5.5  Water and Salt Inventory Analysis	39
+BODY_93 [P_91]: 5.6  Why the Difference Cannot Be Uniquely Attributed	41
+BODY_94 [P_92]: 5.7  September Forecast Demonstration	41
+BODY_95 [P_93]: 5.8  Recommendation and Operator Response	42
+BODY_96 [P_94]: 5.9  Software Verification Results	42
+BODY_97 [P_95]: 5.10  Audit and Export Consistency	43
+BODY_98 [P_96]: 5.11  Comparison with Existing Techniques	43
+BODY_99 [P_97]: 5.12  Threats to Validity	44
+BODY_100 [P_98]: 5.13  Machine-Learning Evaluation Boundary	45
+BODY_101 [P_99]: 5.14  Multi-Event Validation Protocol	46
+BODY_102 [P_100]: 5.15  Operational Benefit Boundary	46
+BODY_103 [P_101]: 5.16  Claim-to-Evidence Discipline	47
+BODY_104 [P_102]: 5.17  Summary	48
+BODY_105 [P_103]: CHAPTER 6  CONCLUSION AND FUTURE SCOPE	49
+BODY_106 [P_104]: 6.1  Conclusion	49
+BODY_107 [P_105]: 6.2  Summary of Findings	49
+BODY_108 [P_106]: 6.3  Limitations	50
+BODY_109 [P_107]: 6.4  Future Scope	50
+BODY_110 [P_108]: 6.5  Concluding Remarks	52
+BODY_111 [P_109]: REFERENCES	53
+BODY_112 [P_110]: APPENDIX A: SENSITIVITY TABLES	55
+BODY_113 [P_111]: APPENDIX B: HAND-VERIFICATION WORKSHEET	57
+BODY_114 [P_112]: APPENDIX C: FIELD DATA-CAPTURE TEMPLATE	58
+BODY_115 [P_113]: APPENDIX D: GLOSSARY AND ABBREVIATIONS	59
+BODY_116 [P_114]: APPENDIX E: NOTATION	60
+BODY_117 [P_115]: LIST OF TABLES
+BODY_118 [P_116]: Table 2.1	Comparison of related research and SaltLens DSS	11
+BODY_119 [P_117]: Table 3.1	Summary of existing techniques for salt-pan rainfall management	15
+BODY_120 [P_118]: Table 3.2	Limitations of existing techniques and the corresponding SaltLens mechanism	16
+BODY_121 [P_119]: Table 4.1	Functional requirements	18
+BODY_122 [P_120]: Table 4.2	Non-functional requirements	19
+BODY_123 [P_121]: Table 4.3	Technology stack and roles	20
+BODY_124 [P_122]: Table 4.4	Evidence categories used by the interface	21
+BODY_125 [P_123]: Table 4.5	Principal record types (conceptual)	22
+BODY_126 [P_124]: Table 5.1	Separate deterministic rainfall-only scenarios	37
+BODY_127 [P_125]: Table 5.2	March North Pan event record (as reported)	37
+BODY_128 [P_126]: Table 5.3	Implied water volume and dissolved-salt mass for the March event (12,300 m² pan)	40
+BODY_129 [P_127]: Table 5.4	What software verification supports and does not support	42
+BODY_130 [P_128]: Table 5.5	Qualitative comparison of approaches by design property	43
+BODY_131 [P_129]: Table 5.6	Information to retain for each event in a multi-event validation study	46
+BODY_132 [P_130]: Table 5.7	Claim types and the evidence required to support them	47
+BODY_133 [P_131]: Table A.1	Predicted post-rain salinity C₁ (g/L) for C₀ = 250 g/L	55
+BODY_134 [P_132]: Table A.2	Predicted percentage dilution δ (%) (independent of C₀)	55
+BODY_135 [P_133]: Table A.3	Predicted post-rain depth D₁ (cm)	56
+BODY_136 [P_134]: Table B.1	Worked verification for the two scenarios (A = 12,300 m², C₀ = 250 g/L, D₀ = 20 cm)	57
+BODY_137 [P_135]: Table C.1	Per-event field data-capture template	58
+BODY_138 [P_136]: Table D.1	Glossary and abbreviations	59
+BODY_139 [P_137]: Table E.1	Symbols used in the equations	60
+BODY_140 [P_138]: LIST OF FIGURES
+BODY_141 [P_139]: Figure 4.1	Layered architecture of SaltLens DSS	20
+BODY_142 [P_140]: Figure 4.2	Evidence chain: each stage carries its own evidentiary status	22
+BODY_143 [P_141]: Figure 4.3	North Pan dashboard with pan-specific recorded state and evidence labels	24
+BODY_144 [P_142]: Figure 4.4	Predicted salinity versus rainfall for several initial depths (C₀ = 250 g/L)	26
+BODY_145 [P_143]: Figure 4.5	Percentage dilution versus rainfall; independent of initial salinity	27
+BODY_146 [P_144]: Figure 4.6	Rule evaluation flow for the harvest/flood rule	28
+BODY_147 [P_145]: Figure 4.7	Versioned rule recommendation; the interface explicitly reports that no trained ML estima
+BODY_148 [P_146]: Figure 4.8	Operator acceptance recorded for workflow testing; no physical harvest occurred	30
+BODY_149 [P_147]: Figure 4.9	September 25 mm forecast simulation showing 222.22 g/L predicted salinity; this is not th
+BODY_150 [P_148]: Figure 5.1	Status of the validity dimensions in the present study	36
+BODY_151 [P_149]: Figure 5.2	March North Pan salinity: rainfall-only prediction of 172.41 g/L versus operator-reported
+BODY_152 [P_150]: Figure 5.3	March North Pan depth: rainfall-only prediction of 29 cm versus operator-reported 50 cm	3
+BODY_153 [P_151]: Figure 5.4	March event: rainfall-only prediction compared with operator-reported values	39
+BODY_154 [P_152]: Figure 5.5	Implied water volume and dissolved-salt mass for the March event	40
+BODY_155 [P_153]: 
+BODY_156 [P_154]: CHAPTER 1
+INTRODUCTION
+BODY_157 [P_155]: 1.1  Background
+BODY_158 [P_156]: Solar salt production is among the oldest industrial uses of solar energy. Seawater or sub-soil brin
+BODY_159 [P_157]: Because the pans are open to the atmosphere, they are exposed to weather in a way that few other ind
+BODY_160 [P_158]: The operator's decisions are consequential. Brine can be moved to a storage or reservoir pan before 
+BODY_161 [P_159]: 1.2  Rainfall and Brine Management in Solar Salt Pans
+BODY_162 [P_160]: At the simplest physical level, rainfall onto a pan adds water without adding dissolved salt. If the
+BODY_163 [P_161]: Real pans are not this simple. Water can be transferred between pans, pumped out, drained through sl
+BODY_164 [P_162]: 1.3  Motivation
+BODY_165 [P_163]: Weather forecasts are widely available, but a forecast is a statement about the atmosphere, not abou
+BODY_166 [P_164]: At the other extreme, a system that presents a single predicted number, with no indication of whethe
+BODY_167 [P_165]: The motivation for this project is therefore twofold. The first part is practical: to give a salt-pa
+BODY_168 [P_166]: 1.4  Problem Statement
+BODY_169 [P_167]: Rainfall can rapidly dilute hypersaline brine in solar salt pans, yet forecasts alone cannot establi
+BODY_170 [P_168]: 1.5  Objectives
+BODY_171 [P_169]: The objectives of the project are the following.
+BODY_172 [P_170]: To design and implement a pan-specific digital twin that assembles source-labelled observations and 
+BODY_173 [P_171]: To implement a deterministic rainfall–dilution mass balance whose results can be verified by hand, a
+BODY_174 [P_172]: To implement a versioned, operator-configured rule engine that records the compared variable, thresh
+BODY_175 [P_173]: To implement an evidence gate for machine learning that blocks predictive output until a genuine lab
+BODY_176 [P_174]: To record operator decisions as decisions, and to keep them distinct from physical action records.
+BODY_177 [P_175]: To implement an auditable field-validation workflow that records pre- and post-event measurements wi
+BODY_178 [P_176]: To demonstrate the workflow on a real North Pan case from Salem, India, and on a separate forecast s
+BODY_179 [P_177]: To specify the empirical studies required before any claim of physical accuracy, machine-learning pe
+BODY_180 [P_178]: 1.6  Scope and Limitations
+BODY_181 [P_179]: The scope of this project is an implemented decision-support prototype and its documented evidence b
+BODY_182 [P_180]: The field evidence is limited. The March North Pan case contains one rainfall event, a post-event st
+BODY_183 [P_181]: 1.7  Summary of Contributions
+BODY_184 [P_182]: The contribution of the project is not a more accurate salinity predictor. It is an explicit, implem
+BODY_185 [P_183]: A pan-specific digital twin whose interface labels every figure as OBSERVED, FORECAST, SIMULATED, RE
+BODY_186 [P_184]: A deterministic rainfall-only mass balance with a worked, hand-verifiable calculation for each scena
+BODY_187 [P_185]: A versioned rule engine whose output retains the compared variable, threshold, version and outcome, 
+BODY_188 [P_186]: A machine-learning evidence gate that reports zero genuine labelled training rows and therefore with
+BODY_189 [P_187]: A field-event reconciliation workflow that corrects an unsupported seed timestamp while retaining th
+BODY_190 [P_188]: Exports that present UTC and IST representations and carry material caveats.
+BODY_191 [P_189]: A claim-to-evidence discipline, applied throughout this report, that matches each claim to the evide
+BODY_192 [P_190]: 1.8  Methodology Overview
+BODY_193 [P_191]: The project followed an iterative software-engineering approach. Requirements were first derived fro
+BODY_194 [P_192]: The rule engine, the operator-decision record and the machine-learning gate were then added as separ
+BODY_195 [P_193]: 1.9  Organisation of the Report
+BODY_196 [P_194]: The remainder of this report is organised as follows. Chapter 2 reviews the related literature on di
+BODY_197 [P_195]: CHAPTER 2
+LITERATURE REVIEW
+BODY_198 [P_196]: 2.1  Overview
+BODY_199 [P_197]: This chapter reviews the published work that is closest to the problem addressed by SaltLens DSS. Th
+BODY_200 [P_198]: The review is organised by theme. Sections 2.2 to 2.5 cover digital twins, remote sensing, hydrology
+BODY_201 [P_199]: 2.2  Digital Twins for Water–Salt Management
+BODY_202 [P_200]: A digital twin is a continuously updated digital representation of a physical asset that is used to 
+BODY_203 [P_201]: Broader reviews place digital twins within precision agriculture and smart farming [14], and within 
+BODY_204 [P_202]: Digital agriculture more generally is discussed in the overview by Balasundram et al., which conside
+BODY_205 [P_203]: 2.3  Remote Sensing of Salt Pans
+BODY_206 [P_204]: Remote sensing has been used to characterise natural salt pans. Schauer et al. investigate the predi
+BODY_207 [P_205]: Lemenkova applies machine-learning methods to remote sensing data in order to map salt-pan crust dyn
+BODY_208 [P_206]: Taken together, the remote-sensing studies establish that salt-pan state responds to meteorological 
+BODY_209 [P_207]: 2.4  Salt-Pond Hydrology and Hypersaline Dynamics
+BODY_210 [P_208]: Salt-pond hydrology studies provide the physical context for changing salinity. Jarecki and Walkey r
+BODY_211 [P_209]: These studies support the physical premise of this project: that rainfall, evaporation and water exc
+BODY_212 [P_210]: In the soil context, Wang et al. review soil salinisation in drylands and the measurement, monitorin
+BODY_213 [P_211]: 2.5  Machine-Learning Studies of Salinity
+BODY_214 [P_212]: A substantial body of work applies machine learning to salinity prediction. Jiang et al. simulate so
+BODY_215 [P_213]: These studies show that data-driven models can be effective when a suitable labelled dataset exists,
+BODY_216 [P_214]: This observation motivates the machine-learning evidence gate of SaltLens. If a system accepts a tra
+BODY_217 [P_215]: 2.6  Decision Support, Explainability and Weather Sensitivity
+BODY_218 [P_216]: Decision-support systems in agriculture are increasingly paired with explainable AI. Abou Samra and 
+BODY_219 [P_217]: Weather is a recurring operational constraint in agriculture. Mastronardi et al. evaluate anti-rain 
+BODY_220 [P_218]: 2.7  Provenance and Evidence-Graded Reporting
+BODY_221 [P_219]: Provenance, the record of where a piece of information came from and how it was transformed, is a ma
+BODY_222 [P_220]: An evidence-graded workflow separates at least five kinds of information. Observed values are readin
+BODY_223 [P_221]: 2.8  Comparative Scope of Related Research
+BODY_224 [P_222]: Table 2.1 summarises the research areas reviewed, their documented focus, and the distinction of Sal
+BODY_225 [P_223]: Table 2.1: Comparison of related research and SaltLens DSS
+BODY_226 [TBL_2]: rows=6, cols=3 | ['Research area', 'Documented focus']
+BODY_227 [P_224]: 
+BODY_228 [P_225]: 2.9  Research Gap
+BODY_229 [P_226]: The review shows that digital twins, remote sensing, hydrology and machine learning each contribute 
+BODY_230 [P_227]: Evidence status gap. Twins and models are described at the level of architecture and prediction perf
+BODY_231 [P_228]: Field-outcome gap. Field outcomes that are affected by interventions, such as brine transfers of unk
+BODY_232 [P_229]: Recommendation-versus-action gap. Recommendations are commonly evaluated as if they were outcomes. A
+BODY_233 [P_230]: SaltLens addresses these gaps at the software-engineering level. Its contribution is a complementary
+BODY_234 [P_231]: 2.10  Summary
+BODY_235 [P_232]: The literature supports the physical premises of the project, that rainfall dilutes brine and that p
+BODY_236 [P_233]: CHAPTER 3
+EXISTING TECHNIQUES AND THE PROPOSED APPROACH
+BODY_237 [P_234]: 3.1  Introduction
+BODY_238 [P_235]: This chapter describes the techniques that can be, or are typically, used to manage rainfall risk in
+BODY_239 [P_236]: 3.2  Experience-Based Operation
+BODY_240 [P_237]: In many salt works, decisions about rainfall are made by experienced operators who read the sky, tra
+BODY_241 [P_238]: The disadvantages are equally clear. The knowledge is tacit and resides in individuals, so it is dif
+BODY_242 [P_239]: 3.3  Notebook and Spreadsheet Records
+BODY_243 [P_240]: Paper notebooks and spreadsheets are the most common record-keeping tools. They are cheap and flexib
+BODY_244 [P_241]: 3.4  Weather Forecasts Used Alone
+BODY_245 [P_242]: Operators can obtain rainfall forecasts from meteorological services and weather applications. Forec
+BODY_246 [P_243]: 3.5  Remote Sensing and Environmental Monitoring
+BODY_247 [P_244]: Remote sensing can monitor the wetting and drying of salt pans and the dynamics of surface crusts ov
+BODY_248 [P_245]: 3.6  Physics-Based and Hydrological Models
+BODY_249 [P_246]: A physics-based approach computes the effect of rainfall from a water and salt balance. At the simpl
+BODY_250 [P_247]: The disadvantages are that the model is only as good as its assumptions and inputs. A rainfall-only 
+BODY_251 [P_248]: 3.7  Machine-Learning Predictors
+BODY_252 [P_249]: Machine-learning predictors have been applied to salinity in soils and rivers [6], [12], [15]. They 
+BODY_253 [P_250]: 3.8  Generic Digital Twins and Decision-Support Platforms
+BODY_254 [P_251]: Digital-twin and decision-support platforms for agriculture and infrastructure [1], [8], [14] provid
+BODY_255 [P_252]: 3.9  Summary Comparison of Existing Techniques
+BODY_256 [P_253]: Table 3.1 summarises the techniques described above.
+BODY_257 [P_254]: Table 3.1: Summary of existing techniques for salt-pan rainfall management
+BODY_258 [TBL_3]: rows=8, cols=3 | ['Technique', 'Principal advantages']
+BODY_259 [P_255]: 
+BODY_260 [P_256]: 3.10  Limitations That Motivate the Proposed Approach
+BODY_261 [P_257]: Four structural limitations recur across the techniques in Table 3.1. First, the evidentiary status 
+BODY_262 [P_258]: 3.11  How the Proposed Approach Addresses the Limitations
+BODY_263 [P_259]: SaltLens DSS does not replace the operator's judgement, remote sensing or a future machine-learning 
+BODY_264 [P_260]: Table 3.2: Limitations of existing techniques and the corresponding SaltLens mechanism
+BODY_265 [TBL_4]: rows=8, cols=3 | ['Limitation', 'SaltLens mechanism']
+BODY_266 [P_261]: 
+BODY_267 [P_262]: 3.12  What the Proposed Approach Does Not Overcome
+BODY_268 [P_263]: It is important to be equally explicit about what the proposed approach does not do. It does not imp
+BODY_269 [P_264]: These non-claims are part of the design, not an afterthought. The proposed approach overcomes the di
+BODY_270 [P_265]: 3.13  Summary
+BODY_271 [P_266]: Existing techniques each offer something useful, from the operator's local knowledge to the transpar
+BODY_272 [P_267]: CHAPTER 4
+THE SALTLENS DSS: DESIGN AND IMPLEMENTATION
+BODY_273 [P_268]: 4.1  Introduction
+BODY_274 [P_269]: This chapter describes the proposed system in detail. It begins with the requirements that follow fr
+BODY_275 [P_270]: A note on the code listings is appropriate. The listings in this chapter are condensed illustrations
+BODY_276 [P_271]: 4.2  Requirements Analysis
+BODY_277 [P_272]: 4.2.1  Stakeholders and Use Context
+BODY_278 [P_273]: The primary user is the operator of a salt works who must decide, with limited time and uncertain in
+BODY_279 [P_274]: 4.2.2  Functional Requirements
+BODY_280 [P_275]: The functional requirements are listed in Table 4.1.
+BODY_281 [P_276]: Table 4.1: Functional requirements
+BODY_282 [TBL_5]: rows=12, cols=2 | ['ID', 'Requirement']
+BODY_283 [P_277]: 
+BODY_284 [P_278]: 4.2.3  Non-Functional Requirements
+BODY_285 [P_279]: The non-functional requirements are given in Table 4.2. They are dominated by auditability and hones
+BODY_286 [P_280]: Table 4.2: Non-functional requirements
+BODY_287 [TBL_6]: rows=9, cols=3 | ['ID', 'Requirement']
+BODY_288 [P_281]: 
+BODY_289 [P_282]: 4.3  System Architecture
+BODY_290 [P_283]: SaltLens DSS follows a three-tier architecture, shown in Figure 4.1. The presentation tier is a Next
+BODY_291 [P_284]: 
+BODY_292 [P_285]: Figure 4.1: Layered architecture of SaltLens DSS
+BODY_293 [P_286]: Table 4.3 summarises the technologies and the role of each. The choice of a document database suits 
+BODY_294 [P_287]: Table 4.3: Technology stack and roles
+BODY_295 [TBL_7]: rows=4, cols=3 | ['Layer', 'Technology']
+BODY_296 [P_288]: 
+BODY_297 [P_289]: The separation of tiers has a direct consequence for the evidence model. Calculations and reconcilia
+BODY_298 [P_290]: 4.4  Evidence Categories and Provenance
+BODY_299 [P_291]: The organising idea of the system is that every value belongs to exactly one evidence category, and 
+BODY_300 [P_292]: Table 4.4: Evidence categories used by the interface
+BODY_301 [TBL_8]: rows=7, cols=3 | ['Category', 'Meaning']
+BODY_302 [P_293]: 
+BODY_303 [P_294]: Figure 4.2 shows the chain of evidence the system supports. The chain ends with a reported field out
+BODY_304 [P_295]: 
+BODY_305 [P_296]: Figure 4.2: Evidence chain: each stage carries its own evidentiary status
+BODY_306 [P_297]: Provenance fields travel with the records. An observation carries its source label, observer and evi
+BODY_307 [P_298]: 4.5  Data Model
+BODY_308 [P_299]: The data model is organised around the pan. Table 4.5 lists the principal record types and the field
+BODY_309 [P_300]: Table 4.5: Principal record types (conceptual)
+BODY_310 [TBL_9]: rows=11, cols=3 | ['Record', 'Key information held']
+BODY_311 [P_301]: 
+BODY_312 [P_302]: 4.6  Pan-Specific Digital Twin
+BODY_313 [P_303]: The digital twin is the assembled, pan-specific state against which every other card on the dashboar
+BODY_314 [P_304]: 
+BODY_315 [P_305]: Figure 4.3: North Pan dashboard with pan-specific recorded state and evidence labels
+BODY_316 [P_306]: Two properties of the twin matter. First, it is built only from recorded records, each with its sour
+BODY_317 [P_307]: 4.7  Rainfall-Only Mass Balance
+BODY_318 [P_308]: 4.7.1  Formulation
+BODY_319 [P_309]: The physical core of the system is a deterministic rainfall-only mass balance. Let C₀ denote the ini
+BODY_320 [P_310]: C₁ = C₀ D₀ / (D₀ + R)	(4.1)
+BODY_321 [P_311]: D₁ = D₀ + R	(4.2)
+BODY_322 [P_312]: δ = 100 (1 − C₁ / C₀) %	(4.3)
+BODY_323 [P_313]: Here C₁ is the predicted post-rain salinity (g/L), D₁ the predicted depth (cm) and δ the predicted p
+BODY_324 [P_314]: δ = 100 R / (D₀ + R) %	(4.4)
+BODY_325 [P_315]: The dilution is therefore independent of the initial salinity; a pan of any concentration loses the 
+BODY_326 [P_316]: 4.7.2  Volume and Salt-Mass Form
+BODY_327 [P_317]: The same balance can be written in terms of volume and mass, which is convenient for checking agains
+BODY_328 [P_318]: V₁ = A (D₀ + R),   M₁ = M₀ = C₀ A D₀	(4.5)
+BODY_329 [P_319]: For the North Pan, with a registered area of 1.23 ha (12,300 m²), a depth of 20 cm corresponds to a 
+BODY_330 [P_320]: 4.7.3  Assumptions and Exclusions
+BODY_331 [P_321]: The mass balance is valid only under its stated assumptions. It assumes uniform mixing of rain and b
+BODY_332 [P_322]: 4.7.4  Worked Examples
+BODY_333 [P_323]: For the March scenario, R = 90 mm = 9 cm, C₀ = 250 g/L and D₀ = 20 cm. Then D₁ = 20 + 9 = 29 cm and 
+BODY_334 [P_324]: 4.7.5  Sensitivity of the Result
+BODY_335 [P_325]: Figure 4.4 shows the predicted salinity as a function of rainfall for several initial depths, with C
+BODY_336 [P_326]: 
+BODY_337 [P_327]: Figure 4.4: Predicted salinity versus rainfall for several initial depths (C₀ = 250 g/L)
+BODY_338 [P_328]: 
+BODY_339 [P_329]: Figure 4.5: Percentage dilution versus rainfall; independent of initial salinity
+BODY_340 [P_330]: 4.7.6  Reference Implementation
+BODY_341 [P_331]: Listing 4.1 gives a condensed illustration of the calculation. It validates its inputs, converts rai
+BODY_342 [P_332]: def rainfall_only_balance(c0_g_l, d0_cm, rain_mm):
+BODY_343 [P_333]: """Return post-rain salinity, depth and dilution (no-flow model)."""
+BODY_344 [P_334]: if c0_g_l < 0 or d0_cm <= 0 or rain_mm < 0:
+BODY_345 [P_335]: raise ValueError("invalid input")
+BODY_346 [P_336]: r_cm = rain_mm / 10.0          # mm -> cm
+BODY_347 [P_337]: d1 = d0_cm + r_cm              # Eq. (4.2)
+BODY_348 [P_338]: c1 = c0_g_l * d0_cm / d1       # Eq. (4.1)
+BODY_349 [P_339]: dilution = 100.0 * (1.0 - c1 / c0_g_l) if c0_g_l > 0 else 0.0
+BODY_350 [P_340]: return {"salinity_g_l": c1,    # Eq. (4.3)
+BODY_351 [P_341]: "depth_cm": d1,
+BODY_352 [P_342]: "dilution_pct": dilution}
+BODY_353 [P_343]: 
+BODY_354 [P_344]: # Hand-checkable cases
+BODY_355 [P_345]: # rainfall_only_balance(250, 20, 90) -> 172.414 g/L, 29 cm, 31.03 %
+BODY_356 [P_346]: # rainfall_only_balance(250, 20, 25) -> 222.222 g/L, 22.5 cm, 11.11 %
+BODY_357 [P_347]: Listing 4.1: Condensed illustration of the rainfall-only mass balance
+BODY_358 [P_348]: 4.8  Versioned Rule Engine
+BODY_359 [P_349]: The rule engine converts a simulated or observed value into a recommended action through an explicit
+BODY_360 [P_350]: 
+BODY_361 [P_351]: Figure 4.6: Rule evaluation flow for the harvest/flood rule
+BODY_362 [P_352]: The rule used in the demonstration is the operator-configured harvest and flood rule, version 2. It 
+BODY_363 [P_353]: 
+BODY_364 [P_354]: Figure 4.7: Versioned rule recommendation; the interface explicitly reports that no trained ML estim
+BODY_365 [P_355]: Versioning is important for auditability. If the threshold or direction of a rule is changed, a new 
+BODY_366 [P_356]: import operator
+BODY_367 [P_357]: OPS = {"<=": operator.le, "<": operator.lt,
+BODY_368 [P_358]: ">=": operator.ge, ">": operator.gt}
+BODY_369 [P_359]: 
+BODY_370 [P_360]: def evaluate_rule(rule, inputs):
+BODY_371 [P_361]: var = rule["variable"]
+BODY_372 [P_362]: if var not in inputs:
+BODY_373 [P_363]: return {"status": "unavailable", "rule_version": rule["version"]}
+BODY_374 [P_364]: value = inputs[var]
+BODY_375 [P_365]: matched = OPS[rule["comparison"]](value, rule["threshold"])
+BODY_376 [P_366]: return {
+BODY_377 [P_367]: "status": "evaluated",
+BODY_378 [P_368]: "rule": rule["name"], "rule_version": rule["version"],
+BODY_379 [P_369]: "compared_variable": var, "value": value,
+BODY_380 [P_370]: "comparison": rule["comparison"],
+BODY_381 [P_371]: "threshold": rule["threshold"],
+BODY_382 [P_372]: "action": rule["action"] if matched else None,
+BODY_383 [P_373]: "ml_estimate_read": False,   # no trained model is read
+BODY_384 [P_374]: }
+BODY_385 [P_375]: Listing 4.2: Condensed illustration of versioned rule evaluation
+BODY_386 [P_376]: The rule is not presented as agronomic truth. The configured direction and threshold are configurati
+BODY_387 [P_377]: 4.9  Machine-Learning Evidence Gate
+BODY_388 [P_378]: The machine-learning component of SaltLens is an evidence gate and a deployment boundary, not a trai
+BODY_389 [P_379]: The reason for building a gate before a model is that a numerical score, once shown, tends to be tre
+BODY_390 [P_380]: 4.10  Operator Decision Recording
+BODY_391 [P_381]: A recommendation is not a measured outcome, and an operator's acceptance of a recommendation is not 
+BODY_392 [P_382]: 
+BODY_393 [P_383]: Figure 4.8: Operator acceptance recorded for workflow testing; no physical harvest occurred
+BODY_394 [P_384]: The separation allows a future evaluation to compare recommendations, decisions and actions independ
+BODY_395 [P_385]: 4.11  Field-Event Reconciliation
+BODY_396 [P_386]: 4.11.1  Purpose and Record Structure
+BODY_397 [P_387]: The field-validation module records rainfall events as structured, auditable records. A field event 
+BODY_398 [P_388]: 4.11.2  Timestamp Resolution
+BODY_399 [P_389]: During development, the March event's rainfall start was found to carry a timestamp of 14 March 2026
+BODY_400 [P_390]: def resolve_timestamp(event, field, new_utc, origin, actor, reason):
+BODY_401 [P_391]: old = event["milestones"][field]
+BODY_402 [P_392]: event["audit_history"].append({      # append-only
+BODY_403 [P_393]: "field": field,
+BODY_404 [P_394]: "superseded_value": old["value_utc"],
+BODY_405 [P_395]: "claimed_origin": old["origin"],
+BODY_406 [P_396]: "replaced_by": new_utc,
+BODY_407 [P_397]: "new_origin": origin,
+BODY_408 [P_398]: "actor": actor, "reason": reason,
+BODY_409 [P_399]: })
+BODY_410 [P_400]: event["milestones"][field] = {
+BODY_411 [P_401]: "value_utc": new_utc,
+BODY_412 [P_402]: "origin": origin,
+BODY_413 [P_403]: "verification": "operator_reported",  # never promoted
+BODY_414 [P_404]: }
+BODY_415 [P_405]: event["chronology_reconciled"] = True
+BODY_416 [P_406]: event["independently_verified"] = False
+BODY_417 [P_407]: return event
+BODY_418 [P_408]: Listing 4.3: Condensed illustration of a controlled timestamp resolution
+BODY_419 [P_409]: 4.11.3  Verification State
+BODY_420 [P_410]: The verification state of an event is recorded explicitly. In the March case, independently_verified
+BODY_421 [P_411]: 4.11.4  Interventions
+BODY_422 [P_412]: Interventions such as outbound brine transfers are recorded in the event with their timestamps and v
+BODY_423 [P_413]: 4.12  Exports
+BODY_424 [P_414]: Records can be exported for review. Exports carry UTC and IST representations of every timestamp, di
+BODY_425 [P_415]: 4.13  Security, Authorisation and Integrity
+BODY_426 [P_416]: Because the system holds decisions and evidence, its operations are subject to authorisation checks 
+BODY_427 [P_417]: 4.14  User Interface
+BODY_428 [P_418]: The interface is designed to make the evidence status of each value impossible to miss. Figure 4.3 s
+BODY_429 [P_419]: The rainfall simulation screen, shown in Figure 4.9 for the September scenario, displays the predict
+BODY_430 [P_420]: 
+BODY_431 [P_421]: Figure 4.9: September 25 mm forecast simulation showing 222.22 g/L predicted salinity; this is not t
+BODY_432 [P_422]: The recommendation and decision cards (Figure 4.7 and Figure 4.8) follow the same pattern of explici
+BODY_433 [P_423]: 4.15  Operator Workflow Walkthrough
+BODY_434 [P_424]: To show how the components fit together, this section walks through the sequence of operations an op
+BODY_435 [P_425]: Record an observation (OBSERVED). The operator opens the North Pan view and records a reading of 250
+BODY_436 [P_426]: Enter a weather forecast (FORECAST). The operator enters a 25 mm rainfall forecast with a 70 % proba
+BODY_437 [P_427]: Review the digital twin (OBSERVED, with freshness). The twin is assembled from the recorded observat
+BODY_438 [P_428]: Run the rainfall simulation (SIMULATED). The mass balance is run on the recorded state and the forec
+BODY_439 [P_429]: Review the recommendation (RECOMMENDED). The versioned rule is evaluated against the simulated value
+BODY_440 [P_430]: Record the decision (DECIDED). The operator accepts, modifies or rejects the recommendation. The dec
+BODY_441 [P_431]: File and reconcile the field event (reported outcome). After a real event, the operator or an audito
+BODY_442 [P_432]: The walkthrough illustrates the property on which the design depends: at every step, the record stat
+BODY_443 [P_433]: 4.16  Testing and Verification Approach
+BODY_444 [P_434]: Software verification in this project covers four things: that the equations are implemented as spec
+BODY_445 [P_435]: It is equally important to state what the tests cannot show. They cannot show that a rainfall amount
+BODY_446 [P_436]: 4.17  Summary
+BODY_447 [P_437]: This chapter has described a system in which evidence categories organise the whole design. The twin
+BODY_448 [P_438]: CHAPTER 5
+RESULTS AND DISCUSSION
+BODY_449 [P_439]: 5.1  Introduction
+BODY_450 [P_440]: This chapter presents the results obtained with SaltLens DSS and discusses their meaning. The result
+BODY_451 [P_441]: 5.2  Evaluation Framework: Three Validity Dimensions
+BODY_452 [P_442]: The evidence in this study has three distinct validity dimensions, summarised in Figure 5.1. Computa
+BODY_453 [P_443]: 
+BODY_454 [P_444]: Figure 5.1: Status of the validity dimensions in the present study
+BODY_455 [P_445]: Keeping the dimensions separate is the discipline that the rest of the chapter applies. A result tha
+BODY_456 [P_446]: 5.3  Reproducible Scenario Calculations
+BODY_457 [P_447]: The deterministic mass balance was applied to two separate scenarios. For March, R = 9 cm gives C₁ =
+BODY_458 [P_448]: Table 5.1: Separate deterministic rainfall-only scenarios
+BODY_459 [TBL_10]: rows=3, cols=7 | ['Scenario', 'Rain (mm)']
+BODY_460 [P_449]: 
+BODY_461 [P_450]: The two scenarios are separate and must not be conflated. The March scenario uses the reported actua
+BODY_462 [P_451]: These results establish computational reproducibility: the software output matches an independent ha
+BODY_463 [P_452]: 5.4  March North Pan Field Comparison
+BODY_464 [P_453]: 5.4.1  The Recorded Event
+BODY_465 [P_454]: Table 5.2 summarises the March North Pan event record as it stands after reconciliation. The pan, No
+BODY_466 [P_455]: Table 5.2: March North Pan event record (as reported)
+BODY_467 [TBL_11]: rows=9, cols=3 | ['Item', 'Recorded value']
+BODY_468 [P_456]: 
+BODY_469 [P_457]: 5.4.2  Predicted Versus Reported
+BODY_470 [P_458]: The rainfall-only replay predicts 172.41 g/L and 29 cm. The operator-reported post-event readings ar
+BODY_471 [P_459]: 
+BODY_472 [P_460]: Figure 5.2: March North Pan salinity: rainfall-only prediction of 172.41 g/L versus operator-reporte
+BODY_473 [P_461]: 
+BODY_474 [P_462]: Figure 5.3: March North Pan depth: rainfall-only prediction of 29 cm versus operator-reported 50 cm
+BODY_475 [P_463]: 
+BODY_476 [P_464]: Figure 5.4: March event: rainfall-only prediction compared with operator-reported values
+BODY_477 [P_465]: The descriptive absolute differences are 152.414 g/L and 21 cm. These numbers must be read with care
+BODY_478 [P_466]: 5.5  Water and Salt Inventory Analysis
+BODY_479 [P_467]: The salinity and depth figures can be translated into water volume and dissolved-salt mass for the 1
+BODY_480 [P_468]: Table 5.3: Implied water volume and dissolved-salt mass for the March event (12,300 m² pan)
+BODY_481 [TBL_12]: rows=4, cols=5 | ['State', 'Depth (cm)']
+BODY_482 [P_469]: 
+BODY_483 [P_470]: 
+BODY_484 [P_471]: Figure 5.5: Implied water volume and dissolved-salt mass for the March event
+BODY_485 [P_472]: Rainfall of 90 mm on 12,300 m² delivers 1,107 m³ of water, which takes the pan from 2,460 m³ to 3,56
+BODY_486 [P_473]: These implied numbers show that the reported post-event state is not a small perturbation of the no-
+BODY_487 [P_474]: 5.6  Why the Difference Cannot Be Uniquely Attributed
+BODY_488 [P_475]: The reported discrepancy cannot be assigned uniquely to model error, transfer, freshwater inflow, sp
+BODY_489 [P_476]: Model error. The rainfall-only model excludes evaporation, seepage, runoff and non-uniform mixing. I
+BODY_490 [P_477]: Unquantified transfer. An outbound brine transfer occurred, but its volume is unknown. Whether any o
+BODY_491 [P_478]: Additional freshwater inflow. Water from sources other than direct rainfall on the pan, such as runo
+BODY_492 [P_479]: Spatial heterogeneity. A fresher surface layer or a measurement taken at a particular point can diff
+BODY_493 [P_480]: Measurement or instrument error. The post-event readings are operator-reported, and their instrument
+BODY_494 [P_481]: Because the contributors cannot be separated, the March case is classified as descriptive only. It e
+BODY_495 [P_482]: 5.7  September Forecast Demonstration
+BODY_496 [P_483]: The September demonstration shows the forecast-to-decision path. A September 2026 North Pan observat
+BODY_497 [P_484]: The demonstration verifies that a separate forecast can be transformed into a deterministic post-rai
+BODY_498 [P_485]: 5.8  Recommendation and Operator Response
+BODY_499 [P_486]: For the September simulation, the versioned operator-configured harvest and flood rule, version 2, c
+BODY_500 [P_487]: This documents rule execution, not an independently validated agronomic recommendation. It also surf
+BODY_501 [P_488]: 5.9  Software Verification Results
+BODY_502 [P_489]: Developer-reported tests and build checks support implementation testing, not physical field accurac
+BODY_503 [P_490]: Table 5.4: What software verification supports and does not support
+BODY_504 [TBL_13]: rows=6, cols=3 | ['Verified property', 'Supports']
+BODY_505 [P_491]: 
+BODY_506 [P_492]: The reported test and build counts were obtained at different development checkpoints and are not re
+BODY_507 [P_493]: 5.10  Audit and Export Consistency
+BODY_508 [P_494]: The effective March rainfall instant is 2026-03-14 18:00 UTC, which is 23:30 IST. The displaced 14:0
+BODY_509 [P_495]: The pre-event observation is dated 13 March 2026 at 13:30 IST and the post-event entry 15 March 2026
+BODY_510 [P_496]: 5.11  Comparison with Existing Techniques
+BODY_511 [P_497]: Table 5.5 compares the proposed approach with the existing techniques of Chapter 3 on the properties
+BODY_512 [P_498]: Table 5.5: Qualitative comparison of approaches by design property
+BODY_513 [TBL_14]: rows=9, cols=6 | ['Property', 'Experience / notebooks']
+BODY_514 [P_499]: 
+BODY_515 [P_500]: The comparison shows where the proposed approach adds value, namely traceability, evidence separatio
+BODY_516 [P_501]: 5.12  Threats to Validity
+BODY_517 [P_502]: Several threats to validity apply, and they are treated as explicit research boundaries and not as h
+BODY_518 [P_503]: Single field event. The study has one intervention-affected field event. It cannot support generalis
+BODY_519 [P_504]: Operator-reported measurements. Post-event salinity and depth are operator-reported and uncorroborat
+BODY_520 [P_505]: Unquantified intervention. The outbound transfer has unknown volume, so the post-event state cannot 
+BODY_521 [P_506]: Idealised model. The mass balance excludes transfer, drainage, overflow, seepage and non-uniform mix
+BODY_522 [P_507]: Scenario separation. The September scenario uses manually entered state and a configured rule. It mu
+BODY_523 [P_508]: Configuration dependence. The 280 g/L threshold and comparison direction are configuration values re
+BODY_524 [P_509]: Software tests. Passing tests demonstrate software behaviour and cannot demonstrate field measuremen
+BODY_525 [P_510]: Interface as evidence. Clear visual separation of evidence categories reduces ambiguity, but the int
+BODY_526 [P_511]: 5.13  Machine-Learning Evaluation Boundary
+BODY_527 [P_512]: The ML component is an evidence gate and deployment boundary, not a completed predictive model. The 
+BODY_528 [P_513]: If a future field campaign supplies a sufficiently large and semantically consistent dataset, the ML
+BODY_529 [P_514]: Only after those conditions are satisfied should predictive metrics be reported. Class imbalance sho
+BODY_530 [P_515]: 5.14  Multi-Event Validation Protocol
+BODY_531 [P_516]: The March record is useful because it exercises the complete reconciliation path, but it cannot esta
+BODY_532 [P_517]: Table 5.6: Information to retain for each event in a multi-event validation study
+BODY_533 [TBL_15]: rows=8, cols=2 | ['Item', 'What should be recorded']
+BODY_534 [P_518]: 
+BODY_535 [P_519]: With multiple independently verified events, the rainfall-only simulator can be evaluated using sign
+BODY_536 [P_520]: 5.15  Operational Benefit Boundary
+BODY_537 [P_521]: The present work does not demonstrate operational benefit. The September workflow records an operato
+BODY_538 [P_522]: A future operational evaluation should define benefit measures before deployment. Candidate measures
+BODY_539 [P_523]: The demonstrated benefit of the prototype is therefore software-level traceability: an observation c
+BODY_540 [P_524]: 5.16  Claim-to-Evidence Discipline
+BODY_541 [P_525]: A central design requirement of SaltLens, and a principle of this report, is that each claim is link
+BODY_542 [P_526]: Table 5.7: Claim types and the evidence required to support them
+BODY_543 [TBL_16]: rows=6, cols=3 | ['Claim', 'Evidence required']
+BODY_544 [P_527]: 
+BODY_545 [P_528]: The same principle governs generalisation. More records alone are not sufficient if they lack compar
+BODY_546 [P_529]: 5.17  Summary
+BODY_547 [P_530]: The results show reproducible software behaviour and strong evidence control. The mass balance repro
+BODY_548 [P_531]: CHAPTER 6
+CONCLUSION AND FUTURE SCOPE
+BODY_549 [P_532]: 6.1  Conclusion
+BODY_550 [P_533]: This project set out to build a decision-support prototype for salt-pan rainfall management in which
+BODY_551 [P_534]: The March North Pan replay predicts 172.41 g/L and 29 cm from the reported 90 mm of rainfall, wherea
+BODY_552 [P_535]: 6.2  Summary of Findings
+BODY_553 [P_536]: The rainfall-only mass balance is hand-verifiable: 250 g/L at 20 cm with 90 mm of rain gives 172.414
+BODY_554 [P_537]: Percentage dilution depends only on rainfall relative to initial depth and is independent of initial
+BODY_555 [P_538]: The March case is a descriptive, intervention-affected event. The 152.414 g/L and 21 cm differences 
+BODY_556 [P_539]: The reported March post-event state implies a depth 2,583 m³ above the no-flow volume and a dissolve
+BODY_557 [P_540]: The provenance workflow corrected an unsupported seed timestamp without erasing audit history, and e
+BODY_558 [P_541]: The September demonstration showed rule execution and a recorded operator acceptance, and exposed th
+BODY_559 [P_542]: The machine-learning gate reports zero genuine labelled training rows, so no ML performance is claim
+BODY_560 [P_543]: 6.3  Limitations
+BODY_561 [P_544]: The limitations of the work are the same as the evidence boundaries stated throughout this report. T
+BODY_562 [P_545]: 6.4  Future Scope
+BODY_563 [P_546]: 6.4.1  Multi-Event Field Validation Campaign
+BODY_564 [P_547]: The most important next step is a field campaign that supplies multiple independently verified rainf
+BODY_565 [P_548]: 6.4.2  Extended Physical Model
+BODY_566 [P_549]: The rainfall-only balance can be extended to include the flows it currently excludes. Let A be the p
+BODY_567 [P_550]: V₁ = V₀ + A R + Q_in − Q_out − Q_drain − Q_seep − A E	(6.1)
+BODY_568 [P_551]: M₁ = M₀ + C_in Q_in − C_out Q_out − C_drain Q_drain − C_seep Q_seep	(6.2)
+BODY_569 [P_552]: C₁ = M₁ / V₁	(6.3)
+BODY_570 [P_553]: With all flow terms and evaporation set to zero, Equation (6.1) to Equation (6.3) reduce to the rain
+BODY_571 [P_554]: 6.4.3  Instrumentation and Data Capture
+BODY_572 [P_555]: Integration with calibrated salinity and depth sensors and a documented rain gauge would reduce reli
+BODY_573 [P_556]: 6.4.4  Machine-Learning Study
+BODY_574 [P_557]: If a sufficiently large and semantically consistent dataset is obtained, a machine-learning study ca
+BODY_575 [P_558]: 6.4.5  Operational Evaluation
+BODY_576 [P_559]: A controlled before/after or matched-period study should compare assisted decisions with ordinary pr
+BODY_577 [P_560]: 6.4.6  Rule Review and Decision-Support Enhancements
+BODY_578 [P_561]: The harvest and flood rule's threshold and comparison direction should be reviewed with salt-product
+BODY_579 [P_562]: 6.4.7  Deployment and Usability
+BODY_580 [P_563]: Before any operational deployment, the system should undergo a usability review with operators, an a
+BODY_581 [P_564]: 6.5  Concluding Remarks
+BODY_582 [P_565]: SaltLens DSS should be regarded as an auditable research prototype and not as a validated production
+BODY_583 [P_566]: REFERENCES
+BODY_584 [P_567]: [1]	M. Qin, C. Zhang, G. Ma, Y. Ma, X. Feng, P. Li, and K. Feng, “Digital twin-enabled intelligent i
+BODY_585 [P_568]: [2]	L. Xiong, D. Yu, and H. Li, “Artificial intelligence-based strain screening and optimization str
+BODY_586 [P_569]: [3]	G. Mastronardi et al., “Experimental evaluation of anti-rain agricultural nets: Structural param
+BODY_587 [P_570]: [4]	R. M. Abou Samra and R. R. Ali, “Explainable artificial intelligence in smart agriculture: A com
+BODY_588 [P_571]: [5]	D. M. Neumeister and D. B. Pape, “Automated Vehicles and Adverse Weather: Final Report,” Federal
+BODY_589 [P_572]: [6]	Z. Jiang et al., “Simulating soil salinity dynamics, cotton yield and evapotranspiration under d
+BODY_590 [P_573]: [7]	H. Schauer, S. Schlaffer, E. Bueechi, and W. Dorigo, “Inundation-desiccation state prediction fo
+BODY_591 [P_574]: [8]	K. B. Phulpoto, O. J. Alkhatib, M. Hassan, S. Qamar, and M. S. Mahmood, “AI-driven digital twin 
+BODY_592 [P_575]: [9]	S. K. Balasundram et al., “The role of digital agriculture in mitigating climate change and ensu
+BODY_593 [P_576]: [10]	C. Shen et al., “Salt dynamics in coastal marshes: Formation of hypersaline zones,” doi: 10.102
+BODY_594 [P_577]: [11]	P. Lemenkova, “Machine learning methods of remote sensing data processing for mapping salt pan 
+BODY_595 [P_578]: [12]	F. Wang et al., “Advancements and perspective in the quantitative assessment of soil salinity u
+BODY_596 [P_579]: [13]	J. Wang et al., “Soil salinization in drylands: Measure, monitor, and manage,” doi: 10.1016/j.e
+BODY_597 [P_580]: [14]	M. Awais et al., “Advancing precision agriculture through digital twins and smart farming techn
+BODY_598 [P_581]: [15]	A. M. Melesse et al., “River water salinity prediction using hybrid machine learning models,” d
+BODY_599 [P_582]: [16]	R. N. V. J. Mohan et al., “Next-gen agriculture: Integrating AI and XAI for precision crop yiel
+BODY_600 [P_583]: [17]	L. Jarecki and M. Walkey, “Variable hydrology and salinity of salt ponds in the British Virgin 
+BODY_601 [P_584]: APPENDIX A: SENSITIVITY TABLES
+BODY_602 [P_585]: The tables in this appendix are computed directly from Equations (4.1) to (4.3) with C₀ = 250 g/L. T
+BODY_603 [P_586]: Table A.1: Predicted post-rain salinity C₁ (g/L) for C₀ = 250 g/L
+BODY_604 [TBL_17]: rows=12, cols=6 | ['Rain (mm)', 'D₀ = 10 cm']
+BODY_605 [P_587]: 
+BODY_606 [P_588]: Table A.2: Predicted percentage dilution δ (%) (independent of C₀)
+BODY_607 [TBL_18]: rows=12, cols=6 | ['Rain (mm)', 'D₀ = 10 cm']
+BODY_608 [P_589]: 
+BODY_609 [P_590]: Table A.3: Predicted post-rain depth D₁ (cm)
+BODY_610 [TBL_19]: rows=12, cols=6 | ['Rain (mm)', 'D₀ = 10 cm']
+BODY_611 [P_591]: 
+BODY_612 [P_592]: As a check, the entries for R = 25 mm and D₀ = 20 cm in the three tables are 222.2 g/L, 11.1 % and 2
+BODY_613 [P_593]: APPENDIX B: HAND-VERIFICATION WORKSHEET
+BODY_614 [P_594]: The following worksheet records the steps for verifying a rainfall-only result by hand for the North
+BODY_615 [P_595]: Record the pre-event salinity C₀ (g/L) and depth D₀ (cm) and the source and time of the reading.
+BODY_616 [P_596]: Convert rainfall to centimetres: R (cm) = R (mm) / 10.
+BODY_617 [P_597]: Compute the post-rain depth: D₁ = D₀ + R.
+BODY_618 [P_598]: Compute the post-rain salinity: C₁ = C₀ D₀ / D₁.
+BODY_619 [P_599]: Compute dilution: δ = 100 (1 − C₁ / C₀).
+BODY_620 [P_600]: Cross-check with volumes: V₀ = A D₀ (with D₀ in metres), V₁ = A D₁, and confirm that C₀ V₀ = C₁ V₁.
+BODY_621 [P_601]: State the exclusions: transfer, drainage, overflow, seepage, non-uniform mixing and measurement unce
+BODY_622 [P_602]: Table B.1: Worked verification for the two scenarios (A = 12,300 m², C₀ = 250 g/L, D₀ = 20 cm)
+BODY_623 [TBL_20]: rows=9, cols=3 | ['Step', 'March (90 mm)']
+BODY_624 [P_603]: 
+BODY_625 [P_604]: APPENDIX C: FIELD DATA-CAPTURE TEMPLATE
+BODY_626 [P_605]: The following template lists the fields that should be captured for each rainfall event in a future 
+BODY_627 [P_606]: Table C.1: Per-event field data-capture template
+BODY_628 [TBL_21]: rows=15, cols=3 | ['Field', 'Entry']
+BODY_629 [P_607]: 
+BODY_630 [P_608]: APPENDIX D: GLOSSARY AND ABBREVIATIONS
+BODY_631 [P_609]: Table D.1: Glossary and abbreviations
+BODY_632 [TBL_22]: rows=16, cols=2 | ['Term', 'Meaning']
+BODY_633 [P_610]: 
+BODY_634 [P_611]: APPENDIX E: NOTATION
+BODY_635 [P_612]: Table E.1: Symbols used in the equations
+BODY_636 [TBL_23]: rows=11, cols=3 | ['Symbol', 'Meaning']
+BODY_637 [P_613]: 
+BODY_638 [SECT_PR]

@@ -72,9 +72,6 @@ export default async function NotificationsPage() {
             NOTIFICATIONS
           </span>
         </div>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Health warnings, doctor messages, disease alerts, and upcoming vaccine reminders.
-        </p>
       </div>
 
       {/* Region Outbreak Banner */}
@@ -179,7 +176,7 @@ export default async function NotificationsPage() {
                     {vc.treatment ? `Prescription: ${vc.treatment}` : vc.diagnosis ? `Doctor Diagnosis: ${vc.diagnosis}` : `Reported: ${vc.symptoms ?? "Doctor is reviewing"}`}
                   </p>
                   <p className="text-[10px] font-mono text-slate-400 mt-0.5">
-                    Vet: {vc.vet?.name ?? "District Vet"} · {fmtDate(vc.createdAt)}
+                    Vet: {vc.vet?.name ? (vc.vet.name.startsWith("Dr.") ? vc.vet.name : `Dr. ${vc.vet.name}`) : "Dr. Sivanarasimman S"} · {fmtDate(vc.createdAt)}
                   </p>
                 </div>
               </div>

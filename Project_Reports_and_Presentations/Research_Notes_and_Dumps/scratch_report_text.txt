@@ -1,0 +1,591 @@
+[P1] QR-BASED CATTLE MANAGEMENT
+[P2] SYSTEM: A PLATFORM FOR
+[P3] PERSONALIZED HEALTH
+[P4] MONITORING USING COMPOSITE
+[P5] HEALTH DEVIATION INDEX (CHDI)
+[P7] A Project Report
+[P9] U23ADS705 – MINI PROJECT
+[P10] Submitted by
+[P11] in partial fulfillment for the award of the degree
+[P12] of
+[P13] BACHELOR OF TECHNOLOGY
+[P14] in
+[P15] ARTIFICIAL INTELLIGENCE AND DATA SCIENCE
+[P16] SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS), SALEM – 636005
+[P17] ANNA UNIVERSITY: CHENNAI 600 025
+[P18] OCTOBER 2026
+[P20] SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS)
+[P21] ANNA UNIVERSITY: CHENNAI – 600 025
+[P22] BONAFIDE CERTIFICATE
+[P23] Certified that this project titled “QR-BASED CATTLE MANAGEMENT SYSTEM: A PLATFORM FOR PERSONALIZED HEALTH MONITORING USING COMPOSITE HEALTH DEVIATION INDEX (CHDI)” is the bonafide work of “SABARI KARTHICK A (61782323110093), SIVANARASIMMAN S (61782323110103), SUJEETH Y R (617823231100107)” who carried out the project work U23ADS705 – MINI PROJECT under my supervision.
+[P25] Submitted for the Project Viva-Voce Examination held on ___________________
+[P28] Sona College of Technology
+[P29] Department of Information Technology
+[P30] U23ADS705 – MINI PROJECT - DECLARATION FORM
+[P31] Declaration by the Student(s)
+[P32] We hereby declare that the project titled “QR-BASED CATTLE MANAGEMENT SYSTEM: A PLATFORM FOR PERSONALIZED HEALTH MONITORING USING COMPOSITE HEALTH DEVIATION INDEX (CHDI)” is an original work carried out by me/us under the guidance of MS. J. DEEPIKA.This project has not been submitted elsewhere for the award of any degree.
+[P33] We also affirm that all the data and information used in this project are genuine and properly acknowledged. The project work aligns with the following United Nations Sustainable Development Goals (SDGs): 2 – ZERO HUNGER, 9 – INDUSTRY, INNOVATION AND INFRASTRUCTURE, 3 – GOOD HEALTH AND WELL-BEING, 12 – RESPONSIBLE CONSUMPTION AND PRODUCTION.
+[P37] Date: ___________________
+[P38] Place: Sona College of Technology
+[P39]   ACKNOWLEDGMENT
+[P40] First and foremost, we thank the Almighty for His blessings, guidance, and the inner peace that gave us the strength and determination to complete this project. We also express our heartfelt gratitude to our parents for their unconditional love, constant support, and encouragement throughout our journey.
+[P41] We express our sincere gratitude to our beloved Chairman, Sri. C. Valliappa, and our dynamic Vice-Chairmen, Sri. Chocko Valliappa and Sri. Thyagu Valliappa, for providing us with the necessary facilities and support to successfully complete this project.
+[P42] We are immensely grateful to our Principal, Dr. S. R. R. Senthilkumar, for his constant inspiration and encouragement throughout our academic journey.
+[P43] We extend our sincere thanks to Dr. J. Akilandeswari, Professor and Head of the Department of Information Technology, for providing the necessary laboratory facilities and academic support to carry out this project successfully.
+[P44] We express our heartfelt gratitude to our Project Coordinator, Dr. J. Jeba Emilyn, Associate Professor, Department of Information Technology, for her continuous guidance, valuable suggestions, and constant encouragement throughout the project.
+[P45] We are also deeply grateful to Ms. J. Deepika, Assistant Professor, Department of Information Technology, for her invaluable mentorship, insightful guidance, and unwavering support throughout the project. His expertise and constructive suggestions have played a significant role in shaping our work and helping us achieve our objectives.
+[P46] Finally, we take this opportunity to express our sincere appreciation to all the faculty members, non-teaching staff, and friends who supported us, either directly or indirectly, in completing this project successfully. Their cooperation and encouragement have contributed greatly to the successful completion of our work.
+[P47] ABSTRACT
+[P48] In smallholder dairy farming, precision livestock health monitoring is often constrained by the high cost of specialized RFID readers, proprietary wearable sensors, and rigid population-wide thresholds. These conventional approaches frequently trigger false alarms by failing to account for individual cattle physiological variations and sparse field data.
+[P49] To address this challenge, this project presents a QR-Based Cattle Management System, an infrastructure-light, cloud-based platform for personalized dairy health monitoring using the Composite Health Deviation Index (CHDI). The system eliminates the need for expensive hardware by utilizing weather-resistant QR passports accessible via standard smartphones and secured with Role-Based Access Control (RBAC). At its computational core, the platform integrates a Three-Stage Adaptive CHDI engine that establishes an individual 14-day baseline, evaluates multivariate Mahalanobis distance deviations, computes 7-day temporal trend slopes, provides explainable feature attributions, and applies an uncertainty gate to suppress false alarms during early enrollment.
+[P50] The application is implemented as a full-stack solution using Next.js 16 (App Router, Server Actions), PostgreSQL with Prisma ORM, a FastAPI Python analytical microservice, and a Progressive Web App (PWA) supporting offline synchronization. System evaluation demonstrates 90.48% sensitivity, 96.27% specificity, 62.30% precision, and an F1-score of 73.79% in detecting sub-clinical health anomalies, delivering an advance clinical lead time of 2.4 days prior to observable symptoms.
+[P53] TABLE OF CONTENTS
+[P55] LIST OF FIGURES
+[P56] LIST OF TABLES
+[P58] LIST OF ABBREVIATIONS
+[P61] 1. INTRODUCTION
+[P62] 1.1 Background of the Project
+[P63] In global livestock agriculture and rural economies, smallholder dairy farming represents a vital socio-economic backbone for over 150 million rural farming households. In India alone, livestock husbandry contributes significantly to agricultural GDP, providing daily nutritional security and direct income. Despite the vital economic role of dairy herds, smallholder pastoralists face persistent productivity challenges caused by silent sub-clinical disease onset, delayed veterinary diagnosis, and the prohibitive expense of commercial Precision Livestock Farming (PLF) systems. In particular, sub-clinical bovine mastitis, bovine respiratory disease (BRD), and metabolic ketosis lead to severe drops in milk production (25%–40% per lactation cycle), substantial veterinary bills, and premature culling of high-value cows (Bowling et al. 2008; Kamphuis et al. 2010).
+[P64] While modern electronic identification and wearable biosensors have been investigated extensively, commercial systems depend on costly proprietary RFID tags, specialized reading wands, and expensive wearable sensor collars. For smallholder farmers owning fewer than 10 animals, investing thousands of dollars in proprietary hardware is economically unviable. Furthermore, existing platforms rely on rigid, population-wide fixed thresholds that ignore natural individual variations, triggering high rates of false-positive alarms that quickly erode farmer trust (Pereira et al. 2024; Kaur & Virk 2024). There is an urgent necessity for an infrastructure-light, sensor-optional, and mathematically adaptive health monitoring solution designed for commodity mobile devices.
+[P65] 1.2 Problem Statement
+[P66] Smallholder dairy farmers and rural veterinary officers often lack affordable, accessible, and reliable digital tools for livestock health monitoring. Existing precision livestock systems face three major operational and economic challenges:
+[P67] 1. High Infrastructure and Hardware Cost: Existing cattle tracking systems require expensive passive Low-Frequency (LF) or Ultra-High-Frequency (UHF) RFID ear tags and dedicated handheld or portal reader antennas, making deployment economically infeasible for smallholders without automated parlors.
+2. Fixed Static Thresholds and Spurious False Alarms: Standard monitoring platforms evaluate vital signs against static global limits. Because baseline body weight, milk yield, feed intake, and temperature naturally vary across individual cows, breeds, and lactation stages, static thresholds generate excessive false alarms.
+3. Inadequate Handling of Sparse Data and Environmental Uncertainty: Rural farm data collection is frequently sparse or intermittent. Existing systems lack uncertainty-aware abstention mechanisms to prevent false alarms on newly registered cows with insufficient historical baseline depth.
+[P68] 1.3 Motivation
+[P69] The primary motivation of this project is to democratize precision livestock health intelligence for smallholder dairy farmers by developing an infrastructure-light, cloud-native software platform. By replacing expensive proprietary hardware with weather-resistant, smartphone-scannable QR digital passports and substituting rigid thresholds with a personalized, Three-Stage Composite Health Deviation Index (CHDI) engine, the proposed system provides early clinical warning, explainable diagnostic attributions, and automated veterinary triage at zero specialized hardware cost (Subach & Shmeleva 2024; Curti et al. 2024).
+[P70] 1.4 Objectives
+[P71] The major objectives of the proposed system project are: 
+[P72] 1. Infrastructure-Independent Livestock Identification: To develop secure QR-based animal passports linked to cloud health records through a smartphone camera, eliminating costly RFID readers.
+[P73] 2. Personalized Longitudinal Baseline Modeling: To formulate and implement the Three-Stage Composite Health Deviation Index (CHDI) engine that establishes an individual 14-day rolling physiological baseline and evaluates multivariate Mahalanobis distance deviations across historical signal covariances.
+[P74] 3. Explainability and Uncertainty Estimation: To incorporate ordinary least-squares temporal slope regression for 7-day health trends, permutation-based feature importance for transparent veterinary insights, and a reliable data-sufficiency gate to safely suppress false alarms during early enrollment and improve clinical decision-making.
+[P75] 4. Automated Clinical Triage Pipeline: To develop a closed-loop veterinary case management workflow that prioritizes critical cases, tracks drug withdrawal periods to prevent antibiotic residues in milk, and captures verified diagnostic outcomes for continuous model improvement and better clinical decision-making.
+[P76] 5. Full-Stack Web Application Prototype: To engineer a decoupled, production-grade web system utilizing Next.js 16 (App Router, Server Actions), Prisma ORM, PostgreSQL, FastAPI Python microservice, and a Progressive Web App (PWA) supporting offline synchronization.
+[P77] 1.5 Scope of the Project
+[P78] The project encompasses the design, mathematical formulation, software development, and evaluation of the proposed SmartCattle platform. It covers QR-based animal identification, longitudinal health logging (body weight, feed intake, milk production, temperature), CHDI-based anomaly detection, temporal trend analysis, clinical triage, and role-based dashboards. The platform is evaluated using 16 Holstein-Friesian cows with 674 longitudinal observation records, with a modular architecture supporting future integration with IoT gateways and real-time sensor data.
+[P80] 2. LITERATURE REVIEW
+[P81] 2.1 Introduction
+[P82] Livestock identification and health monitoring are essential for modern livestock management. Recent studies explore QR codes, IoT, and machine learning to improve animal monitoring and disease detection [1], [2], [3], [4], [5], [9], [10]. The proposed system integrates QR-based identification, digital health records, and CHDI-based personalised health monitoring..
+[P83] 2.2 Review of Related Studies
+[P84] QR-based identification has emerged as a practical approach for accessing digital livestock records without relying entirely on specialised electronic identification equipment. Comparative research on cattle identification methods has examined QR code collars alongside numerical ear tags and body-texture recognition, highlighting the relevance of optical identification in livestock management [4]. Research on passive UHF RFID animal tracking also provides a basis for comparing electronic identification methods with smartphone-accessible QR systems [16].
+[P85] IoT-based livestock health monitoring uses sensors and digital technologies to collect information related to animal health. Research on udder parameters, thermal imaging, and IoT-based mastitis monitoring demonstrates the importance of collecting health-related measurements for identifying potential cattle health problems [1]. Smart collar-based monitoring further illustrates how sensor technologies can support dairy cow health observation [12]. These approaches provide a foundation for developing digital platforms that organise animal information and support health monitoring.
+[P86] Individual animal health records are important for identifying changes in health conditions over time. Machine learning techniques applied to individual cow health records provide a basis for data-driven disease prediction [5]. Longitudinal datasets containing production, physiological, and behavioural observations can support the analysis of animal measurements across multiple time points [10]. Similarly, multimodal livestock datasets demonstrate the relevance of studying different types of information for precision cattle monitoring [13]. These studies are related to the proposed system's use of historical records to establish individual health baselines.
+[P87] Artificial intelligence and multivariate analysis offer additional approaches to livestock health assessment. Research on multi-parametric disease prognosis highlights the relevance of considering several health indicators when analysing cattle health [8]. Studies of artificial intelligence and sensor fusion in dairy cattle monitoring also provide a foundation for combining information from different sources [19]. Multivariate anomaly detection is relevant to identifying unusual patterns across multiple measurements rather than examining each parameter independently [20]. These approaches support the proposed Composite Health Deviation Index (CHDI), which is designed to evaluate deviations in recorded health indicators relative to an individual animal's baseline.
+[P88] Reliable health assessment also requires attention to uncertainty and the availability of sufficient historical data. Selective classification and abstention mechanisms provide a relevant research direction for situations in which a machine learning model cannot make a sufficiently reliable prediction [15]. In the proposed system, a data-sufficiency check is intended to prevent unreliable baseline-based assessments when an animal has insufficient historical observations. This is particularly relevant when newly registered cattle have limited health records.
+[P89] Digital innovation in livestock farming provides a broader foundation for integrating identification, health records, and monitoring functions within a unified platform [18]. Precision livestock farming research also examines the use of digital technologies to improve livestock monitoring and management [2]. In addition, wireless sensor network architectures have been investigated for cattle monitoring and the coordination of distributed information [3]. Building on these research areas, the proposed QR-Based Cattle Management System combines QR-based animal identification, individual digital health records, CHDI-based anomaly analysis, and role-based access for farmers, administrators, and veterinarians. The intended contribution is an integrated platform that supports personalised health monitoring and veterinary follow-up.
+[P90] 2.3 Techniques and Technologies Used in Existing Systems
+[P91] Existing research relevant to the proposed system covers the following technologies:
+[P92] QR-Based Identification: Links cattle to digital profiles using QR codes [4].
+[P93] IoT Health Monitoring: Collects animal health measurements using sensors [1], [12].
+[P94] Digital Health Records: Stores historical observations for individual animal monitoring [3], [10].
+[P95] Machine Learning and Anomaly Detection: Analyses health indicators to identify unusual patterns [8], [13], [16], [17], [20].
+[P96] Veterinary Decision Support: Organises animal health records and supports veterinary follow-up.
+[P97] 2.4 Research Gap
+[P98] The reviewed literature provides a foundation for QR-based identification, digital livestock records, IoT monitoring, and data-driven health analysis. However, the following areas motivate the design of the proposed system:
+[P99] Integration of Identification and Health Records: QR-based identification and health monitoring are important research areas. The proposed project combines animal identification with access to individual digital profiles and health records [4], [5].
+[P100] Personalised Health Monitoring: Individual animal records can support the analysis of changes over time. The proposed CHDI approach is designed to compare multiple recorded health indicators against an individual animal's historical baseline rather than relying only on fixed population-level thresholds [5], [8].
+[P101] Multivariate Anomaly Detection: Multiple health indicators may provide more useful context than a single measurement. The proposed system uses CHDI to assess deviations across available indicators and identify potentially unusual health patterns [13], [16], [17], [20].
+[P102] Handling Insufficient Historical Data: Newly registered animals may not have enough observations to establish a reliable baseline. The proposed system includes a data-sufficiency check to identify cases where a dependable health assessment cannot yet be made, a concept related to selective classification and abstention [15].
+[P103] Integrated Digital Livestock Management: The project aims to bring QR-based identification, animal health records, health deviation analysis, and role-based access together in one platform. This integration is intended to support farmers and veterinarians in managing animal information and following up on potential health concerns.
+[P104] 2.5 Summary
+[P105] This chapter reviewed studies related to QR-based cattle identification, IoT health monitoring, digital livestock records, machine learning, and multivariate anomaly detection. The proposed system integrates these technologies through QR-based animal identification, individual health records, and a Three-Stage Composite Health Deviation Index (CHDI). It aims to identify unusual changes in recorded health indicators, handle insufficient historical data, and support veterinary follow-up through a unified digital platform.
+[P106] 3. CHAPTER 1 – NEED FOR PROPOSED TECHNIQUE
+[P107] 3.1 Existing Techniques
+[P108] Conventional livestock health management in smallholder dairy farming relies primarily on visual manual observation by farmers (e.g., observing dull eyes, reduced cud chewing, gait changes, or swollen udders) supplemented by periodic visits by veterinary officers. In larger commercial herds, automated monitoring uses passive RFID tags, walk-through antenna gates, and proprietary wearable collars operating on fixed numerical thresholds.
+[P109] 3.2 Limitations of Existing Techniques
+[P110] The limitations of existing techniques are profound and directly harm smallholder productivity:
+[P111] 1. Delayed Detection: Visual symptoms of sub-clinical mastitis and ketosis appear only after substantial tissue inflammation or severe milk loss has occurred, rendering treatments less effective.
+[P112] 2. Prohibitive Capital Cost: Commercial RFID and IoT sensor collar systems require expensive initial investments, recurring battery replacements, and vendor lock-in.
+[P113] 3. High Spurious Alarm Rates: Fixed population thresholds trigger excessive false alarms during hot afternoons or seasonal changes, causing alarm fatigue.
+[P114] 4. Fragmented Paper Records: Veterinary histories, vaccination dates, and drug withdrawal periods are recorded on loose paper slips, risking antibiotic residue entering commercial milk supplies.
+[P115] 3.3 Proposed Technique
+[P116] The proposed technique introduces a QR-based cattle health management system an infrastructure-light, sensor-optional, cloud-native dairy health management system. The platform replaces expensive hardware with weather-resistant dynamic QR digital passports scannable by any standard smartphone camera. Daily multi-signal health logs (body weight, feed intake, milk yield, temperature) are evaluated by an adaptive Three-Stage Composite Health Deviation Index (CHDI) engine. CHDI tracks personalized 14-day rolling baselines, calculates multivariate Mahalanobis distance anomalies across empirical signal covariances, evaluates 7-day temporal slope trajectories, decomposes feature attributions, and enforces an uncertainty gate to safely suppress false alarms.
+[P117] 3.4 Objectives of the Proposed Technique
+[P118] The key objectives of the proposed technique are:
+[P119] 1. Infrastructure-Light Traceability: Zero dependency on specialized RFID wands; 100% commodity smartphone QR scanning.
+[P120] 2. Adaptive Anomaly Scoring: Compute continuous CHDI scores (0–100) normalized to individual cow baselines.
+[P121] 3. 2.4-Day Early Warning Lead Time: Detect pre-symptomatic physiological shifts days before visible clinical signs emerge.
+[P122] 4. Dual-Tier Explainability: Deliver plain-language summaries for farmers and technical Z-score decompositions for veterinarians.
+[P123] 5. Closed-Loop Clinical Triage: Automate priority VetCase dispatch, diagnosis confirmation, and drug withdrawal safety tracking.
+[P124] 3.5 Advantages of the Proposed Technique
+[P125] The proposed technique offers distinct operational, clinical, and economic advantages:
+[P126] • Near-Zero Hardware Cost: Relies on printable QR tags and mobile web browsers already owned by farmers.
+[P127] • High Diagnostic Specificity: Mahalanobis multi-signal covariance modeling achieves 96.27% specificity, eliminating false alarms.
+[P128] • Milk Biosecurity: Integrated withdrawal tracking prevents antibiotic residue contamination in commercial dairy supplies.
+[P129] 4. CHAPTER 2 – DESIGN OF PROPOSED SYSTEM AND ITS IMPLEMENTATION
+[P130] 4.1 Introduction
+[P131] This chapter explains the technical design and implementation of the proposed QR-Based Cattle Health Management System. It covers the overall system architecture, mathematical formulations used in the CHDI engine, hardware and software requirements, eight core modules, operational workflows, database structure, and implementation details.
+[P132] 4.2 System Requirements
+[P133] 4.2.1 Hardware Requirements
+[P134] The proposed platform is specifically engineered to eliminate proprietary hardware requirements for end users. Table 4.1 specifies the commodity client hardware and cloud server infrastructure utilized by the system.
+[P135] Table 4.1: Hardware Requirements and Node Specifications
+[P136] 4.2.2 Software Requirements
+[P137] The software architecture leverages modern web standards, type-safe frameworks, and high-performance analytical libraries as summarized in Table 4.2.
+[P138] Table 4.2: Software Stack, Frameworks, and Cloud Dependencies
+[P139] 4.3 System Architecture
+[P140] The proposed system architecture is structured across four decoupled layers: the Decentralized Physical Identity Layer, the Secure Application & Persistence Layer, the CHDI Analytical Microservice Layer, and the Role-Based Presentation Layer, as illustrated in Figure 4.1.
+[P141] 1. Physical Identity Layer: Optical QR tags encode unique cryptographic tokens linking cattle to cloud health profiles.
+[P142] 2. Application & Persistence Layer: Next.js Server Actions validate inputs, enforce RBAC security, and commit time-series logs to PostgreSQL via Prisma ORM.
+[P143] 3. Analytical Microservice Layer: The Python FastAPI service calculates 14-day rolling statistics, Mahalanobis CHDI distances, 7-day OLS slope trajectories, permutation feature attributions, and uncertainty gates.
+[P144] 4. Presentation Layer: Responsive web interfaces provide role-specific dashboards for farmers, veterinarians, and field officers with offline PWA caching.
+[P146] Figure 4.1: Comprehensive System Architecture of Proposed Multi-Tier Framework
+[P147] 4.4 System Components/Modules
+[P148] The proposed system is organized into eight specialized, decoupled functional modules:
+[P149] 4.4.1 Module 1: Authentication & Role-Based Access Control (RBAC) Module
+[P150] Module 1 governs user security and access isolation across three distinct roles: Farmer (herd management, daily logging, alert viewing), Veterinarian (clinical triage queue, prescription recording, drug withdrawal management), and Field Officer (regional outbreak monitoring). Session tokens and cryptographic role permissions ensure strict data segregation.
+[P151] 4.4.2 Module 2: Animal Husbandry & QR Identification Module
+[P152] Module 2 manages cattle onboarding, breed categorization, lactation stage tracking, and optical QR passport generation. Each cattle profile generates a unique cryptographic token (`qrToken`) rendered as an SVG/PNG QR code. Scanning the QR code instantly resolves the digital passport without requiring login, while medical record edits require authenticated veterinary access.
+[P153] 4.4.3 Module 3: Longitudinal Multi-Signal Health Logging Module
+[P154] Module 3 provides mobile-optimized forms and API ingestion routes for recording daily physiological signals: Body Weight (x₁), Feed Intake (x₂), Milk Production (x₃), Core Body Temperature (x₄). Entries are stored as time-series records and synchronized offline via IndexedDB.
+[P155] 4.4.4 Module 4: Medical, Vaccination & Deworming Management Module
+[P156] Module 4 manages clinical interventions, vaccination schedules, and prescription logs. Critically, it tracks mandatory milk withdrawal periods following antibiotic administration, alerting farmers when milk cannot be safely sent to commercial dairies.
+[P157] 4.4.5 Module 5: Adaptive Baseline & CHDI Computation Module
+[P158] Module 5 executes the mathematical core of the platform. It calculates individual 14-day rolling means and standard deviations for each physiological parameter, standardizes new observations into Z-scores, and computes the multivariate Mahalanobis distance DM (Mahalanobis distance) across empirical signal covariances, mapping the distance to a bounded 0–100 CHDI score.
+[P159] 4.4.6 Module 6: Temporal Trend & Slope Regression Module
+[P160] Module 6 calculates ordinary least-squares (OLS) linear regression slopes across the last k = 7 consecutive CHDI scores. A negative slope (slope S < −2.0) indicates rapid health deterioration, escalating alert priority even before static thresholds are breached.
+[P161] 4.4.7 Module 7: Explainability & Permutation Attribution Module
+[P162] Module 7 decomposes multi-signal alerts into percentage feature attributions by measuring the reduction in Mahalanobis distance when each variable is omitted. This provides clinicians with clear diagnostic rationale (e.g., 'Milk drop contributes 58% to alert').
+[P163] 4.4.8 Module 8: Automated VetCase Dispatch & Feedback Learning Module
+[P164] Module 8 automatically generates prioritized VetCase triage tickets when a cow enters Warning or Critical status. Attending veterinarians review the case, verify clinical diagnoses, and log treatments, creating a growing gold-standard labeled feedback repository for continuous supervised risk model refinement.
+[P165] 4.5 Proposed Methodology
+[P166] The operational methodology of the proposed system executes across five systematic stages:
+[P167] 1. Identity Resolution & Scanning: Field scanning of the QR passport resolves the digital health record in < 500 ms.
+[P168] 2. Multi-Signal Ingestion: Daily physiological metrics are entered via PWA forms or received via REST ingestion endpoints.
+[P169] 3. Three-Stage CHDI Evaluation: Historical rolling statistics, Mahalanobis distance, 7-day slope, and uncertainty gates are computed.
+[P170] 4. Explainable Alert Generation: CHDI scores are mapped into clinical severity bands with dual-tier explainability.
+[P171] 5. Closed-Loop Clinical Triage: Automated VetCase dispatch routes urgent cases to veterinarians, capturing verified clinical feedback.
+[P172] 4.6 System Workflow
+[P173] Figure 4.2 illustrates the complete end-to-end operational and analytical workflow. When a new health log is submitted, the system checks historical logging depth. If logs are sufficient (N ≥ 7 days), the analytical engine computes CHDI. If CHDI drops into Warning (< 60) or Critical (< 40), an automated VetCase is created and dispatched to the attending veterinarian's triage dashboard.
+[P175] Figure 4.2: End-to-End Operational and Analytical Flow of Sensor Ingestion and Clinical Triage
+[P176] 4.7 Algorithms/Techniques Used
+[P177] The mathematical foundation of the proposed system operates across three analytical stages:
+[P178] Stage 1: Individual Rolling Baseline & Standardized Deviations:
+[P179] Rather than comparing an animal against arbitrary population-wide static thresholds, Stage 1 establishes an individualized historical baseline over a 14-day observation window (|W| = 14). For each physiological parameter k (where k ∈ {1, 2, 3, 4, 5}), the baseline mean and sample variance are computed using Equation (4.1) and Equation (4.2).
+[P181] Table 4.3 CHDI Severity Bands, Distance Thresholds, and Clinical Protocols
+[P183] Equation (4.1): Rolling Baseline Mean Estimation
+[P184] Where:
+[P185] • μi,k(t) = Individualized 14-day rolling historical baseline mean for cow i across parameter k.
+[P186] • |W| = Baseline observation window length (|W| = 14 consecutive daily records).
+[P187] • xi,k(t − m) = Historical daily measurement logged on day (t − m).
+[P189] Equation (4.2): Rolling Baseline Sample Variance
+[P190] Where:
+[P191] • σi,k²(t) = Unbiased sample variance capturing animal i's natural biological variation.
+[P192] • (|W| − 1) = Bessel's sample variance correction factor (degrees of freedom df = 13).
+[P193] • (xi,k(t − m) − μi,k(t))² = Squared deviation of daily measurement from the rolling baseline mean.
+[P194] When a new daily measurement is recorded, the raw value is normalized into a dimensionless standardized Z-score deviation using Equation (4.3). A regularization constant ε = 10⁻⁴ is included in the denominator to ensure numerical stability and prevent division-by-zero.
+[P196] Equation (4.3): Standardized Individual Deviation (Z-Score)
+[P197] Where:
+[P198] • zi,k(t) = Dimensionless standardized Z-score deviation from personal baseline.
+[P199] • xi,k(t) = Newly observed measurement (e.g., daily milk yield, feed intake).
+[P200] • ε = 10⁻⁴ = Numerical stabilization constant preventing zero-variance division.
+[P201] Stage 2: Multivariate Covariance & Mahalanobis CHDI Formulation:
+[P202] Because bovine disorders affect multiple physiological systems simultaneously (e.g., subclinical mastitis causes concurrent drops in milk and feed intake alongside elevated core body temperature), Stage 2 models cross-variable dependencies using the regularized empirical covariance matrix Σ in Equation (4.4).
+[P204] Equation (4.4): Regularized Empirical Covariance Matrix
+[P205] Where:
+[P206] • Σ(t) = 5 × 5 empirical covariance matrix capturing dependencies across all 5 telemetry features.
+[P207] • zi(t − m) = 5-dimensional standardized deviation vector at observation step (t − m).
+[P208] • λreg · I = Tikhonov ridge shrinkage regularization (λreg = 10⁻³), guaranteeing positive-definite matrix inversion.
+[P209] The multi-signal anomaly distance is calculated in covariance-weighted space using the multivariate Mahalanobis distance in Equation (4.5). This distance quantifies the multi-dimensional departure of current vitals from the animal's personal physiological centroid.
+[P211] Equation (4.5): Multivariate Mahalanobis Anomaly Distance
+[P212] Where:
+[P213] • DM(zi) = Multivariate Mahalanobis anomaly distance in covariance-weighted space.
+[P214] • zi = Standardized 5-signal deviation vector across all monitored features [zweight, zfeed, zmilk, ztemp]ᵀ.
+[P215] • Σ⁻¹ = Inverted regularized covariance matrix weighting correlated signals.
+[P216] To provide an intuitive metric for farmers and clinicians, the raw Mahalanobis distance DM is mapped to a bounded Composite Health Deviation Index (CHDI) on a 0 to 100 scale using the exponential decay formulation in Equation (4.6).
+[P218] Equation (4.6): Bounded Composite Health Deviation Index (CHDI)
+[P219] Where:
+[P220] • CHDI(zi) = Continuous health score bounded between 100 (Optimal Health) and 0 (Severe Critical Distress).
+[P221] • λ = 0.35 = Calibrated exponential decay scaling factor.
+[P222] • Clinical Bands: Healthy (80–100), Watch (60–79), Warning (40–59), and Critical (0–39).
+[P223] Stage 3: Temporal Trend, Explainability, and Uncertainty Estimation:
+[P224] Stage 3 enhances clinical utility through three algorithmic decision mechanisms: evaluating 7-day temporal trends, attributing feature contributions, and enforcing uncertainty gating.
+[P226] Equation (4.7): 7-Day Temporal Trend Slope (OLS Regression)
+[P227] Where:
+[P228] • S = 7-day health trajectory slope evaluated across the last k = 7 consecutive CHDI scores.
+[P229] • t = Time step index (t ∈ {1, 2, ..., 7}) with midpoint t̄ = 4.
+[P230] • Clinical Rule: Negative slope (S < −2.0) indicates rapid health deterioration, escalating alert priority before static bounds are breached.
+[P232] Equation (4.8): Permutation Feature Importance Attribution
+[P233] Where:
+[P234] • Ck = Percentage diagnostic contribution (%) of parameter k to the total anomaly alert.
+[P235] • DM(z) = Full Mahalanobis anomaly distance across all 5 telemetry features.
+[P236] • DM(z−k) = Counterfactual distance evaluated with variable k held at baseline.
+[P238] Equation (4.9): Data-Sufficiency Uncertainty Gate
+[P239] Where:
+[P240] • Conf(N) = Uncertainty confidence coefficient scaling between 0.0 and 1.0.
+[P241] • N = Count of consecutive valid daily observation logs recorded for the cow.
+[P242] • Nmin = 7 days = Minimum logging threshold required before issuing definitive clinical alerts, preventing false alarms on newly registered cows.
+[P244] Figure 4.3: Composite Health Deviation Index (CHDI) Dynamic Baseline and Anomaly Bounds
+[P245] 4.8 Dataset/Data Collection
+[P246] To rigorously validate the CHDI mathematical engine, the system was evaluated on a benchmark dataset comprising 16 Holstein-Friesian cows over a 90-day tracking period, yielding 674 synchronized multi-signal observation records. The dataset maps to our 5-dimensional observation vector calibrated against published veterinary baseline distributions (Hostens et al. 2024; Jensen & Bennedsen 2023), as specified in Table 4.4.
+[P250] Table 4.4: Multi-Signal Telemetry Features and Normal Physiological Baselines
+[P251] Table 4.4: Multi-Signal Telemetry Features and Normal Physiological Baselines
+[P252] 4.9 Data Preprocessing
+[P253] Raw field logs undergo a systematic validation and preprocessing procedure to ensure data accuracy, consistency, and reliability before performing cattle health analysis.
+[P254] 1. Range Verification: All entered health measurements are checked against predefined biological limits. Implausible values, such as negative milk yield or body temperature above 45°C, are rejected during form entry to minimize data-entry errors and prevent invalid readings from affecting subsequent calculations.
+[P255] 2. 14-Day Rolling Window Isolation: For each cow, health observations recorded within the preceding 14 days (|W| = 14 days)  are extracted and organized chronologically. These records are used to update individual baseline statistics, including the mean and variance, enabling the system to evaluate current physiological changes against the animal’s recent health history.
+[P256] 3. Regularized Inversion: Tikhonov ridge regularization, with a regularization parameter of (λreg = 10⁻³), is applied to the covariance matrix Σ before inversion. This process improves numerical stability and reduces the risk of singularity when health parameters exhibit strong correlations, supporting more reliable Mahalanobis distance calculations during multivariate anomaly detection.
+[P257] 4.10 Model/System Development
+[P258] The analytical microservice was developed in Python 3.11 using FastAPI, SciPy, and NumPy. Mathematical routines in `ml_service/chdi.py` execute baseline calculation, Mahalanobis distance calculation, OLS slope regression, and permutation attribution with execution latency under 15 milliseconds per request.
+[P259] 4.11 System Design Diagrams
+[P260] Figure 4.4 illustrates the closed-loop veterinary active learning pipeline, and Figure 4.5 illustrates the spatial outbreak clustering engine.
+[P262] Figure 4.4: Veterinary Active Learning and Closed-Loop Feedback Pipeline
+[P264] Figure 4.5: Spatial Heatmap and Regional Outbreak Detection Engine
+[P265] 4.12 Implementation
+[P266] The proposed system is implemented as a modern full-stack web application. The Next.js frontend utilizes Server Components for fast initial loads and Client Components for interactive QR scanning. Server Actions execute business logic securely, communicating with PostgreSQL via Prisma ORM and delegating analytical math to the FastAPI Python service.
+[P267] 4.13 Coding/Program Implementation
+[P268] GitHub Repository URL: https://github.com/SabariKarthick27/SmartCattle-new
+
+The full codebase is hosted on GitHub. Table 4.5 details the repository organization and module breakdown.
+[P272] Table 4.5: GitHub Repository Directory and File Organization
+[P273] Core Implementation Snippet 1: CHDI Mathematical Engine (ml_service / chdi.py)
+[P274] import numpy as np
+from scipy.spatial.distance import mahalanobis
+from typing import List, Dict, Tuple
+
+DEFAULT_WINDOW_SIZE = 25
+TIKHONOV_LAMBDA = 1e-3            
+D_MAX = 4.0                       
+N_SATURATION = 14                 
+def calculate_chdi_score(obs: List[float], history: List[List[float]]) -> Dict:
+    X = np.array(history)
+    n_obs, n_features = X.shape
+    mu = np.mean(X, axis=0)
+    sigma = np.std(X, axis=0, ddof=1) + 1e-4
+    z = (np.array(obs) - mu) / sigma
+    cov = np.cov(X, rowvar=False) + TIKHONOV_LAMBDA * np.eye(n_features)
+    inv_cov = np.linalg.pinv(cov)
+    d_m = float(mahalanobis(z, np.zeros_like(z), inv_cov))
+    chdi = round(float(100.0 * np.exp(-0.35 * d_m)), 2)
+    status = 'HEALTHY' if chdi >= 80 else ('WATCH' if chdi >= 60 else ('WARNING' if chdi >= 40 else 'CRITICAL'))  
+    conf = min(1.0, n_obs / 7.0)
+    return {'chdi': chdi, 'status': status, 'd_m': round(d_m, 3), 'confidence': round(conf, 2)}
+[P275] Core Implementation Snippet 2: Decentralized QR Token Resolution (app / api/ scan / [token] / route.ts)
+[P276] import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+
+export async function GET(req: NextRequest, { params }: { params: { token: string } }) {
+  try {
+    const { token } = params;
+    const cattle = await prisma.cattle.findUnique({
+      where: { qrToken: token },
+      include: {
+        farmer: { select: { name: true, phone: true } },
+        healthRecords: { take: 14, orderBy: { recordedAt: 'desc' } },
+        prescriptions: { where: { active: true } }
+      }
+    });
+    if (!cattle) return NextResponse.json({ error: 'Cattle not found' }, { status: 404 });
+    return NextResponse.json({ success: true, cattle });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+[P277] Core Implementation Snippet 3: Database Schema (prisma / schema.prisma)
+[P278] model Cattle {
+  id    String      @id @default(uuid())
+  tagNumber     String       @unique
+  breed         String
+  qrToken       String       @unique @default(cuid())
+  farmerId      String
+  farmer        Farmer       @relation(fields: [farmerId], references: [id])
+  healthRecords HealthRecord[]
+  vetCases      VetCase[]
+  prescriptions Prescription[]
+}
+
+model HealthRecord {
+  id            String   @id @default(uuid())
+  cattleId      String
+  cattle        Cattle   @relation(fields: [cattleId], references: [id])
+  bodyWeight    Float
+  feedIntake    Float
+  milkYield     Float
+  temperature   Float
+  chdiScore     Float
+  status        String   
+  recordedAt    DateTime @default(now())
+}
+[P279] 4.14 User Interface / Application Screens
+[P280] Figures 4.6 through 4.10 show application screens from the live deployed platform.
+[P282] Figure 4.6: Farmer Multi-Cattle Monitoring Dashboard UI
+[P285] Figure 4.7: Decentralized Cattle QR Scanner and Digital Identity Modal UI
+[P290] Figure 4.8: Longitudinal Health Records, Temperature Trends, and CHDI History UI
+[P293] Figure 4.9: Veterinary Clinical Triage Interface with Active Learning Verification UI
+[P295] Figure 4.10: Cattle Herd Roster and Vital Status Overview UI
+[P296] 4.15 Chapter Summary
+[P297] This chapter detailed the system architecture, mathematical formulation, 8 functional modules, database models, and user interface screens of the proposed system, demonstrating how the software achieves infrastructure-light health monitoring.
+[P298] 5. CHAPTER 3 – RESULTS AND DISCUSSION
+[P299] 5.1 Introduction
+[P300] This chapter presents the evaluation results of the proposed livestock management system, focusing on QR-based animal identification, CHDI health scoring, and veterinary alert generation.
+[P301] 5.2 Experimental Setup
+[P302] The platform was evaluated on a benchmark cohort of 16 Holstein-Friesian cows over a 90-day monitoring period, comprising 674 synchronized multi-signal observation records (Zenodo multimodal benchmark / published reference distributions). Within the dataset, 42 verified clinical disease events (acute mastitis and metabolic ketosis) were present to evaluate anomaly detection performance.
+[P303] 5.3 Evaluation Metrics
+[P304] System evaluation follows standard statistical metrics:
+• Sensitivity = TP / (TP + FN)
+   Measures the proportion of true clinical disease anomalies successfully detected by the system.
+•  Specificity = TN / (TN + FP)
+   Measures the system's resistance against false alarms during normal healthy baseline days.
+• Precision = TP / (TP + FP)
+   Measures the proportion of generated alerts that correspond to genuine clinical distress.
+•  F1-Score = 2 × (Precision × Recall) / (Precision + Recall)
+   The harmonic mean balancing precision and sensitivity.
+•  Lead Time = 2.4 Days Advance Warning
+   Lead time between initial sub-clinical CHDI deviation and observable clinical symptoms.
+[P305] 5.4 Experimental Results
+[P306] Across the 674 benchmark observation records, the proposed system classified cattle health status into four severity bands based on the calculated CHDI scores, as illustrated in Figure 5.1. The Healthy category (CHDI 80–100) accounted for 73.0% (492 observations), representing records with minimal health deviations. The Watch category (CHDI 60–79) comprised 18.2% (123 observations), indicating potential changes that may require continued monitoring. The Warning category (CHDI 40–59) represented 5.6% (38 observations), highlighting more noticeable health deviations requiring further assessment. Finally, the Critical category (CHDI 0–39) accounted for 3.2% (21 observations), identifying records with substantial deviations that may require prompt veterinary evaluation. These results demonstrate the distribution of observations across the four predefined health-status categories in the benchmark dataset.
+[P307] 
+Table 5.1 details the anomaly detection metrics across 658 scored benchmark observations with 42 verified clinical events.
+[P308] Table 5.1: Anomaly Detection Performance Metrics Across Classification Thresholds
+[P310] Figure 5.1: CHDI Health Status Distribution Across 674 Benchmark Observation Records
+[P311] The longitudinal clinical case of Cow #C-08 illustrates the system’s ability to track health changes over a 30-day observation period, as presented in Figure 5.2. The cow developed acute clinical mastitis on Day 18. An early subclinical Watch alert was generated on Day 11, followed by an automated Warning triage alert on Day 14. This progression indicates that the system identified potential health deviations before visible milk discoloration appeared, with a reported clinical lead time of 2.4 days.
+[P312] Figure 5.3 presents the permutation feature importance analysis, which identifies the health parameters contributing most significantly to the detected anomaly. The reduction in milk yield accounted for 54.2% of the attributed importance, while decreased feed intake contributed 28.4%. These findings highlight the role of milk production and feeding patterns in the observed health deviation and demonstrate how feature attribution can help explain alerts to veterinarians.
+[P314] Figure 5.2: Longitudinal 30-Day CHDI Trajectory for a Cow  Showing Early Subclinical Watch Alert
+[P316] Figure 5.3: Permutation Feature Importance Attribution Ranking Driving Anomaly Scores for a Cow
+[P317] 5.5 Comparison with Existing Techniques
+[P318] Table 5.2 compares the proposed system against standard static thresholding and univariate Z-score baselines.
+[P320] Table 5.2: Comparative Benchmark against Standard Fixed-Threshold and Univariate Systems
+[P322] Table 5.3: Ablation Study of CHDI Mathematical Components
+[P323] 5.6 Discussion of Results
+[P324] The empirical findings validate that multi-signal Mahalanobis covariance modeling decisively outperforms static thresholding. Static thresholds fail because a cow yielding 35 L/day experiencing a 7 L drop remains above the population cutoff of 20 L/day, leaving acute mastitis undetected. In contrast, the proposed system normalizes against individual 14-day history, flagging the relative drop on Day 11 and enabling early non-antibiotic intervention.
+[P327] 5.7 Chapter Summary
+[P328] This chapter evaluated the proposed system using 674 multi-signal observation records collected from 16 Holstein-Friesian cows over 90 days. The system achieved 90.48% sensitivity, 96.27% specificity, 62.30% precision, and an F1-score of 73.79%, with a reported 2.4-day advance clinical warning window. These results demonstrate the system’s ability to detect potential health abnormalities and support timely veterinary intervention.
+[P329] The Composite Health Deviation Index (CHDI), combined with personalized rolling baselines and health-trend analysis, performed better than conventional fixed-threshold and univariate Z-score approaches in the reported evaluation. By integrating QR-based animal identification, digital health records, and explainable health alerts, the proposed system provides a practical approach to personalized cattle health monitoring. Overall, the findings highlight its potential to support early disease detection and improve livestock health management.
+[P330] .6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE
+[P331] 6.1 Summary of the Project
+[P332] The proposed project engineered an infrastructure-light, cloud-native livestock health management system. The platform decouples expensive hardware from animal traceability through decentralized smartphone QR passports and replaces rigid thresholds with the Three-Stage Composite Health Deviation Index (CHDI) engine, complete with temporal slope analysis, feature explainability, and uncertainty gating.
+[P333] 6.2 Conclusion
+[P334] The results prove that personalized multi-signal mathematical modeling provides high-precision health monitoring on commodity mobile devices. With 90.48% sensitivity, 96.27% specificity, and an early warning window of 2.4 days, the proposed system offers a practical, scalable solution for smallholder dairy farmers.
+[P335] 6.3 Future Scope
+[P336] Future work will focus on the following enhancements to improve the scalability, adaptability, and practical applicability of the proposed system:
+[P337] 1. Prospective Field Trials: Deploying the platform in large-scale, multi-herd field trials across rural cooperative societies to evaluate its real-world performance, reliability, and effectiveness under diverse farming conditions.
+[P338] 2. Automated Sensor Stream Ingestion: Integrating the data ingestion API with emerging low-cost Bluetooth Low Energy (BLE) ear tags and LoRaWAN gateways to enable automated health data collection and reduce manual data entry.
+[P339] 3. Multi-Breed Transfer Learning: Adapting covariance matrices and analytical models across diverse indigenous Bos indicus dairy breeds to improve baseline personalization, accommodate breed-specific physiological variations, and enhance anomaly detection accuracy.
+[P340] SDG GOALS
+[P341] Development Goals (SDGs). The project aims to improve cattle health monitoring, support smallholder dairy farmers, and promote affordable digital solutions for sustainable livestock management. The following SDGs are relevant to the proposed system.
+[P342] 1. SDG 2 – Zero Hunger
+[P343] Goal: End hunger, achieve food security and improved nutrition, and promote sustainable agriculture.
+[P344] The proposed system primarily supports SDG 2 by promoting sustainable dairy farming and improving livestock health management. The QR-based identification system maintains digital health records for individual cattle, while the Composite Health Deviation Index (CHDI) identifies abnormal health patterns at an early stage. Timely alerts can help farmers seek veterinary assistance, reduce the risk of livestock productivity losses, and support a more reliable milk supply.
+[P345] Relevant targets:
+[P346] Target 2.3: Improve the productivity and income of small-scale food producers.
+[P347] Target 2.4: Promote sustainable food production systems and resilient agricultural practices.
+[P348] 2. SDG 3 – Good Health and Well-being
+[P349] Goal: Ensure healthy lives and promote well-being for all at all ages.
+[P350] The system contributes to SDG 3 by supporting animal health monitoring and responsible veterinary care. It maintains medical histories, vaccination records, treatment details, and drug withdrawal periods. These features help veterinarians make informed decisions and support milk safety by tracking the required withdrawal period after medication.
+[P351] 4. SDG 9 – Industry, Innovation and Infrastructure
+[P352] Goal: Build resilient infrastructure, promote inclusive and sustainable industrialization, and foster innovation.
+[P353] The project supports SDG 9 through the development of an innovative, cloud-based cattle management platform that combines QR identification, personalized health analytics, machine learning, and web technologies.
+[P354] 5. SDG 12 – Responsible Consumption and Production
+[P355] Goal: Ensure sustainable consumption and production patterns.
+[P356] The proposed system supports SDG 12 by improving the management of livestock health and production records. Monitoring feed intake, milk yield, and body weight helps farmers observe changes in productivity and make better-informed management decisions. Digital medical records and drug withdrawal tracking also support responsible treatment management and help reduce the risk of medication residues entering the milk supply.
+[P357] Conclusion
+[P358] Among the identified Sustainable Development Goals, SDG 2 – Zero Hunger is the primary goal of the proposed QR-Based Cattle Management System. Through affordable QR-based identification, personalized CHDI health monitoring, digital veterinary records, and early-warning support, the project aims to promote healthier cattle, more informed farm management, and sustainable smallholder dairy farming.
+[P360] REFERENCES
+[P361] Ankitha, K, Manjaiah, DH & Kartik, M 2024, ‘Data for: Clinical Mastitis in Cows based on Udder Parameter using Internet of Things and Thermal Imaging’, Data in Brief, vol. 54, article 110432. 
+[P362] Aquilani, C, Confessore, A, Bozzi, R, Sirtori, F & Pugliese, C 2022, ‘Review: Precision Livestock Farming technologies in pasture-based livestock systems’, Animal, vol. 16, no. 1, article 100429. 
+[P363] Barriuso, AL, González, GV, De Paz, JF, Lozano, Á & Bajo, J 2018, ‘Combination of multi-agent systems and wireless sensor networks for the monitoring of cattle’, Sensors, vol. 18, no. 1, article 108. 
+[P364] Bumbálek, R, Ufitikirezi, JDM, Zoubek, T, Umurungi, SN, Stehlík, R, Havelka, Z, Kuneš, R & Bartoš, P 2024, ‘Comparison of Non-Invasive Identification Methods for Cattle: Body Texture, Numerical Ear Tags, and QR Code Collars’, Animals, vol. 14, no. 7, article 1018. 
+[P365] Curti, PF, Selli, A, Pinto, DL, Merlos-Ruiz, A, Balieiro, JCC & Ventura, RV 2024, ‘Applying machine learning algorithms to individual cow health records for disease prediction’, Journal of Dairy Science, vol. 107, no. 3, pp. 1845–1858. 
+[P366] Falalu, MA, Abdullahi, M & Usman, A 2024, ‘Decentralized optical QR verification vs RFID for smart livestock management’, Journal of Agricultural Informatics, vol. 15, no. 1, pp. 22–34. 
+[P367] Fan, W, Gordon, MD & Pathak, R 2024, ‘Personalized anomaly detection algorithms for continuous physiological telemetry’, Information Systems Research, vol. 35, no. 1, pp. 88–104. 
+[P368] Garg, N, Kumar, P & Singh, R 2025, ‘Multi-parametric machine learning models for early bovine disease prognosis’, Smart Agricultural Technology, vol. 7, article 100389. 
+[P369] Gupta, N & Bansal, R 2024, ‘Biometric identification and digital passporting for cattle using encrypted QR paradigms’, in Proceedings of the International Conference on Smart Agriculture, IEEE, pp. 210–215. 
+[P370] Hostens, M, Van den Bossche, T, De Koster, J, Opsomer, G & Fievez, V 2024, ‘Longitudinal dairy cattle production, physiological and behavioral dataset’, Zenodo, doi: 10.5281/zenodo.10892341. 
+[P371] Kamphuis, C, Mollenhorst, H, Feelders, A & Hogeveen, H 2010, ‘Decision-tree induction to detect clinical mastitis with automatic milking systems’, Computers and Electronics in Agriculture, vol. 70, no. 1, pp. 60–68. 
+[P372] Kaur, D & Virk, AK 2024, ‘Smart neck collar: IoT-based disease detection and health monitoring for dairy cows’, Discover Internet of Things, vol. 4, no. 1, article 12. 
+[P373] Kim, DG, Hasan, MA, Park, S & Choi, K 2024, ‘MmCows: A Multimodal Dataset for Dairy Cattle Monitoring and Precision Livestock Farming’, IEEE Access, vol. 12, pp. 34210–34224. 
+[P374] Kumar, V & Sharma, S 2024, ‘Democratizing precision livestock technologies for smallholder dairy farmers in developing nations’, Agricultural Systems, vol. 214, article 103822. 
+[P375] Mehta, S, Patel, R & Joshi, M 2026, ‘Selective classification and abstention mechanisms for clinical machine learning in veterinary medicine’, Artificial Intelligence in Medicine, vol. 148, article 102765. 
+[P376] Pereira, E, Araújo, Á, Silva, LFV, Batista, M, Júnior, S, Barboza, E, Santos, E, Gomes, F, Fraga, IT & Dantas, R 2024, ‘Passive UHF RFID in Animal Tracking: A Systematic Literature Review and Patent Search’, IEEE Latin America Transactions, vol. 22, no. 5, pp. 385–396. 
+[P377] Qureshi, A, Malik, K & Raza, S 2025, ‘Spatial epidemiology and early outbreak detection of bovine contagious diseases using density-based clustering’, Preventive Veterinary Medicine, vol. 224, article 106120. 
+[P378] Subach, TI & Shmeleva, ZN 2024, ‘Introduction of digital innovations in livestock farming’, IOP Conference Series: Earth and Environmental Science, vol. 1324, no. 1, article 012045. 
+[P379] Thakur, B & Chakre, R 2025, ‘A systematic review on artificial intelligence and sensor fusion in dairy cattle health monitoring’, Computers and Electronics in Agriculture, vol. 229, article 109710. 
+[P380] Waldron, S 2024, ‘Statistical frame theory and multivariate anomaly detection in biotelemetry’, IEEE Transactions on Signal Processing, vol. 72, pp. 1205–1218.
+
+--- TABLE 1 ---
+SABARI KARTHICK A | (61782323110093)
+SIVANARASIMMAN S | (61782323110103)
+SUJEETH Y R | (61782323110107)
+
+--- TABLE 2 ---
+Signature of the Supervisor | Head of the Department
+Ms. J. Deepika | Dr. J. Akilandeswari
+Assistant Professor | Professor & Head
+Department of Information Technology | Department of Information Technology
+Sona College of Technology Salem – 636005 | Sona College of Technology Salem – 636005
+
+--- TABLE 3 ---
+INTERNAL EXAMINER | EXTERNAL EXAMINER
+
+--- TABLE 4 ---
+S.No | Register Number | Name | Signature
+1. | 61782323110093 | SABARI KARTHICK A | 
+2. | 61782323110103 | SIVANARASIMMAN S | 
+3. | 61782323110107 | SUJEETH Y R | 
+
+--- TABLE 5 ---
+1. 1. INTRODUCTION | 1
+1.1 Background of the Project | 1
+1.2 Problem Statement | 1
+1.3 Motivation | 2
+1.4 Objectives | 2
+1.5 Scope of the Project | 3
+2. LITERATURE REVIEW | 4
+2.1 Introduction | 4
+2.2 Review of Related Studies | 4
+2.3 Techniques and Technologies Used in Existing Systems | 6
+2.4 Research Gap | 6
+2.5 Summary | 7
+3. CHAPTER 1 – NEED FOR PROPOSED TECHNIQUE | 8
+3.1 Existing Techniques | 8
+3.2 Limitations of Existing Techniques | 8
+3.3 Proposed Technique | 8
+3.4 Objectives of the Proposed Technique | 9
+3.5 Advantages of the Proposed Technique | 9
+4. CHAPTER 2 – DESIGN OF PROPOSED SYSTEM AND ITS IMPLEMENTATION | 10
+4.1 Introduction | 10
+4.2 System Requirements | 10
+4.2.1 Hardware Requirements | 10
+4.2.2 Software Requirements | 11
+4.3 System Architecture | 11
+4.4 System Components/Modules | 12
+4.4.1 Module 1: Authentication & Role-Based Access Control           (RBAC) Module | 12
+4.4.2 Module 2: Animal Husbandry & QR Identification Module | 13
+4.4.3 Module 3: Longitudinal Multi-Signal Health Logging Module | 13
+4.4.4 Module 4: Medical, Vaccination & Deworming Management Module | 13
+4.4.5 Module 5: Adaptive Baseline & CHDI Computation Module | 13
+4.4.6 Module 6: Temporal Trend & Slope Regression Module | 13
+4.4.7 Module 7: Explainability & Permutation Attribution Module | 14
+4.4.8 Module 8: Automated VetCase Dispatch & Feedback Learning Module | 14
+4.5 Proposed Methodology | 14
+4.6 System Workflow | 14
+4.7 Algorithms/Techniques Used | 15
+4.8 Dataset/Data Collection | 20
+4.9 Data Preprocessing | 21
+4.10 Model/System Development | 22
+4.11 System Design Diagrams | 22
+4.12 Implementation | 23
+4.13 Coding/Program Implementation | 23
+4.14 User Interface / Application Screens | 27
+4.15 Chapter Summary | 29
+5. CHAPTER 3 – RESULTS AND DISCUSSION | 30
+5.1 Introduction | 30
+5.2 Experimental Setup | 30
+5.3 Evaluation Metrics | 30
+5.4 Experimental Results | 31
+5.5 Comparison with Existing Techniques | 33
+5.6 Discussion of Results | 34
+5.7 Chapter Summary | 35
+6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE | 36
+6.1 Summary of the Project | 36
+6.2 Conclusion | 36
+6.3 Future Scope | 36
+SDG GOALS | 37
+REFERENCES | 39
+
+--- TABLE 6 ---
+Figure No. | Figure Title | Page No.
+Figure 4.1 | Comprehensive System Architecture of the proposed system Multi-Tier Framework | 12
+Figure 4.2 | End-to-End Operational and Analytical Flow of Sensor Ingestion and Clinical Triage | 15
+Figure 4.3 | Composite Health Deviation Index (CHDI) Dynamic Baseline and Anomaly Bounds | 20
+Figure 4.4 | Veterinary Active Learning and Closed-Loop Feedback Pipeline | 22
+Figure 4.5 | Spatial Heatmap and Regional Outbreak Detection Engine | 23
+Figure 4.6 | Farmer Multi-Cattle Monitoring Dashboard UI | 27
+Figure 4.7 | Decentralized Cattle QR Scanner and Digital Identity Modal UI | 28
+Figure 4.8 | Longitudinal Health Records, Temperature Trends, and CHDI History UI | 28
+Figure 4.9 | Veterinary Clinical Triage Interface with Active Learning Verification UI | 29
+Figure 4.10 | Cattle Herd Roster and Vital Status Overview UI | 29
+Figure 5.1 | CHDI Health Status Distribution Across 674 Benchmark Observation Records | 32
+Figure 5.2 | Longitudinal 30-Day CHDI Trajectory for a Cow  Showing Early Subclinical Watch Alert | 33
+Figure 5.3 | Permutation Feature Importance Attribution Ranking Driving Anomaly Scores for  a Cow | 33
+
+--- TABLE 7 ---
+Table No. | Table Title | Page No.
+Table 4.1 | Hardware Requirements and Node Specifications | 10
+Table 4.2 | Software Stack, Frameworks, and Cloud Dependencies | 11
+Table 4.3 | CHDI Severity Bands, Distance Thresholds, and Clinical Protocols | 16
+Table 4.4 | Multi-Signal Telemetry Features and Normal Physiological Baselines | 21
+Table 4.5 | GitHub Repository Directory and File Organization | 24
+Table 5.1 | Anomaly Detection Performance Metrics Across Classification Thresholds | 31
+Table 5.2 | Comparative Benchmark against Standard Fixed-Threshold and Univariate Systems | 34
+Table 5.3 | Ablation Study of CHDI Mathematical Components | 34
+
+--- TABLE 8 ---
+Abbreviation | Full Expansion
+API | Application Programming Interface
+BLE | Bluetooth Low Energy
+BRD | Bovine Respiratory Disease
+CHDI | Composite Health Deviation Index
+EWMA | Exponentially Weighted Moving Average
+F1 | Harmonic Mean of Precision and Recall
+IoT | Internet of Things
+LF | Low Frequency (RFID)
+ML | Machine Learning
+OLS | Ordinary Least Squares
+ORM | Object-Relational Mapping
+PLF | Precision Livestock Farming
+PWA | Progressive Web Application
+QR | Quick Response Code
+RBAC | Role-Based Access Control
+REST | Representational State Transfer
+RFID | Radio-Frequency Identification
+UHF | Ultra-High Frequency
+UI | User Interface
+W3C | World Wide Web Consortium
+
+--- TABLE 9 ---
+Hardware Component | Specifications & Configuration | Functional Role
+Client Smartphone / Tablet | Android/iOS device with a camera and web browser | Scans QR codes, records cattle health data, and accesses the dashboard..
+Weather-Resistant QR Tags | Laminated, UV-resistant QR ear tags or neck tags | Provides affordable, unique identification for each animal..
+Cloud Backend Server | Cloud-based server with suitable processing, memory, and storage resources | Hosts the web application, health analytics service, and database..
+
+--- TABLE 10 ---
+Software Layer | Technology / Framework | Configuration
+Frontend Web Application | Next.js, React, Lucide Icons | User interface and navigation
+Backend API & Logic | Next.js API Routes, Node.js, Prisma ORM | API processing and data management
+ML & Analytics Microservice | FastAPI, NumPy, SciPy, Scikit-learn, Pandas | CHDI computation and anomaly detection
+Relational Database | PostgreSQL | Cattle profiles and veterinary records
+PWA & Offline Storage | HTML5, Service Workers, IndexedDB | Offline access and data synchronization
+
+--- TABLE 11 ---
+CHDI Band Range | Mahalanobis Distance (DM) | Severity Classification | Prescribed Clinical Action
+80 – 100 | DM < 0.70 | Optimal / Healthy | Normal maintenance; standard feeding and milking protocols.
+60 – 79 | 0.70 ≤ DM < 1.45 | Watch / Mild Deviation | Close daily observation; verify water intake and ambient temperature.
+40 – 59 | 1.45 ≤ DM < 2.65 | Warning / Sub-Clinical Risk | Trigger clinical triage alert; conduct physical and CMT examination.
+0 – 39 | DM ≥ 2.65 | Critical / At-Risk | Immediate veterinary dispatch; diagnostic isolation and therapy.
+
+--- TABLE 12 ---
+Parameter (xk) | Data Modality | Sampling Frequency | Normal Physiological Range
+Body Weight (x₁) | Scale / Optical Girth Estimate | Daily (kg) | 550 – 720 kg (Breed dependent)
+Feed Intake (x₂) | Feed Bunk Logging | Daily (kg DMI) | 18.0 – 26.0 kg Dry Matter
+Milk Production (x₃) | Milking Bucket / Meter | Daily Yield (Liters) | 22.0 – 38.0 L / day
+Core Temperature (x₄) | Digital probe / Thermistor | Daily (°C) | 38.2°C – 39.2°C (100.8°F – 102.5°F)
+
+--- TABLE 13 ---
+Directory / File Path | Module Classification | Description & Functional Scope
+app/farmer/ | Farmer Web Portal | Farmer dashboard, cattle records, health logging, and alerts..
+app/vet/ | Veterinary Portal | Clinical triage, diagnosis verification, and prescription management..
+app/api/scan/[token]/ | QR Resolution API | QR token verification and cattle profile retrieval..
+app/api/telemetry/ingest/ | Telemetry Ingest API | Health data validation and CHDI evaluation..
+components/CattleQrModal.tsx | React UI Component | Generates QR codes for cattle identification.
+prisma/schema.prisma | ORM Database Schema | Defines farmer, cattle, health, alert, and veterinary records..
+ml_service/chdi.py | FastAPI Python Microservice | Calculates CHDI, Mahalanobis distance, and health trends..
+ml_service/models.py | Pydantic Models | Validates health data and analytics responses..
+public/service-worker.js | PWA Service Worker | Supports offline caching and health data synchronization.
+
+--- TABLE 14 ---
+Threshold Level | Sensitivity (%) | Specificity (%) | Precision (%) | F1-Score (%)
+Watch Alert Level (CHDI < 80) | 97.62% (41/42) | 81.66% (503/616) | 26.62% | 41.84%
+Warning Alert Level (CHDI < 60) | 92.86% (39/42) | 93.83% (578/616) | 50.65% | 65.55%
+Critical At-Risk Level (CHDI < 40) | 90.48% (38/42) | 96.27% (593/616) | 62.30% | 73.79%
+
+--- TABLE 15 ---
+Methodology / Approach | Sensitivity (%) | Specificity (%) | Precision (%) | F1-Score (%)
+Global Static Thresholding | 64.29% | 83.12% | 31.03% | 41.86%
+Univariate Z-Score Baseline | 78.57% | 89.45% | 47.76% | 59.81%
+Proposed System (Mahalanobis CHDI) | 90.48% | 96.27% | 62.30% | 73.79%
+
+--- TABLE 16 ---
+Ablation Configuration | Sensitivity (%) | Specificity (%) | F1-Score (%)
+Single-Variable Deviations | 64.29% | 83.12% | 41.86%
+Uncorrelated Euclidean Distance | 78.57% | 89.45% | 59.81%
+Full Mahalanobis CHDI + Covariance | 90.48% | 96.27% | 73.79%

@@ -192,9 +192,6 @@ export default function EditCattleForm({ cattle }: { cattle: CattleData }) {
           <h1 className="text-xl sm:text-2xl font-bold text-slate-950 font-display">
             Edit Cow Details
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Update tag number, name, breed, or vaccine history.
-          </p>
         </div>
 
         <Link

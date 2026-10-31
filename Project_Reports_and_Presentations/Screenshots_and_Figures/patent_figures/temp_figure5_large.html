@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 1280px;
+    height: 940px;
+    background-color: #ffffff;
+    font-family: Arial, Calibri, 'Segoe UI', sans-serif;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .main-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #000000;
+    letter-spacing: 0.5px;
+    margin-bottom: 22px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .canvas-area {
+    width: 1240px;
+    height: 860px;
+    position: relative;
+  }
+
+  /* MS Word Style Flowchart Boxes */
+  .box {
+    position: absolute;
+    border: 2.5px solid #000000;
+    border-radius: 4px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .box-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 5px;
+  }
+
+  .box-subtitle {
+    font-size: 17px;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 6px;
+  }
+
+  .box-desc {
+    font-size: 15.5px;
+    color: #111111;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  /* Diamond Inner Text Container */
+  .diamond-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  .diamond-title {
+    font-size: 21px;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .diamond-desc {
+    font-size: 17px;
+    color: #000000;
+    font-weight: 700;
+  }
+
+  /* Branch Labels */
+  .branch-label {
+    position: absolute;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 3px;
+    padding: 3px 10px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #000000;
+    z-index: 15;
+    text-align: center;
+  }
+
+  /* SVG Layer */
+  .svg-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+  <div class="main-title">FIGURE 5: REGIONAL DISEASE OUTBREAK MONITORING PIPELINE</div>
+
+  <div class="canvas-area">
+    <svg class="svg-layer">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Arrows from 3 Farm Boxes to Central Aggregator (Aggregator top y=235) -->
+      <!-- Farm A (bottom x=215, y=175) to Aggregator (x=300, y=235) -->
+      <line x1="215" y1="175" x2="298" y2="233" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Farm B (bottom x=620, y=175) straight down to Aggregator (x=620, y=235) -->
+      <line x1="620" y1="175" x2="620" y2="233" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Farm C (bottom x=1025, y=175) to Aggregator (x=940, y=235) -->
+      <line x1="1025" y1="175" x2="942" y2="233" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Aggregator Bottom (x=620, y=385) down to Diamond Top (x=620, y=430) -->
+      <line x1="620" y1="385" x2="620" y2="428" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Decision Diamond: Center x=620, y=500. W=580, H=140. Top=430, Bottom=570, Left=330, Right=910 -->
+      <polygon points="620,430 910,500 620,570 330,500" fill="#ffffff" stroke="#000000" stroke-width="2.5" />
+
+      <!-- Arrow Branch NO (Left): from (330, 500) -> left to (260, 500) -> down to Left Box Top (260, 665) -->
+      <polyline points="330,500 260,500 260,663" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow Branch YES (Right): from (910, 500) -> right to (980, 500) -> down to Right Box Top (980, 665) -->
+      <polyline points="910,500 980,500 980,663" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+    </svg>
+
+    <!-- TOP ROW: 3 LOCAL FARM BOXES -->
+    <!-- FARM A -->
+    <div class="box" style="left: 30px; top: 35px; width: 370px; height: 140px; padding: 12px 14px;">
+      <div class="box-title">LOCAL FARM A</div>
+      <div class="box-subtitle">District Herd Health Data</div>
+      <div class="box-desc">
+        2 cows flagged with health anomalies<br>
+        (Milk drop &amp; rumination decline)<br>
+        Location: Regional Farm Cluster 1
+      </div>
+    </div>
+
+    <!-- FARM B -->
+    <div class="box" style="left: 435px; top: 35px; width: 370px; height: 140px; padding: 12px 14px;">
+      <div class="box-title">LOCAL FARM B</div>
+      <div class="box-subtitle">District Herd Health Data</div>
+      <div class="box-desc">
+        3 cows flagged with critical vitals<br>
+        (Fever &amp; acute feed reduction)<br>
+        Location: Regional Farm Cluster 1
+      </div>
+    </div>
+
+    <!-- FARM C -->
+    <div class="box" style="left: 840px; top: 35px; width: 370px; height: 140px; padding: 12px 14px;">
+      <div class="box-title">LOCAL FARM C</div>
+      <div class="box-subtitle">District Herd Health Data</div>
+      <div class="box-desc">
+        2 cows flagged with health warnings<br>
+        (Early vital deviation observed)<br>
+        Location: Regional Farm Cluster 1
+      </div>
+    </div>
+
+    <!-- MIDDLE BOX: REGIONAL AGGREGATOR -->
+    <div class="box" style="left: 110px; top: 235px; width: 1020px; height: 150px; padding: 14px 20px;">
+      <div class="box-title">REGIONAL HEALTH DATA AGGREGATOR</div>
+      <div class="box-desc" style="text-align: left; max-width: 960px; line-height: 1.5; font-size: 16px;">
+        1. <strong>Spatial Radius Grouping:</strong> Aggregates health reports across nearby farms (within 10–25 km radius).<br>
+        2. <strong>72-Hour Rolling Window:</strong> Tracks synchronized symptoms over consecutive days to detect trends.<br>
+        3. <strong>Cluster Anomaly Index (CAI):</strong> Computes regional infection rate = (Total Sick Cows &divide; Regional Population).
+      </div>
+    </div>
+
+    <!-- DIAMOND TEXT -->
+    <div class="diamond-text" style="left: 370px; top: 465px; width: 500px; height: 70px;">
+      <div class="diamond-title">OUTBREAK DETECTED?</div>
+      <div class="diamond-desc">(Infection Rate &gt; 15% in 2+ Nearby Farms)</div>
+    </div>
+
+    <!-- BRANCH LABEL NO -->
+    <div class="branch-label" style="left: 275px; top: 480px;">NO</div>
+
+    <!-- BRANCH LABEL YES -->
+    <div class="branch-label" style="left: 925px; top: 480px;">YES</div>
+
+    <!-- BOTTOM ROW: OUTCOME BOXES -->
+    <!-- LEFT: ROUTINE MONITORING -->
+    <div class="box" style="left: 30px; top: 665px; width: 560px; height: 175px; padding: 16px 20px;">
+      <div class="box-title">ROUTINE FARM MONITORING</div>
+      <div class="box-subtitle">Isolated / Non-Contagious Pattern</div>
+      <div class="box-desc" style="text-align: left; line-height: 1.45;">
+        &bull; Vital deviations are isolated to individual animals on a single farm.<br>
+        &bull; No evidence of disease transmission across neighboring herds.<br>
+        &bull; <strong>Action:</strong> Handled through standard individual veterinary checkup queue.
+      </div>
+    </div>
+
+    <!-- RIGHT: REGIONAL OUTBREAK ALERT -->
+    <div class="box" style="left: 650px; top: 665px; width: 560px; height: 175px; padding: 16px 20px;">
+      <div class="box-title">REGIONAL OUTBREAK ALERT</div>
+      <div class="box-subtitle">Emergency Multi-Farm Contagion Warning</div>
+      <div class="box-desc" style="text-align: left; line-height: 1.45;">
+        &bull; Significant synchronized health decline detected across adjacent farms.<br>
+        &bull; Early indicator of contagious outbreak (e.g., Foot-and-Mouth or Mastitis).<br>
+        &bull; <strong>Action:</strong> Broadcasts urgent emergency alerts to Animal Husbandry Dept &amp; vets.
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

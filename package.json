@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:next": "node --max-http-header-size=65536 ./node_modules/next/dist/bin/next dev",
+    "dev:python": "uvicorn ml_service.main:app --reload --port 8000",
+    "dev": "concurrently -n \"NEXT,PYTHON\" -c \"blue,green\" \"npm run dev:next\" \"npm run dev:python\"",
     "build": "next build",
-    "start": "next start",
+    "start": "node --max-http-header-size=65536 ./node_modules/next/dist/bin/next start",
     "db:generate": "node node_modules/prisma/build/index.js generate",
     "db:push": "node node_modules/prisma/build/index.js db push",
     "db:seed": "node scripts/seed.js",
     "db:studio": "node node_modules/prisma/build/index.js studio",
-    "experiment": "ts-node -r tsconfig-paths/register scripts/experiment.ts"
+    "experiment": "ts-node -r tsconfig-paths/register scripts/experiment.ts",
+    "verify:math": "python scripts/verify_chdi_math.py"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
@@ -35,6 +38,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^10.0.5",
     "prisma": "^5.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"

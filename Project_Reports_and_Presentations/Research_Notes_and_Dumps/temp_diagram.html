@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: 1920px 1180px;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 1920px;
+    height: 1180px;
+    background-color: #ffffff;
+    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 60px;
+    position: relative;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1F3864; /* Classic Word Title Navy */
+    letter-spacing: 0.8px;
+    margin-bottom: 35px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .diagram-container {
+    width: 1800px;
+    height: 1000px;
+    position: relative;
+  }
+
+  /* Shape Card Style - Classic Human Made MS Word Rounded Rectangle */
+  .word-shape {
+    position: absolute;
+    border-radius: 14px;
+    border-width: 2.5px;
+    border-style: solid;
+    padding: 24px 28px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shape-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 22px;
+    letter-spacing: 0.5px;
+  }
+
+  .bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    font-size: 17.5px;
+    color: #262626;
+    line-height: 1.35;
+  }
+
+  .bullet-list li {
+    position: relative;
+    padding-left: 26px;
+    text-align: left;
+  }
+
+  .bullet-list li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    top: -1px;
+    font-size: 22px;
+    color: #333333;
+  }
+
+  /* Box Specific Word Color Schemes */
+  /* 1. PHYSICAL & ACQUISITION TIER (100) */
+  #box-100 {
+    left: 20px;
+    top: 20px;
+    width: 500px;
+    height: 380px;
+    background-color: #F0F6FC;
+    border-color: #2E75B6;
+  }
+  #box-100 .shape-title {
+    color: #1B4E82;
+  }
+
+  /* 2. EDGE / CLIENT APP TIER (200) */
+  #box-200 {
+    left: 590px;
+    top: 20px;
+    width: 530px;
+    height: 380px;
+    background-color: #F1F8F4;
+    border-color: #2E7D32;
+  }
+  #box-200 .shape-title {
+    color: #1E5C25;
+  }
+
+  /* 3. USER TERMINAL INTERFACES (300) */
+  #box-300 {
+    left: 1190px;
+    top: 20px;
+    width: 520px;
+    height: 380px;
+    background-color: #F8F3FC;
+    border-color: #7030A0;
+  }
+  #box-300 .shape-title {
+    color: #551D7F;
+  }
+
+  /* 4. CENTRAL CLOUD COMPUTING & ANALYTICS ENGINE (400) */
+  #box-400 {
+    left: 20px;
+    top: 450px;
+    width: 1040px;
+    height: 480px;
+    background-color: #FDF2F2;
+    border-color: #C00000;
+  }
+  #box-400 .shape-title {
+    color: #920000;
+  }
+
+  /* 5. SECURE STORAGE TIER (500) */
+  #box-500 {
+    left: 1190px;
+    top: 450px;
+    width: 520px;
+    height: 480px;
+    background-color: #FEFCE8;
+    border-color: #D4AC0D;
+  }
+  #box-500 .shape-title {
+    color: #8C7100;
+  }
+
+  /* SVG Arrows Layer */
+  .svg-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+  <div class="title">FIGURE 1: SYSTEM HARDWARE AND LOGICAL ARCHITECTURE</div>
+
+  <div class="diagram-container">
+    <!-- Box 100 -->
+    <div class="word-shape" id="box-100">
+      <div class="shape-title">PHYSICAL &amp; ACQUISITION TIER (100)</div>
+      <ul class="bullet-list">
+        <li>Cattle Tag with Optical QR (102)</li>
+        <li>Mobile Optical Camera Sensor (104)</li>
+        <li>Manual Entry Interface (106)</li>
+        <li>Optional IoT Sensor Array (108)</li>
+      </ul>
+    </div>
+
+    <!-- Box 200 -->
+    <div class="word-shape" id="box-200">
+      <div class="shape-title">EDGE / CLIENT APP TIER (200)</div>
+      <ul class="bullet-list">
+        <li>Optical Token Decoder (202)</li>
+        <li>Multi-Signal Form Validator (204)</li>
+        <li>Offline Data Buffer / Cache (206)</li>
+        <li>Secure API Dispatcher (208)</li>
+      </ul>
+    </div>
+
+    <!-- Box 300 -->
+    <div class="word-shape" id="box-300">
+      <div class="shape-title">USER TERMINAL INTERFACES (300)</div>
+      <ul class="bullet-list">
+        <li>Farmer Mobile Dashboard (302)</li>
+        <li>Veterinarian Triage Portal (304)</li>
+        <li>Admin &amp; Outbreak Monitor (306)</li>
+        <li>Push/SMS Alert Dispatch (308)</li>
+      </ul>
+    </div>
+
+    <!-- Box 400 -->
+    <div class="word-shape" id="box-400">
+      <div class="shape-title">CENTRAL CLOUD COMPUTING &amp; ANALYTICS ENGINE (400)</div>
+      <ul class="bullet-list">
+        <li>Asynchronous Multi-Rate Signal Normalizer &amp; Temporal Imputer (402)</li>
+        <li>Personalized Historical Rolling Baseline Generator (404)</li>
+        <li>Covariance-Aware Regularized CHDI Calculator (406)</li>
+        <li>Confidence-Aware Matrix Condition Abstention Gate (408)</li>
+        <li>Two-Tier Feature Explainability Module (410)</li>
+        <li>Closed-Loop Supervised Classifier Retraining Pipeline (412)</li>
+        <li>Spatial-Temporal Regional Outbreak Aggregator (414)</li>
+      </ul>
+    </div>
+
+    <!-- Box 500 -->
+    <div class="word-shape" id="box-500">
+      <div class="shape-title">SECURE STORAGE TIER (500)</div>
+      <ul class="bullet-list">
+        <li>Cattle Identity &amp; Life Registry (502)</li>
+        <li>Time-Series Physiological DB (504)</li>
+        <li>Covariance &amp; Baseline Matrices (506)</li>
+        <li>Clinical Cases &amp; Vet Overrides (508)</li>
+        <li>Spatial Outbreak Registry (510)</li>
+      </ul>
+    </div>
+
+    <!-- Connecting Arrows -->
+    <svg class="svg-overlay" viewBox="0 0 1800 1000">
+      <defs>
+        <!-- Standard Word Style Blue Arrow Marker -->
+        <marker id="word-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#2E75B6" />
+        </marker>
+      </defs>
+
+      <!-- 1. From Box 100 (520, 210) to Box 200 (590, 210) -->
+      <line x1="520" y1="210" x2="585" y2="210" stroke="#2E75B6" stroke-width="3" marker-end="url(#word-arrow)" />
+
+      <!-- 2. From Box 200 (1120, 210) to Box 300 (1190, 210) -->
+      <line x1="1120" y1="210" x2="1185" y2="210" stroke="#2E75B6" stroke-width="3" marker-end="url(#word-arrow)" />
+
+      <!-- 3. From Box 400 top edge to Box 200 bottom edge (x = 640) -->
+      <line x1="640" y1="450" x2="640" y2="406" stroke="#2E75B6" stroke-width="3" marker-end="url(#word-arrow)" />
+
+      <!-- 4. From Box 400 (1060, 690) to Box 500 (1190, 690) -->
+      <line x1="1060" y1="690" x2="1185" y2="690" stroke="#2E75B6" stroke-width="3" marker-end="url(#word-arrow)" />
+    </svg>
+  </div>
+
+</body>
+</html>

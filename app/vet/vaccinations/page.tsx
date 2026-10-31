@@ -9,7 +9,7 @@ export default async function VetVaccinationsPage() {
 
   // Fetch cattle available in vet region
   const cattleList = await prisma.cattle.findMany({
-    where: vetRegion ? { region: vetRegion } : {},
+    where: (vetRegion && vetRegion !== "Tamil Nadu" && vetRegion !== "All") ? { region: vetRegion } : {},
     select: {
       id: true,
       tagId: true,
@@ -22,7 +22,7 @@ export default async function VetVaccinationsPage() {
 
   // Fetch existing vaccination and checkup records
   const records = await prisma.vaccinationRecord.findMany({
-    where: vetRegion ? { cattle: { region: vetRegion } } : {},
+    where: (vetRegion && vetRegion !== "Tamil Nadu" && vetRegion !== "All") ? { cattle: { region: vetRegion } } : {},
     include: {
       cattle: {
         select: {

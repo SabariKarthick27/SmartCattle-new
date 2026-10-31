@@ -8,32 +8,52 @@ import { IconStethoscope } from "@/components/icons";
 export default async function VetQueuePage() {
   const session = await getServerSession(authOptions);
 
-  const cases = await prisma.vetCase.findMany({
-    where: {
-      status: { in: ["open", "in_progress"] },
-      OR: [
-        { vetId: session!.user.id },
-        { vetId: null },
-      ],
-    },
-    include: {
-      cattle: {
-        select: {
-          tagId: true, breed: true, name: true, region: true,
-          chdiHistory: {
-            orderBy: { timestamp: "desc" },
-            take: 5,
-            select: { score: true, status: true, timestamp: true },
+  const fetchCases = async () => {
+    return prisma.vetCase.findMany({
+      where: {
+        status: { in: ["open", "in_progress"] },
+        OR: [
+          { vetId: session!.user.id },
+          { vetId: null },
+        ],
+      },
+      include: {
+        cattle: {
+          select: {
+            tagId: true, breed: true, name: true, region: true,
+            chdiHistory: {
+              orderBy: { timestamp: "desc" },
+              take: 5,
+              select: { score: true, status: true, timestamp: true },
+            },
           },
         },
+        farmer: { select: { name: true, phone: true } },
       },
-      farmer: { select: { name: true, phone: true } },
-    },
-    orderBy: [{ urgency: "desc" }, { createdAt: "asc" }],
-  });
+      orderBy: [{ urgency: "desc" }, { createdAt: "desc" }],
+    });
+  };
+
+  let cases: any[] = [];
+  try {
+    cases = await fetchCases();
+  } catch (err) {
+    // Graceful automatic retry to handle Neon serverless compute wake-up delay
+    try {
+      await new Promise((res) => setTimeout(res, 1200));
+      cases = await fetchCases();
+    } catch (e2) {
+      console.error("Neon DB retry failed:", e2);
+      cases = [];
+    }
+  }
 
   const urgencyOrder: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3 };
-  const sorted = [...cases].sort((a, b) => (urgencyOrder[a.urgency] ?? 9) - (urgencyOrder[b.urgency] ?? 9));
+  const sorted = [...cases].sort((a, b) => {
+    const diff = (urgencyOrder[a.urgency] ?? 9) - (urgencyOrder[b.urgency] ?? 9);
+    if (diff !== 0) return diff;
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
 
   const stats = {
     total: cases.length,
@@ -55,9 +75,6 @@ export default async function VetQueuePage() {
               {stats.critical} CRITICAL
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Sick or at-risk cattle requiring veterinarian checkup and diagnosis.
-          </p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -127,6 +144,7 @@ export default async function VetQueuePage() {
                         <div>
                           <p className="font-bold text-slate-900 text-xs">{c.cattle.name ?? c.cattle.tagId}</p>
                           <p className="text-[11px] font-mono text-slate-500">{c.cattle.tagId} · {c.cattle.breed}</p>
+
                         </div>
                       </div>
                     </td>
@@ -163,6 +181,7 @@ export default async function VetQueuePage() {
                     <td className="text-right">
                       <Link
                         href={`/vet/cases/${c.id}`}
+                        prefetch={true}
                         id={`case-view-${c.id}`}
                         className="btn btn-secondary btn-sm text-xs font-semibold"
                       >

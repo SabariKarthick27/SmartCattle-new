@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { getCHDIBadgeConfig, calcAge } from "@/lib/utils";
 import Link from "next/link";
 import { IconScan, IconCow } from "@/components/icons";
+import CattleQrModal from "@/components/CattleQrModal";
 
 export default async function MyCattlePage() {
   const session = await getServerSession(authOptions);
@@ -30,9 +31,6 @@ export default async function MyCattlePage() {
               {cattle.length} COWS
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            View all your registered cows, check health scores, and record daily milk or feed.
-          </p>
         </div>
 
         <div className="flex items-center gap-2.5">
@@ -66,10 +64,22 @@ export default async function MyCattlePage() {
                     >
                       {c.tagId.slice(-4)}
                     </Link>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       <span className={`badge-${latest?.status ?? "abstain"}`}>
                         {badge.label}
                       </span>
+                      <CattleQrModal
+                        cattle={{
+                          id: c.id,
+                          tagId: c.tagId,
+                          name: c.name,
+                          breed: c.breed,
+                          qrToken: c.qrToken,
+                          gender: c.gender,
+                          dob: c.dob,
+                        }}
+                        variant="icon"
+                      />
                       <Link
                         href={`/farmer/cattle/${c.id}/edit`}
                         id={`edit-cattle-btn-${c.id}`}
@@ -121,12 +131,26 @@ export default async function MyCattlePage() {
 
                 <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
                   <span>{c._count.weightLogs + c._count.feedLogs} logs recorded</span>
-                  <Link
-                    href={`/farmer/cattle/${c.id}`}
-                    className="font-bold text-emerald-900 hover:underline"
-                  >
-                    View Details →
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <CattleQrModal
+                      cattle={{
+                        id: c.id,
+                        tagId: c.tagId,
+                        name: c.name,
+                        breed: c.breed,
+                        qrToken: c.qrToken,
+                        gender: c.gender,
+                        dob: c.dob,
+                      }}
+                      variant="pill"
+                    />
+                    <Link
+                      href={`/farmer/cattle/${c.id}`}
+                      className="font-bold text-emerald-900 hover:underline"
+                    >
+                      View Details →
+                    </Link>
+                  </div>
                 </div>
               </div>
             );

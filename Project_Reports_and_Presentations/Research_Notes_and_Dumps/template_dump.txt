@@ -1,0 +1,801 @@
+P000 | Style=Heading 2 | Align=LEFT (0) | Text=HIGH WAY FREE ELECTRICTY	
+     Runs: ''[font=None,size=None,b=None,i=None] 'HIGH'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'WAY'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'FREE'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'ELECTRICTY'[font=None,size=None,b=None,i=None] '\t'[font=None,size=None,b=None,i=None] ''[font=None,size=None,b=None,i=None]
+P001 | Style=Body Text | Align=None | Text=
+P002 | Style=Body Text | Align=None | Text=
+P003 | Style=Body Text | Align=None | Text=
+P004 | Style=Normal | Align=CENTER (1) | Text=A Project Report
+     Runs: 'A'[font=None,size=14.0,b=True,i=True] ' '[font=None,size=14.0,b=True,i=True] 'Project'[font=None,size=14.0,b=True,i=True] ' '[font=None,size=14.0,b=True,i=True] 'Report'[font=None,size=14.0,b=True,i=True]
+P005 | Style=Body Text | Align=None | Text=
+P006 | Style=Heading 4 | Align=CENTER (1) | Text=Course Code – Course Name
+     Runs: 'Course'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Code'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '–'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Course'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Name'[font=None,size=None,b=None,i=None]
+P007 | Style=Body Text | Align=None | Text=
+P008 | Style=Body Text | Align=None | Text=
+P009 | Style=Heading 5 | Align=None | Text=Submitted by
+     Runs: 'Submitted'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'by'[font=None,size=None,b=None,i=None]
+P010 | Style=Body Text | Align=None | Text=
+P011 | Style=Body Text | Align=None | Text=
+P012 | Style=Body Text | Align=None | Text=
+P013 | Style=Body Text | Align=None | Text=
+P014 | Style=Body Text | Align=None | Text=
+P015 | Style=Normal | Align=CENTER (1) | Text=in partial fulfillment for the award of the degree
+     Runs: 'in'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'partial'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'fulfillment'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'for'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'the'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'award'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'of'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'the'[font=None,size=14.0,b=None,i=True] ' '[font=None,size=14.0,b=None,i=True] 'degree'[font=None,size=14.0,b=None,i=True]
+P016 | Style=Body Text | Align=None | Text=
+P017 | Style=Normal | Align=CENTER (1) | Text=of
+     Runs: 'of'[font=Calibri,size=14.0,b=None,i=True]
+P018 | Style=Heading 2 | Align=None | Text=BACHELOR OF ENGINEERING
+     Runs: 'BACHELOR'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'OF'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'ENGINEERING'[font=None,size=None,b=None,i=None]
+P019 | Style=Body Text | Align=None | Text=
+P020 | Style=Normal | Align=CENTER (1) | Text=in
+     Runs: 'in'[font=None,size=14.0,b=True,i=True]
+P021 | Style=Body Text | Align=None | Text=
+P022 | Style=Normal | Align=CENTER (1) | Text=Department Name
+     Runs: 'Department'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'Name'[font=None,size=14.0,b=True,i=None]
+P023 | Style=Body Text | Align=None | Text=
+P024 | Style=Normal | Align=CENTER (1) | Text=SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS), SALEM– 636005
+     Runs: 'SONA'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'COLLEGE'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'OF'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'TECHNOLOGY'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '(AUTONOMOUS),'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'SALEM–'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '636005'[font=None,size=14.0,b=True,i=None]
+P025 | Style=Heading 2 | Align=None | Text=ANNA UNIVERSITY: CHENNAI 600 025
+     Runs: 'ANNA'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'UNIVERSITY:'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'CHENNAI'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '600'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '025'[font=None,size=None,b=None,i=None]
+P026 | Style=Normal | Align=CENTER (1) | Text=OCTOBER 2026
+     Runs: 'OCTOBER'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '2026'[font=None,size=14.0,b=True,i=None]
+P027 | Style=Normal | Align=CENTER (1) | Text=
+P028 | Style=Normal | Align=CENTER (1) | Text=SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS) ANNA UNIVERSITY: CHENNAI – 600 025
+     Runs: 'SONA'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'COLLEGE'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'OF'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'TECHNOLOGY'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '(AUTONOMOUS) '[font=None,size=14.0,b=True,i=None] 'ANNA UNIVERSITY: CHENNAI – 600 025'[font=None,size=14.0,b=True,i=None]
+P029 | Style=Body Text | Align=None | Text=
+P030 | Style=Normal | Align=CENTER (1) | Text=BONAFIDE CERTIFICATE
+     Runs: 'BONAFIDE'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'CERTIFICATE'[font=None,size=14.0,b=True,i=None]
+P031 | Style=Body Text | Align=None | Text=
+P032 | Style=Body Text | Align=None | Text=
+P033 | Style=Normal | Align=JUSTIFY (3) | Text=Certified that this project titled “HIGH WAY FREE ELECTRICTY” is the bonafide work of “MUKESH T (61782323104056), NETHAJI A (61782323104059), MAHI THANGAVEL B (61782323104059)” who carried out the project work Course Code & Course Name under my supervision.
+     Runs: 'Certified that this p'[font=None,size=14.0,b=None,i=None] 'roject titled '[font=None,size=14.0,b=None,i=None] '“'[font=None,size=14.0,b=None,i=None] 'HIGH WAY FREE ELECTRICTY'[font=None,size=14.0,b=True,i=None] '”'[font=None,size=14.0,b=None,i=None] ' is the '[font=None,size=14.0,b=None,i=None] 'bonafide'[font=None,size=14.0,b=None,i=None] ' work of '[font=None,size=14.0,b=None,i=None] '“'[font=None,size=14.0,b=None,i=None] 'MUKESH T (61782323104056),'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'NETHAJI A'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '(61782323104059),'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'MAHI'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'THANGAVEL'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'B'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '(61782323104059)'[font=None,size=14.0,b=True,i=None] '”'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'who'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'carried'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'out'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'the'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'project work '[font=None,size=14.0,b=None,i=None] 'Course Code &'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Course'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Name'[font=None,size=14.0,b=None,i=None] ' under my supervision.'[font=None,size=14.0,b=None,i=None]
+P034 | Style=Body Text | Align=None | Text=
+P035 | Style=Body Text | Align=None | Text=
+P036 | Style=Heading 4 | Align=None | Text=Signature of the Supervisor	Head of the Department
+     Runs: 'Signature'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Supervisor'[font=None,size=None,b=None,i=None] '\tHead'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Department'[font=None,size=None,b=None,i=None]
+P037 | Style=Body Text | Align=None | Text=
+P038 | Style=Normal | Align=None | Text=<Faculty Name>	< Faculty Name>
+     Runs: '<Faculty'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'Name>'[font=None,size=14.0,b=True,i=None] '\t<'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'Faculty'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'Name>'[font=None,size=14.0,b=True,i=None]
+P039 | Style=Normal | Align=None | Text=<Designation>	<Designation>
+     Runs: '<Designation>'[font=None,size=14.0,b=None,i=None] '\t'[font=None,size=14.0,b=None,i=None] '<Designation>'[font=None,size=14.0,b=None,i=None]
+P040 | Style=Normal | Align=None | Text=<Department>	<Department>
+     Runs: '<Department>'[font=None,size=14.0,b=None,i=None] '\t'[font=None,size=14.0,b=None,i=None] '<Department>'[font=None,size=14.0,b=None,i=None]
+P041 | Style=Normal | Align=None | Text=Sona College of Technology,	Sona College of Technology,
+     Runs: 'Sona'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'College'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'of'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Technology,'[font=None,size=14.0,b=None,i=None] '\t'[font=None,size=14.0,b=None,i=None] 'Sona'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'College'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'of'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Technology,'[font=None,size=14.0,b=None,i=None]
+P042 | Style=Normal | Align=None | Text=Salem – 636005	Salem – 636005
+     Runs: 'Salem'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] '– '[font=None,size=14.0,b=None,i=None] '636005'[font=None,size=14.0,b=None,i=None] '\tSalem'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] '– '[font=None,size=14.0,b=None,i=None] '636005'[font=None,size=14.0,b=None,i=None]
+P043 | Style=Body Text | Align=None | Text=
+P044 | Style=Body Text | Align=None | Text=
+P045 | Style=Body Text | Align=None | Text=
+P046 | Style=Body Text | Align=None | Text=
+P047 | Style=Body Text | Align=None | Text=
+P048 | Style=Normal | Align=JUSTIFY (3) | Text=Submitted for the Project Viva-Voce Examination held on 	
+     Runs: 'Submitted for'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'the'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Project'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Viva-Voce'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Examination'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'held'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'on'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] '\t'[font=None,size=14.0,b=None,i=None]
+P049 | Style=Body Text | Align=None | Text=
+P050 | Style=Body Text | Align=None | Text=
+P051 | Style=Body Text | Align=None | Text=
+P052 | Style=Body Text | Align=None | Text=
+P053 | Style=Body Text | Align=None | Text=
+P054 | Style=Normal | Align=None | Text=INTERNAL EXAMINER	EXTERNAL EXAMINER
+     Runs: 'INTERNAL'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'EXAMINER'[font=None,size=14.0,b=True,i=None] '\t'[font=None,size=14.0,b=True,i=None] 'EXTERNAL'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'EXAMINER'[font=None,size=14.0,b=True,i=None]
+P055 | Style=Normal | Align=None | Text=
+P056 | Style=Heading 4 | Align=CENTER (1) | Text=Sona College of Technology
+     Runs: ''[font=None,size=None,b=None,i=None] 'Sona'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'College'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Technology'[font=None,size=None,b=None,i=None]
+P057 | Style=Heading 4 | Align=CENTER (1) | Text=Department of Information Technology
+     Runs: 'Department'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Information Technology'[font=None,size=None,b=None,i=None]
+P058 | Style=Normal | Align=None | Text=U23IT705/U23ADS705 - PROJECT - DECLARATION FORM
+     Runs: ''[font=None,size=14.0,b=True,i=None] 'U23IT705/U23ADS705'[font=None,size=13.0,b=True,i=None] ' '[font=None,size=13.0,b=True,i=None] '-'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'PROJECT'[font=None,size=14.0,b=True,i=None] ' - DECLARATION '[font=None,size=14.0,b=True,i=None] 'FORM'[font=None,size=14.0,b=True,i=None]
+P059 | Style=Body Text | Align=None | Text=
+P060 | Style=Body Text | Align=None | Text=
+P061 | Style=Heading 4 | Align=None | Text=Declaration by the Student(s)
+     Runs: 'Declaration'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'by'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Student(s)'[font=None,size=None,b=None,i=None]
+P062 | Style=Body Text | Align=None | Text=
+P063 | Style=Body Text | Align=None | Text=
+P064 | Style=Normal | Align=JUSTIFY (3) | Text=We hereby declare that the project titled "	" 
+     Runs: 'We'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'hereby declare'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'that'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'the project'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'titled'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] '"'[font=None,size=14.0,b=None,i=None] '\t'[font=None,size=14.0,b=None,i=None] '" '[font=None,size=14.0,b=None,i=None]
+P065 | Style=Normal | Align=JUSTIFY (3) | Text=is an original  work  carried  out  by  me/us  under  the  guidance  of  Mr./Ms./Dr.             	. 
+     Runs: 'is an original'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'work'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'carried'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'out'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'by'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'me/us'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'under'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'the'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'guidance'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'of'[font=None,size=14.0,b=None,i=None] '  '[font=None,size=14.0,b=None,i=None] 'Mr./Ms./Dr.             '[font=None,size=14.0,b=None,i=None] '\t'[font=None,size=14.0,b=None,i=None] '. '[font=None,size=14.0,b=None,i=None]
+P066 | Style=Normal | Align=JUSTIFY (3) | Text=This project has not been submitted elsewhere for the award of any degree.
+     Runs: 'This project has not been submitted elsewhere for the '[font=None,size=14.0,b=None,i=None] 'award '[font=None,size=14.0,b=None,i=None] 'of any '[font=None,size=14.0,b=None,i=None] 'degree.'[font=None,size=14.0,b=None,i=None]
+P067 | Style=Body Text | Align=JUSTIFY (3) | Text=
+P068 | Style=Normal | Align=JUSTIFY (3) | Text=We also affirm that all the data and information used in this project are genuine and properly acknowledged. This project work is carried out with reference to the United Nations Sustainable Development Goal/Goals [Goal Number/s] – [Goal Name/s]
+     Runs: 'We also affirm'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'that all the'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'data'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'and'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'information used in this project are'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'genuine and properly acknowledged.'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'This'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'project'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'work is carried out with reference to the United Nations Sustainable Development Goal/Goals '[font=None,size=14.0,b=None,i=None] '[Goal Number/s] – [Goal '[font=None,size=14.0,b=True,i=None] 'Name/s]'[font=None,size=14.0,b=True,i=None]
+P069 | Style=Body Text | Align=None | Text=
+P070 | Style=Body Text | Align=None | Text=
+P071 | Style=Body Text | Align=None | Text=
+P072 | Style=Body Text | Align=None | Text=
+P073 | Style=Normal | Align=JUSTIFY (3) | Text=Date: 	
+     Runs: 'Date: '[font=None,size=14.0,b=None,i=None] '\t'[font=None,size=14.0,b=None,i=None]
+P074 | Style=Normal | Align=JUSTIFY (3) | Text=Place: Sona College of Technology
+     Runs: 'Place:'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Sona'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'College'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'of'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'Technology'[font=None,size=14.0,b=None,i=None]
+P075 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=12.0,b=None,i=None]
+P076 | Style=Normal | Align=None | Text=ACKNOWLEDGMENT
+     Runs: 'ACKNOWLEDGMENT'[font=None,size=14.0,b=True,i=None]
+P077 | Style=Normal | Align=None | Text=[Enter the required content here.]
+     Runs: '[Enter the required content here.]'[font=None,size=12.0,b=None,i=None]
+P078 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=12.0,b=None,i=None]
+P079 | Style=Normal | Align=None | Text=ABSTRACT
+     Runs: 'ABSTRACT'[font=None,size=14.0,b=True,i=None]
+P080 | Style=Normal | Align=None | Text=[Enter the required content here.]
+     Runs: '[Enter the required content here.]'[font=None,size=12.0,b=None,i=None]
+P081 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=12.0,b=None,i=None]
+P082 | Style=Normal | Align=CENTER (1) | Text=TABLE OF CONTENTS
+     Runs: 'TABLE OF CONTENTS'[font=None,size=14.0,b=True,i=None]
+P083 | Style=Normal | Align=None | Text=1. INTRODUCTION
+     Runs: '1. INTRODUCTION'[font=None,size=12.0,b=True,i=None]
+P084 | Style=Normal | Align=None | Text=1.1 Background of the Project
+     Runs: '1.1 Background of the Project'[font=None,size=12.0,b=True,i=None]
+P085 | Style=Normal | Align=None | Text=1.2 Problem Statement
+     Runs: '1.2 Problem Statement'[font=None,size=12.0,b=True,i=None]
+P086 | Style=Normal | Align=None | Text=1.3 Motivation
+     Runs: '1.3 Motivation'[font=None,size=12.0,b=True,i=None]
+P087 | Style=Normal | Align=None | Text=1.4 Objectives
+     Runs: '1.4 Objectives'[font=None,size=12.0,b=True,i=None]
+P088 | Style=Normal | Align=None | Text=1.5 Scope of the Project
+     Runs: '1.5 Scope of the Project'[font=None,size=12.0,b=True,i=None]
+P089 | Style=Normal | Align=None | Text=2. LITERATURE REVIEW
+     Runs: '2. LITERATURE REVIEW'[font=None,size=12.0,b=True,i=None]
+P090 | Style=Normal | Align=None | Text=2.1 Introduction
+     Runs: '2.1 Introduction'[font=None,size=12.0,b=True,i=None]
+P091 | Style=Normal | Align=None | Text=2.2 Review of Related Studies
+     Runs: '2.2 Review of Related Studies'[font=None,size=12.0,b=True,i=None]
+P092 | Style=Normal | Align=None | Text=2.3 Techniques and Technologies Used in Existing Systems
+     Runs: '2.3 Techniques and Technologies Used in Existing Systems'[font=None,size=12.0,b=True,i=None]
+P093 | Style=Normal | Align=None | Text=2.4 Research Gap
+     Runs: '2.4 Research Gap'[font=None,size=12.0,b=True,i=None]
+P094 | Style=Normal | Align=None | Text=2.5 Summary
+     Runs: '2.5 Summary'[font=None,size=12.0,b=True,i=None]
+P095 | Style=Normal | Align=None | Text=3. CHAPTER 1 –NEED FOR PROPOSED TECHNIQUE
+     Runs: '3. CHAPTER 1 –'[font=None,size=12.0,b=True,i=None] 'NEED FOR '[font=None,size=12.0,b=True,i=None] 'PROPOSED TECHNIQUE'[font=None,size=12.0,b=True,i=None]
+P096 | Style=Normal | Align=None | Text=3.1 Existing Techniques
+     Runs: '3.1 Existing Techniques'[font=None,size=12.0,b=True,i=None]
+P097 | Style=Normal | Align=None | Text=3.2 Limitations of Existing Techniques
+     Runs: '3.2 Limitations of Existing Techniques'[font=None,size=12.0,b=True,i=None]
+P098 | Style=Normal | Align=None | Text=3.3 Proposed Technique
+     Runs: '3.3 Proposed Technique'[font=None,size=12.0,b=True,i=None]
+P099 | Style=Normal | Align=None | Text=3.4 Objectives of the Proposed Technique
+     Runs: '3.4 Objectives of the Proposed Technique'[font=None,size=12.0,b=True,i=None]
+P100 | Style=Normal | Align=None | Text=3.5 Advantages of the Proposed Technique
+     Runs: '3.5 Advantages of the Proposed Technique'[font=None,size=12.0,b=True,i=None]
+P101 | Style=Normal | Align=None | Text=4. CHAPTER 2 – DESIGN OF PROPOSED SYSTEM AND ITS IMPLEMENTATION
+     Runs: '4. CHAPTER 2 – '[font=None,size=12.0,b=True,i=None] 'DESIGN OF '[font=None,size=12.0,b=True,i=None] 'PROPOSED SYSTEM AND '[font=None,size=12.0,b=True,i=None] 'ITS '[font=None,size=12.0,b=True,i=None] 'IMPLEMENTATION'[font=None,size=12.0,b=True,i=None]
+P102 | Style=Normal | Align=None | Text=4.1 Introduction
+     Runs: '4.1 Introduction'[font=None,size=12.0,b=True,i=None]
+P103 | Style=Normal | Align=None | Text=4.2 System Requirements
+     Runs: '4.2 System Requirements'[font=None,size=12.0,b=True,i=None]
+P104 | Style=Normal | Align=None | Text=4.2.1 Hardware Requirements
+     Runs: '4.2.1 Hardware Requirements'[font=None,size=12.0,b=True,i=None]
+P105 | Style=Normal | Align=None | Text=4.2.2 Software Requirements
+     Runs: '4.2.2 Software Requirements'[font=None,size=12.0,b=True,i=None]
+P106 | Style=Normal | Align=None | Text=4.3 System Architecture
+     Runs: '4.3 System Architecture'[font=None,size=12.0,b=True,i=None]
+P107 | Style=Normal | Align=None | Text=4.4 System Components/Modules
+     Runs: '4.4 System Components/Modules'[font=None,size=12.0,b=True,i=None]
+P108 | Style=Normal | Align=None | Text=4.4.1 Module 1
+     Runs: '4.4.1 Module 1'[font=None,size=12.0,b=True,i=None]
+P109 | Style=Normal | Align=None | Text=4.4.2 Module 2
+     Runs: '4.4.2 Module 2'[font=None,size=12.0,b=True,i=None]
+P110 | Style=Normal | Align=None | Text=4.4.3 Module 3
+     Runs: '4.4.3 Module 3'[font=None,size=12.0,b=True,i=None]
+P111 | Style=Normal | Align=None | Text=4.4.4 Module 4
+     Runs: '4.4.4 Module 4'[font=None,size=12.0,b=True,i=None]
+P112 | Style=Normal | Align=None | Text= (Add modules if necessary)
+     Runs: ' (Add modules if necessary)'[font=None,size=12.0,b=None,i=None]
+P113 | Style=Normal | Align=None | Text=4.5 Proposed Methodology
+     Runs: '4.5 Proposed Methodology'[font=None,size=12.0,b=True,i=None]
+P114 | Style=Normal | Align=None | Text=4.6 System Workflow
+     Runs: '4.6 System Workflow'[font=None,size=12.0,b=True,i=None]
+P115 | Style=Normal | Align=None | Text=4.7 Algorithms/Techniques Used
+     Runs: '4.7 Algorithms/Techniques Used'[font=None,size=12.0,b=True,i=None]
+P116 | Style=Normal | Align=None | Text=4.8 Dataset/Data Collection
+     Runs: '4.8 Dataset/Data Collection'[font=None,size=12.0,b=True,i=None]
+P117 | Style=Normal | Align=None | Text=4.9 Data Preprocessing
+     Runs: '4.9 Data Preprocessing'[font=None,size=12.0,b=True,i=None]
+P118 | Style=Normal | Align=None | Text=4.10 Model/System Development
+     Runs: '4.10 Model/System Development'[font=None,size=12.0,b=True,i=None]
+P119 | Style=Normal | Align=None | Text=4.11 System Design Diagrams
+     Runs: '4.11 System Design Diagrams'[font=None,size=12.0,b=True,i=None]
+P120 | Style=Normal | Align=None | Text=4.12 Implementation
+     Runs: '4.12 Implementation'[font=None,size=12.0,b=True,i=None]
+P121 | Style=Normal | Align=None | Text=4.13 Coding/Program Implementation
+     Runs: '4.13 Coding/Program Implementation'[font=None,size=12.0,b=True,i=None]
+P122 | Style=Normal | Align=None | Text=4.14 User Interface / Application Screens
+     Runs: '4.14 User Interface / Application Screens'[font=None,size=12.0,b=True,i=None]
+P123 | Style=Normal | Align=None | Text=4.15 Chapter Summary
+     Runs: '4.15 Chapter Summary'[font=None,size=12.0,b=True,i=None]
+P124 | Style=Normal | Align=None | Text=5. CHAPTER 3 – RESULTS AND DISCUSSION
+     Runs: '5. CHAPTER 3 – RESULTS AND DISCUSSION'[font=None,size=12.0,b=True,i=None]
+P125 | Style=Normal | Align=None | Text=5.1 Introduction
+     Runs: '5.1 Introduction'[font=None,size=12.0,b=True,i=None]
+P126 | Style=Normal | Align=None | Text=5.2 Experimental Setup
+     Runs: '5.2 Experimental Setup'[font=None,size=12.0,b=True,i=None]
+P127 | Style=Normal | Align=None | Text=5.3 Evaluation Metrics
+     Runs: '5.3 Evaluation Metrics'[font=None,size=12.0,b=True,i=None]
+P128 | Style=Normal | Align=None | Text=5.4 Experimental Results
+     Runs: '5.4 Experimental Results'[font=None,size=12.0,b=True,i=None]
+P129 | Style=Normal | Align=None | Text=5.5 Comparison with Existing Techniques
+     Runs: '5.5 Comparison with Existing Techniques'[font=None,size=12.0,b=True,i=None]
+P130 | Style=Normal | Align=None | Text=5.6 Discussion of Results
+     Runs: '5.'[font=None,size=12.0,b=True,i=None] '6'[font=None,size=12.0,b=True,i=None] ' Discussion of Results'[font=None,size=12.0,b=True,i=None]
+P131 | Style=Normal | Align=None | Text=5.7 Chapter Summary
+     Runs: '5.'[font=None,size=12.0,b=True,i=None] '7'[font=None,size=12.0,b=True,i=None] ' Chapter Summary'[font=None,size=12.0,b=True,i=None]
+P132 | Style=Normal | Align=None | Text=6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE
+     Runs: '6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE'[font=None,size=12.0,b=True,i=None]
+P133 | Style=Normal | Align=None | Text=6.1 Summary of the Project
+     Runs: '6.1 Summary of the Project'[font=None,size=12.0,b=True,i=None]
+P134 | Style=Normal | Align=None | Text=6.2 Conclusion
+     Runs: '6.2 Conclusion'[font=None,size=12.0,b=True,i=None]
+P135 | Style=Normal | Align=None | Text=6.3 Future Scope
+     Runs: '6.3 Future Scope'[font=None,size=12.0,b=True,i=None]
+P136 | Style=Normal | Align=None | Text=
+P137 | Style=Normal | Align=None | Text=SDG GOALS  Minimum 1 Page
+     Runs: 'SDG '[font=None,size=12.0,b=True,i=None] 'GOALS  '[font=None,size=12.0,b=True,i=None] 'Minimum'[font=None,size=12.0,b=True,i=None] ' 1 Page'[font=None,size=12.0,b=True,i=None]
+P138 | Style=Normal | Align=None | Text=
+P139 | Style=Normal | Align=None | Text=Publication if any
+     Runs: 'Publication if any'[font=None,size=12.0,b=True,i=None]
+P140 | Style=Normal | Align=None | Text=
+P141 | Style=Normal | Align=None | Text=References (MINIMUM 20 REFERENCES) – SEE PAGE NO 22 FOR THE FORMAT
+     Runs: 'References ('[font=None,size=12.0,b=True,i=None] 'MINIMUM 20 REFERENCES) – SEE PAGE NO '[font=None,size=12.0,b=True,i=None] '22'[font=None,size=12.0,b=True,i=None] ' FOR THE FORMAT'[font=None,size=12.0,b=True,i=None]
+P142 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=12.0,b=True,i=None]
+P143 | Style=Normal | Align=CENTER (1) | Text=LIST OF FIGURES
+     Runs: 'LIST OF FIGURES'[font=None,size=14.0,b=True,i=None]
+P144 | Style=Normal | Align=None | Text=[Insert entries as applicable.]
+     Runs: '[Insert entries as applicable.]'[font=None,size=12.0,b=None,i=None]
+P145 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=12.0,b=None,i=None]
+P146 | Style=Normal | Align=CENTER (1) | Text=LIST OF TABLES
+     Runs: 'LIST OF TABLES'[font=None,size=14.0,b=True,i=None]
+P147 | Style=Normal | Align=None | Text=[Insert entries as applicable.]
+     Runs: '[Insert entries as applicable.]'[font=None,size=12.0,b=None,i=None]
+P148 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=12.0,b=None,i=None]
+P149 | Style=Normal | Align=CENTER (1) | Text=LIST OF ABBREVIATIONS
+     Runs: 'LIST OF ABBREVIATIONS'[font=None,size=14.0,b=True,i=None]
+P150 | Style=Normal | Align=None | Text=[Insert entries as applicable.]
+     Runs: '[Insert entries as applicable.]'[font=None,size=12.0,b=None,i=None]
+P151 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=12.0,b=None,i=None]
+P152 | Style=Normal | Align=None | Text=1. INTRODUCTION
+     Runs: '1. INTRODUCTION'[font=None,size=14.0,b=True,i=None]
+P153 | Style=Normal | Align=None | Text=1.1 Background of the Project
+     Runs: '1.1 Background of the Project'[font=None,size=14.0,b=True,i=None]
+P154 | Style=Normal | Align=None | Text=Introduce the broad problem area and provide the context in which the project is developed.
+     Runs: 'Introduce the broad problem area and provide the context in which the project is developed.'[font=None,size=14.0,b=None,i=None]
+P155 | Style=Normal | Align=None | Text=1.2 Problem Statement
+     Runs: '1.2 Problem Statement'[font=None,size=14.0,b=True,i=None]
+P156 | Style=Normal | Align=None | Text=Clearly describe the problem that the project aims to address.
+     Runs: 'Clearly describe the problem that the project aims to address.'[font=None,size=14.0,b=None,i=None]
+P157 | Style=Normal | Align=None | Text=1.3 Motivation
+     Runs: '1.3 Motivation'[font=None,size=14.0,b=True,i=None]
+P158 | Style=Normal | Align=None | Text=Explain why the problem is important and what motivated the development of the project.
+     Runs: 'Explain why the problem is important and what motivated the development of the project.'[font=None,size=14.0,b=None,i=None]
+P159 | Style=Normal | Align=None | Text=1.4 Objectives
+     Runs: '1.4 Objectives'[font=None,size=14.0,b=True,i=None]
+P160 | Style=Normal | Align=None | Text=List the specific objectives of the project.
+     Runs: 'List the specific objectives of the project.'[font=None,size=14.0,b=None,i=None]
+P161 | Style=Normal | Align=None | Text=1.5 Scope of the Project
+     Runs: '1.5 Scope of the Project'[font=None,size=14.0,b=True,i=None]
+P162 | Style=Normal | Align=None | Text=Explain what the project covers and, where appropriate, what is outside its scope.
+     Runs: 'Explain what the project covers and, where appropriate, what is outside its scope.'[font=None,size=14.0,b=None,i=None]
+P163 | Style=Normal | Align=None | Text=2. LITERATURE REVIEW
+     Runs: '2. LITERATURE REVIEW'[font=None,size=14.0,b=True,i=None]
+P164 | Style=Normal | Align=None | Text=2.1 Introduction
+     Runs: '2.1 Introduction'[font=None,size=14.0,b=True,i=None]
+P165 | Style=Normal | Align=None | Text=Introduce the research area and purpose of the literature review.
+     Runs: 'Introduce the research area and purpose of the literature review.'[font=None,size=14.0,b=None,i=None]
+P166 | Style=Normal | Align=None | Text=2.2 Review of Related Studies
+     Runs: '2.2 Review of Related Studies'[font=None,size=14.0,b=True,i=None]
+P167 | Style=Normal | Align=None | Text=Present relevant research papers and previous implementations.
+     Runs: 'Present relevant research papers and previous implementations.'[font=None,size=14.0,b=None,i=None]
+P168 | Style=Normal | Align=None | Text=2.3 Techniques and Technologies Used in Existing Systems
+     Runs: '2.3 Techniques and Technologies Used in Existing Systems'[font=None,size=14.0,b=True,i=None]
+P169 | Style=Normal | Align=None | Text=Discuss important algorithms, frameworks, tools, hardware, or technologies.
+     Runs: 'Discuss important algorithms, frameworks, tools, hardware, or technologies.'[font=None,size=14.0,b=None,i=None]
+P170 | Style=Normal | Align=None | Text=2.4 Research Gap
+     Runs: '2.4 Research Gap'[font=None,size=14.0,b=True,i=None]
+P171 | Style=Normal | Align=None | Text=Identify limitations or gaps observed in the literature.
+     Runs: 'Identify limitations or gaps observed in the literature.'[font=None,size=14.0,b=None,i=None]
+P172 | Style=Normal | Align=None | Text=2.5 Summary
+     Runs: '2.5 Summary'[font=None,size=14.0,b=True,i=None]
+P173 | Style=Normal | Align=None | Text=Summarize the important findings and establish the need for the proposed work.
+     Runs: 'Summarize the important findings and establish the need for the proposed work.'[font=None,size=14.0,b=None,i=None]
+P174 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=14.0,b=None,i=None]
+P175 | Style=Normal | Align=None | Text=3. CHAPTER 1 – NEED FOR PROPOSED TECHNIQUE
+     Runs: '3. CHAPTER 1 – '[font=None,size=14.0,b=True,i=None] 'NEED FOR PROPOSED TECHNIQUE'[font=None,size=14.0,b=True,i=None]
+P176 | Style=Normal | Align=None | Text=3.1 Existing Techniques
+     Runs: '3.1 Existing Techniques'[font=None,size=14.0,b=True,i=None]
+P177 | Style=Normal | Align=None | Text=Describe working principle, architecture/algorithm, advantages, and disadvantages.
+     Runs: 'Describe working principle, architecture/algorithm, advantages, and disadvantages.'[font=None,size=14.0,b=None,i=None]
+P178 | Style=Normal | Align=None | Text=3.2 Limitations of Existing Techniques
+     Runs: '3.2 Limitations of Existing Techniques'[font=None,size=14.0,b=True,i=None]
+P179 | Style=Normal | Align=None | Text=Consolidate the major disadvantages identified from existing techniques.
+     Runs: 'Consolidate the major disadvantages identified from existing techniques'[font=None,size=14.0,b=None,i=None] '.'[font=None,size=14.0,b=None,i=None]
+P180 | Style=Normal | Align=None | Text=3.3 Proposed Technique
+     Runs: '3.3 Proposed Technique'[font=None,size=14.0,b=True,i=None]
+P181 | Style=Normal | Align=None | Text=Introduce the new technique/system proposed in the project.
+     Runs: 'Introduce the new technique/system proposed in the project.'[font=None,size=14.0,b=None,i=None]
+P182 | Style=Normal | Align=None | Text=3.4 Objectives of the Proposed Technique
+     Runs: '3.4 Objectives of the Proposed Technique'[font=None,size=14.0,b=True,i=None]
+P183 | Style=Normal | Align=None | Text=Explain how the proposed approach addresses identified limitations.
+     Runs: 'Explain how the proposed approach addresses identified limitations.'[font=None,size=14.0,b=None,i=None]
+P184 | Style=Normal | Align=None | Text=3.5 Advantages of the Proposed Technique
+     Runs: '3.5 Advantages of the Proposed Technique'[font=None,size=14.0,b=True,i=None]
+P185 | Style=Normal | Align=None | Text=Describe expected improvements over existing approaches.
+     Runs: 'Describe expected improvements over existing approaches.'[font=None,size=14.0,b=None,i=None]
+P186 | Style=Normal | Align=None | Text=4. CHAPTER 2 – DESIGN OF PROPOSED SYSTEM AND ITS IMPLEMENTATION 
+     Runs: '4. CHAPTER 2 – '[font=None,size=14.0,b=True,i=None] 'DESIGN OF PROPOSED SYSTEM AND ITS IMPLEMENTATION'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None]
+P187 | Style=Normal | Align=None | Text=4.1 Introduction
+     Runs: '4.1 Introduction'[font=None,size=14.0,b=True,i=None]
+P188 | Style=Normal | Align=None | Text=Provide an overview of the proposed system and implementation.
+     Runs: 'Provide an overview of the proposed system and implementation.'[font=None,size=14.0,b=None,i=None]
+P189 | Style=Normal | Align=None | Text=4.2 System Requirements
+     Runs: '4.2 System Requirements'[font=None,size=14.0,b=True,i=None]
+P190 | Style=Normal | Align=None | Text=Specify requirements for implementing the system.
+     Runs: 'Specify requirements for implementing the system.'[font=None,size=14.0,b=None,i=None]
+P191 | Style=Normal | Align=None | Text=4.2.1 Hardware Requirements
+     Runs: '4.2.1 Hardware Requirements'[font=None,size=14.0,b=True,i=None]
+P192 | Style=Normal | Align=None | Text=Describe hardware required.
+     Runs: 'Describe hardware required.'[font=None,size=14.0,b=None,i=None]
+P193 | Style=Normal | Align=None | Text=4.2.2 Software Requirements
+     Runs: '4.2.2 Software Requirements'[font=None,size=14.0,b=True,i=None]
+P194 | Style=Normal | Align=None | Text=List languages, frameworks, libraries, databases, OS, and other software.
+     Runs: 'List languages, frameworks, libraries, databases, OS, and other software.'[font=None,size=14.0,b=None,i=None]
+P195 | Style=Normal | Align=None | Text=4.3 System Architecture
+     Runs: '4.3 System Architecture'[font=None,size=14.0,b=True,i=None]
+P196 | Style=Normal | Align=None | Text=Present and explain the overall architecture.
+     Runs: 'Present and explain the overall architecture.'[font=None,size=14.0,b=None,i=None]
+P197 | Style=Normal | Align=None | Text=4.4 System Components/Modules
+     Runs: '4.4 System Components/Modules'[font=None,size=14.0,b=True,i=None]
+P198 | Style=Normal | Align=None | Text=Describe each major module.
+     Runs: 'Describe each major module.'[font=None,size=14.0,b=None,i=None]
+P199 | Style=Normal | Align=None | Text=4.4.1 Module 1
+     Runs: '4.4.1 Module 1'[font=None,size=14.0,b=True,i=None]
+P200 | Style=Normal | Align=None | Text=Replace with the actual module name and description.
+     Runs: 'Replace with the actual module name and description.'[font=None,size=14.0,b=None,i=None]
+P201 | Style=Normal | Align=None | Text=4.4.2 Module 2
+     Runs: '4.4.2 Module 2'[font=None,size=14.0,b=True,i=None]
+P202 | Style=Normal | Align=None | Text=Replace with the actual module name and description.
+     Runs: 'Replace with the actual module name and description.'[font=None,size=14.0,b=None,i=None]
+P203 | Style=Normal | Align=None | Text=4.4.3 Module 3
+     Runs: '4.4.3 Module 3'[font=None,size=14.0,b=True,i=None]
+P204 | Style=Normal | Align=None | Text=Replace with the actual module name and description.
+     Runs: 'Replace with the actual module name and description.'[font=None,size=14.0,b=None,i=None]
+P205 | Style=Normal | Align=None | Text=4.4.4 Module 4
+     Runs: '4.4.4 Module 4'[font=None,size=14.0,b=True,i=None]
+P206 | Style=Normal | Align=None | Text=Replace with the actual module name and description.
+     Runs: 'Replace with the actual module name and description.'[font=None,size=14.0,b=None,i=None]
+P207 | Style=Normal | Align=None | Text=(Add modules if necessary)
+     Runs: '(Add modules if necessary)'[font=None,size=14.0,b=None,i=None]
+P208 | Style=Normal | Align=None | Text=4.5 Proposed Methodology
+     Runs: '4.5 Proposed Methodology'[font=None,size=14.0,b=True,i=None]
+P209 | Style=Normal | Align=None | Text=Explain the step-by-step methodology.
+     Runs: 'Explain the step-by-step methodology.'[font=None,size=14.0,b=None,i=None]
+P210 | Style=Normal | Align=None | Text=4.6 System Workflow
+     Runs: '4.6 System Workflow'[font=None,size=14.0,b=True,i=None]
+P211 | Style=Normal | Align=None | Text=Present the overall workflow using a flowchart/activity diagram.
+     Runs: 'Present the overall workflow using a flowchart/activity diagram.'[font=None,size=14.0,b=None,i=None]
+P212 | Style=Normal | Align=None | Text=4.7 Algorithms/Techniques Used
+     Runs: '4.7 Algorithms/Techniques Used'[font=None,size=14.0,b=True,i=None]
+P213 | Style=Normal | Align=None | Text=Explain important algorithms or computational techniques.
+     Runs: 'Explain important algorithms or computational techniques.'[font=None,size=14.0,b=None,i=None]
+P214 | Style=Normal | Align=None | Text=4.8 Dataset/Data Collection
+     Runs: '4.8 Dataset/Data Collection'[font=None,size=14.0,b=True,i=None]
+P215 | Style=Normal | Align=None | Text=Describe source, collection procedure, characteristics, samples, and features, if applicable.
+     Runs: 'Describe source, collection procedure, characteristics, samples, and features, if applicable.'[font=None,size=14.0,b=None,i=None]
+P216 | Style=Normal | Align=None | Text=4.9 Data Preprocessing
+     Runs: '4.9 Data Preprocessing'[font=None,size=14.0,b=True,i=None]
+P217 | Style=Normal | Align=None | Text=Explain cleaning, normalization, feature extraction, transformation, augmentation, etc., if applicable.
+     Runs: 'Explain cleaning, normalization, feature extraction, transformation, augmentation, etc., if applicable.'[font=None,size=14.0,b=None,i=None]
+P218 | Style=Normal | Align=None | Text=4.10 Model/System Development
+     Runs: '4.10 Model/System Development'[font=None,size=14.0,b=True,i=None]
+P219 | Style=Normal | Align=None | Text=Explain the development and implementation process.
+     Runs: 'Explain the development and implementation process.'[font=None,size=14.0,b=None,i=None]
+P220 | Style=Normal | Align=None | Text=4.11 System Design Diagrams
+     Runs: '4.11 System Design Diagrams'[font=None,size=14.0,b=True,i=None]
+P221 | Style=Normal | Align=None | Text=Include relevant use case, DFD, class, sequence, activity, ER, or architecture diagrams.
+     Runs: 'Include relevant use case, DFD, class, sequence, activity, ER, or architecture diagrams.'[font=None,size=14.0,b=None,i=None]
+P222 | Style=Normal | Align=None | Text=4.12 Implementation
+     Runs: '4.12 Implementation'[font=None,size=14.0,b=True,i=None]
+P223 | Style=Normal | Align=None | Text=Describe how the proposed system was implemented.
+     Runs: 'Describe how the proposed system was implemented.'[font=None,size=14.0,b=None,i=None]
+P224 | Style=Normal | Align=None | Text=4.13 Coding/Program Implementation
+     Runs: '4.13 Coding/Program Implementation'[font=None,size=14.0,b=True,i=None]
+P225 | Style=Normal | Align=None | Text=Start the page by specifying github URL  and explaining the file structure in github uploaded folder ( mandatory)
+     Runs: 'Start the page by specifying '[font=None,size=14.0,b=None,i=None] 'github'[font=None,size=14.0,b=None,i=None] ' URL'[font=None,size=14.0,b=None,i=None] '\xa0 and'[font=None,size=14.0,b=None,i=None] ' explaining the file structure in '[font=None,size=14.0,b=None,i=None] 'github'[font=None,size=14.0,b=None,i=None] ' uploaded folder'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] '( mandatory)'[font=None,size=14.0,b=None,i=None]
+P226 | Style=Normal | Align=None | Text=Include important code snippets and explain their functionality.
+     Runs: 'Include important code snippets and explain their functionality.'[font=None,size=14.0,b=None,i=None]
+P227 | Style=Normal | Align=None | Text=4.14 User Interface / Application Screens
+     Runs: '4.14 User Interface / Application Screens'[font=None,size=14.0,b=True,i=None]
+P228 | Style=Normal | Align=None | Text=Present important screenshots of the developed system/application.
+     Runs: 'Present important screenshots of the developed system/application.'[font=None,size=14.0,b=None,i=None]
+P229 | Style=Normal | Align=None | Text=4.15 Chapter Summary
+     Runs: '4.15 Chapter Summary'[font=None,size=14.0,b=True,i=None]
+P230 | Style=Normal | Align=None | Text=Summarize the chapter.
+     Runs: 'Summarize the chapter.'[font=None,size=14.0,b=None,i=None]
+P231 | Style=Normal | Align=None | Text=5. CHAPTER 3 – RESULTS AND DISCUSSION
+     Runs: '5. CHAPTER 3 – RESULTS AND DISCUSSION'[font=None,size=14.0,b=True,i=None]
+P232 | Style=Normal | Align=None | Text=5.1 Introduction
+     Runs: '5.1 Introduction'[font=None,size=14.0,b=True,i=None]
+P233 | Style=Normal | Align=None | Text=Introduce the evaluation and results.
+     Runs: 'Introduce the evaluation and results.'[font=None,size=14.0,b=None,i=None]
+P234 | Style=Normal | Align=None | Text=5.2 Experimental Setup
+     Runs: '5.2 Experimental Setup'[font=None,size=14.0,b=True,i=None]
+P235 | Style=Normal | Align=None | Text=Describe hardware, software, datasets, parameters, and experimental conditions.
+     Runs: 'Describe hardware, software, datasets, parameters, and experimental conditions.'[font=None,size=14.0,b=None,i=None]
+P236 | Style=Normal | Align=None | Text=5.3 Evaluation Metrics
+     Runs: '5.3 Evaluation Metrics'[font=None,size=14.0,b=True,i=None]
+P237 | Style=Normal | Align=None | Text=Explain metrics such as accuracy, precision, recall, F1-score, error, processing time, etc., as applicable.
+     Runs: 'Explain metrics such as accuracy, precision, recall, F1-score, error, processing time, etc., as applicable.'[font=None,size=14.0,b=None,i=None]
+P238 | Style=Normal | Align=None | Text=5.4 Experimental Results
+     Runs: '5.4 Experimental Results'[font=None,size=14.0,b=True,i=None]
+P239 | Style=Normal | Align=None | Text=Present results obtained from the proposed system.
+     Runs: 'Present results obtained from the proposed system.'[font=None,size=14.0,b=None,i=None]
+P240 | Style=Normal | Align=None | Text=Discuss effects of important parameter changes, if applicable.
+     Runs: 'Discuss effects of important parameter changes, if applicable.'[font=None,size=14.0,b=None,i=None]
+P241 | Style=Normal | Align=None | Text=Present relevant graphs, charts, and plots.
+     Runs: 'Present relevant graphs, charts, and plots.'[font=None,size=14.0,b=None,i=None]
+P242 | Style=Normal | Align=None | Text=5. 5 Comparison with Existing Techniques
+     Runs: '5. 5 Comparison'[font=None,size=14.0,b=True,i=None] ' with Existing Techniques'[font=None,size=14.0,b=True,i=None]
+P243 | Style=Normal | Align=None | Text=Compare the proposed technique with existing techniques.
+     Runs: 'C'[font=None,size=14.0,b=None,i=None] 'ompare the proposed technique with existing techniques.'[font=None,size=14.0,b=None,i=None]
+P244 | Style=Normal | Align=None | Text=5.8 Discussion of Results
+     Runs: '5.8 Discussion of Results'[font=None,size=14.0,b=True,i=None]
+P245 | Style=Normal | Align=None | Text=Interpret the results and explain the observed performance.
+     Runs: 'Interpret the results and explain the observed performance.'[font=None,size=14.0,b=None,i=None]
+P246 | Style=Normal | Align=None | Text=Relate results to the limitations identified earlier.
+     Runs: 'Relate results to the limitations identified earlier.'[font=None,size=14.0,b=None,i=None]
+P247 | Style=Normal | Align=None | Text=Discuss limitations identified during implementation or experimentation.
+     Runs: 'Discuss limitations identified during implementation or experimentation'[font=None,size=14.0,b=None,i=None] '.'[font=None,size=14.0,b=None,i=None]
+P248 | Style=Normal | Align=None | Text=5.11 Chapter Summary
+     Runs: '5.11 Chapter Summary'[font=None,size=14.0,b=True,i=None]
+P249 | Style=Normal | Align=None | Text=Summarize the chapter.
+     Runs: 'Summarize the chapter.'[font=None,size=14.0,b=None,i=None]
+P250 | Style=Normal | Align=None | Text=6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE
+     Runs: '6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE'[font=None,size=14.0,b=True,i=None]
+P251 | Style=Normal | Align=None | Text=6.1 Summary of the Project
+     Runs: '6.1 Summary of the Project'[font=None,size=14.0,b=True,i=None]
+P252 | Style=Normal | Align=None | Text=Summarize the problem, methodology, implementation, and major findings.
+     Runs: 'Summarize the problem, methodology, implementation, and major findings.'[font=None,size=14.0,b=None,i=None]
+P253 | Style=Normal | Align=None | Text=List the important outcomes obtained from the project.
+     Runs: 'List the important outcomes obtained from the project.'[font=None,size=14.0,b=None,i=None]
+P254 | Style=Normal | Align=None | Text=Explain how the proposed system satisfies the objectives.
+     Runs: 'Explain how the proposed system satisfies the objectives.'[font=None,size=14.0,b=None,i=None]
+P255 | Style=Normal | Align=None | Text=6.2 Conclusion
+     Runs: '6.2 Conclusion'[font=None,size=14.0,b=True,i=None]
+P256 | Style=Normal | Align=None | Text=Present the overall conclusion of the project.
+     Runs: 'Present the overall conclusion of the project.'[font=None,size=14.0,b=None,i=None]
+P257 | Style=Normal | Align=None | Text=6.3 Future Scope
+     Runs: '6.3 Future Scope'[font=None,size=14.0,b=True,i=None]
+P258 | Style=Normal | Align=None | Text=Describe possible improvements and extensions.
+     Runs: 'Describe possible improvements and extensions.'[font=None,size=14.0,b=None,i=None]
+P259 | Style=Normal | Align=None | Text=
+     Runs: ''[font=None,size=14.0,b=None,i=None]
+P260 | Style=Normal | Align=None | Text=
+P261 | Style=Normal | Align=CENTER (1) | Text=SDG GOALS ( 1 Page)
+     Runs: 'SDG'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'GOALS'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '('[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '1'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'Page)'[font=None,size=14.0,b=True,i=None]
+P262 | Style=Normal | Align=CENTER (1) | Text=
+P263 | Style=Normal | Align=None | Text=PUBLICATIONS (IF ANY)
+     Runs: 'PUBLICATIONS'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '(IF'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'ANY)'[font=None,size=14.0,b=True,i=None]
+P264 | Style=Normal | Align=None | Text=
+P265 | Style=Normal | Align=None | Text=
+P266 | Style=Normal | Align=None | Text=
+P267 | Style=Normal | Align=None | Text=
+P268 | Style=Normal | Align=None | Text=
+P269 | Style=Normal | Align=None | Text=
+P270 | Style=Normal | Align=None | Text=
+P271 | Style=Normal | Align=None | Text=
+P272 | Style=Normal | Align=None | Text=
+P273 | Style=Normal | Align=None | Text=
+P274 | Style=Normal | Align=None | Text=
+P275 | Style=Normal | Align=None | Text=
+P276 | Style=Normal | Align=None | Text=
+P277 | Style=Normal | Align=None | Text=
+P278 | Style=Normal | Align=None | Text=
+P279 | Style=Normal | Align=None | Text=
+P280 | Style=Normal | Align=None | Text=
+P281 | Style=Normal | Align=None | Text=
+P282 | Style=Normal | Align=None | Text=
+P283 | Style=Normal | Align=None | Text=
+P284 | Style=Normal | Align=None | Text=
+P285 | Style=Normal | Align=None | Text=
+P286 | Style=Normal | Align=None | Text=
+P287 | Style=Normal | Align=None | Text=
+P288 | Style=Normal | Align=None | Text=
+P289 | Style=Normal | Align=None | Text=
+P290 | Style=Normal | Align=None | Text=
+P291 | Style=Normal | Align=None | Text=
+P292 | Style=Normal | Align=None | Text=
+P293 | Style=Normal | Align=None | Text=
+P294 | Style=Normal | Align=None | Text=
+P295 | Style=Normal | Align=None | Text=
+P296 | Style=Normal | Align=None | Text=
+P297 | Style=Normal | Align=None | Text=
+P298 | Style=Normal | Align=None | Text=
+P299 | Style=Normal | Align=None | Text=
+P300 | Style=Normal | Align=None | Text=
+P301 | Style=Normal | Align=None | Text=
+P302 | Style=Normal | Align=None | Text=
+P303 | Style=Normal | Align=None | Text=
+P304 | Style=Normal | Align=None | Text=
+P305 | Style=Normal | Align=None | Text=
+P306 | Style=Normal | Align=None | Text=
+P307 | Style=Normal | Align=None | Text=
+P308 | Style=Normal | Align=None | Text=REFERENCES (Minimum 20 references)
+     Runs: 'REFERENCES'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '(Minimum'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '20'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'references)'[font=None,size=14.0,b=True,i=None]
+P309 | Style=Normal | Align=None | Text=
+P310 | Style=Normal | Align=None | Text=(ENSURE MINIMUM OF 15 PAPERS REFERRING TO CONFERENCE AND JOURNAL (IN THE RECENT YEAR 2024, 2025 ,2026) AND ALL THESE PAPERS ARE CITED IN INTRODUCTION, LITERATURE OR WHEREVER APPLICABLE)
+     Runs: '('[font=None,size=12.0,b=None,i=None] 'ENSURE MINIMUM OF 15 PAPERS REFERRING TO CONFERENCE AND JOURNAL (IN THE RECENT YEAR 2024, '[font=None,size=12.0,b=None,i=None] '2025 ,2026'[font=None,size=12.0,b=None,i=None] ') AND ALL THESE PAPERS ARE CITED IN INTRODUCTION, LITERATURE OR WHEREVER APPLICABLE'[font=None,size=12.0,b=None,i=None] ')'[font=None,size=12.0,b=None,i=None]
+P311 | Style=Heading 2 | Align=JUSTIFY (3) | Text=Font, Font Size, Margins and Line spacing instructions
+     Runs: 'Font,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Font'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Size,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Margins'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Line'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'spacing'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'instructions'[font=None,size=None,b=None,i=None]
+P312 | Style=Body Text | Align=JUSTIFY (3) | Text=The table and figures shall be introduced in the appropriate places.
+     Runs: 'The'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'table'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'figures'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'shall'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'be'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'introduced'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'appropriate'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'places.'[font=None,size=None,b=None,i=None]
+P313 | Style=Body Text | Align=None | Text=
+P314 | Style=Heading 7 | Align=None | Text=PAGE DIMENSION AND BINDING SPECIFICATIONS:
+     Runs: 'PAGE'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'DIMENSION'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'AND'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'BINDING'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'SPECIFICATIONS:'[font=None,size=None,b=None,i=None]
+P315 | Style=Body Text | Align=None | Text=
+P316 | Style=Body Text | Align=JUSTIFY (3) | Text=The dimension of the project report should be in A4 size. The project report should be bound using flexible cover of the thick white art paper. The cover should be printed in black letters and the text for printing should be identical.
+     Runs: 'The dimension of the project report should be in A4 size.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'The project report should be bound using flexible cover of the thick white art paper.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'The cover should be '[font=None,size=None,b=None,i=None] 'printed in black'[font=None,size=None,b=True,i=None] ' '[font=None,size=None,b=True,i=None] 'letters'[font=None,size=None,b=True,i=None] ' '[font=None,size=None,b=True,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'text'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'for'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'printing'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'should'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'be'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'identical.'[font=None,size=None,b=None,i=None]
+P317 | Style=Body Text | Align=None | Text=
+P318 | Style=Heading 7 | Align=None | Text=PREPARATION FORMAT:
+     Runs: 'PREPARATION'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'FORMAT:'[font=None,size=None,b=None,i=None]
+P319 | Style=Body Text | Align=None | Text=
+P320 | Style=List Paragraph | Align=None | Text=Cover Page & Title Page – A specimen copy of the Cover page & Title page of the project report are given in Appendix 1.
+     Runs: 'Cover'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'Page'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '&'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'Title'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'Page'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '–'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'A'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'specimen'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'copy'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Cover'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'page'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] '&'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Title'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'page'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'project report are given in '[font=None,size=11.5,b=None,i=None] 'Appendix 1.'[font=None,size=11.5,b=True,i=None]
+P321 | Style=Body Text | Align=None | Text=
+P322 | Style=List Paragraph | Align=None | Text=Bonafide Certificate – The Bonafide Certificate shall be in double line spacing using Font Style Times New Roman and Font Size 14, as per the format in Appendix 2.
+     Runs: 'Bonafide'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'Certificate'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '–'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'The'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Bonafide'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Certificate'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'shall'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'in'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'double'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'line'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'spacing'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'using'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Font Style Times New Roman and Font Size 14, as per the format in '[font=None,size=11.5,b=None,i=None] 'Appendix 2.'[font=None,size=11.5,b=True,i=None]
+P323 | Style=Body Text | Align=None | Text=
+P324 | Style=Body Text | Align=None | Text=The certificate shall carry the supervisor’s signature and shall be followed by the supervisor’s name, academic designation (not any other responsibilities of administrative nature),department and full address of the institution where the supervisor has guided the student. The term ‘SUPERVISOR’ must be typed in capital letters between the supervisor’s name and academic designation.
+     Runs: 'The certificate'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'shall carry the supervisor’s'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'signature and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'shall'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'be followed by the supervisor’s name,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'academic'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'designation'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '(not'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'any'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'other'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'responsibilities'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'administrative nature)'[font=None,size=None,b=None,i=None] ',department'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'full'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'address'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'institution'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'where'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'supervisor'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'has'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'guided the student.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'The'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'term'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '‘SUPERVISOR’'[font=None,size=None,b=True,i=None] ' '[font=None,size=None,b=True,i=None] 'must'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'be'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'typed'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'capital'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'letters'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'between'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'supervisor’s name and academic designation.'[font=None,size=None,b=None,i=None]
+P325 | Style=Body Text | Align=None | Text=
+P326 | Style=List Paragraph | Align=None | Text=Abstract – Abstract should be one page synopsis of the project report typed double line spacing, Font Style Times New Roman and Font Size 14.
+     Runs: 'Abstract'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '–'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'Abstract'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'one'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'page'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'synopsis'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'project'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'report'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'typed'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'double'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'line spacing,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Font'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Style'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Times'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'New'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Roman'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Font'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Size'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] '14.'[font=None,size=11.5,b=None,i=None]
+P327 | Style=Body Text | Align=None | Text=
+P328 | Style=List Paragraph | Align=None | Text=Table of Contents – The table of contents should list all material following it as well as any material which precedes it. The title page and Bonafide Certificate will not find a place among the items listed in the Table of Contents but the page numbers of which are in lower case Roman letters. One and a half spacing should be adopted for typing the matter under this head. A specimen copy of the Table of Contents of the project report is given in Appendix 3.
+     Runs: 'Table of Contents – '[font=None,size=11.5,b=True,i=None] 'The table of contents should list all material following it as well as any material which precedes it. The title page and '[font=None,size=11.5,b=None,i=None] 'Bonafide'[font=None,size=11.5,b=None,i=None] ' Certificate will not find a place among'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'items'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'listed'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'in'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Table'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Contents'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'but'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'page'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'numbers'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'which'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'are'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'in'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'lower'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'case Roman letters.'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'One'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and a'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'half spacing'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be adopted'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'for typing the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'matter under'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'this'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'head. A'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'specimen'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'copy'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the Table'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Contents'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'project'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'report'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'is'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'given in'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Appendix'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '3.'[font=None,size=11.5,b=True,i=None]
+P329 | Style=Body Text | Align=None | Text=
+P330 | Style=List Paragraph | Align=None | Text=List of Tables – The list should use exactly the same captions as they appear above the tables in the text. One and a half spacing should be adopted for typing the matter under this head.
+     Runs: 'List'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'of'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'Tables'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '–'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'The'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'list'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'use'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'exactly'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'same'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'captions'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'as'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'they'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'appear'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'above'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'tables in'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'text.'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'One'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'a'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'half'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'spacing'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'adopted'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'for'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'typing'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'matter'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'under'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'this'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'head.'[font=None,size=11.5,b=None,i=None]
+P331 | Style=Body Text | Align=None | Text=
+P332 | Style=List Paragraph | Align=None | Text=List of Figures – The list should use exactly the same captions as they appear below the figures in the text. One and a half spacing should be adopted for typing the matter under this head.
+     Runs: 'List'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'of'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'Figures'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '–'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] 'The'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'list'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'use'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'exactly'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'same'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'captions'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'as'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'they'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'appear'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'below'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the figures in the text. One and a half spacing should be adopted for typing the matter under this '[font=None,size=11.5,b=None,i=None] 'head.'[font=None,size=11.5,b=None,i=None]
+P333 | Style=Body Text | Align=None | Text=
+P334 | Style=List Paragraph | Align=None | Text=List of Symbols, Abbreviations and Nomenclature – One and a half spacing should be adopted or typing the matter under this head. Standard symbols, abbreviations etc. should be used.
+     Runs: 'List of Symbols, Abbreviations and Nomenclature '[font=None,size=11.5,b=True,i=None] '– One and a half spacing should be adopted or'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'typing the matter under'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'this head. Standard symbols, abbreviations etc. should be '[font=None,size=11.5,b=None,i=None] 'used.'[font=None,size=11.5,b=None,i=None]
+P335 | Style=Body Text | Align=None | Text=
+P336 | Style=List Paragraph | Align=None | Text=Appendices – Appendices are provided to give supplementary information, which is included in the main text may serve as a distraction and cloud the central theme.
+     Runs: 'Appendices'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '–'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Appendices'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'are'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'provided'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'to'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'give'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'supplementary'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'information,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'which'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'is'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'included in'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'main'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'text'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'may'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'serve'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'as'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'a'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'distraction'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'cloud'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'central'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'theme.'[font=None,size=11.5,b=None,i=None]
+P337 | Style=Body Text | Align=None | Text=
+P338 | Style=List Paragraph | Align=LEFT (0) | Text=Appendices should be numbered using Arabic numerals, e.g. Appendix 1, Appendix 2, etc.
+     Runs: 'Appendices'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'numbered'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'using'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Arabic'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'numerals,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'e.g.'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Appendix'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] '1,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Appendix 2, etc.'[font=None,size=11.5,b=None,i=None]
+P339 | Style=List Paragraph | Align=LEFT (0) | Text=Appendices, Tables and References appearing in appendices should be numbered and
+     Runs: 'Appendices,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'Tables'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'References'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'appearing'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'in'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'appendices'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'numbered'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None]
+P340 | Style=List Paragraph | Align=LEFT (0) | Text=
+P341 | Style=Body Text | Align=None | Text=referred to at appropriate places just as in the case of chapters.
+     Runs: 'referred'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'to'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'at'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'appropriate'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'places'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'just'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'as'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'case'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'chapters.'[font=None,size=None,b=None,i=None]
+P342 | Style=Body Text | Align=None | Text=
+P343 | Style=List Paragraph | Align=LEFT (0) | Text=Appendices shall carry the title of the work reported and the same title shall be made in the contents page also.
+     Runs: 'Appendices'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'shall'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'carry'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'title'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'work'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'reported'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'same'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'title'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'shall'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'made in the contents page also.'[font=None,size=11.5,b=None,i=None]
+P344 | Style=List Paragraph | Align=None | Text=List of References –The listing of references should be typed 4 spaces below the heading “REFERENCES” in alphabetical order in single spacing left – justified. The reference material should be listed in the alphabetical order of the first author. The name of the author/authors should be immediately followed by the year and other details.
+     Runs: 'List of References '[font=None,size=11.5,b=True,i=None] '–The listing of references should be typed 4 spaces below the heading “REFERENCES” in alphabetical order in single spacing left – justified. The reference material should be listed in the alphabetical order of the first author. The name of the author/authors should'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'be'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'immediately'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'followed'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'by'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'year'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'other'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'details.'[font=None,size=11.5,b=None,i=None]
+P345 | Style=Body Text | Align=None | Text=
+P346 | Style=List Paragraph | Align=None | Text=Table and figures - By the word Table, is meant tabulated numerical data in the body of the project report as well as in the appendices. All other non-verbal materials used in the body of the project work and appendices such as charts, graphs, maps, photographs and diagrams may be designated as figures.
+     Runs: 'Table and figures - '[font=None,size=11.5,b=True,i=None] 'By the word Table, is meant tabulated numerical data in the body of the project report'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'as well'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'as in the appendices.'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'All'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'other'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'non-verbal'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'materials used in the body'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'of the'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'project'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'work'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'appendices'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'such'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'as'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'charts,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'graphs,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'maps,'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'photographs'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'and'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'diagrams'[font=None,size=11.5,b=None,i=None] ' '[font=None,size=11.5,b=None,i=None] 'may be designated as figures.'[font=None,size=11.5,b=None,i=None]
+P347 | Style=Body Text | Align=None | Text=
+P348 | Style=Heading 7 | Align=None | Text=TYPING INSTRUCTIONS:
+     Runs: 'TYPING'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'INSTRUCTIONS:'[font=None,size=None,b=None,i=None]
+P349 | Style=Body Text | Align=None | Text=
+P350 | Style=Body Text | Align=None | Text=The impression on the typed copies should be black in colour.
+     Runs: 'The impression'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'on'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'typed'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'copies'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'should'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'be'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'black'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'colour'[font=None,size=None,b=None,i=None] '.'[font=None,size=None,b=None,i=None]
+P351 | Style=Body Text | Align=None | Text=
+P352 | Style=Body Text | Align=None | Text=One and a half spacing should be used for typing the general text. The general text shall be typed in the Font style ‘Times New Roman’ and Font size 14.
+     Runs: 'One'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'a'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'half'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'spacing'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'should'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'be'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'used'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'for'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'typing'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'general'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'text.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'The'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'general'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'text'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'shall'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'be typed'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'the'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Font'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'style'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '‘Times'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'New'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Roman’'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Font'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'size'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '14.'[font=None,size=None,b=None,i=None]
+P353 | Style=Body Text | Align=None | Text=
+P354 | Style=Body Text | Align=None | Text=
+P355 | Style=Normal | Align=CENTER (1) | Text=* * * * *
+     Runs: '*'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '*'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '*'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '*'[font=None,size=11.5,b=True,i=None] ' '[font=None,size=11.5,b=True,i=None] '*'[font=None,size=11.5,b=True,i=None]
+P356 | Style=Normal | Align=CENTER (1) | Text=
+P357 | Style=Normal | Align=None | Text=SAMPLE
+     Runs: 'SAMPLE'[font=None,size=14.0,b=True,i=None]
+P358 | Style=Heading 4 | Align=None | Text=LITERATURE REVIEW (Minimum 5 pages with 20 references cited). (Citations should be in alphabetical order as given in the sample) 
+     Runs: 'LITERATURE'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'REVIEW'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '(Minimum'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '5'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'pages'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'with'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '20'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'references'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'cited). '[font=None,size=None,b=None,i=None] '(Citations should be in alphabetical order as given in the sample) '[font=None,size=None,b=None,i=None]
+P359 | Style=Normal | Align=JUSTIFY (3) | Text=This chapter reviews existing literature relevant to the project topic. It highlights previous work, methodologies, and findings that inform the current study.
+     Runs: 'This chapter reviews existing literature relevant to the project topic. It highlights previous work, methodologies, and findings that inform the current study.'[font=None,size=14.0,b=None,i=None]
+P360 | Style=Normal | Align=JUSTIFY (3) | Text=
+P361 | Style=Normal | Align=JUSTIFY (3) | Text=The integration of face recognition technology into attendance systems has gained significant attention due to its potential to automate and secure attendance tracking in educational and corporate environments. Traditional methods such as manual roll calls and RFID-based systems are prone to errors, inefficiencies, and manipulation. Face recognition offers a contactless and reliable alternative.
+     Runs: 'The integration of face recognition technology into attendance systems has gained significant attention due to its potential to automate and secure attendance'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'tracking in educational and corporate environments. Traditional methods such as manual roll calls and RFID-based systems are prone to errors, inefficiencies, and manipulation. Face recognition offers a contactless and reliable alternative.'[font=None,size=14.0,b=None,i=None]
+P362 | Style=Normal | Align=JUSTIFY (3) | Text=Barla et al. [1] reviewed current methods and challenges in implementing face recognition-based attendance systems. Their study highlights the use of Haarcascade classifiers and NVIDIA Jetson Nano for real-time image processing in classrooms, emphasizing the shift from manual systems to AI-driven solutions.
+     Runs: 'Barla'[font=None,size=14.0,b=None,i=None] ' et al. [1] reviewed current methods and challenges in implementing face recognition-based attendance systems. Their study highlights the use of '[font=None,size=14.0,b=None,i=None] 'Haarcascade'[font=None,size=14.0,b=None,i=None] ' classifiers and NVIDIA '[font=None,size=14.0,b=None,i=None] 'Jetson'[font=None,size=14.0,b=None,i=None] ' Nano for real-time image processing'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'in classrooms, emphasizing the shift from manual systems to AI-driven solutions.'[font=None,size=14.0,b=None,i=None]
+P363 | Style=Body Text | Align=None | Text=
+P364 | Style=Normal | Align=JUSTIFY (3) | Text=Thakur and Chakre [2] conducted a systematic review focusing on deep learning-based face recognition techniques. They discussed the limitations of RFID systems and proposed CNN-based models for improved accuracy and scalability in attendance tracking.
+     Runs: 'Thakur and '[font=None,size=14.0,b=None,i=None] 'Chakre'[font=None,size=14.0,b=None,i=None] ' [2] conducted a systematic review focusing on deep learning-based face recognition techniques.'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'They discussed the'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'limitations of RFID systems and proposed CNN-based models for improved accuracy and scalability in attendance tracking.'[font=None,size=14.0,b=None,i=None]
+P365 | Style=Body Text | Align=None | Text=
+P366 | Style=Normal | Align=JUSTIFY (3) | Text=Rudrawar [3] explored various algorithms such as Local Binary Patterns Histograms (LBPH), FaceNet, and YOLO for face detection and recognition. The study emphasized the importance of feature extraction and matching techniques like Euclidean distance and cosine similarity.
+     Runs: 'Rudrawar'[font=None,size=14.0,b=None,i=None] ' [3] explored various algorithms such as Local Binary Patterns Histograms (LBPH), '[font=None,size=14.0,b=None,i=None] 'FaceNet'[font=None,size=14.0,b=None,i=None] ', and YOLO for face detection and recognition. The study emphasized the importance of feature extraction and matching techniques like Euclidean distance and cosine similarity.'[font=None,size=14.0,b=None,i=None]
+P367 | Style=Body Text | Align=None | Text=
+P368 | Style=Normal | Align=JUSTIFY (3) | Text=Falalu et al. [4] examined the challenges of implementing smart attendance systems in real-world scenarios, including lighting conditions and image quality. They also discussed alternative technologies like QR codes and RFID, comparing
+     Runs: 'Falalu'[font=None,size=14.0,b=None,i=None] ' et al. [4] examined the challenges of implementing smart attendance systems in real-world scenarios, including lighting conditions and image quality. They also discussed alternative technologies like QR codes and RFID, comparing'[font=None,size=14.0,b=None,i=None]
+P369 | Style=Normal | Align=JUSTIFY (3) | Text=
+P370 | Style=Normal | Align=JUSTIFY (3) | Text=their effectiveness with face recognition.
+     Runs: 'their'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'effectiveness'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'with'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'face'[font=None,size=14.0,b=None,i=None] ' '[font=None,size=14.0,b=None,i=None] 'recognition.'[font=None,size=14.0,b=None,i=None]
+P371 | Style=Body Text | Align=None | Text=
+P372 | Style=Normal | Align=JUSTIFY (3) | Text=Singh et al. [5] reviewed multiple face recognition models including Dlib, ResNet, and Haar-Cascade classifiers. Their work focused on the deployment of these models in smart campus environments, highlighting their efficiency and accuracy.
+     Runs: 'Singh et al. [5] reviewed multiple face recognition models including '[font=None,size=14.0,b=None,i=None] 'Dlib'[font=None,size=14.0,b=None,i=None] ', '[font=None,size=14.0,b=None,i=None] 'ResNet'[font=None,size=14.0,b=None,i=None] ', and '[font=None,size=14.0,b=None,i=None] 'Haar'[font=None,size=14.0,b=None,i=None] '-Cascade classifiers. Their work focused on the deployment of these models in smart campus environments, highlighting their efficiency and accuracy.'[font=None,size=14.0,b=None,i=None]
+P373 | Style=Normal | Align=JUSTIFY (3) | Text=
+P374 | Style=Normal | Align=None | Text=REFERENCES (Minimum 20 references)
+     Runs: 'REFERENCES'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '(Minimum'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] '20'[font=None,size=14.0,b=True,i=None] ' '[font=None,size=14.0,b=True,i=None] 'references)'[font=None,size=14.0,b=True,i=None]
+P375 | Style=Normal | Align=None | Text=SAMPLE:
+     Runs: 'SAMPLE:'[font=None,size=14.0,b=True,i=None]
+P376 | Style=Body Text | Align=None | Text=
+P377 | Style=List Paragraph | Align=None | Text=Australian   Securities   Exchange   2009,   Market   Information,   Available   from:
+     Runs: 'Australian'[font=None,size=None,b=None,i=None] '   '[font=None,size=None,b=None,i=None] 'Securities'[font=None,size=None,b=None,i=None] '   '[font=None,size=None,b=None,i=None] 'Exchange'[font=None,size=None,b=None,i=None] '   '[font=None,size=None,b=None,i=None] '2009,'[font=None,size=None,b=None,i=None] '   '[font=None,size=None,b=None,i=None] 'Market'[font=None,size=None,b=None,i=None] '   '[font=None,size=None,b=None,i=None] 'Information,'[font=None,size=None,b=None,i=None] '   '[font=None,size=None,b=None,i=None] 'Available'[font=None,size=None,b=None,i=None] '   '[font=None,size=None,b=None,i=None] 'from:'[font=None,size=None,b=None,i=None]
+P378 | Style=Normal | Align=JUSTIFY (3) | Text=<http://www.asx.com.au/professionals/market_in> [Accessed 15 Oct 2025].
+     Runs: '<'[font=None,size=None,b=None,i=None] '>'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '[Accessed'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '15'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Oct'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '2025].'[font=None,size=None,b=None,i=None]
+P379 | Style=List Paragraph | Align=None | Text=Barla, D. & Dikshit, A. 2023, ‘Face Recognition for Smart Attendance: A Review of Current Methods and Open Issues’, International Journal of Novel Research and Development, vol. 4, no. 6, pp. 112–118.
+     Runs: 'Barla'[font=None,size=None,b=None,i=None] ', D. & '[font=None,size=None,b=None,i=None] 'Dikshit'[font=None,size=None,b=None,i=None] ', A. 2023, ‘Face Recognition for Smart Attendance: A Review of Current Methods'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Open'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Issues’,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'International Journal of Novel Research'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Development,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'vol.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '4,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'no. 6, pp. 112–118.'[font=None,size=None,b=None,i=None]
+P380 | Style=List Paragraph | Align=None | Text=Cookson, A.H. 1985, Particle trap for compressed gas insulated transmission systems, US Patent 4554399.
+     Runs: 'Cookson, A.H. 1985, Particle trap for compressed gas insulated transmission systems, US Patent '[font=None,size=None,b=None,i=None] '4554399.'[font=None,size=None,b=None,i=None]
+P381 | Style=List Paragraph | Align=None | Text=Falalu, M.A., Abdullahi, M. & Usman, A. 2023, ‘A Smart Attendance System Based on Face Recognition: Challenges and Effects’, Journal of Mathematical Techniques in Computational Mathematics, vol. 9, no. 2, pp. 33–41.
+     Runs: 'Falalu'[font=None,size=None,b=None,i=None] ', M.A., '[font=None,size=None,b=None,i=None] 'Abdullahi'[font=None,size=None,b=None,i=None] ', M. & '[font=None,size=None,b=None,i=None] 'Usman'[font=None,size=None,b=None,i=None] ', A. 2023, ‘A Smart Attendance System Based on Face Recognition: Challenges and Effects’, Journal of Mathematical Techniques in Computational Mathematics, vol. 9, no. 2, pp. 33–41.'[font=None,size=None,b=None,i=None]
+P382 | Style=List Paragraph | Align=None | Text=Fan, W., Gordon, M.D. & Pathak, R. 2000, ‘Personalization of search engine services for effective retrieval and knowledge management’, Proceedings of the Twenty-First International Conference on Information Systems, pp. 20–34.
+     Runs: 'Fan, W., Gordon, M.D. & '[font=None,size=None,b=None,i=None] 'Pathak'[font=None,size=None,b=None,i=None] ', R. 2000, ‘Personalization of search engine services for effective retrieval and knowledge management’, Proceedings of the Twenty-First International Conference on Information Systems, pp. 20–34.'[font=None,size=None,b=None,i=None]
+P383 | Style=List Paragraph | Align=None | Text=Gupta, N. 2020, ‘Biometric Authentication Using Facial Features’, Proceedings of the National Conference on Emerging Trends in Computing, pp. 90–95.
+     Runs: 'Gupta, N. 2020, ‘Biometric Authentication Using Facial Features’, Proceedings of the National Conference on Emerging Trends in Computing, pp. 90–95.'[font=None,size=None,b=None,i=None]
+P384 | Style=List Paragraph | Align=None | Text=Holt, D.H. 1997, Management Principles and Practices, Prentice-Hall, Sydney.
+     Runs: 'Holt,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'D.H.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '1997,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Management'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Principles'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Practices,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Prentice-Hall,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Sydney.'[font=None,size=None,b=None,i=None]
+P385 | Style=List Paragraph | Align=None | Text=Kumar, V. & Mehta, S. 2022, ‘Real-Time Face Recognition System for Automated Attendance’, Proceedings of the International Conference on Artificial Intelligence and Machine Learning, pp. 55–60.
+     Runs: 'Kumar, V. & Mehta, S. 2022, ‘Real-Time Face Recognition System for Automated Attendance’, Proceedings of the International Conference on Artificial Intelligence and Machine Learning, pp. '[font=None,size=None,b=None,i=None] '55–60.'[font=None,size=None,b=None,i=None]
+P386 | Style=List Paragraph | Align=None | Text=Patel, R. & Joshi, M. 2021, ‘Deep Learning Approaches for Face Recognition in Smart Systems’, International Journal of Computer Applications, vol. 175, no. 7, pp. 22–28.
+     Runs: 'Patel, R.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '& Joshi,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'M. 2021,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '‘Deep Learning Approaches for Face Recognition in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Smart Systems’, International Journal of Computer Applications, vol. 175, no. 7, pp. 22–28.'[font=None,size=None,b=None,i=None]
+P387 | Style=List Paragraph | Align=None | Text=Rudrawar, S. 2025, ‘Developing an Attendance Management System using Face Recognition Technology’, International Journal of Scientific Research in Science and Technology, vol. 11, no. 3, pp. 101–107.
+     Runs: 'Rudrawar'[font=None,size=None,b=None,i=None] ', S. 2025, ‘Developing an Attendance Management System using Face Recognition Technology’,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'International'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Journal'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'of'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Scientific'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Research'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Science'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Technology,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'vol.'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '11,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'no. 3, pp. 101–107.'[font=None,size=None,b=None,i=None]
+P388 | Style=List Paragraph | Align=None | Text=Singh, A., Kumar, R. & Sharma, P. 2024, ‘Smart Campus: Smart Attendance Management System Using Face Recognition’, International Journal for Modern Research, vol. 12, no. 2, pp. 45–52.
+     Runs: 'Singh, A., Kumar, R. & Sharma, P. 2024, ‘Smart Campus: Smart Attendance Management System Using Face Recognition’, International Journal for Modern Research, vol. 12, no. 2, pp. '[font=None,size=None,b=None,i=None] '45–52.'[font=None,size=None,b=None,i=None]
+P389 | Style=List Paragraph | Align=None | Text=Soundarya, S., Priya, R. & Karthik, M. 2025, ‘A Review Paper on Attendance Management System Using Face Recognition’, International Journal of Creative Research Thoughts, vol. 10, no. 1, pp. 88–94.
+     Runs: 'Soundarya'[font=None,size=None,b=None,i=None] ', S., '[font=None,size=None,b=None,i=None] 'Priya'[font=None,size=None,b=None,i=None] ', R. & '[font=None,size=None,b=None,i=None] 'Karthik'[font=None,size=None,b=None,i=None] ', M. 2025, ‘A Review Paper on Attendance Management System Using Face Recognition’, International Journal of Creative Research Thoughts, vol. 10, no. 1, pp. 88–94.'[font=None,size=None,b=None,i=None]
+P390 | Style=List Paragraph | Align=None | Text=
+P391 | Style=List Paragraph | Align=None | Text=Thakur, B. & Chakre, R. 2025, ‘A Systematic Review On Smart Attendance System Leveraging Deep Learning-Based Face Recognition Techniques’, IOSR Journal of Computer Engineering, vol. 27, no. 4, pp. 80–86.
+     Runs: 'Thakur, B. & '[font=None,size=None,b=None,i=None] 'Chakre'[font=None,size=None,b=None,i=None] ', R. 2025, ‘A Systematic Review On Smart Attendance System Leveraging Deep Learning-Based Face Recognition Techniques’, IOSR Journal of Computer Engineering, vol. 27, no. 4, pp. 80–86.'[font=None,size=None,b=None,i=None]
+P392 | Style=List Paragraph | Align=None | Text=Waldron, S. 2008, ‘Generalized Welch bound equality sequences are tight frames’, IEEE Transactions on Information Theory, vol. 49, no. 9, pp. 2307–2309.
+     Runs: 'Waldron, S. 2008, ‘Generalized Welch bound equality sequences are tight frames’, IEEE Transactions on Information Theory, vol. 49, no. 9, pp. 2307–2309.'[font=None,size=None,b=None,i=None]
+P393 | Style=List Paragraph | Align=None | Text=TechVision Research 2023, AI in Education: Trends and Applications, Available from:
+     Runs: 'TechVision'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Research'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '2023,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'AI'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'in'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Education:'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Trends'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'and'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Applications,'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Available'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'from:'[font=None,size=None,b=None,i=None]
+P394 | Style=Normal | Align=JUSTIFY (3) | Text=<https://www.techvisionresearch.com/ai-education-trends> [Accessed 10 Oct 2025].
+     Runs: '<'[font=None,size=None,b=None,i=None] '>'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '[Accessed'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '10'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Oct'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '2025].'[font=None,size=None,b=None,i=None]
+P395 | Style=Body Text | Align=None | Text=
+P396 | Style=Heading 4 | Align=None | Text=
+P397 | Style=Heading 4 | Align=None | Text=
+P398 | Style=Heading 4 | Align=None | Text=
+P399 | Style=Heading 4 | Align=None | Text=
+P400 | Style=Heading 4 | Align=None | Text=
+P401 | Style=Heading 4 | Align=None | Text=
+P402 | Style=Heading 4 | Align=None | Text=
+P403 | Style=Heading 4 | Align=None | Text=
+P404 | Style=Heading 4 | Align=None | Text=
+P405 | Style=Heading 4 | Align=None | Text=
+P406 | Style=Heading 4 | Align=None | Text=
+P407 | Style=Heading 4 | Align=None | Text=
+P408 | Style=Heading 4 | Align=None | Text=
+P409 | Style=Heading 4 | Align=None | Text=
+P410 | Style=Heading 4 | Align=None | Text=
+P411 | Style=Heading 4 | Align=None | Text=
+P412 | Style=Heading 4 | Align=None | Text=
+P413 | Style=Heading 4 | Align=None | Text=
+P414 | Style=Heading 4 | Align=None | Text=
+P415 | Style=Heading 4 | Align=None | Text=
+P416 | Style=Heading 4 | Align=None | Text=
+P417 | Style=Heading 4 | Align=None | Text=
+P418 | Style=Heading 4 | Align=None | Text=
+P419 | Style=Heading 4 | Align=None | Text=
+P420 | Style=Heading 4 | Align=None | Text=
+P421 | Style=Heading 4 | Align=None | Text=
+P422 | Style=Heading 4 | Align=None | Text=
+P423 | Style=Heading 4 | Align=None | Text=
+P424 | Style=Heading 4 | Align=None | Text=
+P425 | Style=Heading 4 | Align=None | Text=
+P426 | Style=Heading 4 | Align=None | Text=
+P427 | Style=Heading 4 | Align=None | Text=
+P428 | Style=Heading 4 | Align=None | Text=
+P429 | Style=Heading 4 | Align=CENTER (1) | Text=Guidelines for References
+     Runs: 'Guidelines'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'for'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'References'[font=None,size=None,b=None,i=None]
+P430 | Style=Heading 6 | Align=None | Text=Journal Article – Single Author
+     Runs: 'Journal'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Article'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '–'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Single'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Author'[font=None,size=None,b=None,i=None]
+P431 | Style=Normal | Align=None | Text=
+P432 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P433 | Style=Normal | Align=None | Text=Author Surname, Initials Year, ‘Title of the article’, Journal Name, vol. xx, no. xx, pp. xxx–xxx.
+     Runs: 'Author'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname, Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Year, ‘Title'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'of'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'the'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'article’,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Journal'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Name'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'vol.'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'xx,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'no.'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'xx,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'pp.'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'xxx–'[font=None,size=12.0,b=None,i=None] 'xxx.'[font=None,size=12.0,b=None,i=None]
+P434 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P435 | Style=Normal | Align=None | Text=Waldron, S 2008, ‘Generalized Welch bound equality sequences are tight frames’, IEEE Transactions on Information Theory, vol. 49, no. 9, pp. 2307–2309.
+     Runs: 'Waldron,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'S'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '2008,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Generalized'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Welch'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'bound'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'equality'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'sequences'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'are'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'tight'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'frames’, '[font=None,size=12.0,b=None,i=None] 'IEEE Transactions on Information Theory'[font=None,size=12.0,b=None,i=True] ', vol. 49, no. 9, pp. 2307–2309.'[font=None,size=12.0,b=None,i=None]
+P436 | Style=Body Text | Align=None | Text=
+P437 | Style=Heading 6 | Align=None | Text=Journal Article – Two Authors
+     Runs: 'Journal'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Article'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '–'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Two '[font=None,size=None,b=None,i=None] 'Authors'[font=None,size=None,b=None,i=None]
+P438 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P439 | Style=Normal | Align=None | Text=Author1 Surname, Initials & Author2 Surname, Initials Year, ‘Title of the article’, Journal Name, vol. xx, no. xx, pp. xxx–xxx.
+     Runs: 'Author1'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '&'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Author2'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Year,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Title'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'of'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'the'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'article’, '[font=None,size=12.0,b=None,i=None] 'Journal Name'[font=None,size=12.0,b=None,i=True] ', vol. xx, no. xx, pp. xxx–xxx.'[font=None,size=12.0,b=None,i=None]
+P440 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P441 | Style=Normal | Align=None | Text=Conley, TG & Galeson, DW 1998, ‘Nativity and wealth in mid-nineteenth century cities’,
+     Runs: 'Conley,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'TG'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '&'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Galeson'[font=None,size=12.0,b=None,i=None] ', DW'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '1998,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Nativity'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'and'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'wealth'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'in'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'mid-nineteenth'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'century'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'cities’,'[font=None,size=12.0,b=None,i=None]
+P442 | Style=Normal | Align=None | Text=Journal of Economic History, vol. 58, no. 2, pp. 468–493.
+     Runs: 'Journal'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'of Economic'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'History'[font=None,size=12.0,b=None,i=True] ', vol.'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '58, no. 2, pp. 468–'[font=None,size=12.0,b=None,i=None] '493.'[font=None,size=12.0,b=None,i=None]
+P443 | Style=Body Text | Align=None | Text=
+P444 | Style=Heading 6 | Align=None | Text=Journal Article – More than Two Authors
+     Runs: 'Journal'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Article'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] '–'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'More than'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Two'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Authors'[font=None,size=None,b=None,i=None]
+P445 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P446 | Style=Normal | Align=None | Text=Author1 Surname, Initials, Author2 Initials, Author3 Initials & Author4 Initials Year, ‘Title of the article’, Journal Name, vol. xx, no. xx, pp. xxx–xxx.
+     Runs: 'Author1'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Author2'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Author3'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '&'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Author4'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Year,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Title'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'of the article’, '[font=None,size=12.0,b=None,i=None] 'Journal Name'[font=None,size=12.0,b=None,i=True] ', vol. xx, no. xx, pp. xxx–xxx.'[font=None,size=12.0,b=None,i=None]
+P447 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P448 | Style=Normal | Align=None | Text=Alishahi, K, Marvasti, F, Aref, VA & Pad, P 2009, ‘Bounds on the sum capacity of synchronous binary CDMA channels’, Journal of Chemical Education, vol. 55, no. 8, pp. 3577–3593.
+     Runs: 'Alishahi'[font=None,size=12.0,b=None,i=None] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'K,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Marvasti'[font=None,size=12.0,b=None,i=None] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'F,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Aref'[font=None,size=12.0,b=None,i=None] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'VA'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '&'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Pad,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'P'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '2009,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Bounds'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'on'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'the'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'sum'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'capacity'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'of'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'synchronous binary CDMA channels’, '[font=None,size=12.0,b=None,i=None] 'Journal of Chemical Education'[font=None,size=12.0,b=None,i=True] ', vol. 55, no. 8, pp. 3577–3593.'[font=None,size=12.0,b=None,i=None]
+P449 | Style=Heading 6 | Align=None | Text=Book
+     Runs: 'Book'[font=None,size=None,b=None,i=None]
+P450 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P451 | Style=Normal | Align=None | Text=Author Surname, Initials Year, Title of the Book, Publisher, City.
+     Runs: 'Author'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname, Initials Year,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Title'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'of'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'the'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Book'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Publisher,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'City.'[font=None,size=12.0,b=None,i=None]
+P452 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P453 | Style=Normal | Align=None | Text=Holt, DH 1997, Management Principles and Practices, Prentice-Hall, Sydney.
+     Runs: 'Holt,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'DH'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '1997,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Management'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Principles'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'and'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Practices'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Prentice-Hall,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Sydney.'[font=None,size=12.0,b=None,i=None]
+P454 | Style=Heading 6 | Align=None | Text=
+P455 | Style=Heading 6 | Align=None | Text=Conference Paper with Editors
+     Runs: 'Conference'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Paper'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'with'[font=None,size=None,b=None,i=None] ' Editors'[font=None,size=None,b=None,i=None]
+P456 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P457 | Style=Normal | Align=None | Text=Author Surname, Initials Year, ‘Title of the paper’, in Conference Title, ed. Editor Initials, Publisher, City, pp. xxx–xxx.
+     Runs: 'Author'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Year,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Title'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'of'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'the'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'paper’,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'in'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Conference'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Title'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'ed.'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Editor'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials, Publisher, City, pp. xxx–xxx.'[font=None,size=12.0,b=None,i=None]
+P458 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P459 | Style=Normal | Align=None | Text=Riley, D 1992, ‘Industrial relations in Australian education’, in Contemporary Australasian industrial relations: proceedings of the sixth AIRAANZ conference, ed. D Blackmur, AIRAANZ, Sydney, pp. 124–140.
+     Runs: 'Riley, D 1992, ‘Industrial relations in Australian education’, in '[font=None,size=12.0,b=None,i=None] 'Contemporary Australasian industrial'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'relations:'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'proceedings'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'of'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'the'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'sixth'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'AIRAANZ'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'conference'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'ed.'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'D'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Blackmur'[font=None,size=12.0,b=None,i=None] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'AIRAANZ, Sydney, pp. 124–140.'[font=None,size=12.0,b=None,i=None]
+P460 | Style=Heading 6 | Align=None | Text=Conference Paper without Editors
+     Runs: 'Conference'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'Paper'[font=None,size=None,b=None,i=None] ' '[font=None,size=None,b=None,i=None] 'without'[font=None,size=None,b=None,i=None] ' Editors'[font=None,size=None,b=None,i=None]
+P461 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P462 | Style=Normal | Align=None | Text=Author Surname, Initials Year, ‘Title of the paper’, Conference Title, pp. xxx–xxx.
+     Runs: 'Author'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Year,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Title'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'of'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'the'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'paper’, '[font=None,size=12.0,b=None,i=None] 'Conference'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Title'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'pp.'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'xxx–'[font=None,size=12.0,b=None,i=None] 'xxx.'[font=None,size=12.0,b=None,i=None]
+P463 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P464 | Style=Normal | Align=JUSTIFY (3) | Text=Fan, W, Gordon, MD & Pathak, R 2000, ‘Personalization of search engine services for effective retrieval and knowledge management’, Proceedings of the twenty-first international conference on information systems, pp. 20–34.
+     Runs: 'Fan,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'W,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Gordon,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'MD'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '&'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Pathak'[font=None,size=12.0,b=None,i=None] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'R'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '2000,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '‘Personalization'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'of'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'search'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'engine'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'services'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'for'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'effective retrieval and knowledge management’, '[font=None,size=12.0,b=None,i=None] 'Proceedings'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'of the twenty-first international conference on information systems'[font=None,size=12.0,b=None,i=True] ', pp. 20–34.'[font=None,size=12.0,b=None,i=None]
+P465 | Style=Heading 6 | Align=None | Text=
+P466 | Style=Heading 6 | Align=None | Text=Website
+     Runs: 'Website'[font=None,size=None,b=None,i=None]
+P467 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P468 | Style=Normal | Align=None | Text=Author/Organization Year, Title, Available from:
+     Runs: 'Author/Organization'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Year,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Title'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Available'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'from:'[font=None,size=12.0,b=None,i=None]
+P469 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P470 | Style=Normal | Align=None | Text=Exchange 2009, Market Information, Available from: http://www.asx.com.au/professionals/market_in
+     Runs: 'Exchange'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '2009,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Market'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Information'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Available'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'from: '[font=None,size=12.0,b=None,i=None]
+P471 | Style=Heading 6 | Align=None | Text=Patent
+     Runs: 'Patent'[font=None,size=None,b=None,i=None]
+P472 | Style=Normal | Align=None | Text=Format:
+     Runs: 'Format'[font=None,size=12.0,b=True,i=None] ':'[font=None,size=12.0,b=None,i=None]
+P473 | Style=Normal | Align=None | Text=Inventor Surname, Initials Year, Title of Patent, Patent Number.
+     Runs: 'Inventor'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Surname,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Initials'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Year,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Title'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'of'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'Patent'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Patent'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Number.'[font=None,size=12.0,b=None,i=None]
+P474 | Style=Heading 6 | Align=None | Text=Example:
+     Runs: 'Example'[font=None,size=None,b=None,i=None] ':'[font=None,size=None,b=False,i=None]
+P475 | Style=Normal | Align=None | Text=Cookson, AH 1985, Particle trap for compressed gas insulated transmission systems, US Patent 4554399.
+     Runs: 'Cookson,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'AH'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] '1985,'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Particle'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'trap'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'for'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'compressed'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'gas'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'insulated'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'transmission'[font=None,size=12.0,b=None,i=True] ' '[font=None,size=12.0,b=None,i=True] 'systems'[font=None,size=12.0,b=None,i=True] ','[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'US'[font=None,size=12.0,b=None,i=None] ' '[font=None,size=12.0,b=None,i=None] 'Patent '[font=None,size=12.0,b=None,i=None] '4554399.'[font=None,size=12.0,b=None,i=None]
+
+--- TABLE 0 (3 rows, 2 cols) ---
+  Row 0: MUKESH T | (61782323104056)
+  Row 1: NETHAJI A | (61782323104059)
+  Row 2: MAHI THANGAVEL B | (61782323104051)
+
+--- TABLE 1 (4 rows, 4 cols) ---
+  Row 0: S.No | Register Number | Name | Signature
+  Row 1: 1. |  |  | 
+  Row 2: 2. |  |  | 
+  Row 3: 3. |  |  | 

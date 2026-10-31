@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 1280px;
+    height: 860px;
+    background-color: #ffffff;
+    font-family: Arial, Calibri, 'Segoe UI', sans-serif;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .main-title {
+    font-size: 25px;
+    font-weight: 900;
+    color: #000000;
+    letter-spacing: 0.5px;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .canvas-area {
+    width: 1240px;
+    height: 770px;
+    position: relative;
+  }
+
+  /* MS Word Style Flowchart Boxes */
+  .box {
+    position: absolute;
+    width: 360px;
+    height: 225px;
+    border: 2.5px solid #000000;
+    border-radius: 4px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding: 18px 18px;
+    z-index: 5;
+  }
+
+  .box-step {
+    font-size: 19px;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+    border-bottom: 1.5px solid #000000;
+    padding-bottom: 5px;
+    width: 100%;
+  }
+
+  .box-subtitle {
+    font-size: 16.5px;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 8px;
+  }
+
+  .box-desc {
+    font-size: 15.5px;
+    color: #111111;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  /* Branch/Loop Labels */
+  .loop-label {
+    position: absolute;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-size: 15px;
+    font-weight: 900;
+    color: #000000;
+    z-index: 15;
+    text-align: center;
+  }
+
+  /* SVG Layer */
+  .svg-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+  <div class="main-title">FIGURE 4: CLOSED-LOOP ACTIVE LEARNING &amp; VETERINARY RETRAINING</div>
+
+  <div class="canvas-area">
+    <svg class="svg-layer">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Arrow 1 -> 2 (Top Row Horizontal: x=390 to 440, y=142) -->
+      <line x1="390" y1="142" x2="438" y2="142" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow 2 -> 3 (Top Row Horizontal: x=800 to 850, y=142) -->
+      <line x1="800" y1="142" x2="848" y2="142" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow 3 -> 4 (Right Vertical Down: x=1030, y=255 to 445) -->
+      <line x1="1030" y1="255" x2="1030" y2="443" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow 4 -> 5 (Bottom Row Horizontal: x=850 to 800, y=557) -->
+      <line x1="850" y1="557" x2="802" y2="557" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow 5 -> 6 (Bottom Row Horizontal: x=440 to 390, y=557) -->
+      <line x1="440" y1="557" x2="392" y2="557" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow 6 -> 1 (Left Vertical UP: x=210, y=445 to 255) -->
+      <line x1="210" y1="445" x2="210" y2="257" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+    </svg>
+
+    <!-- RIGHT DOWN ARROW LABEL -->
+    <div class="loop-label" style="left: 955px; top: 335px;">CLINICAL RESULTS</div>
+
+    <!-- LEFT UP ARROW LABEL -->
+    <div class="loop-label" style="left: 110px; top: 335px;">ACCURACY FEEDBACK LOOP</div>
+
+    <!-- TOP ROW -->
+    <!-- STEP 1: TOP LEFT -->
+    <div class="box" style="left: 30px; top: 30px;">
+      <div class="box-step">STEP 1: HEALTH ALERT TRIGGER</div>
+      <div class="box-subtitle">Anomaly Detected in Cow Vitals</div>
+      <div class="box-desc">
+        CHDI algorithm flags health decline.<br>
+        Computes explainable risk factors<br>
+        (milk drop, fever, or feed reduction).
+      </div>
+    </div>
+
+    <!-- STEP 2: TOP CENTER -->
+    <div class="box" style="left: 440px; top: 30px;">
+      <div class="box-step">STEP 2: GEOGRAPHIC DISPATCH</div>
+      <div class="box-subtitle">Automated Vet Case Routing</div>
+      <div class="box-desc">
+        System maps farm GPS coordinates.<br>
+        Dispatches priority medical case<br>
+        to nearest licensed local veterinarian.
+      </div>
+    </div>
+
+    <!-- STEP 3: TOP RIGHT -->
+    <div class="box" style="left: 850px; top: 30px;">
+      <div class="box-step">STEP 3: CLINICAL DIAGNOSIS</div>
+      <div class="box-subtitle">Veterinary On-Site Examination</div>
+      <div class="box-desc">
+        Doctor inspects cattle on-site.<br>
+        Logs medical findings and submits:<br>
+        <strong>CONFIRM</strong> (True Positive) or<br>
+        <strong>OVERRIDE</strong> (False Alarm).
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <!-- STEP 6: BOTTOM LEFT -->
+    <div class="box" style="left: 30px; top: 445px;">
+      <div class="box-step">STEP 6: LIVE MODEL UPDATE</div>
+      <div class="box-subtitle">Zero-Downtime Deployment</div>
+      <div class="box-desc">
+        Validates accuracy on test cases.<br>
+        Deploys updated prediction weights<br>
+        to scoring engine with zero downtime.
+      </div>
+    </div>
+
+    <!-- STEP 5: BOTTOM CENTER -->
+    <div class="box" style="left: 440px; top: 445px;">
+      <div class="box-step">STEP 5: MODEL RETRAINING</div>
+      <div class="box-subtitle">Supervised Classifier Refinement</div>
+      <div class="box-desc">
+        Periodically retrains prediction models<br>
+        using doctor-verified cases to reduce<br>
+        false alarms and improve accuracy.
+      </div>
+    </div>
+
+    <!-- STEP 4: BOTTOM RIGHT -->
+    <div class="box" style="left: 850px; top: 445px;">
+      <div class="box-step">STEP 4: CLINICAL DATABASE</div>
+      <div class="box-subtitle">Curated Ground-Truth Repository</div>
+      <div class="box-desc">
+        Stores verified doctor diagnosis<br>
+        alongside raw cow sensor vitals<br>
+        as verified gold-standard records.
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

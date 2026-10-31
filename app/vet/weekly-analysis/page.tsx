@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
-import { generateWeeklyHealthAnalysis } from "@/lib/chdi/weekly-analysis";
+import { generateBatchWeeklyHealthAnalysis } from "@/lib/chdi/weekly-analysis";
 import VetWeeklyAnalysisClient from "./VetWeeklyAnalysisClient";
 
 export default async function VetWeeklyAnalysisPage() {
@@ -12,16 +12,7 @@ export default async function VetWeeklyAnalysisPage() {
   let errorMsg: string | null = null;
 
   try {
-    const cattleList = await prisma.cattle.findMany({
-      where: vetRegion ? { region: vetRegion } : {},
-      select: { id: true },
-    });
-
-    const reports = await Promise.all(
-      cattleList.map((c) => generateWeeklyHealthAnalysis(c.id))
-    );
-
-    validReports = reports.filter((r): r is NonNullable<typeof r> => r !== null);
+    validReports = await generateBatchWeeklyHealthAnalysis(vetRegion);
   } catch (err: any) {
     console.error("[Weekly Analysis DB Connection Error]", err);
     errorMsg = "Database server is connecting or temporarily busy. Please refresh to retry.";

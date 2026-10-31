@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 1260px;
+    height: 920px;
+    background-color: #ffffff;
+    font-family: Arial, Calibri, 'Segoe UI', sans-serif;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .main-title {
+    font-size: 27px;
+    font-weight: 900;
+    color: #000000;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .canvas-area {
+    width: 1220px;
+    height: 840px;
+    position: relative;
+  }
+
+  /* MS Word Style Flowchart Boxes */
+  .box {
+    position: absolute;
+    border: 2.5px solid #000000;
+    border-radius: 4px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .box-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+
+  .box-subtitle {
+    font-size: 19px;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 8px;
+  }
+
+  .box-desc {
+    font-size: 18px;
+    color: #000000;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* Diamond Inner Text Container */
+  .diamond-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  .diamond-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .diamond-desc {
+    font-size: 18px;
+    color: #000000;
+    font-weight: 800;
+  }
+
+  /* Branch Labels */
+  .branch-label {
+    position: absolute;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 3px;
+    padding: 3px 12px;
+    font-size: 17px;
+    font-weight: 900;
+    color: #000000;
+    z-index: 15;
+    text-align: center;
+  }
+
+  /* SVG Layer */
+  .svg-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+  <div class="main-title">FIGURE 5: REGIONAL DISEASE OUTBREAK MONITORING PIPELINE</div>
+
+  <div class="canvas-area">
+    <svg class="svg-layer">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Arrows from 3 Farm Boxes to Central Aggregator (Aggregator top y=205) -->
+      <!-- Farm A (bottom x=200, y=145) to Aggregator (x=290, y=205) -->
+      <line x1="200" y1="145" x2="288" y2="203" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Farm B (bottom x=610, y=145) straight down to Aggregator (x=610, y=205) -->
+      <line x1="610" y1="145" x2="610" y2="203" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Farm C (bottom x=1020, y=145) to Aggregator (x=930, y=205) -->
+      <line x1="1020" y1="145" x2="932" y2="203" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Aggregator Bottom (x=610, y=355) down to Diamond Top (x=610, y=410) -->
+      <line x1="610" y1="355" x2="610" y2="408" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Decision Diamond: Center x=610, y=485. W=560, H=150. Top=410, Bottom=560, Left=330, Right=890 -->
+      <polygon points="610,410 890,485 610,560 330,485" fill="#ffffff" stroke="#000000" stroke-width="2.5" />
+
+      <!-- Arrow Branch NO (Left): from (330, 485) -> left to (260, 485) -> down to Left Box Top (260, 645) -->
+      <polyline points="330,485 260,485 260,643" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow Branch YES (Right): from (890, 485) -> right to (960, 485) -> down to Right Box Top (960, 645) -->
+      <polyline points="890,485 960,485 960,643" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+    </svg>
+
+    <!-- TOP ROW: 3 LOCAL FARM BOXES -->
+    <!-- FARM A -->
+    <div class="box" style="left: 20px; top: 40px; width: 360px; height: 105px; padding: 12px 14px;">
+      <div class="box-title">LOCAL FARM A</div>
+      <div class="box-desc">Daily Cattle Health Logs<br>(Regional Cluster 1)</div>
+    </div>
+
+    <!-- FARM B -->
+    <div class="box" style="left: 430px; top: 40px; width: 360px; height: 105px; padding: 12px 14px;">
+      <div class="box-title">LOCAL FARM B</div>
+      <div class="box-desc">Daily Cattle Health Logs<br>(Regional Cluster 1)</div>
+    </div>
+
+    <!-- FARM C -->
+    <div class="box" style="left: 840px; top: 40px; width: 360px; height: 105px; padding: 12px 14px;">
+      <div class="box-title">LOCAL FARM C</div>
+      <div class="box-desc">Daily Cattle Health Logs<br>(Regional Cluster 1)</div>
+    </div>
+
+    <!-- MIDDLE BOX: REGIONAL AGGREGATOR -->
+    <div class="box" style="left: 130px; top: 205px; width: 960px; height: 150px; padding: 16px 25px;">
+      <div class="box-title">REGIONAL DATA AGGREGATOR</div>
+      <div class="box-desc" style="text-align: left; max-width: 900px;">
+        &bull; <strong>Spatial Grouping:</strong> Aggregates health data across neighboring farms (15 km radius)<br>
+        &bull; <strong>72-Hour Window:</strong> Tracks synchronized symptoms over consecutive days<br>
+        &bull; <strong>Infection Rate:</strong> Calculates regional illness percentage across all herds
+      </div>
+    </div>
+
+    <!-- DIAMOND TEXT -->
+    <div class="diamond-text" style="left: 360px; top: 452px; width: 500px; height: 65px;">
+      <div class="diamond-title">OUTBREAK DETECTED?</div>
+      <div class="diamond-desc">(Infection Rate &gt; 15%)</div>
+    </div>
+
+    <!-- BRANCH LABEL NO -->
+    <div class="branch-label" style="left: 275px; top: 466px;">NO</div>
+
+    <!-- BRANCH LABEL YES -->
+    <div class="branch-label" style="left: 905px; top: 466px;">YES</div>
+
+    <!-- BOTTOM ROW: OUTCOME BOXES -->
+    <!-- LEFT: ROUTINE MONITORING -->
+    <div class="box" style="left: 20px; top: 645px; width: 560px; height: 175px; padding: 18px 25px;">
+      <div class="box-title">ROUTINE MONITORING</div>
+      <div class="box-subtitle">Isolated Cases (No Disease Spread)</div>
+      <div class="box-desc" style="text-align: left;">
+        &bull; Individual health deviations are isolated to a single cow.<br>
+        &bull; No evidence of disease transmission to neighboring herds.<br>
+        &bull; <strong>Action:</strong> Handled through standard veterinary checkup queue.
+      </div>
+    </div>
+
+    <!-- RIGHT: REGIONAL OUTBREAK ALERT -->
+    <div class="box" style="left: 640px; top: 645px; width: 560px; height: 175px; padding: 18px 25px;">
+      <div class="box-title">REGIONAL OUTBREAK ALERT</div>
+      <div class="box-subtitle">Multi-Farm Epidemic Warning</div>
+      <div class="box-desc" style="text-align: left;">
+        &bull; Synchronized health decline detected across adjacent farms.<br>
+        &bull; Early indicator of contagious outbreak (e.g. Foot-and-Mouth).<br>
+        &bull; <strong>Action:</strong> Broadcasts emergency alert to government &amp; vets.
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -12,6 +12,7 @@ import {
   ReferenceLine,
 } from "recharts";
 import { COMMON_VACCINES } from "@/lib/constants";
+import { getBreedTemperatureConfig, evaluateTemperatureStatus } from "@/lib/utils";
 
 interface CHDIPoint {
   score: number | null;
@@ -35,6 +36,12 @@ interface FeedPoint {
 interface MilkPoint {
   id: string;
   litres: number;
+  timestamp: string;
+  source: string;
+}
+
+interface TemperaturePoint {
+  value: number;
   timestamp: string;
   source: string;
 }
@@ -63,8 +70,17 @@ interface VetCase {
   diagnosis: string | null;
 }
 
+export interface AvailableVet {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  assignedRegion: string | null;
+}
+
 interface Props {
   cattleId: string;
+  breed?: string;
   purpose: string;
   isAbstaining: boolean;
   minLogged: number;
@@ -72,17 +88,21 @@ interface Props {
   weightLogs: WeightPoint[];
   feedLogs: FeedPoint[];
   milkLogs: MilkPoint[];
+  temperatureLogs?: TemperaturePoint[];
   vaccinationLogs: VaccinationLogItem[];
   vaccinations: Vaccination[];
   vetCases: VetCase[];
+  availableVets?: AvailableVet[];
+  farmerRegion?: string;
   farmerRole: boolean;
 }
 
-type Tab = "chdi" | "weight" | "feed" | "milk" | "logs" | "vaccines" | "vet";
+type Tab = "chdi" | "weight" | "feed" | "milk" | "temperature" | "logs" | "vaccines" | "vet";
 type LogRange = "30" | "90";
 
 export default function CattleProfileClient({
   cattleId,
+  breed = "",
   purpose,
   isAbstaining,
   minLogged,
@@ -90,17 +110,22 @@ export default function CattleProfileClient({
   weightLogs: initialWeightLogs,
   feedLogs: initialFeedLogs,
   milkLogs: initialMilkLogs,
+  temperatureLogs: initialTempLogs = [],
   vaccinationLogs: initialVaccinationLogs,
-  vetCases,
+  vetCases: initialVetCases,
+  availableVets = [],
+  farmerRegion = "",
   farmerRole,
 }: Props) {
   const [tab, setTab] = useState<Tab>("chdi");
   const [range, setRange] = useState<LogRange>("30");
+  const breedTempConfig = getBreedTemperatureConfig(breed);
 
   // Local state for interactive recurring logs
   const [weightLogs, setWeightLogs] = useState<WeightPoint[]>(initialWeightLogs);
   const [feedLogs, setFeedLogs] = useState<FeedPoint[]>(initialFeedLogs);
   const [milkLogs, setMilkLogs] = useState<MilkPoint[]>(initialMilkLogs);
+  const [temperatureLogs, setTemperatureLogs] = useState<TemperaturePoint[]>(initialTempLogs);
   const [vaccinationLogs, setVaccinationLogs] =
     useState<VaccinationLogItem[]>(initialVaccinationLogs);
 
@@ -110,6 +135,7 @@ export default function CattleProfileClient({
     value: "",
     feedType: "grass",
     source: "manual",
+    date: new Date().toISOString().split("T")[0],
   });
   const [logging, setLogging] = useState(false);
   const [logMsg, setLogMsg] = useState("");
@@ -124,10 +150,12 @@ export default function CattleProfileClient({
   const [vacLoading, setVacLoading] = useState(false);
   const [vacMsg, setVacMsg] = useState("");
 
-  // Vet request form
+  // Vet request form & local state
+  const [localVetCases, setLocalVetCases] = useState<VetCase[]>(initialVetCases);
   const [vetReqForm, setVetReqForm] = useState({
     symptoms: "",
     urgency: "medium",
+    vetId: availableVets.find((v) => farmerRegion && v.assignedRegion?.toLowerCase().trim() === farmerRegion)?.id || availableVets[0]?.id || "",
   });
   const [vetReqLoading, setVetReqLoading] = useState(false);
   const [vetReqMsg, setVetReqMsg] = useState("");
@@ -178,27 +206,38 @@ export default function CattleProfileClient({
       return;
     }
 
+    const selectedDate = logForm.date
+      ? new Date(logForm.date + "T12:00:00.000Z")
+      : new Date();
+    const timestampStr = selectedDate.toISOString();
+
     try {
       if (logForm.type === "milk") {
         // Daily milk log
         const res = await fetch(`/api/cattle/${cattleId}/milk-log`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ litres: val, source: logForm.source }),
+          body: JSON.stringify({
+            litres: val,
+            source: logForm.source,
+            timestamp: timestampStr,
+          }),
         });
         const d = await res.json();
         setLogging(false);
         if (res.ok) {
           setLogMsg("Milk yield recorded successfully! Health scores will reflect this update.");
-          setMilkLogs((prev) => [
-            {
-              id: d.log.id,
-              litres: d.log.litres,
-              timestamp: d.log.timestamp,
-              source: d.log.source,
-            },
-            ...prev,
-          ]);
+          const newEntry = {
+            id: d.log?.id || `temp_${Date.now()}`,
+            litres: d.log?.litres ?? val,
+            timestamp: d.log?.timestamp ?? timestampStr,
+            source: d.log?.source ?? logForm.source,
+          };
+          setMilkLogs((prev) =>
+            [newEntry, ...prev].sort(
+              (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+            )
+          );
           setLogForm({ ...logForm, value: "" });
         } else {
           setLogMsg(d.error || "Failed to save milk yield.");
@@ -209,9 +248,14 @@ export default function CattleProfileClient({
             ? "weight-log"
             : logForm.type === "feed"
             ? "feed-log"
+            : logForm.type === "temperature"
+            ? "temperature-log"
             : "activity-log";
 
-        const body: Record<string, unknown> = { source: logForm.source };
+        const body: Record<string, unknown> = {
+          source: logForm.source,
+          timestamp: timestampStr,
+        };
         if (logForm.type === "weight") body.value = val;
         else if (logForm.type === "feed") {
           body.quantity = val;
@@ -232,20 +276,39 @@ export default function CattleProfileClient({
         if (res.ok) {
           setLogMsg("Daily check-in saved! Health metrics updated.");
           if (logForm.type === "weight") {
-            setWeightLogs((prev) => [
-              { value: val, timestamp: new Date().toISOString(), source: logForm.source },
-              ...prev,
-            ]);
+            const entry = {
+              value: val,
+              timestamp: d.log?.timestamp ?? timestampStr,
+              source: logForm.source,
+            };
+            setWeightLogs((prev) =>
+              [entry, ...prev].sort(
+                (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+              )
+            );
           } else if (logForm.type === "feed") {
-            setFeedLogs((prev) => [
-              {
-                quantity: val,
-                feedType: logForm.feedType,
-                timestamp: new Date().toISOString(),
-                source: logForm.source,
-              },
-              ...prev,
-            ]);
+            const entry = {
+              quantity: val,
+              feedType: logForm.feedType,
+              timestamp: d.log?.timestamp ?? timestampStr,
+              source: logForm.source,
+            };
+            setFeedLogs((prev) =>
+              [entry, ...prev].sort(
+                (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+              )
+            );
+          } else if (logForm.type === "temperature") {
+            const entry = {
+              value: val,
+              timestamp: d.log?.timestamp ?? timestampStr,
+              source: logForm.source,
+            };
+            setTemperatureLogs((prev) =>
+              [entry, ...prev].sort(
+                (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+              )
+            );
           }
           setLogForm({ ...logForm, value: "" });
         } else {
@@ -330,7 +393,37 @@ export default function CattleProfileClient({
       const d = await res.json();
       setVetReqLoading(false);
       if (res.ok) {
-        setVetReqMsg("Vet visit requested! A veterinarian will be assigned.");
+        const chosen = availableVets.find((v) => v.id === vetReqForm.vetId);
+        const vetDisplayName = d.vetCase?.vet?.name || chosen?.name || "District Veterinarian";
+        setVetReqMsg(d.message || `Doctor visit requested! Assigned to ${vetDisplayName}.`);
+        if (d.vetCase) {
+          setLocalVetCases((prev) => {
+            const exists = prev.some((c) => c.id === d.vetCase.id);
+            if (exists) {
+              return prev.map((c) =>
+                c.id === d.vetCase.id
+                  ? {
+                      ...c,
+                      urgency: d.vetCase.urgency,
+                      vetName: vetDisplayName,
+                    }
+                  : c
+              );
+            }
+            return [
+              {
+                id: d.vetCase.id,
+                status: d.vetCase.status,
+                urgency: d.vetCase.urgency,
+                createdAt: d.vetCase.createdAt,
+                vetName: vetDisplayName,
+                diagnosis: null,
+              },
+              ...prev,
+            ];
+          });
+        }
+        setVetReqForm((prev) => ({ ...prev, symptoms: "" }));
       } else {
         setVetReqMsg(d.error || "Failed to submit vet request.");
       }
@@ -350,6 +443,7 @@ export default function CattleProfileClient({
   if (purpose === "dairy") {
     TABS.push({ key: "milk", label: "Milk Production" });
   }
+  TABS.push({ key: "temperature", label: "Body Temperature" });
 
   TABS.push(
     { key: "logs", label: "Daily Check-In" },
@@ -378,7 +472,7 @@ export default function CattleProfileClient({
       </div>
 
       {/* Range selector (for charts) */}
-      {(tab === "chdi" || tab === "weight" || tab === "feed" || tab === "milk") && (
+      {(tab === "chdi" || tab === "weight" || tab === "feed" || tab === "milk" || tab === "temperature") && (
         <div className="flex gap-2">
           {(["30", "90"] as LogRange[]).map((r) => (
             <button
@@ -404,9 +498,6 @@ export default function CattleProfileClient({
               <h3 className="font-semibold text-slate-900">
                 Health Score Trend (0–100)
               </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Calculated automatically from weight stability, feed habits, and milk production.
-              </p>
             </div>
             {validChdi.length > 0 && validChdi[0].score !== null && (
               <div className="text-right">
@@ -480,7 +571,6 @@ export default function CattleProfileClient({
           <h3 className="font-semibold text-slate-900 mb-1">
             Body Weight Over Time (kg)
           </h3>
-          <p className="text-xs text-slate-500 mb-4">Steady weight indicates good nutrition and digestion.</p>
           {weightChartData.length > 0 ? (
             <ResponsiveContainer width="100%" height={260}>
               <LineChart data={weightChartData}>
@@ -529,13 +619,69 @@ export default function CattleProfileClient({
         </div>
       )}
 
+      
+      {/* Temperature Tab */}
+      {tab === "temperature" && (
+        <div className="card p-6">
+          <div className="mb-4">
+            <h3 className="font-semibold text-slate-900 text-lg">
+              Core Body Temperature (°C)
+            </h3>
+          </div>
+
+          <div className="table-container">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Body Temperature</th>
+                  <th>Clinical Interpretation</th>
+                  <th>Recorded Via</th>
+                </tr>
+              </thead>
+              <tbody>
+                {temperatureLogs.slice(0, rangeN).map((l, i) => {
+                  const evalResult = evaluateTemperatureStatus(l.value, breed);
+                  return (
+                    <tr key={i}>
+                      <td className="text-slate-600 text-xs">
+                        {new Date(l.timestamp).toLocaleDateString("en-IN")}
+                      </td>
+                      <td className="font-bold text-slate-900 tnum">
+                        {l.value.toFixed(1)} °C
+                      </td>
+                      <td>
+                        <span className={`text-xs px-2.5 py-1 rounded-md font-bold ${evalResult.badgeClass}`}>
+                          {evalResult.label}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded font-medium">
+                          {l.source === "manual" ? "Farmer Entry" : l.source === "qr_scan" ? "QR Scan" : "Thermal Probe"}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+                {temperatureLogs.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="text-center text-slate-400 py-6 text-sm">
+                      No temperature entries logged yet.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+      
       {/* Feed Chart / Logs */}
       {tab === "feed" && (
         <div className="card p-6">
           <h3 className="font-semibold text-slate-900 mb-1">
             Feed & Fodder Intake (kg)
           </h3>
-          <p className="text-xs text-slate-500 mb-4">Daily feed consumption logs help identify appetite loss early.</p>
           <div className="table-container">
             <table className="table">
               <thead>
@@ -579,9 +725,6 @@ export default function CattleProfileClient({
                 <h3 className="font-semibold text-slate-900">
                   Daily Milk Yield (Litres)
                 </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  A sudden drop in milk yield is often the first sign of illness or fever.
-                </p>
               </div>
               {milkLogs.length > 0 && (
                 <div className="text-right">
@@ -646,14 +789,12 @@ export default function CattleProfileClient({
 
       {/* Daily Logs Tab */}
       {tab === "logs" && farmerRole && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="max-w-2xl">
           <div className="card p-6">
             <h3 className="font-semibold text-slate-900 mb-1">
               Record Daily Health & Farm Data
             </h3>
-            <p className="text-slate-500 text-xs mb-4">
-              Regular check-ins keep health forecasts accurate and catch illnesses before symptoms worsen.
-            </p>
+
 
             {logMsg && (
               <div className="mb-4 p-3.5 rounded-xl text-sm bg-brand-50 text-brand-900 border border-brand-200">
@@ -662,23 +803,42 @@ export default function CattleProfileClient({
             )}
 
             <form onSubmit={handleLog} className="space-y-4">
-              <div>
-                <label className="label">What are you logging? *</label>
-                <select
-                  id="log-type"
-                  className="input"
-                  value={logForm.type}
-                  onChange={(e) =>
-                    setLogForm({ ...logForm, type: e.target.value })
-                  }
-                >
-                  <option value="weight">Body Weight (kg)</option>
-                  <option value="feed">Feed & Fodder (kg)</option>
-                  <option value="activity">Activity Score (0–100)</option>
-                  {purpose === "dairy" && (
-                    <option value="milk">Daily Milk Yield (Litres)</option>
-                  )}
-                </select>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="label">What are you logging? *</label>
+                  <select
+                    id="log-type"
+                    className="input"
+                    value={logForm.type}
+                    onChange={(e) =>
+                      setLogForm({ ...logForm, type: e.target.value })
+                    }
+                  >
+                    <option value="weight">Body Weight (kg)</option>
+                    <option value="feed">Feed & Fodder (kg)</option>
+                    <option value="temperature">Body Temperature (°C)</option>
+                    {purpose === "dairy" && (
+                      <option value="milk">Daily Milk Yield (Litres)</option>
+                    )}
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="log-date" className="label">
+                    Date of Measurement *
+                  </label>
+                  <input
+                    id="log-date"
+                    type="date"
+                    className="input font-semibold"
+                    value={logForm.date}
+                    max={new Date().toISOString().split("T")[0]}
+                    onChange={(e) =>
+                      setLogForm({ ...logForm, date: e.target.value })
+                    }
+                    required
+                  />
+                </div>
               </div>
 
               {logForm.type === "feed" && (
@@ -715,21 +875,16 @@ export default function CattleProfileClient({
                     ? "(kg)"
                     : logForm.type === "feed"
                     ? "(kg)"
-                    : logForm.type === "milk"
-                    ? "(Litres today)"
-                    : "(0–100 score)"}
+                    : "(Litres today)"}
                 </label>
                 <input
                   id="log-value"
                   type="number"
                   step="0.1"
                   min="0"
-                  max={logForm.type === "activity" ? 100 : undefined}
                   className="input font-semibold"
                   placeholder={
-                    logForm.type === "activity"
-                      ? "e.g. 85"
-                      : logForm.type === "milk"
+                    logForm.type === "milk"
                       ? "e.g. 14.2"
                       : logForm.type === "weight"
                       ? "e.g. 385"
@@ -769,35 +924,6 @@ export default function CattleProfileClient({
               </button>
             </form>
           </div>
-
-          <div className="card p-6 bg-slate-50 border border-slate-200">
-            <h4 className="font-semibold text-slate-800 text-sm mb-2">
-              Why Daily Check-Ins Help Protect Your Cattle
-            </h4>
-            <p className="text-xs text-slate-600 mb-4 leading-relaxed">
-              SmartCattle compares daily changes in milk production, feed intake, and weight. For dairy cows, a drop in milk production or feed intake 24–48 hours before physical symptoms enables early vet care before conditions like mastitis or bloat become severe.
-            </p>
-            <div className="space-y-2.5 text-xs text-slate-700">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span><strong>Weight:</strong> Tracks normal growth or sudden weight loss.</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span><strong>Feed:</strong> Catches digestive issues and loss of appetite.</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span><strong>Activity:</strong> Detects breeding heat cycles or illness lethargy.</span>
-              </div>
-              {purpose === "dairy" && (
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-blue-500" />
-                  <span><strong>Milk Yield:</strong> Earliest warning sign of fever or infection.</span>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       )}
 
@@ -810,9 +936,7 @@ export default function CattleProfileClient({
               <h3 className="font-semibold text-slate-900 mb-1">
                 Record Vaccine or Deworming
               </h3>
-              <p className="text-slate-500 text-xs mb-4">
-                Record new doses given by the doctor or field assistant.
-              </p>
+
 
               {vacMsg && (
                 <div className="mb-4 p-3.5 rounded-xl text-sm bg-brand-50 text-brand-900 border border-brand-200">
@@ -950,55 +1074,113 @@ export default function CattleProfileClient({
       {tab === "vet" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {farmerRole && (
-            <div className="card p-6">
-              <h3 className="font-semibold text-slate-900 mb-1">
-                Request Doctor / Vet Visit
-              </h3>
-              <p className="text-slate-500 text-xs mb-4">
-                The vet will receive this cow's health score history and recent milk/weight records.
-              </p>
+            <div className="card p-6 space-y-4">
+              <div>
+                <h3 className="font-semibold text-slate-900 text-base">
+                  Request Doctor / Vet Visit
+                </h3>
+                {localVetCases.some((c) => c.status === "open" || c.status === "in_progress") && (
+                  <p className="text-[11px] text-amber-700 font-medium mt-1">
+                    ℹ️ An open visit request is currently active. Submitting below will update your doctor selection and symptoms.
+                  </p>
+                )}
+              </div>
+
               {vetReqMsg && (
-                <div className="mb-4 p-3.5 rounded-xl text-sm bg-brand-50 text-brand-900 border border-brand-200">
+                <div className={`p-3.5 rounded-xl text-xs font-semibold ${vetReqMsg.includes("Failed") || vetReqMsg.includes("error") ? "bg-red-50 text-red-900 border border-red-200" : "bg-emerald-50 text-emerald-900 border border-emerald-200"}`}>
                   {vetReqMsg}
                 </div>
               )}
+
               <form onSubmit={handleVetRequest} className="space-y-4">
+                {/* 1. Choose Veterinarian */}
                 <div>
-                  <label htmlFor="vet-urgency" className="label">
-                    How urgent is this? *
+                  <label htmlFor="vet-choice" className="label text-slate-900 font-bold mb-1">
+                    Select Veterinarian *
+                  </label>
+                  <select
+                    id="vet-choice"
+                    className="input text-xs bg-white font-semibold"
+                    value={vetReqForm.vetId}
+                    onChange={(e) =>
+                      setVetReqForm({ ...vetReqForm, vetId: e.target.value })
+                    }
+                  >
+                                        {availableVets.map((v) => {
+                      const isNearby = farmerRegion &&
+                        v.assignedRegion?.toLowerCase().trim() === farmerRegion;
+                      return (
+                        <option key={v.id} value={v.id}>
+                          {isNearby ? "📍 " : ""}{v.name} — {v.assignedRegion || "General Coverage"}{isNearby ? " (Nearby)" : ""}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+
+                {/* Selected Vet Detail Preview */}
+                {(() => {
+                  const selectedVet = availableVets.find((v) => v.id === vetReqForm.vetId);
+                  if (!selectedVet) return null;
+                  return (
+                    <div className="p-3 bg-[#f8faf9] rounded-xl border border-slate-200 text-xs flex items-center justify-between">
+                      <div>
+                        <p className="font-bold text-slate-900">{selectedVet.name}</p>
+                        <p className="text-[11px] text-slate-500 font-mono mt-0.5">
+                          District: <span className="text-slate-800 font-semibold">{selectedVet.assignedRegion || "General Coverage"}</span>
+                          {selectedVet.phone && ` · Tel: ${selectedVet.phone}`}
+                        </p>
+                        {farmerRegion && selectedVet.assignedRegion?.toLowerCase().trim() === farmerRegion && (
+                          <p className="text-[10px] text-emerald-700 font-semibold mt-0.5">📍 Covers your farm area</p>
+                        )}
+                      </div>
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full">
+                        ✓ ACTIVE DOCTOR
+                      </span>
+                    </div>
+                  );
+                })()}
+
+                {/* 2. Urgency Level */}
+                <div>
+                  <label htmlFor="vet-urgency" className="label text-slate-900 font-bold mb-1">
+                    Urgency Level *
                   </label>
                   <select
                     id="vet-urgency"
-                    className="input"
+                    className="input text-xs bg-white font-semibold"
                     value={vetReqForm.urgency}
                     onChange={(e) =>
                       setVetReqForm({ ...vetReqForm, urgency: e.target.value })
                     }
                   >
-                    <option value="low">Low — Routine health checkup</option>
-                    <option value="medium">Medium — Mild symptoms noticed</option>
-                    <option value="high">High — Cow seems sick / high fever</option>
+                    <option value="low">Low — Routine checkup / preventive care</option>
+                    <option value="medium">Medium — Health score drop / mild symptoms noticed</option>
+                    <option value="high">High — Cow seems sick / high fever / sharp milk drop</option>
                     <option value="critical">Critical — Immediate Emergency</option>
                   </select>
                 </div>
+
+                {/* 3. Observed Symptoms */}
                 <div>
-                  <label htmlFor="vet-symptoms" className="label">
+                  <label htmlFor="vet-symptoms" className="label text-slate-900 font-bold mb-1">
                     What symptoms do you notice? (optional)
                   </label>
                   <textarea
                     id="vet-symptoms"
-                    className="input min-h-[90px] resize-none"
-                    placeholder="Describe what you see (e.g. not eating well, low milk, coughing, swelling)..."
+                    className="input min-h-[80px] resize-none text-xs"
+                    placeholder="Describe what you see (e.g. not eating well, low milk, coughing, swelling, fever)..."
                     value={vetReqForm.symptoms}
                     onChange={(e) =>
                       setVetReqForm({ ...vetReqForm, symptoms: e.target.value })
                     }
                   />
                 </div>
+
                 <button
                   id="vet-request-submit"
                   type="submit"
-                  className="btn btn-primary w-full justify-center"
+                  className="btn btn-primary w-full justify-center text-xs font-bold py-2.5"
                   disabled={vetReqLoading}
                 >
                   {vetReqLoading ? "Submitting Request..." : "Request Doctor Visit →"}
@@ -1007,43 +1189,46 @@ export default function CattleProfileClient({
             </div>
           )}
 
-          <div className="card p-6">
-            <h3 className="font-semibold text-slate-900 mb-4">
-              Veterinary Case History
-            </h3>
+          <div className="card p-6 space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 text-base">
+                Veterinary Case History
+              </h3>
+            </div>
+
             <div className="space-y-3">
-              {vetCases.map((c) => (
+              {localVetCases.map((c) => (
                 <div
                   key={c.id}
-                  className="p-3.5 rounded-xl border border-slate-200 bg-slate-50"
+                  className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-xs space-y-1.5"
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className={`badge-${c.urgency}`}>{c.urgency.toUpperCase()}</span>
+                  <div className="flex items-center justify-between">
+                    <span className={`badge-${c.urgency} text-[10px]`}>{c.urgency.toUpperCase()}</span>
                     <span
-                      className={`text-xs font-semibold ${
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                         c.status === "resolved"
-                          ? "text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded"
-                          : "text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded"
+                          ? "text-emerald-800 bg-emerald-100 border border-emerald-300"
+                          : "text-amber-800 bg-amber-100 border border-amber-300"
                       }`}
                     >
-                      {c.status === "resolved" ? "Resolved" : "Pending Vet Visit"}
+                      {c.status === "resolved" ? "Resolved" : "Pending Doctor Visit"}
                     </span>
                   </div>
                   {c.diagnosis && (
-                    <p className="text-sm text-slate-800 mt-2 font-medium">
-                      <span className="font-semibold text-slate-900">Diagnosis:</span> {c.diagnosis}
+                    <p className="text-xs text-slate-800 pt-1 font-medium">
+                      <span className="font-bold text-slate-900">Diagnosis:</span> {c.diagnosis}
                     </p>
                   )}
-                  <p className="text-xs text-slate-400 mt-2">
-                    {new Date(c.createdAt).toLocaleDateString("en-IN")} ·{" "}
-                    {c.vetName ?? "Awaiting Doctor Assignment"}
+                  <p className="text-[11px] text-slate-500 font-mono pt-1 border-t border-slate-200/60 flex items-center justify-between">
+                    <span>{new Date(c.createdAt).toLocaleDateString("en-IN")}</span>
+                    <span className="font-bold text-slate-800">{c.vetName ? `Dr. ${c.vetName.replace(/^Dr\.\s*/i, "")}` : "Awaiting Doctor"}</span>
                   </p>
                 </div>
               ))}
-              {vetCases.length === 0 && (
-                <p className="text-slate-400 text-sm text-center py-6">
-                  No veterinary visits on record.
-                </p>
+              {localVetCases.length === 0 && (
+                <div className="p-8 text-center text-slate-400 text-xs">
+                  No veterinary visits on record for this animal.
+                </div>
               )}
             </div>
           </div>

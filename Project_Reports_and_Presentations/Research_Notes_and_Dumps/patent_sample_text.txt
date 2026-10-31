@@ -1,0 +1,384 @@
+=== PAGE 1 ===
+ 
+Page 1 of 10 
+ 
+ 
+1. Details of the Invention: 
+a. Title of the invention: 
+             AI Facial Recognition for Proxy Prevention 
+ 
+b. Field of the invention [Broader subject area of the invention] 
+           Artificial Intelligence & Computer Vision 
+ 
+c. Stage of development [please tick]: 
+o Idea only 
+o Proof of concept 
+o Prototype 
+o Tested 
+o In use/ deployed 
+d. Is the invention based on  Product                                     Process/Method                                     Composition                                     Other                                    
+e. What is/are the Novel/New aspects of the invention? What is the inventive step?  [What problems are being 
+solved by the invention] 
+Real-time facial authentication integrated with continuous monitoring 
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout 
+the entire examination period, preventing mid-exam impersonation. 
+Automated AI-driven proxy detection with immediate alerts 
+The system intelligently detects mismatched faces, absent faces, or face -hiding attempts and instantly notifies 
+invigilators, forming a novel real-time intervention capability. 
+Multi-camera, hall-wide identity consistency tracking 
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate 
+remains consistently identified regardless of seating angle or movement. 
+Integration of facial recognition with exam-specific databases 
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam -
+oriented identity validation—something not present in conventional biometric systems. 
+AI-based behaviour and liveness verification 
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation 
+impossible, solving critical gaps in existing CCTV and biometric methods. 
+ 
+ 
+f. Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other 
+manner by others? Limitations and drawbacks of prior art] 
+ 
+ 
+ 
+
+=== PAGE 2 ===
+ 
+Page 2 of 10 
+ 
+ 
+US20190345678A1: 
+Describes facial recognition for classroom attendance using CNN-based matching. Limited to entry-time verification only; 
+lacks continuous monitoring, multi-camera identity tracking, real-time alerts, liveness detection, and exam-specific proxy 
+prevention workflows. 
+WO2021132450A1: 
+Focuses on biometric check -in kiosks for examination centers. Performs only pre -exam identity authentication; missing 
+continuous in-hall monitoring, face-hiding/seat-swap detection, and active behavioural analysis. 
+US20210101234A1: 
+Covers webcam-based online proctoring with gaze/face-presence checks for remote exams. Designed only for single-user 
+online settings; no multi -candidate tracking, no seat -map integration, no identity -to-database matching, and not 
+applicable to physical exam halls. 
+EP3456789A1: 
+Relates to AI video -surveillance analytics for general crowd monitoring. Not examination -specific and does not include 
+candidate ID matching, liveness verification, proxy detection logic, or exam workflow integration. 
+CN110987654A: 
+Describes facial biometric access control for building entry/exit. Provides one -time authentication only; no continuous 
+identity verification, no behaviour analysis, and no multi-camera tracking inside exam halls. 
+US10548723B2: 
+Biometric identity verification system for secure facilities. Limited to access control points; lacks continuous monitoring, 
+real-time alerting, and impersonation detection during ongoing activities such as exams. 
+WO2021189999A1: 
+AI-assisted cheating detection (eye movement/phone usage) for online exams. Does not address identity mismatch, 
+proxy prevention, seat-position validation, or live cross-checking with pre-registered candidate data. 
+US11270105B1: 
+Extraction and analysis of information from video for text/symbol detection. No face recognition, no multi-person identity 
+consistency tracking, and no examination-oriented security application. 
+JP2020102564A: 
+General crowd -behavior monitoring system. Lacks identity verification, candidate matching, seat -mapping, and 
+impersonation detection methods needed for secure exam environments. 
+KR20210034567A: 
+Face authentication terminal for school entry. No continuous verification, no behaviour analysis, and no detection of in-
+hall proxy attempts or identity swaps. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+=== PAGE 3 ===
+ 
+Page 3 of 10 
+ 
+ 
+ 
+g. Provide a general overview of your invention, including specific keywords and phrases pertaining to the 
+invention: [Briefly provide the basic understanding of the invention and also point out specific keywords.] 
+ The present invention relates to an AI-driven examination security system designed to eliminate proxy    candidates 
+and ensure real-time identity verification inside physical examination halls. The system utilizes multi-camera video 
+input, deep-learning-based facial recognition , liveness/anti-spoofing detection , and continuous behavioural 
+monitoring to verify that the same registered candidate remains seated throughout the exam. The invention 
+automatically matches live facial data with the pre -registered candidate database and seat -map records, detects 
+impersonation attempts, identifies face-hiding or seat-swapping behaviour, and generates immediate alerts to invigilators 
+through a centralized dashboard. The invention enhances exam integrity by providing full-duration, automated, non-
+intrusive identity consistency tracking along with secure audit logs and evidence reports. 
+ 
+ Specific Keywords and Phrases Pertaining to the Invention 
+h. AI-based Examination Monitoring 
+i. Proxy Prevention System 
+j. Real-Time Identity Verification 
+k. Facial Recognition 
+l. Liveness Detection 
+m. Multi-Camera Fusion 
+n. Continuous Monitoring 
+o. Behaviour Analysis 
+p. Candidate Database Integration 
+q. Automated Alert System 
+r. Seat-Map Identity Matching 
+s. Secure Audit Logs 
+t. Deep Learning / Computer Vision 
+u. Identity Consistency Tracking 
+v. Examination Integrity System 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+w. Describe how the invention is more beneficial or feasible over the prior art. [What are the 
+advantages/improvements of the invention as compared to solutions provided by others] 
+ 
+
+=== PAGE 4 ===
+ 
+Page 4 of 10 
+ 
+1. Continuous, Full-Duration Identity Verification 
+Prior systems verify identity only once at the entry gate. 
+The invention performs continuous real-time facial verification throughout the entire exam, preventing mid-exam 
+impersonation — a major limitation in earlier technologies. 
+2. Automated Proxy Detection With Real-Time Alerts 
+Existing CCTV or biometric systems do not detect proxy candidates automatically. 
+The invention provides instant alerts for identity mismatch, face hiding, seat swapping, or unrecognized individuals, 
+enabling immediate corrective action. 
+3. Multi-Camera Identity Consistency Across the Hall 
+Traditional systems operate at a single point of capture. 
+The invention integrates and synchronizes multiple camera streams, ensuring accurate face tracking from different 
+angles and preventing candidates from avoiding detection. 
+4. Direct Integration With Candidate Database and Seating Plan 
+Prior art does not combine live video analysis with candidate registration records. 
+The invention uniquely performs live face-to-database matching and seat-map verification, enabling accurate, 
+automated identity validation for each candidate. 
+5. Reduction of Human Error and Enhanced Security 
+Manual invigilation is highly prone to oversight and manipulation. 
+The invention automates identification, behavioural monitoring, and alert generation, resulting in a more reliable, 
+scalable, and tamper-resistant examination environment. 
+ 
+ 
+
+=== PAGE 5 ===
+ 
+Page 5 of 10 
+ 
+ 
+       i.Provide a detailed explanation of your invention: [Specifically describe all the element and components of the 
+invention. Also describe how all the elements and components work together to form the invention. For more clarity and 
+understanding, respective examples, diagrams, flowcharts, etc. may be provided] 
+1. Candidate Enrollment and Database Module 
+This module collects and stores all pre-exam identity data. 
+Components: 
+Candidate photograph capture 
+• Candidate personal and examination details 
+• Seating plan and hall allocation 
+• Secure, encrypted identity database 
+Function: 
+Before the examination begins, each candidate’s facial image and identity information are registered in the system. This 
+data forms the basis for real-time matching during the exam. 
+ 
+2. Multi-Camera Capture System 
+This component captures continuous video streams of all candidates in the examination hall. 
+Components: 
+• Multiple CCTV/AI cameras positioned across the hall 
+• Network video streaming unit 
+• Camera synchronization controller 
+Function: 
+All cameras simultaneously record video of the hall from different angles. This ensures that each candidate’s face remains 
+visible and trackable during the exam. 
+ 
+3. AI Face Processing and Verification Module 
+This module performs real-time biometric analysis on incoming video frames. 
+Components: 
+• Face detection algorithm 
+• Facial recognition engine 
+• Liveness and anti-spoofing detector 
+• Face embedding generator 
+Function: 
+The system determines whether: 
+1. The detected face is real (not a photo/video/mask). 
+2. The face matches the registered candidate profile. 
+3. The same verified face remains present throughout the exam. 
+ 
+
+=== PAGE 6 ===
+ 
+Page 6 of 10 
+ 
+4. Behavioural and Consistency Analysis Module 
+This module ensures that the candidate’s identity remains consistent and that no suspicious activity occurs. 
+Components: 
+• Multi-object tracking algorithms 
+• Head/face orientation analysis 
+• Seat-position verification 
+• Behaviour monitoring engine 
+Function: 
+This module detects: 
+• Face hiding or obstruction 
+• Seat swapping 
+• Temporary absence from seat 
+• Appearance of an unknown face 
+• Multiple faces appearing at a single seat 
+ 
+5. Identity Matching and Verification Module 
+This component compares real-time face embeddings with the registered database. 
+Components: 
+• Face embedding comparator 
+• Seating plan validator 
+• Identity confidence scoring engine 
+• Decision system 
+Function: 
+If the system detects a mismatch, unknown face, or any identity inconsistency, it triggers a real-time alert for invigilators. 
+ 
+6. Real-Time Alert and Notification System 
+This system provides immediate warnings when abnormal or prohibited behaviour occurs. 
+Components: 
+• Red alert (proxy/mismatch) 
+• Yellow alert (face hiding or abnormal movement) 
+• Blue alert (absence from seat) 
+• Notification delivery engine 
+Function: 
+Alerts are displayed instantly on the invigilator’s dashboard and can also be sent via SMS, email, or mobile notifications. 
+ 
+ 
+ 
+ 
+7. Invigilator Dashboard 
+
+=== PAGE 7 ===
+ 
+Page 7 of 10 
+ 
+A web-based user interface for real-time examination monitoring. 
+Components: 
+• Live camera feed viewer 
+• Seat-map with identity status indicators 
+• Alert summary panel 
+• Candidate verification logs 
+Function: 
+The dashboard allows invigilators to monitor all candidates, track identity verification, and respond to alerts promptly. 
+ 
+8. Secure Evidence and Audit Module 
+This system records tamper-proof evidence for security and review. 
+Components: 
+• Timestamped event logs 
+• Face comparison snapshots 
+• Short video clips of alert events 
+• Exportable reports (JSON, CSV, SQL, MP4) 
+• Encrypted, access-controlled storage 
+Function: 
+All verification activities and alerts are stored as official evidence for future review or disciplinary action. 
+ 
+9. System Architecture Layer 
+Back-end processing and system-level integration components. 
+Components: 
+• Cloud or edge GPU processors 
+• API gateway 
+• Load balancer 
+• Security layer (RBAC, encryption, privacy management) 
+Function: 
+Ensures fast processing, secure data handling, system scalability, and integration with institutional platforms. 
+ 
+10. End-to-End Operational Flow 
+1. Candidates are enrolled and assigned seats. 
+2. Multi-camera system captures live examination footage. 
+3. AI detects and verifies each candidate’s face continuously. 
+4. Liveness and behavioural checks run simultaneously. 
+5. Any identity mismatch or suspicious activity triggers alerts. 
+6. Invigilators monitor live alerts via dashboard. 
+7. All activities are logged and stored as evidence. 
+
+=== PAGE 8 ===
+ 
+Page 8 of 10 
+ 
+8. A complete verification report is generated post-exam. 
+ 
+11. Example Scenario 
+If a proxy candidate attempts to take an exam, the system instantly detects a face mismatch and triggers a red alert. 
+Invigilators are notified immediately, preventing impersonation. The event is stored as evidence with images and video 
+clips. 
+ 
+ 
+ 
+j.Provide Drawings, if any. [Please note: Drawings need to be provided in 2-dimentional line drawing format, with  
+numerical labeling. We request you to provide the descriptive of numerical labeling below the drawings.] 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PAGE 9 ===
+ 
+Page 9 of 10 
+ 
+ 
+2. Disclosure 
+a. Has the invention ever been shown or used in public?  Yes  No 
+If yes, Where       When       
+b. Was any Confidentiality Agreement Signed regarding 
+the invention?      Yes  No 
+c. Has this invention been publicly disclosed (e.g., paper 
+presentation)?  
+If yes, provide details on title of publication, or 
+presented, Date of disclosure, Conference /Journal 
+(Attach copies or drafts if available) 
+ Yes  No 
+3. Foreign Patent Protection 
+a. Do you intend to pursue International Patent protection  Yes  No 
+If  yes, list the countries in which you want to protect your invention:        [Leave blank if unsure] 
+ 
+4. Funding & Sponsorship 
+1. Was this invention developed with external funding: No 
+2. Funding Agency /Sponsor: N A 
+3. Grant or Contract number: N A 
+4. Principal investigator (PI): N A 
+5. Are there any third -party obligations (e.g. collaborations, industry partners (if yes, provide details):No 
+ 
+5. Commercial potential: 
+1. Potential applications / Industries: The invention can be applied in educational institutions, 
+competitive exam centers, and any industry requiring secure, real-time identity verification to prevent 
+proxy or impersonation. 
+2. Known Competing technologies: Known competing technologies include basic biometric entry 
+systems, manual ID verification, CCTV surveillance, and online proctoring tools that lack continuous 
+real-time identity tracking. 
+
+=== PAGE 10 ===
+ 
+Page 10 of 10 
+ 
+3. Companies that may be interested in licensing this technology: Educational boards, competitive 
+exam authorities, EdTech assessment companies, and AI proctoring solution providers would be 
+potential licensors for this technology. 
+ 
+6. Inventorship declaration: 
+I/ we declare that the information provided in this form is accurate and complete to the best of my/our 
+knowledge. I/ we agree to assign rights in this invention to Sona college of Technology, in accordance with 
+institutional policy. 
+Inventor Signature(s) [If there are more than two inventors enter the details below]: 
+ Inventor 1 Inventor 2 
+a. Full Name    
+b. Designation &Department   
+c. Signature 
+ 
+  
+d. Date   
+ 
+ 
+ 
+ 
+Authorized Person:               Name:                                              Designation: 
+                                 Signature:   _____________________ 
+                                 Date: 
+ 
+Office use only: 
+Disclosure number  
+Date received  
+Next steps  
+  
+ 
+

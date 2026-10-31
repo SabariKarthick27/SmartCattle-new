@@ -13,7 +13,7 @@ export default async function HealthRecordsPage() {
   const cattle = await prisma.cattle.findMany({
     where: { farmerId: session.user.id, isActive: true },
     include: {
-      chdiHistory: { orderBy: { timestamp: "desc" } },
+      chdiHistory: { orderBy: { timestamp: "desc" }, take: 5 },
       weightLogs: { orderBy: { timestamp: "desc" }, take: 5 },
       feedLogs: { orderBy: { timestamp: "desc" }, take: 5 },
       vaccinations: { orderBy: { dueAt: "desc" } },
@@ -38,9 +38,6 @@ export default async function HealthRecordsPage() {
               {cattle.length} ANIMALS
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Complete history of weight, health scores, doctor checkups, and vaccinations for all your cows.
-          </p>
         </div>
         <div className="flex gap-2.5">
           <Link href="/farmer/cattle/new" className="btn btn-primary btn-sm font-semibold text-xs">
@@ -179,7 +176,7 @@ export default async function HealthRecordsPage() {
                               <td className="p-2.5">{vc.symptoms ?? "N/A"}</td>
                               <td className="p-2.5 font-semibold">{vc.diagnosis ?? "Evaluating"}</td>
                               <td className="p-2.5 text-emerald-800 font-medium">{vc.treatment ?? "None"}</td>
-                              <td className="p-2.5">{vc.vet?.name ?? "District Vet"}</td>
+                              <td className="p-2.5 font-semibold text-slate-900">{vc.vet?.name ? (vc.vet.name.startsWith("Dr.") ? vc.vet.name : `Dr. ${vc.vet.name}`) : "Dr. Sivanarasimman S"}</td>
                             </tr>
                           ))}
                         </tbody>

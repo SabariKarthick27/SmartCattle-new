@@ -30,7 +30,6 @@ export default async function VetCasePage({ params }: { params: Promise<{ id: st
   const latest = vetCase.cattle.chdiHistory[0];
   const badge = getCHDIBadgeConfig(latest?.status ?? "abstain");
   const snapshot = (vetCase.chdiSnapshot as Record<string, unknown>) ?? {};
-  const topFactors = (snapshot?.topFactors as Array<{ factor: string; contribution: number; direction: string; vetExplanation: string }>) ?? [];
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-5xl mx-auto">
@@ -63,83 +62,63 @@ export default async function VetCasePage({ params }: { params: Promise<{ id: st
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left: CHDI Details */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* CHDI Snapshot at case creation */}
-          <div className="card p-5 bg-white border border-slate-300 shadow-xs rounded-xl space-y-4">
-            <h2 className="font-bold text-sm text-slate-950 uppercase font-mono tracking-wider">
-              Health Analysis at Case Creation
+      {/* Stacked Layout: Case Summary Top, Diagnosis Horizontal Below */}
+      <div className="space-y-6">
+        {/* Full-width Case Summary */}
+        <div className="card p-5 bg-white border border-slate-300 shadow-xs rounded-xl space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h2 className="font-bold text-sm text-slate-900 uppercase font-mono tracking-wider">
+              Case Summary &amp; Vitals
             </h2>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-[#f8faf9] rounded-lg p-3 border border-slate-200">
-                <p className="text-[10px] font-mono uppercase text-slate-500 font-bold mb-1">Health Score</p>
-                <p className={`text-2xl font-extrabold font-display ${badge.color}`}>
-                  {snapshot.score != null ? Math.round(Number(snapshot.score)) : "—"}
-                </p>
-              </div>
-              <div className="bg-[#f8faf9] rounded-lg p-3 border border-slate-200">
-                <p className="text-[10px] font-mono uppercase text-slate-500 font-bold mb-1">AI Confidence</p>
-                <p className="text-2xl font-extrabold text-slate-800 font-display">
-                  {snapshot.confidence != null ? `${Math.round(Number(snapshot.confidence) * 100)}%` : "—"}
-                </p>
-              </div>
-            </div>
-
-            {/* Factor breakdown */}
-            {topFactors.length > 0 && (
-              <div className="pt-2">
-                <h3 className="text-xs font-bold text-slate-800 uppercase font-mono mb-2">Key Health Signals</h3>
-                <div className="space-y-2">
-                  {topFactors.map((f, i) => (
-                    <div key={i} className="p-2.5 rounded-lg bg-[#f8faf9] border border-slate-200 text-xs">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-bold text-slate-900">{f.factor?.replace(/([A-Z])/g, " $1").trim()}</span>
-                        <span className={`font-mono font-bold ${f.direction === "down" ? "text-red-700" : "text-emerald-700"}`}>
-                          {f.direction === "down" ? "↓ Drop" : "↑ High"} {Math.round((f.contribution ?? 0) * 100)}%
-                        </span>
-                      </div>
-                      <p className="text-slate-600 text-[11px]">{f.vetExplanation}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold uppercase font-mono ${badge.bg} ${badge.color}`}>
+              Score: {snapshot.score != null ? Math.round(Number(snapshot.score)) : latest?.score != null ? Math.round(Number(latest.score)) : "—"}/100
+            </span>
           </div>
 
-          {/* Farmer info & symptoms */}
-          <div className="card p-5 bg-white border border-slate-300 shadow-xs rounded-xl space-y-3">
-            <h2 className="font-bold text-sm text-slate-950 uppercase font-mono tracking-wider">Farmer Report</h2>
-            <div className="grid grid-cols-3 gap-3 text-xs">
-              <div><p className="text-[10px] text-slate-400 uppercase font-mono">Farmer</p><p className="font-bold text-slate-900">{vetCase.farmer.name}</p></div>
-              <div><p className="text-[10px] text-slate-400 uppercase font-mono">Phone</p><p className="font-mono text-slate-800">{vetCase.farmer.phone}</p></div>
-              <div><p className="text-[10px] text-slate-400 uppercase font-mono">Reported</p><p className="text-slate-700">{timeAgo(vetCase.createdAt)}</p></div>
+          {/* Essential Contact & Meta Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div>
+              <p className="text-[10px] text-slate-400 uppercase font-mono font-bold">Farmer</p>
+              <p className="font-bold text-slate-900 text-sm mt-0.5">{vetCase.farmer.name}</p>
             </div>
-            {vetCase.symptoms && (
-              <div className="bg-amber-50 rounded-lg p-3 border border-amber-200">
-                <p className="text-[11px] font-bold text-amber-900 mb-0.5 font-mono uppercase">Symptoms Observed:</p>
-                <p className="text-xs text-amber-950">{vetCase.symptoms}</p>
-              </div>
-            )}
+            <div>
+              <p className="text-[10px] text-slate-400 uppercase font-mono font-bold">Phone</p>
+              <p className="font-mono font-bold text-slate-800 mt-0.5">{vetCase.farmer.phone}</p>
+            </div>
+            <div>
+              <p className="text-[10px] text-slate-400 uppercase font-mono font-bold">Logged</p>
+              <p className="text-slate-700 mt-0.5">{timeAgo(vetCase.createdAt)}</p>
+            </div>
           </div>
+
+          {/* Observed Symptoms */}
+          {vetCase.symptoms && (
+            <div className="bg-amber-50 rounded-lg p-3.5 border border-amber-200/80">
+              <p className="text-[10px] font-bold text-amber-900 font-mono uppercase tracking-wider mb-1">
+                Reported Symptoms / Reason:
+              </p>
+              <p className="text-xs text-amber-950 leading-relaxed font-medium">
+                {vetCase.symptoms}
+              </p>
+            </div>
+          )}
         </div>
 
-        {/* Right: Diagnosis form */}
-        <div>
-          <VetDiagnoseClient
-            caseId={id}
-            cattleId={vetCase.cattleId}
-            existingDiagnosis={{
-              symptoms: vetCase.symptoms ?? "",
-              diagnosis: vetCase.diagnosis ?? "",
-              treatment: vetCase.treatment ?? "",
-              medication: vetCase.medication ?? "",
-              followUpDate: vetCase.followUpDate?.toISOString().split("T")[0] ?? "",
-              status: vetCase.status,
-            }}
-            predictedStatus={String(snapshot.status ?? "unknown")}
-          />
-        </div>
+        {/* Full-width Clinical Diagnosis Form Horizontal Below */}
+        <VetDiagnoseClient
+          caseId={id}
+          cattleId={vetCase.cattleId}
+          breed={vetCase.cattle.breed}
+          existingDiagnosis={{
+            symptoms: vetCase.symptoms ?? "",
+            diagnosis: vetCase.diagnosis ?? "",
+            treatment: vetCase.treatment ?? "",
+            medication: vetCase.medication ?? "",
+            followUpDate: vetCase.followUpDate?.toISOString().split("T")[0] ?? "",
+            status: vetCase.status,
+          }}
+          predictedStatus={String(snapshot.status ?? "unknown")}
+        />
       </div>
     </div>
   );

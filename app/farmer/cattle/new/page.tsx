@@ -192,9 +192,6 @@ export default function AddCattlePage() {
             REGISTRATION
           </span>
         </div>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Fill in ear tag number, breed, age, and initial weight to add a cow to your farm.
-        </p>
       </div>
 
       <div className="card p-6 bg-white border border-slate-300 shadow-xs rounded-xl">

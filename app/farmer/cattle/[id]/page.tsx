@@ -5,8 +5,10 @@ import { getCHDIBadgeConfig, calcAge, timeAgo } from "@/lib/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CattleProfileClient from "./CattleProfileClient";
-import { checkBaselineThreshold } from "@/lib/chdi/pipeline";
+import { checkBaselineThresholdFromLogs } from "@/lib/chdi/pipeline";
 import { MIN_ENTRIES_FOR_BASELINE, MIN_DAYS_FOR_BASELINE } from "@/lib/constants";
+
+import CattleQrModal from "@/components/CattleQrModal";
 
 export default async function CattleProfilePage({
   params,
@@ -16,26 +18,41 @@ export default async function CattleProfilePage({
   const { id } = await params;
   const session = await getServerSession(authOptions);
 
-  const cattle = await prisma.cattle.findUnique({
-    where: { id },
-    include: {
-      chdiHistory: {
-        orderBy: { timestamp: "desc" },
-        take: 90,
+  // Fetch cattle (with farmer relation) and available vets in PARALLEL to minimize network latency
+  const [cattle, rawVets] = await Promise.all([
+    prisma.cattle.findUnique({
+      where: { id },
+      include: {
+        farmer: { select: { assignedRegion: true } },
+        chdiHistory: {
+          orderBy: { timestamp: "desc" },
+          take: 90,
+        },
+        weightLogs: { orderBy: { timestamp: "desc" }, take: 60 },
+        feedLogs: { orderBy: { timestamp: "desc" }, take: 60 },
+        milkLogs: { orderBy: { timestamp: "desc" }, take: 60 },
+        temperatureLogs: { orderBy: { timestamp: "desc" }, take: 60 },
+        vaccinationLogs: { orderBy: { createdAt: "desc" } },
+        vaccinations: { orderBy: { dueAt: "asc" } },
+        vetCases: {
+          orderBy: { createdAt: "desc" },
+          take: 5,
+          include: { vet: { select: { name: true } } },
+        },
       },
-      weightLogs: { orderBy: { timestamp: "desc" }, take: 60 },
-      feedLogs: { orderBy: { timestamp: "desc" }, take: 60 },
-      activityLogs: { orderBy: { timestamp: "desc" }, take: 60 },
-      milkLogs: { orderBy: { timestamp: "desc" }, take: 60 },
-      vaccinationLogs: { orderBy: { createdAt: "desc" } },
-      vaccinations: { orderBy: { dueAt: "asc" } },
-      vetCases: {
-        orderBy: { createdAt: "desc" },
-        take: 5,
-        include: { vet: { select: { name: true } } },
+    }),
+    prisma.user.findMany({
+      where: { role: "vet", isActive: true },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        assignedRegion: true,
       },
-    },
-  });
+      orderBy: [{ name: "asc" }],
+    }),
+  ]);
 
   if (!cattle) notFound();
 
@@ -47,8 +64,14 @@ export default async function CattleProfilePage({
     notFound();
   }
 
-  // Check baseline threshold
-  const thresholdStatus = await checkBaselineThreshold(id, cattle.purpose ?? "dairy");
+  // Check baseline threshold in-memory from fetched logs without 4 extra database queries
+  const thresholdStatus = checkBaselineThresholdFromLogs(
+    cattle.weightLogs,
+    cattle.feedLogs,
+    [], // activity is sensor-only, not required
+    cattle.milkLogs,
+    cattle.purpose ?? "dairy"
+  );
   const latest = cattle.chdiHistory[0];
   const isAbstaining =
     !thresholdStatus.isMet ||
@@ -58,6 +81,17 @@ export default async function CattleProfilePage({
 
   const badge = getCHDIBadgeConfig(isAbstaining ? "abstain" : latest?.status ?? "abstain");
   const minLogged = Math.min(MIN_ENTRIES_FOR_BASELINE, thresholdStatus.minEntries);
+
+  const farmerRegion = (cattle.region || cattle.farmer?.assignedRegion || "").toLowerCase().trim();
+
+  // Sort: same-region vets first, then others alphabetically by region
+  const availableVets = rawVets.sort((a, b) => {
+    const aLocal = a.assignedRegion?.toLowerCase().trim() === farmerRegion;
+    const bLocal = b.assignedRegion?.toLowerCase().trim() === farmerRegion;
+    if (aLocal && !bLocal) return -1;
+    if (!aLocal && bLocal) return 1;
+    return (a.assignedRegion ?? "").localeCompare(b.assignedRegion ?? "");
+  });
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-6xl mx-auto">
@@ -97,7 +131,19 @@ export default async function CattleProfilePage({
         </div>
 
         {/* Header Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <CattleQrModal
+            cattle={{
+              id: cattle.id,
+              tagId: cattle.tagId,
+              name: cattle.name,
+              breed: cattle.breed,
+              qrToken: cattle.qrToken,
+              gender: cattle.gender,
+              dob: cattle.dob,
+            }}
+            variant="button"
+          />
           <Link
             href={`/farmer/cattle/${cattle.id}/edit`}
             id="edit-cattle-details-btn"
@@ -130,7 +176,7 @@ export default async function CattleProfilePage({
                 Getting to know your cow — {minLogged}/7 check-ins recorded
               </p>
               <p className="text-xs text-slate-600 mt-0.5">
-                The smart health baseline is calculated on a 7-day weekly cycle once at least {MIN_ENTRIES_FOR_BASELINE} entries across {MIN_DAYS_FOR_BASELINE} days are logged. Keep recording weight and milk every few days!
+                The health score unlocks once {MIN_ENTRIES_FOR_BASELINE} entries across {MIN_DAYS_FOR_BASELINE} days are logged for Weight, Feed{cattle.purpose === "dairy" ? ", and Milk" : " and Feed"}. No sensors needed — just your daily farm records!
               </p>
             </div>
 
@@ -149,7 +195,7 @@ export default async function CattleProfilePage({
             </div>
 
             {/* Signal-by-signal breakdown status */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1">
               <div className={`p-2.5 rounded-lg border text-xs ${thresholdStatus.details.weight.isMet ? "bg-emerald-50 border-emerald-200" : "bg-[#f8faf9] border-slate-200"}`}>
                 <div className="flex items-center justify-between font-semibold">
                   <span>Weight</span>
@@ -170,15 +216,6 @@ export default async function CattleProfilePage({
                 <p className="text-[10px] font-mono text-slate-400 mt-0.5">{thresholdStatus.details.feed.distinctDays}/5 days</p>
               </div>
 
-              <div className={`p-2.5 rounded-lg border text-xs ${thresholdStatus.details.activity.isMet ? "bg-emerald-50 border-emerald-200" : "bg-[#f8faf9] border-slate-200"}`}>
-                <div className="flex items-center justify-between font-semibold">
-                  <span>Activity</span>
-                  <span className={thresholdStatus.details.activity.isMet ? "text-emerald-800 font-bold" : "text-slate-500 font-mono"}>
-                    {thresholdStatus.details.activity.isMet ? "✓ Ready" : `${thresholdStatus.details.activity.entries}/7`}
-                  </span>
-                </div>
-                <p className="text-[10px] font-mono text-slate-400 mt-0.5">{thresholdStatus.details.activity.distinctDays}/5 days</p>
-              </div>
 
               {cattle.purpose === "dairy" && thresholdStatus.details.milk && (
                 <div className={`p-2.5 rounded-lg border text-xs ${thresholdStatus.details.milk.isMet ? "bg-emerald-50 border-emerald-200" : "bg-[#f8faf9] border-slate-200"}`}>
@@ -252,6 +289,7 @@ export default async function CattleProfilePage({
       {/* Client interactive section */}
       <CattleProfileClient
         cattleId={id}
+        breed={cattle.breed}
         purpose={cattle.purpose ?? "dairy"}
         isAbstaining={isAbstaining}
         minLogged={minLogged}
@@ -277,6 +315,11 @@ export default async function CattleProfilePage({
           timestamp: m.timestamp.toISOString(),
           source: m.source,
         }))}
+        temperatureLogs={(cattle as any).temperatureLogs?.map((t: any) => ({
+          value: t.value,
+          timestamp: t.timestamp.toISOString(),
+          source: t.source,
+        })) || []}
         vaccinationLogs={cattle.vaccinationLogs.map((vl) => ({
           id: vl.id,
           vaccineName: vl.vaccineName,
@@ -298,6 +341,8 @@ export default async function CattleProfilePage({
           vetName: c.vet?.name ?? null,
           diagnosis: c.diagnosis,
         }))}
+        availableVets={availableVets}
+        farmerRegion={farmerRegion}
         farmerRole={session!.user.role === "farmer"}
       />
     </div>

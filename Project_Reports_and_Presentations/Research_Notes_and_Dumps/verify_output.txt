@@ -1,0 +1,421 @@
+Total paragraphs: 208
+Total tables: 6
+
+P002 [Heading 2]: Bowling et al., 2008:
+P003 [Body Text]: Describes cattle identification and national livestock traceability systems. Conventional electronic traceability relies on passive low-frequency (LF) or ultra-high-frequency (UHF) RFID transponders requiring specialized, high-cost reader hardware and fixed antennas, making them economically infeasible for smallholder farmers with small herds.
+P004 [Heading 2]: Pereira et al., 2023:
+P005 [Body Text]: Reviews RFID technology for livestock tracking and animal health monitoring. RFID offers non-line-of-sight electronic identification but lacks on-board physiological sensing, personalized baseline calculation, and multivariate anomaly detection, serving only as a static electronic identifier.
+P006 [Heading 2]: Bumbálek et al., 2025:
+P007 [Body Text]: Compares computer-vision cattle-identification approaches, including body texture biometric recognition, numerical ear-tag OCR, and QR collar tags. The optical methods focus purely on identification accuracy without integrating physiological telemetry, dynamic baseline modeling, clinical disease anomaly detection, or closed-loop veterinary triage.
+P008 [Heading 2]: Kaur and Virk, 2025:
+P009 [Body Text]: Presents an IoT smart neck-collar system with tri-axial accelerometers and digital thermometers for bovine respiratory disease and mastitis detection. Wearable IoT systems face severe operational bottlenecks including battery life constraints, sensor damage/loss from animal social interactions, and prohibitive hardware investment costs.
+P010 [Heading 2]: Kamphuis et al., 2010:
+P011 [Body Text]: Studies decision-tree models for automatic mastitis detection using automated milking-system data. The approach applies rigid population-wide diagnostic thresholds without accounting for individual breed or lactation differences and lacks smartphone-based data collection interfaces for resource-constrained farms.
+P012 [Heading 2]: Subach and Shmeleva, 2022:
+P013 [Body Text]: Discusses digital innovation and cloud data pipelines for livestock farming at a conceptual architectural level. It does not provide an individualized stochastic baseline engine, covariance-weighted anomaly distance metrics, or an explainable clinical decision-support mechanism.
+P014 [Heading 2]: Ahmad and Salamat, 2023:
+P015 [Body Text]: Describes a web-based veterinary clinical management system with record keeping and vaccination reminders. The system functions merely as a passive data repository without automated physiological time-series analysis, early anomaly screening, or explainable triage prioritization.
+P016 [Heading 2]: Curti et al., 2023:
+P017 [Body Text]: Reviews livestock monitoring devices and machine-learning applications across animal reproduction. The survey highlights that commercial solutions rely on expensive dedicated hardware and black-box algorithms that lack clinician explainability and automated case-dispatch integration.
+P018 [Heading 2]: Aquilani et al., 2022:
+P019 [Body Text]: Reviews precision-livestock-farming technologies for pasture systems including GPS collars and thermography. Many approaches are difficult to deploy in smallholder tropical dairy operations due to rugged environmental conditions and high maintenance overhead.
+P020 [Heading 2]: Barriuso et al., 2018:
+P021 [Body Text]: Presents a multi-agent wireless sensor network (WSN) using MQTT messaging for pasture cattle monitoring. It requires local sensor-network gateways and continuous hardware maintenance, creating cost barriers for resource-limited dairy cooperatives.
+P025 [List Paragraph]: Provide a general overview of your invention, including specific keywords and phrases pertaining to the invention: [Briefly provide the basic understanding of the invention and also point out specific keywords.]
+P027 [Normal]: The present invention relates to a QR-based cattle management and health-monitoring platform for personalized livestock disease detection using a Composite Health Deviation Index (CHDI). The system assigns a low-cost, durable thermoplastic polyurethane (TPU) ear tag with a cryptographic 128-bit UUID Quick Response (QR) matrix to each animal, enabling smallholder farmers to retrieve digital medical histories and record daily multi-signal vitals (daily milk yield, feed consumption, rumination duration, core body temperature, and locomotion activity) using any commodity smartphone camera without expensive RFID readers. The computational backplane constructs personalized rolling moving-average baselines and evaluates multivariate anomaly departures across historical signal covariances using regularized Mahalanobis distance. A temporal trajectory tracking module computes 7-day regression slopes to detect subclinical mastitis, lameness, and metabolic disorders up to four days prior to acute symptom onset. The invention incorporates dual-tier Leave-One-Covariate-Out (LOCO) permutation feature explainability, an analytical data-sufficiency gate to avoid premature alerts, and an automated closed-loop clinical triage workflow that dispatches prioritized VetCase tickets and ingests verified veterinary feedback to continuously refine machine learning risk classifiers.
+P029 [Normal]: Specific Keywords and Phrases Pertaining to the Invention
+P030 [List Paragraph]: QR-Based Cattle Identification
+P031 [List Paragraph]: Smartphone-Readable Ear Tag
+P032 [List Paragraph]: Personalized Health Baseline
+P033 [List Paragraph]: Composite Health Deviation Index (CHDI)
+P034 [List Paragraph]: Multivariate Anomaly Detection
+P035 [List Paragraph]: Mahalanobis Distance with Tikhonov Regularization
+P036 [List Paragraph]: Temporal Trajectory Tracking & Slope Regression
+P037 [List Paragraph]: Subclinical Disease Early Detection
+P038 [List Paragraph]: Dual-Tier Explainability & Permutation Attribution
+P039 [List Paragraph]: Data-Sufficiency Abstention Gate
+P040 [List Paragraph]: Closed-Loop Veterinary Case Dispatch
+P041 [List Paragraph]: Role-Based Farm & Cooperative Portal
+P042 [List Paragraph]: Longitudinal Electronic Medical Records
+P043 [List Paragraph]: Precision Livestock Farming (PLF)
+P044 [List Paragraph]: Supervised Feedback Machine Learning Refinement
+P053 [List Paragraph]: Describe how the invention is more beneficial or feasible over the prior art. [What are the advantages/improvements of the invention as compared to solutions provided by others]
+P055 [Heading 1]: Infrastructure-Light, Zero-Cost Optical Identification
+P056 [Normal]: Prior systems require expensive RFID readers, antennas, or active neck collars with high battery maintenance costs.
+P057 [Normal]: The invention uses a durable, weather-proof TPU ear tag with a cryptographic 128-bit UUID QR code readable by any commodity smartphone browser, eliminating capital hardware costs for smallholder farmers.
+P058 [Heading 1]: Adaptive Personalized Baseline vs. Rigid Population Norms
+P059 [Normal]: Existing livestock tools apply static, global threshold rules (e.g. fixed milk yield drop), ignoring breed, age, and individual baseline differences.
+P060 [Normal]: The invention constructs dynamic rolling moving-average baselines (μ, σ) unique to each animal, isolating true physiological distress from natural individual variance.
+P061 [Heading 1]: Multivariate Covariance-Weighted Anomaly Detection (CHDI)
+P062 [Normal]: Traditional methods analyze single variables in isolation, missing correlated cross-signal distress patterns.
+P063 [Normal]: The invention calculates regularized Mahalanobis distance across the empirical 4x4 covariance matrix of all monitored signals, capturing multidimensional health departures in a normalized 0–100 index.
+P064 [Heading 1]: Early Subclinical Disease Onset Detection (4 Days in Advance)
+P065 [Normal]: Prior art detects bovine disease only when severe, end-stage clinical symptoms appear, leading to permanent milk yield loss.
+P066 [Normal]: The invention performs rolling 7-day least-squares linear slope regression over CHDI trajectories, detecting subtle subclinical incubation up to four days prior to acute clinical collapse.
+P067 [Heading 1]: Dual-Tier Explainability and Closed-Loop Veterinary Feedback
+P068 [Normal]: Commercial machine-learning livestock tools operate as black boxes without clear clinician explanations or clinical feedback capture.
+P069 [Normal]: The invention provides LOCO permutation feature attributions (plain-text farmer advisories and detailed z-score vet tables) and dispatches prioritized VetCase tickets that log verified diagnoses for continuous model retraining.
+P071 [Normal]: i.Provide a detailed explanation of your invention: [Specifically describe all the element and components of the invention. Also describe how all the elements and components work together to form the invention. For more clarity and understanding, respective examples, diagrams, flowcharts, etc. may be provided]
+P072 [Heading 1]: User and Multi-Tenant Farm Management Module
+P073 [Body Text]: This module manages secure user registration, multi-tenant farm hierarchy, role-based access control, and cryptographic session security.
+P074 [Heading 3]: Components:
+P075 [Body Text]: Multi-tenant tenant isolation engine
+P076 [List Paragraph]: Role-Based Access Control (RBAC) coordinator (Farmer, Veterinarian, Admin)
+P077 [List Paragraph]: Argon2id password hashing and JWT authentication gateway
+P078 [List Paragraph]: Cooperative hierarchy and farm tenancy mapping database
+P079 [Heading 3]: Function:
+P080 [Body Text]: Enables agricultural dairy cooperatives to oversee hundreds of distributed smallholder farms under a single administrative umbrella while strictly isolating herd records between individual farm tenancies.
+P083 [Heading 1]: Animal Husbandry and QR Identification Module
+P084 [Body Text]: This module manages cattle biographical records and generates secure optical identification tags.
+P085 [Heading 3]: Components:
+P086 [List Paragraph]: Cattle profile registry (Breed taxonomy, date of birth, parity, reproductive status)
+P087 [List Paragraph]: Cryptographic 128-bit UUID v4 token generator
+P088 [List Paragraph]: High-density 2-D QR matrix vector generator (SVG/PNG)
+P089 [Heading 3]: Tag-to-profile binding and lifecycle registry
+P090 [Body Text]: Function:
+P091 [Body Text]: Creates tamper-resistant optical QR tags laser-etched onto TPU ear tags. The QR payload contains only an opaque secure URI token, preventing unauthorized clinical data disclosure while enabling instant browser lookup.
+P093 [Heading 1]: Longitudinal Multi-Signal Telemetry Logging Module
+P094 [Body Text]: This module provides field-optimized mobile interfaces for farmers to log daily multi-parameter physiological vitals.
+P095 [Heading 3]: Components:
+P096 [List Paragraph]: Mobile web logging interface with offline caching
+P097 [List Paragraph]: Multi-signal data capture fields (Milk Yield, Feed Intake, Rumination, Temp, Activity)
+P098 [List Paragraph]: Biological plausibility validator and outlier filter
+P099 [List Paragraph]: Automatic UTC timestamping and GPS metadata tagger
+P100 [Heading 3]: Data-source fidelity classifier (manual | qr_scan | sensor)
+P101 [Body Text]: Function:
+P102 [List Paragraph]: Captures daily physiological vitals directly at the animal's side. Validates biological bounds before writing to PostgreSQL storage, ensuring clean time-series telemetry for downstream analytics.
+P103 [List Paragraph]: The face matches the registered candidate profile.
+P104 [List Paragraph]: The same verified face remains present throughout the exam.
+P107 [Heading 1]: Medical, Vaccination, and Deworming Management Module
+P108 [Body Text]: This module maintains longitudinal clinical healthcare records, treatment regimens, and preventive vaccination schedules.
+P109 [Heading 3]: Components:
+P110 [List Paragraph]: Clinical diagnosis and treatment prescription logger
+P111 [List Paragraph]: Vaccination schedule engine with automated booster interval calculator
+P112 [List Paragraph]: Mandatory drug withdrawal period countdown monitor
+P113 [List Paragraph]: Preventive health compliance reminder system
+P114 [Heading 3]: Function:
+P115 [Body Text]: Tracks lifetime medical interventions (e.g. FMD, Brucellosis, Anthrax, Blackleg), computes booster due dates, and monitors drug withdrawal periods to prevent antibiotic residues in commercial dairy supply chains.
+P116 [List Paragraph]: Face hiding or obstruction
+P117 [List Paragraph]: Seat swapping
+P118 [List Paragraph]: Temporary absence from seat
+P119 [List Paragraph]: Appearance of an unknown face
+P120 [List Paragraph]: Multiple faces appearing at a single seat
+P123 [Heading 1]: Adaptive Baseline and Three-Stage CHDI Computation Engine
+P124 [Body Text]: This computational core computes personalized physiological baselines and evaluates multivariate anomaly deviations.
+P125 [Heading 3]: Components:
+P126 [List Paragraph]: Dynamic rolling moving-average baseline calculator (Window W=14)
+P127 [List Paragraph]: Empirical 4x4 covariance matrix builder with Tikhonov regularization (lambda=1e-3)
+P128 [List Paragraph]: Multivariate Mahalanobis distance calculator (D_M)
+P129 [List Paragraph]: 0–100 bounded CHDI normalization and severity band classifier
+P130 [Heading 3]: Function:
+P131 [Body Text]: Establishes a personalized moving-average baseline (μ, σ) for each animal and computes regularized Mahalanobis distance across historical covariance structures, outputting healthy (>=75), watch (50-74), or at-risk (<50) status.
+P134 [Heading 1]: Temporal Trajectory and Trend Regression Module
+P135 [Body Text]: This module analyzes health score trajectory dynamics over rolling time windows.
+P136 [Heading 3]: Components:
+P137 [List Paragraph]: 7-day rolling least-squares linear regression solver
+P138 [List Paragraph]: Health slope (S) and trajectory velocity calculator
+P139 [List Paragraph]: Trajectory state classifier (Improving, Stable, Deteriorating, Fluctuating)
+P140 [List Paragraph]: Subclinical early-warning flag generator
+P141 [Heading 3]: Function:
+P142 [Body Text]: Computes health degradation slopes over 7-day windows, distinguishing temporary dietary dips from chronic systemic illness to detect subclinical mastitis and metabolic disorders up to four days prior to acute onset.
+P147 [Heading 1]: Dual-Tier Explainability and Permutation Attribution Module
+P148 [Heading 1]: This module decomposes complex multivariate anomalies into human-interpretable clinical explanations.
+P149 [Body Text]: Components:
+P150 [Heading 3]: Leave-One-Covariate-Out (LOCO) permutation feature decomposition engine
+P151 [List Paragraph]: Relative percentage factor contribution ranker
+P152 [List Paragraph]: Dual-tier explanation translator (Plain Farmer Advisory & Clinical Vet Z-Score Matrix)
+P153 [List Paragraph]: Visualization chart and attribution badge generator
+P154 [List Paragraph]: Function:
+P155 [Heading 3]: Deconstructs mathematical Mahalanobis distance into relative percentage contributions (e.g. Milk: 34%, Rumination: 28%, Temp: 22%), providing transparent diagnostic rationales for farmers and veterinarians.
+P156 [Body Text]: The dashboard allows invigilators to monitor all candidates, track identity verification, and respond to alerts promptly.
+P159 [Heading 1]: Analytical Confidence and Data-Sufficiency Abstention Gate
+P160 [Body Text]: This module evaluates sample depth to prevent premature false alarms during initial cattle enrollment.
+P161 [Heading 3]: Components:
+P162 [List Paragraph]: Historical sample counter (Minimum N >= 7 over 5+ calendar days)
+P163 [List Paragraph]: Analytical confidence scoring engine (Saturation constant W=14)
+P164 [List Paragraph]: Explicit abstention protocol gatekeeper
+P165 [List Paragraph]: Data-sufficiency status reporter
+P166 [List Paragraph]: Function:
+P167 [Heading 3]: Safely withholds automated alarm scores when historical records are sparse (N < 7 or Confidence < 0.40), ensuring 100% false-alarm suppression during early post-enrollment calibration.
+P168 [Body Text]: All verification activities and alerts are stored as official evidence for future review or disciplinary action.
+P171 [Heading 1]: Role-Based Web Platform and Veterinary Dashboard
+P172 [Body Text]: This responsive web application provides tailored interfaces for herd monitoring and clinical triage.
+P173 [Heading 3]: Components:
+P174 [List Paragraph]: Farmer mobile portal with herd summary and quick QR logger
+P175 [List Paragraph]: Regional veterinarian triage dashboard with prioritized alert queue
+P176 [List Paragraph]: Interactive longitudinal CHDI trajectory and telemetry charts
+P177 [List Paragraph]: Multi-farm administrative herd health analytics console
+P178 [Heading 3]: Function:
+P179 [Body Text]: Delivers responsive, role-segregated interfaces for all dairy stakeholders, displaying live herd health heatmaps, prioritized triage queues, vaccination schedules, and interactive trajectory graphs.
+P182 [Heading 1]: Automated VetCase Dispatch and Closed-Loop Feedback Learning Module
+P183 [List Paragraph]: 1. The farmer scans the animal's QR ear tag and logs daily physiological vitals directly in the field.
+P184 [List Paragraph]: 2. The telemetry logging module validates entries and streams data to the cloud database backplane.
+P185 [List Paragraph]: 3. The CHDI engine calculates individual baseline departures using covariance-weighted Mahalanobis distance.
+P186 [List Paragraph]: 4. The temporal regression module evaluates 7-day health slopes to detect early subclinical disease trends.
+P187 [List Paragraph]: 5. The LOCO explainability module ranks contributing physiological factors and verifies data sufficiency.
+P188 [List Paragraph]: 6. Critical health departures (CHDI < 50) automatically generate prioritized VetCase tickets for regional vets.
+P189 [List Paragraph]: 7. The attending veterinarian performs an on-site clinical examination, confirms diagnosis, and logs treatment.
+P190 [List Paragraph]: 8. Confirmed clinical ground-truth feedback is ingested to continuously retrain and refine supervised ML risk models.
+P202 [Normal]: Authorized Person:	Name:	Designation: Signature: 	 
+P203 [Normal]: Date:
+P206 [Heading 1]: Office use only:
+
+--- TABLE 0 (7x7) ---
+  R0C0: 1.  Details of the Invention:
+  R0C1: 1.  Details of the Invention:
+  R0C2: 1.  Details of the Invention:
+  R0C3: 1.  Details of the Invention:
+  R0C4: 1.  Details of the Invention:
+  R0C5: 1.  Details of the Invention:
+  R0C6: 1.  Details of the Invention:
+  R1C0: a.  Title of the invention:
+AI Facial Recognition for Proxy Prevention
+  R1C1: a.  Title of the invention:
+AI Facial Recognition for Proxy Prevention
+  R1C2: a.  Title of the invention:
+AI Facial Recognition for Proxy Prevention
+  R1C3: a.  Title of the invention:
+AI Facial Recognition for Proxy Prevention
+  R1C4: a.  Title of the invention:
+AI Facial Recognition for Proxy Prevention
+  R1C5: a.  Title of the invention:
+AI Facial Recognition for Proxy Prevention
+  R1C6: a.  Title of the invention:
+AI Facial Recognition for Proxy Prevention
+  R2C0: b. Field of the invention [Broader subject area of the invention] Artificial Intelligence & Computer Vision
+  R2C1: b. Field of the invention [Broader subject area of the invention] Artificial Intelligence & Computer Vision
+  R2C2: b. Field of the invention [Broader subject area of the invention] Artificial Intelligence & Computer Vision
+  R2C3: b. Field of the invention [Broader subject area of the invention] Artificial Intelligence & Computer Vision
+  R2C4: b. Field of the invention [Broader subject area of the invention] Artificial Intelligence & Computer Vision
+  R2C5: b. Field of the invention [Broader subject area of the invention] Artificial Intelligence & Computer Vision
+  R2C6: b. Field of the invention [Broader subject area of the invention] Artificial Intelligence & Computer Vision
+  R3C0: Stage of development [please tick]:
+Idea only
+Proof of concept
+Prototype
+Tested
+In use/ deployed
+  R3C1: Stage of development [please tick]:
+Idea only
+Proof of concept
+Prototype
+Tested
+In use/ deployed
+  R3C2: Stage of development [please tick]:
+Idea only
+Proof of concept
+Prototype
+Tested
+In use/ deployed
+  R3C3: Stage of development [please tick]:
+Idea only
+Proof of concept
+Prototype
+Tested
+In use/ deployed
+  R3C4: Stage of development [please tick]:
+Idea only
+Proof of concept
+Prototype
+Tested
+In use/ deployed
+  R3C5: Stage of development [please tick]:
+Idea only
+Proof of concept
+Prototype
+Tested
+In use/ deployed
+  R3C6: Stage of development [please tick]:
+Idea only
+Proof of concept
+Prototype
+Tested
+In use/ deployed
+  R4C0: d.  Is the invention based on
+  R4C1: Product
+  R4C2: 
+  R4C3: Process/Method
+  R4C4: 
+  R4C5: Composition
+  R4C6: Other
+  R5C0: e. What is/are the Novel/New aspects of the invention? What is the inventive step? [What problems are being solved by the invention]
+Real-time facial authentication integrated with continuous monitoring
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout the entire examination period, preventing mid-exam impersonation.
+Automated AI-driven proxy detection with immediate alerts
+The system intelligently detects mismatched faces, absent faces, or face-hiding attempts and instantly notifies invigilators, forming a novel real-time intervention capability.
+Multi-camera, hall-wide identity consistency tracking
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate remains consistently identified regardless of seating angle or movement.
+Integration of facial recognition with exam-specific databases
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam-oriented identity validation—something not present in conventional biometric systems.
+AI-based behaviour and liveness verification
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation impossible, solving critical gaps in existing CCTV and biometric methods.
+  R5C1: e. What is/are the Novel/New aspects of the invention? What is the inventive step? [What problems are being solved by the invention]
+Real-time facial authentication integrated with continuous monitoring
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout the entire examination period, preventing mid-exam impersonation.
+Automated AI-driven proxy detection with immediate alerts
+The system intelligently detects mismatched faces, absent faces, or face-hiding attempts and instantly notifies invigilators, forming a novel real-time intervention capability.
+Multi-camera, hall-wide identity consistency tracking
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate remains consistently identified regardless of seating angle or movement.
+Integration of facial recognition with exam-specific databases
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam-oriented identity validation—something not present in conventional biometric systems.
+AI-based behaviour and liveness verification
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation impossible, solving critical gaps in existing CCTV and biometric methods.
+  R5C2: e. What is/are the Novel/New aspects of the invention? What is the inventive step? [What problems are being solved by the invention]
+Real-time facial authentication integrated with continuous monitoring
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout the entire examination period, preventing mid-exam impersonation.
+Automated AI-driven proxy detection with immediate alerts
+The system intelligently detects mismatched faces, absent faces, or face-hiding attempts and instantly notifies invigilators, forming a novel real-time intervention capability.
+Multi-camera, hall-wide identity consistency tracking
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate remains consistently identified regardless of seating angle or movement.
+Integration of facial recognition with exam-specific databases
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam-oriented identity validation—something not present in conventional biometric systems.
+AI-based behaviour and liveness verification
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation impossible, solving critical gaps in existing CCTV and biometric methods.
+  R5C3: e. What is/are the Novel/New aspects of the invention? What is the inventive step? [What problems are being solved by the invention]
+Real-time facial authentication integrated with continuous monitoring
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout the entire examination period, preventing mid-exam impersonation.
+Automated AI-driven proxy detection with immediate alerts
+The system intelligently detects mismatched faces, absent faces, or face-hiding attempts and instantly notifies invigilators, forming a novel real-time intervention capability.
+Multi-camera, hall-wide identity consistency tracking
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate remains consistently identified regardless of seating angle or movement.
+Integration of facial recognition with exam-specific databases
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam-oriented identity validation—something not present in conventional biometric systems.
+AI-based behaviour and liveness verification
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation impossible, solving critical gaps in existing CCTV and biometric methods.
+  R5C4: e. What is/are the Novel/New aspects of the invention? What is the inventive step? [What problems are being solved by the invention]
+Real-time facial authentication integrated with continuous monitoring
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout the entire examination period, preventing mid-exam impersonation.
+Automated AI-driven proxy detection with immediate alerts
+The system intelligently detects mismatched faces, absent faces, or face-hiding attempts and instantly notifies invigilators, forming a novel real-time intervention capability.
+Multi-camera, hall-wide identity consistency tracking
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate remains consistently identified regardless of seating angle or movement.
+Integration of facial recognition with exam-specific databases
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam-oriented identity validation—something not present in conventional biometric systems.
+AI-based behaviour and liveness verification
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation impossible, solving critical gaps in existing CCTV and biometric methods.
+  R5C5: e. What is/are the Novel/New aspects of the invention? What is the inventive step? [What problems are being solved by the invention]
+Real-time facial authentication integrated with continuous monitoring
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout the entire examination period, preventing mid-exam impersonation.
+Automated AI-driven proxy detection with immediate alerts
+The system intelligently detects mismatched faces, absent faces, or face-hiding attempts and instantly notifies invigilators, forming a novel real-time intervention capability.
+Multi-camera, hall-wide identity consistency tracking
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate remains consistently identified regardless of seating angle or movement.
+Integration of facial recognition with exam-specific databases
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam-oriented identity validation—something not present in conventional biometric systems.
+AI-based behaviour and liveness verification
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation impossible, solving critical gaps in existing CCTV and biometric methods.
+  R5C6: e. What is/are the Novel/New aspects of the invention? What is the inventive step? [What problems are being solved by the invention]
+Real-time facial authentication integrated with continuous monitoring
+Unlike prior systems that verify identity only at entry, this invention performs continuous face verification throughout the entire examination period, preventing mid-exam impersonation.
+Automated AI-driven proxy detection with immediate alerts
+The system intelligently detects mismatched faces, absent faces, or face-hiding attempts and instantly notifies invigilators, forming a novel real-time intervention capability.
+Multi-camera, hall-wide identity consistency tracking
+The invention introduces synchronized computer-vision tracking across multiple cameras, ensuring that each candidate remains consistently identified regardless of seating angle or movement.
+Integration of facial recognition with exam-specific databases
+The system uniquely links facial data with candidate registration details and seating plans, enabling automated, exam-oriented identity validation—something not present in conventional biometric systems.
+AI-based behaviour and liveness verification
+Continuous liveness checks and behavioural analysis (e.g., covering face, swapping seats) make impersonation impossible, solving critical gaps in existing CCTV and biometric methods.
+  R6C0: f.	Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other manner by others? Limitations and drawbacks of prior art]
+  R6C1: f.	Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other manner by others? Limitations and drawbacks of prior art]
+  R6C2: f.	Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other manner by others? Limitations and drawbacks of prior art]
+  R6C3: f.	Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other manner by others? Limitations and drawbacks of prior art]
+  R6C4: f.	Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other manner by others? Limitations and drawbacks of prior art]
+  R6C5: f.	Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other manner by others? Limitations and drawbacks of prior art]
+  R6C6: f.	Is there any prior art for this invention: [Has the problem been solved/ Is the problem being solved in any other manner by others? Limitations and drawbacks of prior art]
+
+--- TABLE 1 (2x1) ---
+  R0C0: 8.  A complete verification report is generated post-exam.
+
+
+
+11. Example Scenario
+If a proxy candidate attempts to take an exam, the system instantly detects a face mismatch and triggers a red alert. Invigilators are notified immediately, preventing impersonation. The event is stored as evidence with images and video clips.
+  R1C0: j.Provide Drawings, if any. [Please note: Drawings need to be provided in 2-dimentional line drawing format, with numerical labeling. We request you to provide the descriptive of numerical labeling below the drawings.]
+
+--- TABLE 2 (8x3) ---
+  R0C0: 2.  Disclosure
+  R0C1: 2.  Disclosure
+  R0C2: 2.  Disclosure
+  R1C0: a.  Has the invention ever been shown or used in public?
+  R1C1: Yes
+  R1C2: No
+  R2C0: If yes, Where
+  R2C1: When
+  R2C2: When
+  R3C0: b.  Was any Confidentiality Agreement Signed regarding
+the invention?
+  R3C1: Yes
+  R3C2: No
+  R4C0: c. Has this invention been publicly disclosed (e.g., paper presentation)?
+If yes, provide details on title of publication, or presented, Date of disclosure, Conference /Journal
+(Attach copies or drafts if available)
+  R4C1: Yes
+  R4C2: No
+  R5C0: 3.  Foreign Patent Protection
+  R5C1: 3.  Foreign Patent Protection
+  R5C2: 3.  Foreign Patent Protection
+  R6C0: a.  Do you intend to pursue International Patent protection
+  R6C1: Yes
+  R6C2: No
+  R7C0: If yes, list the countries in which you want to protect your invention:	[Leave blank if unsure]
+  R7C1: If yes, list the countries in which you want to protect your invention:	[Leave blank if unsure]
+  R7C2: If yes, list the countries in which you want to protect your invention:	[Leave blank if unsure]
+
+--- TABLE 3 (2x1) ---
+  R0C0: Funding & Sponsorship
+Was this invention developed with external funding: No
+Funding Agency /Sponsor: N A
+Grant or Contract number: N A
+Principal investigator (PI): N A
+Are there any third -party obligations (e.g. collaborations, industry partners (if yes, provide details):No
+  R1C0: Commercial potential:
+Potential applications / Industries: The invention can be applied in educational institutions, competitive exam centers, and any industry requiring secure, real-time identity verification to prevent proxy or impersonation.
+Known Competing technologies: Known competing technologies include basic biometric entry systems, manual ID verification, CCTV surveillance, and online proctoring tools that lack continuous real-time identity tracking.
+
+--- TABLE 4 (7x4) ---
+  R0C0: 3. Companies that may be interested in licensing this technology: Educational boards, competitive exam authorities, EdTech assessment companies, and AI proctoring solution providers would be potential licensors for this technology.
+  R0C1: 3. Companies that may be interested in licensing this technology: Educational boards, competitive exam authorities, EdTech assessment companies, and AI proctoring solution providers would be potential licensors for this technology.
+  R0C2: 3. Companies that may be interested in licensing this technology: Educational boards, competitive exam authorities, EdTech assessment companies, and AI proctoring solution providers would be potential licensors for this technology.
+  R0C3: 3. Companies that may be interested in licensing this technology: Educational boards, competitive exam authorities, EdTech assessment companies, and AI proctoring solution providers would be potential licensors for this technology.
+  R1C0: 6. Inventorship declaration:
+I/ we declare that the information provided in this form is accurate and complete to the best of my/our knowledge. I/ we agree to assign rights in this invention to Sona college of Technology, in accordance with institutional policy.
+Inventor Signature(s) [If there are more than two inventors enter the details below]:
+  R1C1: 6. Inventorship declaration:
+I/ we declare that the information provided in this form is accurate and complete to the best of my/our knowledge. I/ we agree to assign rights in this invention to Sona college of Technology, in accordance with institutional policy.
+Inventor Signature(s) [If there are more than two inventors enter the details below]:
+  R1C2: 6. Inventorship declaration:
+I/ we declare that the information provided in this form is accurate and complete to the best of my/our knowledge. I/ we agree to assign rights in this invention to Sona college of Technology, in accordance with institutional policy.
+Inventor Signature(s) [If there are more than two inventors enter the details below]:
+  R1C3: 6. Inventorship declaration:
+I/ we declare that the information provided in this form is accurate and complete to the best of my/our knowledge. I/ we agree to assign rights in this invention to Sona college of Technology, in accordance with institutional policy.
+Inventor Signature(s) [If there are more than two inventors enter the details below]:
+  R2C0: 
+  R2C1: 
+  R2C2: Inventor 1
+  R2C3: Inventor 2
+  R3C0: 
+  R3C1: a.  Full Name
+  R3C2: Mrs. J. Deepika
+  R3C3: Sabari Karthick A
+  R4C0: 
+  R4C1: b.  Designation &Department
+  R4C2: Assistant Professor, Department of Information Technology
+  R4C3: Student / Researcher, Department of Information Technology
+  R5C0: 
+  R5C1: c.  Signature
+  R5C2: 
+  R5C3: 
+  R6C0: 
+  R6C1: d.  Date
+  R6C2: 
+  R6C3: 
+
+--- TABLE 5 (4x2) ---
+  R0C0: Disclosure number
+  R0C1: 
+  R1C0: Date received
+  R1C1: 
+  R2C0: Next steps
+  R2C1: 
+  R3C0: 
+  R3C1: 

@@ -2,27 +2,20 @@
  * SmartCattle — CHDI Pipeline Orchestrator
  * lib/chdi/pipeline.ts
  *
- * Orchestrates the full health scoring pipeline:
- * New data logged → computeBaseline() → deviation calculated → computeCHDI()
- * → if confidence low, status = abstain (no alert)
- * → if watch/at-risk, auto-create VetCase with CHDI snapshot + explainScore() output
- * → vet confirms/overrides → logged to VetFeedback
- * → periodic retrainClassifier() job
+ * Orchestrates the full health scoring workflow:
+ * 1. Checks baseline data sufficiency threshold (N >= 7 entries across >= 5 days)
+ * 2. Fetches latest vitals & sends to Python FastAPI ML Microservice (port 8000)
+ * 3. Persists CHDIEntry with LOCO factor attributions
+ * 4. Automatically creates VetCase tickets for Watch / At-Risk clinical triage
  */
 
 import prisma from "@/lib/prisma";
-import { computeBaseline } from "./baseline";
 import { computeCHDI, type DeviationVector } from "./anomaly";
-import { explainScore } from "./explain";
 import { MIN_ENTRIES_FOR_BASELINE, MIN_DAYS_FOR_BASELINE } from "@/lib/constants";
-
-// ─────────────────────────────────────────────────────────────
-// Baseline Data Threshold Checker
-// ─────────────────────────────────────────────────────────────
 
 export interface BaselineThresholdStatus {
   isMet: boolean;
-  minEntries: number; // minimum entries logged across required signals
+  minEntries: number;
   details: {
     weight: { entries: number; distinctDays: number; isMet: boolean };
     feed: { entries: number; distinctDays: number; isMet: boolean };
@@ -31,11 +24,64 @@ export interface BaselineThresholdStatus {
   };
 }
 
+export interface CHDIPipelineResult {
+  score: number | null;
+  status: "healthy" | "watch" | "at-risk" | "abstain";
+  confidence: number;
+  triageBand?: string;
+  topFactors?: any[];
+  entryId?: string;
+  farmerText?: string;
+  vetText?: string;
+}
+
+export function checkBaselineThresholdFromLogs(
+  weights: { timestamp: Date | string }[],
+  feeds: { timestamp: Date | string }[],
+  activities: { timestamp: Date | string }[],
+  milks: { timestamp: Date | string }[] = [],
+  purpose: string = "dairy"
+): BaselineThresholdStatus {
+  const getDayKey = (d: Date | string) => (typeof d === "string" ? d.split("T")[0] : d.toISOString().split("T")[0]);
+
+  const wDays = new Set(weights.map((w) => getDayKey(w.timestamp)));
+  const fDays = new Set(feeds.map((f) => getDayKey(f.timestamp)));
+  const aDays = new Set(activities.map((a) => getDayKey(a.timestamp)));
+  const mDays = new Set(milks.map((m) => getDayKey(m.timestamp)));
+
+  const wMet = weights.length >= MIN_ENTRIES_FOR_BASELINE && wDays.size >= MIN_DAYS_FOR_BASELINE;
+  const fMet = feeds.length >= MIN_ENTRIES_FOR_BASELINE && fDays.size >= MIN_DAYS_FOR_BASELINE;
+  // Activity is OPTIONAL — farmers without sensors are not required to log it.
+  // If activity entries exist they are included in the CHDI vector; otherwise omitted.
+  const aMet = activities.length >= MIN_ENTRIES_FOR_BASELINE && aDays.size >= MIN_DAYS_FOR_BASELINE;
+  const mMet =
+    purpose !== "dairy" ||
+    (milks.length >= MIN_ENTRIES_FOR_BASELINE && mDays.size >= MIN_DAYS_FOR_BASELINE);
+
+  // Only Weight + Feed + Milk (dairy) are REQUIRED for the baseline gate.
+  // Activity / Rumination / Temperature are sensor-optional bonus signals.
+  const isMet = wMet && fMet && mMet;
+  const requiredEntryCounts = [weights.length, feeds.length];
+  if (purpose === "dairy") requiredEntryCounts.push(milks.length);
+  const minEntries = Math.min(...requiredEntryCounts);
+
+  return {
+    isMet,
+    minEntries,
+    details: {
+      weight: { entries: weights.length, distinctDays: wDays.size, isMet: wMet },
+      feed: { entries: feeds.length, distinctDays: fDays.size, isMet: fMet },
+      // activity is shown as optional/bonus in the UI but not a gate
+      activity: { entries: activities.length, distinctDays: aDays.size, isMet: aMet },
+      ...(purpose === "dairy"
+        ? { milk: { entries: milks.length, distinctDays: mDays.size, isMet: mMet } }
+        : {}),
+    },
+  };
+}
+
 /**
- * Check whether an animal meets the explicit minimum-data threshold:
- * MIN_ENTRIES_FOR_BASELINE = 7 entries across at least MIN_DAYS_FOR_BASELINE = 5
- * distinct calendar days, per required signal type (weight, feed, activity, and milk if dairy).
- * Scan-pattern is supplementary and does not block scoring.
+ * Check whether an animal meets the minimum-data threshold (N >= 7 entries across >= 5 days).
  */
 export async function checkBaselineThreshold(
   cattleId: string,
@@ -50,56 +96,16 @@ export async function checkBaselineThreshold(
       : Promise.resolve([]),
   ]);
 
-  const getDayKey = (d: Date) => d.toISOString().split("T")[0];
-
-  const wDays = new Set(weights.map((w) => getDayKey(w.timestamp)));
-  const fDays = new Set(feeds.map((f) => getDayKey(f.timestamp)));
-  const aDays = new Set(activities.map((a) => getDayKey(a.timestamp)));
-  const mDays = new Set(milks.map((m) => getDayKey(m.timestamp)));
-
-  const wMet = weights.length >= MIN_ENTRIES_FOR_BASELINE && wDays.size >= MIN_DAYS_FOR_BASELINE;
-  const fMet = feeds.length >= MIN_ENTRIES_FOR_BASELINE && fDays.size >= MIN_DAYS_FOR_BASELINE;
-  const aMet = activities.length >= MIN_ENTRIES_FOR_BASELINE && aDays.size >= MIN_DAYS_FOR_BASELINE;
-  const mMet =
-    purpose !== "dairy" ||
-    (milks.length >= MIN_ENTRIES_FOR_BASELINE && mDays.size >= MIN_DAYS_FOR_BASELINE);
-
-  const isMet = wMet && fMet && aMet && mMet;
-
-  const requiredEntryCounts = [weights.length, feeds.length, activities.length];
-  if (purpose === "dairy") requiredEntryCounts.push(milks.length);
-  const minEntries = Math.min(...requiredEntryCounts);
-
-  return {
-    isMet,
-    minEntries,
-    details: {
-      weight: { entries: weights.length, distinctDays: wDays.size, isMet: wMet },
-      feed: { entries: feeds.length, distinctDays: fDays.size, isMet: fMet },
-      activity: { entries: activities.length, distinctDays: aDays.size, isMet: aMet },
-      ...(purpose === "dairy"
-        ? { milk: { entries: milks.length, distinctDays: mDays.size, isMet: mMet } }
-        : {}),
-    },
-  };
+  return checkBaselineThresholdFromLogs(weights, feeds, activities, milks, purpose);
 }
-
-// ─────────────────────────────────────────────────────────────
-// Main pipeline entry point
-// ─────────────────────────────────────────────────────────────
 
 /**
  * Run the full CHDI pipeline for an animal after new data has been logged.
- * - If below the minimum data threshold: returns status: "abstain" and skips VetCase creation.
- * - Once threshold is met: runs computeBaseline(), computeCHDI(), and auto-creates VetCase if watch/at-risk.
- *
- * @param cattleId  The cattle to score
- * @param actorId   The user who triggered the log (for audit)
  */
 export async function runCHDIPipeline(
   cattleId: string,
   actorId: string
-): Promise<void> {
+): Promise<CHDIPipelineResult | null> {
   try {
     const cattle = await prisma.cattle.findUnique({
       where: { id: cattleId },
@@ -107,17 +113,15 @@ export async function runCHDIPipeline(
     });
     if (!cattle) throw new Error(`Cattle ${cattleId} not found`);
 
-    // ── Check minimum-data threshold ──────────────────────────
+    // Check minimum-data threshold
     const thresholdStatus = await checkBaselineThreshold(
       cattleId,
       cattle.purpose ?? "dairy"
     );
 
     if (!thresholdStatus.isMet) {
-      // Below threshold: every new log entry recomputes, but stays in "abstain"
-      // and skips VetCase creation.
       const entriesLogged = Math.min(MIN_ENTRIES_FOR_BASELINE, thresholdStatus.minEntries);
-      const explanationText = `Building health baseline — ${entriesLogged}/${MIN_ENTRIES_FOR_BASELINE} entries logged, needs ~2–3 weeks of data.`;
+      const explanationText = `Building baseline profile — ${entriesLogged}/${MIN_ENTRIES_FOR_BASELINE} entries logged (needs ~2 weeks of data).`;
 
       const chdiEntry = await prisma.cHDIEntry.create({
         data: {
@@ -132,7 +136,7 @@ export async function runCHDIPipeline(
               direction: "up",
               plainLabel: "Baseline Calibration",
               farmerExplanation: explanationText,
-              vetExplanation: `Threshold check pending: Requires at least ${MIN_ENTRIES_FOR_BASELINE} entries across ${MIN_DAYS_FOR_BASELINE} distinct days for all signals. Currently at ${entriesLogged}/${MIN_ENTRIES_FOR_BASELINE}.`,
+              vetExplanation: `Threshold check pending: Requires at least ${MIN_ENTRIES_FOR_BASELINE} entries across ${MIN_DAYS_FOR_BASELINE} days.`,
             },
           ],
         },
@@ -151,89 +155,77 @@ export async function runCHDIPipeline(
             chdiEntryId: chdiEntry.id,
             reason: "below_minimum_data_threshold",
             entriesLogged,
-            minEntriesRequired: MIN_ENTRIES_FOR_BASELINE,
           },
         },
       });
 
-      return; // Skip VetCase creation
+      return {
+        score: null,
+        status: "abstain",
+        confidence: 0,
+        triageBand: "Abstain (Building Baseline)",
+        entryId: chdiEntry.id,
+        topFactors: chdiEntry.topFactors as any[],
+        farmerText: explanationText,
+        vetText: `Threshold check pending: Requires at least ${MIN_ENTRIES_FOR_BASELINE} entries across ${MIN_DAYS_FOR_BASELINE} days.`,
+      };
     }
 
-    // ── Stage 1: Compute baseline (threshold met) ─────────────
-    const baseline = await computeBaseline(cattleId);
-
-    // ── Get latest log values across all signals ──────────────
-    const [latestWeight, latestFeed, latestActivity, latestMilk, recentScans] =
+    // Get latest vitals across all signals
+    const [latestWeight, latestFeed, latestActivity, latestMilk, latestTemp, latestRum, recentScans] =
       await Promise.all([
-        prisma.weightLog.findFirst({
-          where: { cattleId },
-          orderBy: { timestamp: "desc" },
-        }),
-        prisma.feedLog.findFirst({
-          where: { cattleId },
-          orderBy: { timestamp: "desc" },
-        }),
-        prisma.activityLog.findFirst({
-          where: { cattleId },
-          orderBy: { timestamp: "desc" },
-        }),
+        prisma.weightLog.findFirst({ where: { cattleId }, orderBy: { timestamp: "desc" } }),
+        prisma.feedLog.findFirst({ where: { cattleId }, orderBy: { timestamp: "desc" } }),
+        prisma.activityLog.findFirst({ where: { cattleId }, orderBy: { timestamp: "desc" } }),
         cattle.purpose === "dairy"
-          ? prisma.milkLog.findFirst({
-              where: { cattleId },
-              orderBy: { timestamp: "desc" },
-            })
+          ? prisma.milkLog.findFirst({ where: { cattleId }, orderBy: { timestamp: "desc" } })
           : Promise.resolve(null),
+        (prisma as any).temperatureLog?.findFirst({ where: { cattleId }, orderBy: { timestamp: "desc" } }) || Promise.resolve(null),
+        (prisma as any).ruminationLog?.findFirst({ where: { cattleId }, orderBy: { timestamp: "desc" } }) || Promise.resolve(null),
         prisma.scanLog.count({
-          where: {
-            cattleId,
-            timestamp: { gte: new Date(Date.now() - 7 * 86400000) },
-          },
+          where: { cattleId, timestamp: { gte: new Date(Date.now() - 7 * 86400000) } },
         }),
       ]);
 
-    // ── Build normalized deviation vector (z-scores) ──────────
-    const wStd = Math.sqrt(baseline.weight.variance) || 1;
-    const fStd = Math.sqrt(baseline.feedIntake.variance) || 1;
-    const aStd = Math.sqrt(baseline.activity.variance) || 1;
-
+    // Build deviation vector with only the signals that are actually available.
+    // Activity, Rumination, and Temperature are sensor-optional bonus signals.
+    // If a farmer has no sensors, Weight + Feed + Milk alone are sufficient.
     const deviationVector: DeviationVector = {
-      weightDeviation: latestWeight
-        ? (latestWeight.value - baseline.weight.expected) / wStd
-        : 0,
-      feedDeviation: latestFeed
-        ? (latestFeed.quantity - baseline.feedIntake.expected) / fStd
-        : 0,
-      activityDeviation: latestActivity
-        ? (latestActivity.value - baseline.activity.expected) / aStd
-        : 0,
-      scanFrequency: recentScans / 7, // avg scans/day over last week
+      weightDeviation: latestWeight ? (latestWeight.value - 350) / 15 : 0,
+      feedDeviation: latestFeed ? (latestFeed.quantity - 12) / 1.5 : 0,
+      scanFrequency: recentScans / 7,
     };
 
-    if (cattle.purpose === "dairy" && baseline.milkYield) {
-      const mStd = Math.sqrt(baseline.milkYield.variance) || 1;
-      deviationVector.milkDeviation = latestMilk
-        ? (latestMilk.litres - baseline.milkYield.expected) / mStd
-        : 0;
+    if (cattle.purpose === "dairy" && latestMilk) {
+      deviationVector.milkDeviation = (latestMilk.litres - 25) / 3.0;
+    }
+    // Activity is optional — only included when a sensor or manual score exists
+    if (latestActivity) {
+      deviationVector.activityDeviation = (latestActivity.value - 65) / 8;
+    }
+    // Temperature and Rumination are sensor-only optional enrichment signals
+    if (latestTemp) {
+      deviationVector.temperatureDeviation = (latestTemp.value - 38.6) / 0.4;
+    }
+    if (latestRum) {
+      deviationVector.ruminationDeviation = (latestRum.minutes - 500) / 40.0;
     }
 
-    // ── Stage 2: CHDI score ───────────────────────────────────
+    // Invoke dedicated Python FastAPI ML Microservice
     const chdiResult = await computeCHDI(deviationVector, cattleId);
 
-    // ── Stage 2b: Explainability ──────────────────────────────
-    const explanation = explainScore(deviationVector);
-
-    // ── Persist CHDIEntry ─────────────────────────────────────
+    // Persist CHDIEntry with LOCO feature attributions
     const chdiEntry = await prisma.cHDIEntry.create({
       data: {
         cattleId,
         score: chdiResult.score,
         status: chdiResult.status,
         confidence: chdiResult.confidence,
-        topFactors: JSON.parse(JSON.stringify(explanation.topFactors)),
+        topFactors: JSON.parse(JSON.stringify(chdiResult.topFactors || [])),
       },
     });
 
-    // ── Audit log ─────────────────────────────────────────────
+    // Audit log
     await prisma.auditLog.create({
       data: {
         actorId,
@@ -249,9 +241,8 @@ export async function runCHDIPipeline(
       },
     });
 
-    // ── Auto-create VetCase if watch or at-risk ───────────────
+    // Auto-create VetCase if watch or at-risk
     if (chdiResult.status === "watch" || chdiResult.status === "at-risk") {
-      // Check for an existing open case to avoid duplicates
       const existingCase = await prisma.vetCase.findFirst({
         where: {
           cattleId,
@@ -268,15 +259,14 @@ export async function runCHDIPipeline(
             chdiSnapshot: JSON.parse(
               JSON.stringify({
                 ...chdiResult,
-                topFactors: explanation.topFactors,
-                vetSummary: explanation.vetSummary,
-                farmerSummary: explanation.farmerSummary,
+                topFactors: chdiResult.topFactors || [],
+                vetSummary: chdiResult.vetText ?? "Clinical deviation flagged by Python ML service.",
+                farmerSummary: chdiResult.farmerText ?? "Advisory alert from Python ML service.",
               })
             ),
           },
         });
 
-        // Audit the auto-case creation
         await prisma.auditLog.create({
           data: {
             actorId,
@@ -292,72 +282,25 @@ export async function runCHDIPipeline(
       }
     }
 
-    // ── Regional outbreak detection (async, non-blocking) ─────
-    if (cattle.region) {
-      checkRegionalOutbreak(cattle.region).catch((err) =>
-        console.error("[Outbreak check error]", err)
-      );
-    }
-  } catch (err) {
-    console.error(`[CHDI Pipeline Error] cattleId=${cattleId}`, err);
-    // Don't rethrow — pipeline failures should not block data logging
+    return {
+      score: chdiResult.score,
+      status: chdiResult.status,
+      confidence: chdiResult.confidence,
+      triageBand:
+        chdiResult.status === "healthy"
+          ? "Healthy Baseline (CHDI >= 75)"
+          : chdiResult.status === "watch"
+          ? "Watch (Advisory Bound 50–74)"
+          : chdiResult.status === "at-risk"
+          ? "At-Risk (Critical Bound < 50)"
+          : "Abstain",
+      topFactors: chdiResult.topFactors,
+      entryId: chdiEntry.id,
+      farmerText: chdiResult.farmerText,
+      vetText: chdiResult.vetText,
+    };
+  } catch (error) {
+    console.error(`Error running CHDI pipeline for cattle ${cattleId}:`, error);
+    return null;
   }
-}
-
-// ─────────────────────────────────────────────────────────────
-// Regional outbreak detection
-// ─────────────────────────────────────────────────────────────
-
-const OUTBREAK_ANIMAL_THRESHOLD = 3;   // ≥3 animals
-const OUTBREAK_FARM_THRESHOLD = 2;     // across ≥2 farms
-const OUTBREAK_WINDOW_HOURS = 48;      // within 48 hours
-const OUTBREAK_CHDI_DROP = 20;         // score drop ≥20 points
-
-async function checkRegionalOutbreak(region: string): Promise<void> {
-  const since = new Date(Date.now() - OUTBREAK_WINDOW_HOURS * 3600000);
-
-  // Find recent at-risk/watch entries in this region
-  const recentEntries = await prisma.cHDIEntry.findMany({
-    where: {
-      timestamp: { gte: since },
-      status: { in: ["at-risk", "watch"] },
-      cattle: { region },
-    },
-    include: { cattle: { select: { farmerId: true } } },
-  });
-
-  if (recentEntries.length < OUTBREAK_ANIMAL_THRESHOLD) return;
-
-  const uniqueFarms = new Set(recentEntries.map((e) => e.cattle.farmerId));
-  if (uniqueFarms.size < OUTBREAK_FARM_THRESHOLD) return;
-
-  // Avoid duplicate alerts for the same region in the same window
-  const existingAlert = await prisma.regionAlert.findFirst({
-    where: {
-      region,
-      triggeredAt: { gte: since },
-      status: "active",
-    },
-  });
-
-  if (existingAlert) return;
-
-  // Create regional alert
-  await prisma.regionAlert.create({
-    data: {
-      region,
-      affectedFarmIds: [...uniqueFarms],
-      severity:
-        recentEntries.filter((e) => e.status === "at-risk").length > 2
-          ? "critical"
-          : "warning",
-      metadata: {
-        animalCount: recentEntries.length,
-        farmCount: uniqueFarms.size,
-        windowHours: OUTBREAK_WINDOW_HOURS,
-      },
-    },
-  });
-
-  console.log(`[Outbreak Alert] Region: ${region}, Animals: ${recentEntries.length}, Farms: ${uniqueFarms.size}`);
 }

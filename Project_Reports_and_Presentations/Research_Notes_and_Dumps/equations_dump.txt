@@ -1,0 +1,57 @@
+
+==================== P180 ====================
+HEADER: Rather than comparing an animal against arbitrary population-wide static thresholds, Stage 1 establishes an individualized historical baseline over a 14-day observation window (|W| = 14). For each physiological parameter k (where k ∈ {1, 2, 3, 4}), the baseline mean and sample variance are computed using Equation (4.1) and Equation (4.2).
+  [P182] Table 4.3 CHDI Severity Bands, Distance Thresholds, and Clinical Protocols
+  [P184] Historical measurements over a 14-day sliding window (|W| = 14) are averaged using Equation (4.1) to establish a personal physiological baseline, accounting for breed, diet, and lactation variations to prevent false alarms.
+  [P186] Where:
+  [P187] • μi,k(t) = Individualized 14-day rolling historical baseline mean for cow i across parameter k.
+
+==================== P184 ====================
+HEADER: Historical measurements over a 14-day sliding window (|W| = 14) are averaged using Equation (4.1) to establish a personal physiological baseline, accounting for breed, diet, and lactation variations to prevent false alarms.
+  [P186] Where:
+  [P187] • μi,k(t) = Individualized 14-day rolling historical baseline mean for cow i across parameter k.
+  [P188] • |W| = Baseline observation window length (|W| = 14 consecutive daily records).
+  [P189] • xi,k(t − m) = Historical daily measurement logged on day (t − m).
+  [P190] Daily biological variability is calculated using Equation (4.2) through rolling sample variance. Bessel’s correction ensures an unbiased variance estimate, enabling standardization of incoming readings using personal standard deviations.
+
+==================== P190 ====================
+HEADER: Daily biological variability is calculated using Equation (4.2) through rolling sample variance. Bessel’s correction ensures an unbiased variance estimate, enabling standardization of incoming readings using personal standard deviations.
+  [P192] Where:
+  [P193] • σi,k²(t) = Unbiased sample variance capturing animal i's natural biological variation.
+  [P194] • (|W| − 1) = Bessel's sample variance correction factor (degrees of freedom df = 13).
+  [P195] • (xi,k(t − m) − μi,k(t))² = Squared deviation of daily measurement from the rolling baseline mean.
+  [P196] When a new daily measurement is recorded, the raw value is normalized into a dimensionless standardized Z-score deviation using Equation (4.3). A regularization constant ε = 10⁻⁴ is included in the denominator to ensure numerical stability and prevent division-by-zero.
+
+==================== P196 ====================
+HEADER: When a new daily measurement is recorded, the raw value is normalized into a dimensionless standardized Z-score deviation using Equation (4.3). A regularization constant ε = 10⁻⁴ is included in the denominator to ensure numerical stability and prevent division-by-zero.
+  [P198] Where:
+  [P199] • zi,k(t) = Dimensionless standardized Z-score deviation from personal baseline.
+  [P200] • xi,k(t) = Newly observed measurement (e.g., daily milk yield, feed intake).
+  [P201] • ε = 10⁻⁴ = Numerical stabilization constant preventing zero-variance division.
+  [P202] Stage 2: Multivariate Covariance & Mahalanobis CHDI Formulation:
+  [P203] Because bovine disorders affect multiple physiological systems simultaneously (e.g., subclinical mastitis causes concurrent drops in milk and feed intake alongside elevated core body temperature), Stage 2 models cross-variable dependencies using the regularized empirical covariance matrix Σ in Equation (4.4).
+
+==================== P203 ====================
+HEADER: Because bovine disorders affect multiple physiological systems simultaneously (e.g., subclinical mastitis causes concurrent drops in milk and feed intake alongside elevated core body temperature), Stage 2 models cross-variable dependencies using the regularized empirical covariance matrix Σ in Equation (4.4).
+  [P205] Where:
+  [P206] • Σ(t) = 5 × 5 empirical covariance matrix capturing dependencies across all 5 telemetry features.
+  [P207] • zi(t − m) = 5-dimensional standardized deviation vector at observation step (t − m).
+  [P208] • λreg · I = Tikhonov ridge shrinkage regularization (λreg = 10⁻³), guaranteeing positive-definite matrix inversion.
+  [P209] The multi-signal anomaly distance is calculated in covariance-weighted space using the multivariate Mahalanobis distance in Equation (4.5). This distance quantifies the multi-dimensional departure of current vitals from the animal's personal physiological centroid.
+
+==================== P209 ====================
+HEADER: The multi-signal anomaly distance is calculated in covariance-weighted space using the multivariate Mahalanobis distance in Equation (4.5). This distance quantifies the multi-dimensional departure of current vitals from the animal's personal physiological centroid.
+  [P211] Where:
+  [P212] • DM(zi) = Multivariate Mahalanobis anomaly distance in covariance-weighted space.
+  [P213] • zi = Standardized 5-signal deviation vector across all monitored features [zweight, zfeed, zmilk, ztemp]ᵀ.
+  [P214] • Σ⁻¹ = Inverted regularized covariance matrix weighting correlated signals.
+  [P215] To provide an intuitive metric for farmers and clinicians, the raw Mahalanobis distance DM is mapped to a bounded Composite Health Deviation Index (CHDI) on a 0 to 100 scale using the exponential decay formulation in Equation (4.6).
+
+==================== P215 ====================
+HEADER: To provide an intuitive metric for farmers and clinicians, the raw Mahalanobis distance DM is mapped to a bounded Composite Health Deviation Index (CHDI) on a 0 to 100 scale using the exponential decay formulation in Equation (4.6).
+  [P217] Where:
+  [P218] • CHDI(zi) = Continuous health score bounded between 100 (Optimal Health) and 0 (Severe Critical Distress).
+  [P219] • λ = 0.35 = Calibrated exponential decay scaling factor.
+  [P220] • Clinical Bands: Healthy (80–100), Watch (60–79), Warning (40–59), and Critical (0–39).
+  [P221] Stage 3: Temporal Trend, Explainability, and Uncertainty Estimation:
+  [P222] Stage 3 enhances clinical utility through three algorithmic decision mechanisms: evaluating 7-day temporal trends, attributing feature contributions, and enforcing uncertainty gating.

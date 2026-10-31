@@ -1,0 +1,201 @@
+P3: BONAFIDE CERTIFICATE
+P7: DECLARATION
+P15: ACKNOWLEDGMENT
+P20: ABSTRACT
+P26: CONTENTS
+P32: CHAPTER 1  INTRODUCTION	1
+P33: 1.1  Background	1
+P34: 1.2  Rainfall and Brine Management in Solar Salt Pans	1
+P35: 1.3  Motivation	2
+P36: 1.4  Problem Statement	3
+P37: 1.5  Objectives	3
+P38: 1.6  Scope and Limitations	4
+P39: 1.7  Summary of Contributions	4
+P40: 1.8  Methodology Overview	5
+P41: 1.9  Organisation of the Report	5
+P42: CHAPTER 2  LITERATURE REVIEW	7
+P43: 2.1  Overview	7
+P44: 2.2  Digital Twins for Water–Salt Management	7
+P45: 2.3  Remote Sensing of Salt Pans	8
+P46: 2.4  Salt-Pond Hydrology and Hypersaline Dynamics	8
+P47: 2.5  Machine-Learning Studies of Salinity	9
+P48: 2.6  Decision Support, Explainability and Weather Sensitivity	10
+P49: 2.7  Provenance and Evidence-Graded Reporting	10
+P50: 2.8  Comparative Scope of Related Research	11
+P51: 2.9  Research Gap	11
+P52: 2.10  Summary	12
+P53: CHAPTER 3  EXISTING TECHNIQUES AND THE PROPOSED APPROACH	13
+P54: 3.1  Introduction	13
+P55: 3.2  Experience-Based Operation	13
+P56: 3.3  Notebook and Spreadsheet Records	13
+P57: 3.4  Weather Forecasts Used Alone	14
+P58: 3.5  Remote Sensing and Environmental Monitoring	14
+P59: 3.6  Physics-Based and Hydrological Models	14
+P60: 3.7  Machine-Learning Predictors	15
+P61: 3.8  Generic Digital Twins and Decision-Support Platforms	15
+P62: 3.9  Summary Comparison of Existing Techniques	15
+P63: 3.10  Limitations That Motivate the Proposed Approach	16
+P64: 3.11  How the Proposed Approach Addresses the Limitations	16
+P65: 3.12  What the Proposed Approach Does Not Overcome	17
+P66: 3.13  Summary	17
+P67: CHAPTER 4  THE SALTLENS DSS: DESIGN AND IMPLEMENTATION	18
+P68: 4.1  Introduction	18
+P69: 4.2  Requirements Analysis	18
+P70: 4.3  System Architecture	20
+P71: 4.4  Evidence Categories and Provenance	21
+P72: 4.5  Data Model	22
+P73: 4.6  Pan-Specific Digital Twin	23
+P74: 4.7  Rainfall-Only Mass Balance	24
+P75: 4.8  Versioned Rule Engine	27
+P76: 4.9  Machine-Learning Evidence Gate	29
+P77: 4.10  Operator Decision Recording	30
+P78: 4.11  Field-Event Reconciliation	30
+P79: 4.12  Exports	32
+P80: 4.13  Security, Authorisation and Integrity	32
+P81: 4.14  User Interface	32
+P82: 4.15  Operator Workflow Walkthrough	33
+P83: 4.16  Testing and Verification Approach	35
+P84: 4.17  Summary	35
+P85: CHAPTER 5  RESULTS AND DISCUSSION	36
+P86: 5.1  Introduction	36
+P87: 5.2  Evaluation Framework: Three Validity Dimensions	36
+P88: 5.3  Reproducible Scenario Calculations	37
+P89: 5.4  March North Pan Field Comparison	37
+P90: 5.5  Water and Salt Inventory Analysis	39
+P91: 5.6  Why the Difference Cannot Be Uniquely Attributed	41
+P92: 5.7  September Forecast Demonstration	41
+P93: 5.8  Recommendation and Operator Response	42
+P94: 5.9  Software Verification Results	42
+P95: 5.10  Audit and Export Consistency	43
+P96: 5.11  Comparison with Existing Techniques	43
+P97: 5.12  Threats to Validity	44
+P98: 5.13  Machine-Learning Evaluation Boundary	45
+P99: 5.14  Multi-Event Validation Protocol	46
+P100: 5.15  Operational Benefit Boundary	46
+P101: 5.16  Claim-to-Evidence Discipline	47
+P102: 5.17  Summary	48
+P103: CHAPTER 6  CONCLUSION AND FUTURE SCOPE	49
+P104: 6.1  Conclusion	49
+P105: 6.2  Summary of Findings	49
+P106: 6.3  Limitations	50
+P107: 6.4  Future Scope	50
+P108: 6.5  Concluding Remarks	52
+P109: REFERENCES	53
+P110: APPENDIX A: SENSITIVITY TABLES	55
+P111: APPENDIX B: HAND-VERIFICATION WORKSHEET	57
+P112: APPENDIX C: FIELD DATA-CAPTURE TEMPLATE	58
+P113: APPENDIX D: GLOSSARY AND ABBREVIATIONS	59
+P114: APPENDIX E: NOTATION	60
+P115: LIST OF TABLES
+P138: LIST OF FIGURES
+P154: CHAPTER 1
+INTRODUCTION
+P155: 1.1  Background
+P159: 1.2  Rainfall and Brine Management in Solar Salt Pans
+P162: 1.3  Motivation
+P166: 1.4  Problem Statement
+P168: 1.5  Objectives
+P178: 1.6  Scope and Limitations
+P181: 1.7  Summary of Contributions
+P190: 1.8  Methodology Overview
+P193: 1.9  Organisation of the Report
+P195: CHAPTER 2
+LITERATURE REVIEW
+P196: 2.1  Overview
+P199: 2.2  Digital Twins for Water–Salt Management
+P203: 2.3  Remote Sensing of Salt Pans
+P207: 2.4  Salt-Pond Hydrology and Hypersaline Dynamics
+P211: 2.5  Machine-Learning Studies of Salinity
+P215: 2.6  Decision Support, Explainability and Weather Sensitivity
+P218: 2.7  Provenance and Evidence-Graded Reporting
+P221: 2.8  Comparative Scope of Related Research
+P225: 2.9  Research Gap
+P231: 2.10  Summary
+P233: CHAPTER 3
+EXISTING TECHNIQUES AND THE PROPOSED APPROACH
+P234: 3.1  Introduction
+P236: 3.2  Experience-Based Operation
+P239: 3.3  Notebook and Spreadsheet Records
+P241: 3.4  Weather Forecasts Used Alone
+P243: 3.5  Remote Sensing and Environmental Monitoring
+P245: 3.6  Physics-Based and Hydrological Models
+P248: 3.7  Machine-Learning Predictors
+P250: 3.8  Generic Digital Twins and Decision-Support Platforms
+P252: 3.9  Summary Comparison of Existing Techniques
+P256: 3.10  Limitations That Motivate the Proposed Approach
+P258: 3.11  How the Proposed Approach Addresses the Limitations
+P262: 3.12  What the Proposed Approach Does Not Overcome
+P265: 3.13  Summary
+P267: CHAPTER 4
+THE SALTLENS DSS: DESIGN AND IMPLEMENTATION
+P268: 4.1  Introduction
+P271: 4.2  Requirements Analysis
+P272: 4.2.1  Stakeholders and Use Context
+P274: 4.2.2  Functional Requirements
+P278: 4.2.3  Non-Functional Requirements
+P282: 4.3  System Architecture
+P290: 4.4  Evidence Categories and Provenance
+P298: 4.5  Data Model
+P302: 4.6  Pan-Specific Digital Twin
+P307: 4.7  Rainfall-Only Mass Balance
+P308: 4.7.1  Formulation
+P316: 4.7.2  Volume and Salt-Mass Form
+P320: 4.7.3  Assumptions and Exclusions
+P322: 4.7.4  Worked Examples
+P324: 4.7.5  Sensitivity of the Result
+P330: 4.7.6  Reference Implementation
+P348: 4.8  Versioned Rule Engine
+P377: 4.9  Machine-Learning Evidence Gate
+P380: 4.10  Operator Decision Recording
+P385: 4.11  Field-Event Reconciliation
+P386: 4.11.1  Purpose and Record Structure
+P388: 4.11.2  Timestamp Resolution
+P409: 4.11.3  Verification State
+P411: 4.11.4  Interventions
+P413: 4.12  Exports
+P415: 4.13  Security, Authorisation and Integrity
+P417: 4.14  User Interface
+P423: 4.15  Operator Workflow Walkthrough
+P433: 4.16  Testing and Verification Approach
+P436: 4.17  Summary
+P438: CHAPTER 5
+RESULTS AND DISCUSSION
+P439: 5.1  Introduction
+P441: 5.2  Evaluation Framework: Three Validity Dimensions
+P446: 5.3  Reproducible Scenario Calculations
+P452: 5.4  March North Pan Field Comparison
+P453: 5.4.1  The Recorded Event
+P457: 5.4.2  Predicted Versus Reported
+P466: 5.5  Water and Salt Inventory Analysis
+P474: 5.6  Why the Difference Cannot Be Uniquely Attributed
+P482: 5.7  September Forecast Demonstration
+P485: 5.8  Recommendation and Operator Response
+P488: 5.9  Software Verification Results
+P493: 5.10  Audit and Export Consistency
+P496: 5.11  Comparison with Existing Techniques
+P501: 5.12  Threats to Validity
+P511: 5.13  Machine-Learning Evaluation Boundary
+P515: 5.14  Multi-Event Validation Protocol
+P520: 5.15  Operational Benefit Boundary
+P524: 5.16  Claim-to-Evidence Discipline
+P529: 5.17  Summary
+P531: CHAPTER 6
+CONCLUSION AND FUTURE SCOPE
+P532: 6.1  Conclusion
+P535: 6.2  Summary of Findings
+P543: 6.3  Limitations
+P545: 6.4  Future Scope
+P546: 6.4.1  Multi-Event Field Validation Campaign
+P548: 6.4.2  Extended Physical Model
+P554: 6.4.3  Instrumentation and Data Capture
+P556: 6.4.4  Machine-Learning Study
+P558: 6.4.5  Operational Evaluation
+P560: 6.4.6  Rule Review and Decision-Support Enhancements
+P562: 6.4.7  Deployment and Usability
+P564: 6.5  Concluding Remarks
+P566: REFERENCES
+P584: APPENDIX A: SENSITIVITY TABLES
+P593: APPENDIX B: HAND-VERIFICATION WORKSHEET
+P604: APPENDIX C: FIELD DATA-CAPTURE TEMPLATE
+P608: APPENDIX D: GLOSSARY AND ABBREVIATIONS
+P611: APPENDIX E: NOTATION

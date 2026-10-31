@@ -44,7 +44,9 @@ export const authOptions: NextAuthOptions = {
           role: user.role,
           farmId: user.farmId,
           assignedRegion: user.assignedRegion,
-          image: user.photoUrl || user.image || null,
+          // CRITICAL: Do NOT store base64 data URLs in JWT session token.
+          // Cookies have a 4KB limit and header limits cause HTTP ERROR 431.
+          image: user.photoUrl && !user.photoUrl.startsWith("data:") ? user.photoUrl : null,
         };
       },
     }),
@@ -58,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         token.role = u.role;
         token.farmId = u.farmId;
         token.assignedRegion = u.assignedRegion;
-        token.picture = u.image;
+        token.picture = u.image && !String(u.image).startsWith("data:") ? u.image : null;
       }
       return token;
     },

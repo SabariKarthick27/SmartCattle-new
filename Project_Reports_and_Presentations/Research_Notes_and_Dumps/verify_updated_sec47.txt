@@ -1,0 +1,68 @@
+[P177] [pic=False] 4.7 Algorithms/Techniques Used
+[P178] [pic=False] The mathematical foundation of the proposed system operates across three analytical stages:
+[P179] [pic=False] Stage 1: Individual Rolling Baseline & Standardized Deviations:
+[P180] [pic=False] Rather than comparing an animal against arbitrary population-wide static thresholds, Stage 1 establishes an individualized historical baseline over a 14-day observation window (|W| = 14). For each physiological parameter k (where k ∈ {1, 2, 3, 4}), the baseline mean and sample variance are computed using Equation (4.1) and Equation (4.2).
+[P181] [pic=False] 
+[P182] [pic=False] Table 4.3 CHDI Severity Bands, Distance Thresholds, and Clinical Protocols
+[P183] [pic=False] 
+[P184] [pic=False] Historical measurements over a 14-day sliding window (|W| = 14) are averaged using Equation (4.1) to establish a personal physiological baseline, accounting for breed, diet, and lactation variations to prevent false alarms.
+[P185] [pic=True] 
+[P186] [pic=False] Where:
+[P187] [pic=False] • μi,k(t) = Individualized 14-day rolling historical baseline mean for cow i across parameter k.
+[P188] [pic=False] • |W| = Baseline observation window length (|W| = 14 consecutive daily records).
+[P189] [pic=False] • xi,k(t − m) = Historical daily measurement logged on day (t − m).
+[P190] [pic=False] Daily biological variability is calculated using Equation (4.2) through rolling sample variance. Bessel’s correction ensures an unbiased variance estimate, enabling standardization of incoming readings using personal standard deviations.
+[P191] [pic=True] 
+[P192] [pic=False] Where:
+[P193] [pic=False] • σi,k²(t) = Unbiased sample variance capturing animal i's natural biological variation.
+[P194] [pic=False] • (|W| − 1) = Bessel's sample variance correction factor (degrees of freedom df = 13).
+[P195] [pic=False] • (xi,k(t − m) − μi,k(t))² = Squared deviation of daily measurement from the rolling baseline mean.
+[P196] [pic=False] When a new daily measurement is recorded, the raw value is normalized into a dimensionless standardized Z-score deviation using Equation (4.3). A regularization constant ε = 10⁻⁴ is included in the denominator to ensure numerical stability and prevent division-by-zero.
+[P197] [pic=True] 
+[P198] [pic=False] Where:
+[P199] [pic=False] • zi,k(t) = Dimensionless standardized Z-score deviation from personal baseline.
+[P200] [pic=False] • xi,k(t) = Newly observed measurement (e.g., daily milk yield, feed intake).
+[P201] [pic=False] • ε = 10⁻⁴ = Numerical stabilization constant preventing zero-variance division.
+[P202] [pic=False] Stage 2: Multivariate Covariance & Mahalanobis CHDI Formulation:
+[P203] [pic=False] Because bovine disorders affect multiple physiological systems simultaneously (e.g., subclinical mastitis causes concurrent drops in milk and feed intake alongside elevated core body temperature), Stage 2 models cross-variable dependencies using the regularized empirical covariance matrix Σ in Equation (4.4).
+[P204] [pic=True] 
+[P205] [pic=False] Where:
+[P206] [pic=False] • Σ(t) = 4 × 4 empirical covariance matrix capturing dependencies across the 4 core telemetry features (body weight, feed intake, milk production, core temperature).
+[P207] [pic=False] • zi(t − m) = 5-dimensional standardized deviation vector at observation step (t − m).
+[P208] [pic=False] • λreg · I = Tikhonov ridge shrinkage regularization (λreg = 10⁻³), guaranteeing positive-definite matrix inversion.
+[P209] [pic=False] The multi-signal anomaly distance is calculated in covariance-weighted space using the multivariate Mahalanobis distance in Equation (4.5). This distance quantifies the multi-dimensional departure of current vitals from the animal's personal physiological centroid.
+[P210] [pic=True] 
+[P211] [pic=False] Where:
+[P212] [pic=False] • DM(zi) = Multivariate Mahalanobis anomaly distance in covariance-weighted space.
+[P213] [pic=False] • zi = Standardized 4-signal deviation vector across all monitored features [zweight, zfeed, zmilk, ztemp]ᵀ.
+[P214] [pic=False] • Σ⁻¹ = Inverted regularized covariance matrix weighting correlated signals.
+[P215] [pic=False] To provide an intuitive metric for farmers and clinicians, the raw Mahalanobis distance DM is mapped to a bounded Composite Health Deviation Index (CHDI) on a 0 to 100 scale using the exponential decay formulation in Equation (4.6).
+[P216] [pic=True] 
+[P217] [pic=False] Where:
+[P218] [pic=False] • CHDI(zi) = Continuous health score bounded between 100 (Optimal Health) and 0 (Severe Critical Distress).
+[P219] [pic=False] • λ = 0.35 = Calibrated exponential decay scaling factor.
+[P220] [pic=False] • Clinical Bands: Healthy (≥ 75), Watch (50–74), At-Risk (< 50), and Abstain (N < 7 or Ct < 0.40).
+[P221] [pic=False] Stage 3: Temporal Trend, Explainability, and Uncertainty Estimation:
+[P222] [pic=False] Stage 3 enhances clinical utility through three algorithmic decision mechanisms: evaluating 7-day temporal trends, attributing feature contributions, and enforcing uncertainty gating.
+[P223] [pic=False] To capture downward trajectory momentum and identify early insidious health degradation before bounds are breached, the rate of change across consecutive daily health scores is evaluated using the 7-day linear regression slope in Equation (4.7).
+[P224] [pic=True] 
+[P225] [pic=False] Where:
+[P226] [pic=False] • S = 7-day health trajectory slope evaluated across the last k = 7 consecutive CHDI scores.
+[P227] [pic=False] • t = Time step index (t ∈ {1, 2, ..., 7}) with midpoint t̄ = 4.
+[P228] [pic=False] • Clinical Rule: Negative slope (S < −2.0) indicates rapid health deterioration, escalating alert priority before static bounds are breached.
+[P229] [pic=False] To provide transparent diagnostic rationale for clinicians, multi-signal alert departures are decomposed into parameter-specific percentage contributions using the Leave-One-Covariate-Out (LOCO) permutation attribution in Equation (4.8).
+[P230] [pic=True] 
+[P231] [pic=False] Where:
+[P232] [pic=False] • Ck = Percentage diagnostic contribution (%) of parameter k to the total anomaly alert.
+[P233] [pic=False] • DM(z) = Full Mahalanobis anomaly distance across all 4 telemetry features (body weight, feed intake, milk production, core temperature).
+[P234] [pic=False] • DM(z−k) = Counterfactual distance evaluated with variable k held at baseline.
+[P235] [pic=False] To prevent spurious false alarms during the initial onboarding of newly registered cattle with limited observation history, the data-sufficiency abstention gate is enforced using Equation (4.9).
+[P236] [pic=True] 
+[P237] [pic=False] Where:
+[P238] [pic=False] • Conf(N) = Uncertainty confidence coefficient scaling between 0.0 and 1.0.
+[P239] [pic=False] • N = Count of consecutive valid daily observation logs recorded for the cow.
+[P240] [pic=False] • Nmin = 7 days = Minimum logging threshold required before issuing definitive clinical alerts, preventing false alarms on newly registered cows.
+[P241] [pic=True] 
+[P242] [pic=False] Figure 4.3: Composite Health Deviation Index (CHDI) Dynamic Baseline and Anomaly Bounds
+
+[P243] END OF 4.7: 4.8 Dataset/Data Collection

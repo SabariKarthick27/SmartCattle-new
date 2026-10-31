@@ -48,9 +48,6 @@ export default function AdminAnalyticsPage() {
             STATE OVERVIEW
           </span>
         </div>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Platform-wide cattle health metrics, sickness breakdown, and district reports.
-        </p>
       </div>
 
       {/* Summary stats */}

@@ -265,6 +265,9 @@ export default function AdminUsersPage() {
   // Filtered List
   const filteredUsers = useMemo(() => {
     return users.filter((u) => {
+      // Exclude Admin from users table
+      if (u.role === "admin") return false;
+
       const q = searchTerm.toLowerCase().trim();
       const matchesSearch =
         !q ||
@@ -282,10 +285,11 @@ export default function AdminUsersPage() {
 
   // Metrics
   const stats = useMemo(() => {
-    const total = users.length;
-    const farmers = users.filter((u) => u.role === "farmer").length;
-    const veterinarians = users.filter((u) => u.role === "vet").length;
-    const pending = users.filter((u) => !u.isVerified && u.isActive).length;
+    const nonAdmin = users.filter((u) => u.role !== "admin");
+    const total = nonAdmin.length;
+    const farmers = nonAdmin.filter((u) => u.role === "farmer").length;
+    const veterinarians = nonAdmin.filter((u) => u.role === "vet").length;
+    const pending = nonAdmin.filter((u) => !u.isVerified && u.isActive).length;
     return { total, farmers, veterinarians, pending };
   }, [users]);
 
@@ -302,9 +306,6 @@ export default function AdminUsersPage() {
               <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight font-display">
                 User & Farm Management
               </h1>
-              <p className="text-slate-500 text-xs sm:text-sm">
-                Manage farmers, veterinarians, regional veterinary coverage, and farm assignments
-              </p>
             </div>
           </div>
         </div>
@@ -414,7 +415,6 @@ export default function AdminUsersPage() {
                 { label: "All Roles", value: "" },
                 { label: "Farmers", value: "farmer" },
                 { label: "Veterinarians", value: "vet" },
-                { label: "Admins", value: "admin" },
               ].map((rf) => (
                 <button
                   key={rf.value}
@@ -472,17 +472,17 @@ export default function AdminUsersPage() {
 
       {/* Users Table */}
       <div className="card overflow-hidden bg-white border border-slate-200 shadow-sm">
-        <div className="table-container">
-          <table className="table w-full">
+        <div className="w-full overflow-x-auto">
+          <table className="table w-full min-w-[960px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">
-                <th className="py-3 px-4">User / Operator</th>
-                <th className="py-3 px-4">Role</th>
-                <th className="py-3 px-4">Farm & Region Assignment</th>
-                <th className="py-3 px-4">Herd / Case Activity</th>
-                <th className="py-3 px-4">Account Status</th>
-                <th className="py-3 px-4">Joined</th>
-                <th className="py-3 px-4 text-right">Actions & Assignments</th>
+                <th className="py-3.5 px-4 min-w-[220px]">User / Operator</th>
+                <th className="py-3.5 px-4 min-w-[130px]">Role</th>
+                <th className="py-3.5 px-4 min-w-[170px]">Farm & Region</th>
+                <th className="py-3.5 px-4 min-w-[140px]">Herd / Case Activity</th>
+                <th className="py-3.5 px-4 min-w-[140px]">Account Status</th>
+                <th className="py-3.5 px-4 min-w-[100px]">Joined</th>
+                <th className="py-3.5 px-4 text-right min-w-[180px]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -590,8 +590,8 @@ export default function AdminUsersPage() {
                   <td className="py-3 px-4 text-xs text-slate-400">{timeAgo(u.createdAt)}</td>
 
                   {/* Actions */}
-                  <td className="py-3 px-4 text-right">
-                    <div className="flex items-center justify-end gap-1.5">
+                  <td className="py-3 px-4 text-right min-w-[180px] whitespace-nowrap">
+                    <div className="flex items-center justify-end gap-1.5 whitespace-nowrap">
                       {/* Quick Approve / Reject for pending */}
                       {!u.isVerified && u.isActive && (
                         <>

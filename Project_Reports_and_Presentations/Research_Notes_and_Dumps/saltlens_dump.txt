@@ -1,0 +1,829 @@
+P1 [style=None]: SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS)
+P2 [style=None]: ANNA UNIVERSITY: CHENNAI – 600 025
+P3 [style=None]: BONAFIDE CERTIFICATE
+P4 [style=None]: Certified that this Project titled “SALTLENS DSS: AN EVIDENCE-GATED DIGITAL TWIN FOR CLIMATE-RESILIENT SALT-PAN MANAGEMENT” is the bonafide work of “SACHIN S B (Register No. 61782323110095) and THRISHNASANJAY S (Register No. 61782323110117)” who carried out the project work in the Bachelor of Engineering in Information Technology programme under the guidance of Mr. B. Mohanraj.
+P5 [style=None]: Submitted for the Project Viva-Voce Examination held on ____________
+P7 [style=None]: DECLARATION
+P8 [style=None]: We hereby declare that the project report entitled “SaltLens DSS: An Evidence-Gated Digital Twin for Climate-Resilient Salt-Pan Management”, submitted to Sona College of Technology (Autonomous), Salem, affiliated to Anna University, Chennai, in partial fulfillment of the requirements for the award of the degree of Bachelor of Engineering in Information Technology, is a record of original work carried out by us under the guidance of the project supervisor.
+P9 [style=None]: The field data referred to in this report were reported by the site operator of the North Pan, Salem, and are presented with the provenance and limitations recorded in the system. We have acknowledged the work of other researchers through citations. This report has not been submitted, in part or in full, to any other university or institution for the award of any degree or diploma.
+P11 [style=None]: Place: Salem
+P12 [style=None]: Date: October 2026
+P13 [style=None]: SACHIN S B
+P14 [style=None]: THRISHNASANJAY S
+P15 [style=None]: ACKNOWLEDGMENT
+P16 [style=None]: We express our sincere gratitude to the Management of Sona College of Technology (Autonomous), Salem, for providing the infrastructure and academic environment in which this project was carried out. We thank our Principal for the encouragement extended to student projects.
+P17 [style=None]: We are grateful to the Head of the Department of Information Technology for the facilities and the guidance that allowed this work to proceed, and to our project supervisor for the patient direction, the critical reading of every draft, and the insistence that every claim in this report be tied to the evidence that supports it. That insistence shaped the central design principle of this project.
+P18 [style=None]: We thank the site operator of the North Pan, Salem, whose notebook records and reported field readings made the March case study possible, and who accepted that those readings would be presented in this report exactly as reported, with their limitations stated.
+P19 [style=None]: We also thank the faculty members of the department, our classmates, and our families for their support, and the authors of the published studies listed in the references, whose work informed the scope and the boundaries of this project.
+P20 [style=None]: ABSTRACT
+P21 [style=None]: Rainfall can rapidly dilute hypersaline brine in solar salt pans, but a weather forecast alone cannot establish how a managed pond will respond. This project presents SaltLens DSS, an implemented, evidence-gated decision-support prototype for salt-pan management. The system combines timestamped pan observations, weather records, a deterministic rainfall–dilution mass balance, versioned operator-configured rules, recorded operator decisions and an auditable field-validation workflow. It is built with a Next.js user interface, FastAPI services and MongoDB Atlas storage.
+P22 [style=None]: The central design principle is an explicit boundary between what was observed, what was forecast, what a simplified physical model calculated, what a rule recommended, and what an operator decided. Each stage carries its own evidentiary status and none silently replaces another. A machine-learning evidence gate blocks predictive output until a genuine labelled dataset and an independently evaluated model exist; consequently no machine-learning accuracy figure is reported.
+P23 [style=None]: A North Pan case in Salem, India, uses a notebook-sourced pre-event record of 250 g/L salinity and 20 cm depth on 13 March 2026 at 13:30 IST. The reported rainfall event began on 14 March at 23:30 IST, with 90 mm of rainfall reported. The rainfall-only replay predicts 172.41 g/L and 29 cm, whereas operator-reported post-event readings are 20 g/L and 50 cm. An outbound brine transfer of unknown volume occurred and the post-event readings lack independent corroboration, so the case is descriptive and cannot establish model accuracy. A separate September 2026, 25 mm forecast scenario predicts 222.22 g/L and demonstrates the versioned rule-based recommendation and a recorded operator acceptance, without a documented physical harvest.
+P24 [style=None]: The prototype therefore demonstrates reproducible software behaviour, provenance control and audit-preserving reconciliation. It does not demonstrate generalised physical prediction, trained machine-learning performance or operational benefit; each of these requires separate empirical evidence, and the report specifies the studies needed to obtain it.
+P25 [style=None]: Keywords: solar salt pans, digital twin, decision support, provenance, rainfall dilution, field reporting, audit trail
+P26 [style=None]: CONTENTS
+P27 [style=None]: Declaration	i
+P28 [style=None]: Acknowledgment	ii
+P29 [style=None]: Abstract	iii
+P30 [style=None]: List of Tables	vii
+P31 [style=None]: List of Figures	viii
+P32 [style=None]: CHAPTER 1  INTRODUCTION	1
+P33 [style=None]: 1.1  Background	1
+P34 [style=None]: 1.2  Rainfall and Brine Management in Solar Salt Pans	1
+P35 [style=None]: 1.3  Motivation	2
+P36 [style=None]: 1.4  Problem Statement	3
+P37 [style=None]: 1.5  Objectives	3
+P38 [style=None]: 1.6  Scope and Limitations	4
+P39 [style=None]: 1.7  Summary of Contributions	4
+P40 [style=None]: 1.8  Methodology Overview	5
+P41 [style=None]: 1.9  Organisation of the Report	5
+P42 [style=None]: CHAPTER 2  LITERATURE REVIEW	7
+P43 [style=None]: 2.1  Overview	7
+P44 [style=None]: 2.2  Digital Twins for Water–Salt Management	7
+P45 [style=None]: 2.3  Remote Sensing of Salt Pans	8
+P46 [style=None]: 2.4  Salt-Pond Hydrology and Hypersaline Dynamics	8
+P47 [style=None]: 2.5  Machine-Learning Studies of Salinity	9
+P48 [style=None]: 2.6  Decision Support, Explainability and Weather Sensitivity	10
+P49 [style=None]: 2.7  Provenance and Evidence-Graded Reporting	10
+P50 [style=None]: 2.8  Comparative Scope of Related Research	11
+P51 [style=None]: 2.9  Research Gap	11
+P52 [style=None]: 2.10  Summary	12
+P53 [style=None]: CHAPTER 3  EXISTING TECHNIQUES AND THE PROPOSED APPROACH	13
+P54 [style=None]: 3.1  Introduction	13
+P55 [style=None]: 3.2  Experience-Based Operation	13
+P56 [style=None]: 3.3  Notebook and Spreadsheet Records	13
+P57 [style=None]: 3.4  Weather Forecasts Used Alone	14
+P58 [style=None]: 3.5  Remote Sensing and Environmental Monitoring	14
+P59 [style=None]: 3.6  Physics-Based and Hydrological Models	14
+P60 [style=None]: 3.7  Machine-Learning Predictors	15
+P61 [style=None]: 3.8  Generic Digital Twins and Decision-Support Platforms	15
+P62 [style=None]: 3.9  Summary Comparison of Existing Techniques	15
+P63 [style=None]: 3.10  Limitations That Motivate the Proposed Approach	16
+P64 [style=None]: 3.11  How the Proposed Approach Addresses the Limitations	16
+P65 [style=None]: 3.12  What the Proposed Approach Does Not Overcome	17
+P66 [style=None]: 3.13  Summary	17
+P67 [style=None]: CHAPTER 4  THE SALTLENS DSS: DESIGN AND IMPLEMENTATION	18
+P68 [style=None]: 4.1  Introduction	18
+P69 [style=None]: 4.2  Requirements Analysis	18
+P70 [style=None]: 4.3  System Architecture	20
+P71 [style=None]: 4.4  Evidence Categories and Provenance	21
+P72 [style=None]: 4.5  Data Model	22
+P73 [style=None]: 4.6  Pan-Specific Digital Twin	23
+P74 [style=None]: 4.7  Rainfall-Only Mass Balance	24
+P75 [style=None]: 4.8  Versioned Rule Engine	27
+P76 [style=None]: 4.9  Machine-Learning Evidence Gate	29
+P77 [style=None]: 4.10  Operator Decision Recording	30
+P78 [style=None]: 4.11  Field-Event Reconciliation	30
+P79 [style=None]: 4.12  Exports	32
+P80 [style=None]: 4.13  Security, Authorisation and Integrity	32
+P81 [style=None]: 4.14  User Interface	32
+P82 [style=None]: 4.15  Operator Workflow Walkthrough	33
+P83 [style=None]: 4.16  Testing and Verification Approach	35
+P84 [style=None]: 4.17  Summary	35
+P85 [style=None]: CHAPTER 5  RESULTS AND DISCUSSION	36
+P86 [style=None]: 5.1  Introduction	36
+P87 [style=None]: 5.2  Evaluation Framework: Three Validity Dimensions	36
+P88 [style=None]: 5.3  Reproducible Scenario Calculations	37
+P89 [style=None]: 5.4  March North Pan Field Comparison	37
+P90 [style=None]: 5.5  Water and Salt Inventory Analysis	39
+P91 [style=None]: 5.6  Why the Difference Cannot Be Uniquely Attributed	41
+P92 [style=None]: 5.7  September Forecast Demonstration	41
+P93 [style=None]: 5.8  Recommendation and Operator Response	42
+P94 [style=None]: 5.9  Software Verification Results	42
+P95 [style=None]: 5.10  Audit and Export Consistency	43
+P96 [style=None]: 5.11  Comparison with Existing Techniques	43
+P97 [style=None]: 5.12  Threats to Validity	44
+P98 [style=None]: 5.13  Machine-Learning Evaluation Boundary	45
+P99 [style=None]: 5.14  Multi-Event Validation Protocol	46
+P100 [style=None]: 5.15  Operational Benefit Boundary	46
+P101 [style=None]: 5.16  Claim-to-Evidence Discipline	47
+P102 [style=None]: 5.17  Summary	48
+P103 [style=None]: CHAPTER 6  CONCLUSION AND FUTURE SCOPE	49
+P104 [style=None]: 6.1  Conclusion	49
+P105 [style=None]: 6.2  Summary of Findings	49
+P106 [style=None]: 6.3  Limitations	50
+P107 [style=None]: 6.4  Future Scope	50
+P108 [style=None]: 6.5  Concluding Remarks	52
+P109 [style=None]: REFERENCES	53
+P110 [style=None]: APPENDIX A: SENSITIVITY TABLES	55
+P111 [style=None]: APPENDIX B: HAND-VERIFICATION WORKSHEET	57
+P112 [style=None]: APPENDIX C: FIELD DATA-CAPTURE TEMPLATE	58
+P113 [style=None]: APPENDIX D: GLOSSARY AND ABBREVIATIONS	59
+P114 [style=None]: APPENDIX E: NOTATION	60
+P115 [style=None]: LIST OF TABLES
+P116 [style=None]: Table 2.1	Comparison of related research and SaltLens DSS	11
+P117 [style=None]: Table 3.1	Summary of existing techniques for salt-pan rainfall management	15
+P118 [style=None]: Table 3.2	Limitations of existing techniques and the corresponding SaltLens mechanism	16
+P119 [style=None]: Table 4.1	Functional requirements	18
+P120 [style=None]: Table 4.2	Non-functional requirements	19
+P121 [style=None]: Table 4.3	Technology stack and roles	20
+P122 [style=None]: Table 4.4	Evidence categories used by the interface	21
+P123 [style=None]: Table 4.5	Principal record types (conceptual)	22
+P124 [style=None]: Table 5.1	Separate deterministic rainfall-only scenarios	37
+P125 [style=None]: Table 5.2	March North Pan event record (as reported)	37
+P126 [style=None]: Table 5.3	Implied water volume and dissolved-salt mass for the March event (12,300 m² pan)	40
+P127 [style=None]: Table 5.4	What software verification supports and does not support	42
+P128 [style=None]: Table 5.5	Qualitative comparison of approaches by design property	43
+P129 [style=None]: Table 5.6	Information to retain for each event in a multi-event validation study	46
+P130 [style=None]: Table 5.7	Claim types and the evidence required to support them	47
+P131 [style=None]: Table A.1	Predicted post-rain salinity C₁ (g/L) for C₀ = 250 g/L	55
+P132 [style=None]: Table A.2	Predicted percentage dilution δ (%) (independent of C₀)	55
+P133 [style=None]: Table A.3	Predicted post-rain depth D₁ (cm)	56
+P134 [style=None]: Table B.1	Worked verification for the two scenarios (A = 12,300 m², C₀ = 250 g/L, D₀ = 20 cm)	57
+P135 [style=None]: Table C.1	Per-event field data-capture template	58
+P136 [style=None]: Table D.1	Glossary and abbreviations	59
+P137 [style=None]: Table E.1	Symbols used in the equations	60
+P138 [style=None]: LIST OF FIGURES
+P139 [style=None]: Figure 4.1	Layered architecture of SaltLens DSS	20
+P140 [style=None]: Figure 4.2	Evidence chain: each stage carries its own evidentiary status	22
+P141 [style=None]: Figure 4.3	North Pan dashboard with pan-specific recorded state and evidence labels	24
+P142 [style=None]: Figure 4.4	Predicted salinity versus rainfall for several initial depths (C₀ = 250 g/L)	26
+P143 [style=None]: Figure 4.5	Percentage dilution versus rainfall; independent of initial salinity	27
+P144 [style=None]: Figure 4.6	Rule evaluation flow for the harvest/flood rule	28
+P145 [style=None]: Figure 4.7	Versioned rule recommendation; the interface explicitly reports that no trained ML estimate was used	28
+P146 [style=None]: Figure 4.8	Operator acceptance recorded for workflow testing; no physical harvest occurred	30
+P147 [style=None]: Figure 4.9	September 25 mm forecast simulation showing 222.22 g/L predicted salinity; this is not the March field event	33
+P148 [style=None]: Figure 5.1	Status of the validity dimensions in the present study	36
+P149 [style=None]: Figure 5.2	March North Pan salinity: rainfall-only prediction of 172.41 g/L versus operator-reported 20 g/L	38
+P150 [style=None]: Figure 5.3	March North Pan depth: rainfall-only prediction of 29 cm versus operator-reported 50 cm	39
+P151 [style=None]: Figure 5.4	March event: rainfall-only prediction compared with operator-reported values	39
+P152 [style=None]: Figure 5.5	Implied water volume and dissolved-salt mass for the March event	40
+P154 [style=Heading 1]: CHAPTER 1
+INTRODUCTION
+P155 [style=Heading 2]: 1.1  Background
+P156 [style=None]: Solar salt production is among the oldest industrial uses of solar energy. Seawater or sub-soil brine is admitted into a sequence of shallow, shaded-free ponds, called pans, where sunlight and wind evaporate water, the dissolved salts become progressively concentrated, and sodium chloride eventually crystallises and is harvested. The process is simple in principle, but the economics and the quality of the product depend on how closely the operator can control two state variables in every pan: the concentration of the brine, usually expressed in grams per litre (g/L), and the depth of the water column, usually expressed in centimetres (cm).
+P157 [style=None]: Because the pans are open to the atmosphere, they are exposed to weather in a way that few other industrial processes are. Sunshine, temperature, humidity and wind drive evaporation and therefore drive production. Rainfall does the opposite. A single heavy shower adds freshwater to a pan that has taken days or weeks to concentrate, lowers the salinity of the brine, raises its depth, and can undo a large part of the concentration work. In regions with intense monsoon or cyclonic rainfall, such as the south-eastern coast of India, salt-pan operators therefore watch weather forecasts closely and take protective or corrective action when significant rain is expected.
+P158 [style=None]: The operator's decisions are consequential. Brine can be moved to a storage or reservoir pan before the rain, pans can be drained, bunds can be raised or breached, a pan that is close to harvest salinity can be harvested early, and brine can be re-concentrated afterwards. Each of these actions changes the water and dissolved-salt inventory of the pan, and each has a cost. Acting too early wastes production time; acting too late loses brine and salt; acting on the wrong information can be worse than not acting at all.
+P159 [style=Heading 2]: 1.2  Rainfall and Brine Management in Solar Salt Pans
+P160 [style=None]: At the simplest physical level, rainfall onto a pan adds water without adding dissolved salt. If the brine is assumed to mix uniformly and no water or salt leaves or enters the pan by any other route, the dissolved-salt mass stays constant while the volume grows, so the concentration falls in inverse proportion to the depth. This rainfall-only mass balance is the simplest quantitative statement of the dilution problem, and it is the physical core of the system described in this report.
+P161 [style=None]: Real pans are not this simple. Water can be transferred between pans, pumped out, drained through sluices, lost by seepage, gained by runoff from surrounding land, or lost by overflow when the bunds are overtopped. Rain may not mix uniformly with dense brine; a fresher layer can float on top of the brine for some time, so a reading taken near the surface can differ strongly from a reading taken near the bottom. Measurements themselves are uncertain, and they are often recorded by hand in notebooks, with approximate times and unclear sampling locations. The gap between a clean idealised calculation and a messy field outcome is exactly where a decision-support system can be either useful or misleading.
+P162 [style=Heading 2]: 1.3  Motivation
+P163 [style=None]: Weather forecasts are widely available, but a forecast is a statement about the atmosphere, not about a pond. A forecast of 25 mm of rainfall does not, by itself, say what the salinity of a particular pan will be after the event; that depends on the initial salinity, the initial depth, what the operator does in the meantime, and how the rainfall is actually distributed. A system that merely displays forecasts leaves the translation from weather to pan-level consequence to the operator's experience.
+P164 [style=None]: At the other extreme, a system that presents a single predicted number, with no indication of whether it was measured, forecast, calculated or guessed, invites over-trust. A salinity of 172 g/L shown on a screen carries very different meanings if it was read from a refractometer, computed from a simplified equation, or produced by a trained model of unknown reliability. In an industrial decision-support setting, mistaking one for another can lead to wrong actions and, equally important, to wrong conclusions about whether the system works.
+P165 [style=None]: The motivation for this project is therefore twofold. The first part is practical: to give a salt-pan operator a pan-specific view that combines recorded observations, weather information and a transparent physical calculation, and that suggests an action through a rule the operator can read and change. The second part is methodological: to build the system so that the evidentiary status of every figure and every decision is recorded and displayed, so that a software demonstration is never mistaken for a physical validation, and a recommendation is never mistaken for a completed action.
+P166 [style=Heading 2]: 1.4  Problem Statement
+P167 [style=None]: Rainfall can rapidly dilute hypersaline brine in solar salt pans, yet forecasts alone cannot establish the response of a managed pond. Existing practice relies on operator experience and paper records; existing digital approaches tend either to present weather data without pan-level interpretation, or to present model outputs without a record of what evidence supports them. There is a need for a decision-support prototype that (i) maintains a pan-specific, source-labelled state; (ii) computes a reproducible, hand-verifiable physical response to forecast rainfall; (iii) produces explainable, versioned, operator-configurable recommendations; (iv) records what the operator actually decided; and (v) records field outcomes and any later corrections without erasing the history of what was previously claimed.
+P168 [style=Heading 2]: 1.5  Objectives
+P169 [style=None]: The objectives of the project are the following.
+P170 [style=List Paragraph]: To design and implement a pan-specific digital twin that assembles source-labelled observations and weather evidence, and that keeps observed, forecast, simulated, recommended and decided information visibly separate.
+P171 [style=List Paragraph]: To implement a deterministic rainfall–dilution mass balance whose results can be verified by hand, and to document its assumptions and the conditions under which it does not apply.
+P172 [style=List Paragraph]: To implement a versioned, operator-configured rule engine that records the compared variable, threshold, comparison direction, rule version and outcome of every recommendation.
+P173 [style=List Paragraph]: To implement an evidence gate for machine learning that blocks predictive output until a genuine labelled dataset, a leakage-safe evaluation protocol and an independently evaluated model exist.
+P174 [style=List Paragraph]: To record operator decisions as decisions, and to keep them distinct from physical action records.
+P175 [style=List Paragraph]: To implement an auditable field-validation workflow that records pre- and post-event measurements with provenance, interventions, verification state, and append-only correction history, including controlled timestamp reconciliation.
+P176 [style=List Paragraph]: To demonstrate the workflow on a real North Pan case from Salem, India, and on a separate forecast scenario, while stating precisely what each case does and does not establish.
+P177 [style=List Paragraph]: To specify the empirical studies required before any claim of physical accuracy, machine-learning performance or operational benefit can legitimately be made.
+P178 [style=Heading 2]: 1.6  Scope and Limitations
+P179 [style=None]: The scope of this project is an implemented decision-support prototype and its documented evidence boundaries. The project is deliberately modest in what it claims. It includes a user interface, service layer and database, a rainfall-only mass balance, a rule engine, an operator-decision record, a field-event reconciliation module and exports that carry caveats. It does not include a trained machine-learning model, and no machine-learning accuracy, precision, recall, F1-score, RMSE, MAE, calibration, risk score or SHAP result is reported.
+P180 [style=None]: The field evidence is limited. The March North Pan case contains one rainfall event, a post-event state that was reported by the site operator without independent corroboration, and an outbound brine transfer whose volume is unknown. It is therefore a descriptive, intervention-affected case and not a statistical accuracy study. The separate September scenario is a forecast-to-decision demonstration; it uses a manually entered forecast and a separate observation, and it does not add a field-validation event. Finally, no controlled comparison against ordinary operator practice has been made, so operational benefit is not demonstrated.
+P181 [style=Heading 2]: 1.7  Summary of Contributions
+P182 [style=None]: The contribution of the project is not a more accurate salinity predictor. It is an explicit, implemented boundary between three things that are frequently conflated: a software-consistent forecast, a provenance-labelled field report, and an independently verified physical outcome. The specific contributions are listed below.
+P183 [style=List Paragraph]: A pan-specific digital twin whose interface labels every figure as OBSERVED, FORECAST, SIMULATED, RECOMMENDED or DECIDED, so that a simulated state cannot silently replace a measured observation.
+P184 [style=List Paragraph]: A deterministic rainfall-only mass balance with a worked, hand-verifiable calculation for each scenario, and an explicit list of the flows it excludes.
+P185 [style=List Paragraph]: A versioned rule engine whose output retains the compared variable, threshold, version and outcome, and which states when no machine-learning estimate was read.
+P186 [style=List Paragraph]: A machine-learning evidence gate that reports zero genuine labelled training rows and therefore withholds predictive output.
+P187 [style=List Paragraph]: A field-event reconciliation workflow that corrects an unsupported seed timestamp while retaining the displaced value as superseded history, and that prevents an operator-reported timestamp from being promoted to instrument verification.
+P188 [style=List Paragraph]: Exports that present UTC and IST representations and carry material caveats.
+P189 [style=List Paragraph]: A claim-to-evidence discipline, applied throughout this report, that matches each claim to the evidence needed to support it.
+P190 [style=Heading 2]: 1.8  Methodology Overview
+P191 [style=None]: The project followed an iterative software-engineering approach. Requirements were first derived from the decision problem of a salt-pan operator and from the need to keep evidence categories separate. A three-tier architecture was then designed: a Next.js presentation tier, a FastAPI service tier that holds validation, calculation and reconciliation logic, and a MongoDB Atlas storage tier. The deterministic mass balance was derived and checked by hand for each scenario before being implemented, so that the software result could be compared against an independent manual calculation.
+P192 [style=None]: The rule engine, the operator-decision record and the machine-learning gate were then added as separate components, each with explicit inputs and recorded outputs. The field-validation module was developed against a real North Pan event; during its development an unsupported seed-script timestamp was identified, traced and reconciled through a controlled workflow rather than overwritten. Throughout, developer-reported tests and build checks were used to support implementation testing, and screenshots of the running interface were retained as evidence of implemented behaviour.
+P193 [style=Heading 2]: 1.9  Organisation of the Report
+P194 [style=None]: The remainder of this report is organised as follows. Chapter 2 reviews the related literature on digital twins for water–salt management, remote sensing of salt pans, salt-pond hydrology and machine-learning studies of salinity, and identifies the gap addressed by this work. Chapter 3 surveys existing techniques for salt-pan rainfall management, describes their advantages and disadvantages, and explains how the proposed approach addresses their limitations. Chapter 4 describes the proposed system in detail, including its requirements, architecture, data model, equations, rule engine, evidence gate, reconciliation workflow, interface and testing approach, with diagrams and code listings. Chapter 5 presents and discusses the results, including the reproducible calculations, the March North Pan comparison, the September demonstration, the comparison with existing techniques and the threats to validity. Chapter 6 concludes the report and sets out the future scope. The references and appendices follow.
+P195 [style=Heading 1]: CHAPTER 2
+LITERATURE REVIEW
+P196 [style=Heading 2]: 2.1  Overview
+P197 [style=None]: This chapter reviews the published work that is closest to the problem addressed by SaltLens DSS. The relevant literature is spread over several communities that rarely cite one another: agricultural water–salt management with digital twins, remote sensing of natural and industrial salt pans, hydrology of salt ponds, and machine-learning prediction of salinity in soils and rivers. Each addresses salinity, but in a different medium, with different observation regimes and different prediction targets. The purpose of the review is therefore not to rank the studies, but to identify what each documents, what it does not document, and where an operator-facing, evidence-tracked decision-support workflow for hypersaline pond brine can be positioned.
+P198 [style=None]: The review is organised by theme. Sections 2.2 to 2.5 cover digital twins, remote sensing, hydrology and machine learning. Section 2.6 considers decision support, digital agriculture and explainability. Section 2.7 discusses provenance and evidence-graded reporting, which is the least developed theme in the salt-pan literature and the one on which this project concentrates. Sections 2.8 and 2.9 summarise the comparison and state the research gap.
+P199 [style=Heading 2]: 2.2  Digital Twins for Water–Salt Management
+P200 [style=None]: A digital twin is a continuously updated digital representation of a physical asset that is used to monitor, simulate and support decisions about that asset. In agriculture, digital twins have been proposed for irrigation and drainage control. Qin et al. describe a digital-twin-enabled intelligent irrigation–drainage system for precision water–salt management in saline agroecosystems [1]. The work is relevant to salt-pan management because it treats water and salt as coupled quantities that must be managed together, and because it frames the digital twin as the layer that connects sensed state to control decisions.
+P201 [style=None]: Broader reviews place digital twins within precision agriculture and smart farming [14], and within infrastructure and climate-resilience settings [8]. These works discuss architectures in which sensors, models and decision modules are connected, and they emphasise the potential of such systems to support climate adaptation. They are, however, mostly concerned with the architecture and potential of digital twins rather than with the evidentiary status of the individual values a twin displays. A twin that mixes measured, forecast and simulated values without labelling them can appear authoritative while concealing which parts of its state were ever observed.
+P202 [style=None]: Digital agriculture more generally is discussed in the overview by Balasundram et al., which considers the role of digital technologies in mitigating climate change and supporting food security [9]. Such overviews provide context for why decision-support tools are increasingly applied to weather-exposed production systems, including the salt pans that are the subject of this project.
+P203 [style=Heading 2]: 2.3  Remote Sensing of Salt Pans
+P204 [style=None]: Remote sensing has been used to characterise natural salt pans. Schauer et al. investigate the prediction of inundation and desiccation states of salt pans in the Western Pannonian Basin using remote sensing, groundwater and meteorological data [7]. Their work is directly relevant to the present project because it links meteorological drivers, such as rainfall, to the wetting and drying of salt pans, and because it shows that weather records can be treated as explanatory inputs to a salt-pan state. The target of that work is the state of a natural pan observed from space; it is not the salinity and depth of a managed industrial pond under operator control.
+P205 [style=None]: Lemenkova applies machine-learning methods to remote sensing data in order to map salt-pan crust dynamics in the Sebkha de Ndrhamcha, Mauritania [11]. The study demonstrates that crust and surface properties of salt pans can be mapped from imagery. The emphasis is again on mapping surface conditions rather than on supporting a pond-level decision about rainfall response, and the observation regime is satellite imagery rather than in-pond salinity and depth measurements.
+P206 [style=None]: Taken together, the remote-sensing studies establish that salt-pan state responds to meteorological conditions and can be monitored at scale. They do not provide an operator with a pan-level record that distinguishes the operator's own reading from a calculation or a recommendation.
+P207 [style=Heading 2]: 2.4  Salt-Pond Hydrology and Hypersaline Dynamics
+P208 [style=None]: Salt-pond hydrology studies provide the physical context for changing salinity. Jarecki and Walkey report on the variable hydrology and salinity of salt ponds in the British Virgin Islands [17], documenting that pond salinity varies substantially over time in response to hydrological inputs and losses. Shen et al. study salt dynamics in coastal marshes and the formation of hypersaline zones [10], which illustrates how evaporation and water exchange concentrate salts in shallow systems.
+P209 [style=None]: These studies support the physical premise of this project: that rainfall, evaporation and water exchange jointly determine pond salinity, and that a pond-level calculation must make its assumptions about those flows explicit. They also show why a single rainfall-only calculation is an idealisation. Real ponds have inflows, outflows, seepage and non-uniform mixing, and the salinity reading at one location may not represent the whole pond.
+P210 [style=None]: In the soil context, Wang et al. review soil salinisation in drylands and the measurement, monitoring and management of it [13]. Although the medium differs, the review reinforces a point that is central to this project: salinity assessment depends on measurement method and sampling location, and a number is only as meaningful as the measurement that produced it.
+P211 [style=Heading 2]: 2.5  Machine-Learning Studies of Salinity
+P212 [style=None]: A substantial body of work applies machine learning to salinity prediction. Jiang et al. simulate soil salinity dynamics, cotton yield and evapotranspiration under drip irrigation using ensemble machine learning [6]. Wang et al. review the quantitative assessment of soil salinity using remote sensing and machine-learning algorithms [12]. Melesse et al. predict river-water salinity using hybrid machine-learning models [15]. Mohan et al. integrate artificial intelligence and explainable AI for precision crop-yield prediction [16].
+P213 [style=None]: These studies show that data-driven models can be effective when a suitable labelled dataset exists, and they illustrate the standard concerns of such work: feature selection, validation design and interpretability. However, they concern different media (soil and river water), different observation regimes (remote sensing, monitoring stations, field trials) and different prediction targets (salinity indices, yield, river salinity). Their reported performance cannot serve as a numerical benchmark for hypersaline pond-brine events unless a common dataset and matched outcomes are available. Citing their accuracy figures as a baseline for a salt-pan system would be a category error, and this report does not do so.
+P214 [style=None]: This observation motivates the machine-learning evidence gate of SaltLens. If a system accepts a trained model's output into an operator-facing screen before a labelled dataset and an independent evaluation exist, it risks presenting an unvalidated estimate as a result. The gate in SaltLens withholds such output and reports the absence of genuine labelled training data explicitly.
+P215 [style=Heading 2]: 2.6  Decision Support, Explainability and Weather Sensitivity
+P216 [style=None]: Decision-support systems in agriculture are increasingly paired with explainable AI. Abou Samra and Ali review explainable artificial intelligence in smart agriculture with a focus on interpretable remote sensing for sustainable decision-making [4]. The common theme is that decision makers need to understand why a system recommends an action. For a salt-pan operator, an explanation that names the compared variable, the threshold, the comparison direction and the rule version is more actionable than an opaque score.
+P217 [style=None]: Weather is a recurring operational constraint in agriculture. Mastronardi et al. evaluate anti-rain agricultural nets, examining structural parameters and functional efficiency [3], which exemplifies physical protection against rainfall in crop systems. Studies in unrelated domains, such as artificial-intelligence-based strain screening [2] and the effect of adverse weather on automated vehicles [5], illustrate a common need to state the operating conditions under which an automated system's output is valid. These works are cited only for that general point; they are not salt-pan studies, and no performance comparison with them is made.
+P218 [style=Heading 2]: 2.7  Provenance and Evidence-Graded Reporting
+P219 [style=None]: Provenance, the record of where a piece of information came from and how it was transformed, is a mature topic in data management but is rarely applied explicitly to salt-pan decision support. In the salt-pan setting, the practical difficulties are easy to list. Observations are often handwritten in notebooks. Times are approximate. The same pan may be described by different names. A system might auto-generate seed values during development that are later mistaken for field records. An outcome might be affected by an intervention that was never logged. None of these problems is solved by a more accurate model; they are solved by recording the source, the status and the history of every value.
+P220 [style=None]: An evidence-graded workflow separates at least five kinds of information. Observed values are readings recorded against a pan or site. Forecast values are statements about weather that has not occurred. Simulated values are computed from stated equations and inputs. Recommended actions are outputs of a written rule. Decided actions are what a person actually decided, which is a record of a decision and not a figure. SaltLens adds a sixth, the reported field outcome, which carries its own verification state. The literature on digital twins and machine learning surveyed above does not, in the sources reviewed here, define an operator-facing workflow with exactly this separation, and this is the gap on which this project concentrates.
+P221 [style=Heading 2]: 2.8  Comparative Scope of Related Research
+P222 [style=None]: Table 2.1 summarises the research areas reviewed, their documented focus, and the distinction of SaltLens. The comparison describes research scope. It is not a claim that SaltLens predicts salinity better than any of the cited approaches; no such comparison has been made.
+P223 [style=None]: Table 2.1: Comparison of related research and SaltLens DSS
+P225 [style=Heading 2]: 2.9  Research Gap
+P226 [style=None]: The review shows that digital twins, remote sensing, hydrology and machine learning each contribute relevant knowledge, but that none of the reviewed work centres on the traceable handoff between an observation, a scenario, a versioned rule, a human response and reconciled field evidence for an individual managed pan. Three gaps follow.
+P227 [style=List Paragraph]: Evidence status gap. Twins and models are described at the level of architecture and prediction performance, but the evidentiary status of individual displayed values is not treated as a first-class design element.
+P228 [style=List Paragraph]: Field-outcome gap. Field outcomes that are affected by interventions, such as brine transfers of unknown volume, are difficult to use as validation data. A workflow is needed that keeps such events visible, labelled and excluded from quantitative validation, rather than silently imputing them or reporting them as accuracy statistics.
+P229 [style=List Paragraph]: Recommendation-versus-action gap. Recommendations are commonly evaluated as if they were outcomes. A decision-support system needs to keep the recommendation, the operator's decision and the physical action as separate records so that its effect can be evaluated even when an operator rejects the suggestion.
+P230 [style=None]: SaltLens addresses these gaps at the software-engineering level. Its contribution is a complementary, implemented workflow, not a superior salinity predictor.
+P231 [style=Heading 2]: 2.10  Summary
+P232 [style=None]: The literature supports the physical premises of the project, that rainfall dilutes brine and that pond salinity responds to hydrological inputs and losses, and it supplies the vocabulary of digital twins, decision support and explainability. It does not supply a numerical benchmark for hypersaline pond-brine events, and it does not define the evidence-labelled operator workflow that this project implements. The next chapter surveys the techniques currently available for managing rainfall in salt pans and states how the proposed approach addresses their limitations.
+P233 [style=Heading 1]: CHAPTER 3
+EXISTING TECHNIQUES AND THE PROPOSED APPROACH
+P234 [style=Heading 2]: 3.1  Introduction
+P235 [style=None]: This chapter describes the techniques that can be, or are typically, used to manage rainfall risk in solar salt pans, summarises the advantages and disadvantages of each, and explains how the approach taken in SaltLens DSS addresses the disadvantages. The description of traditional practice is necessarily general: practices differ between salt works, and the aim here is to identify the structural strengths and weaknesses of each class of technique rather than to evaluate a particular operator.
+P236 [style=Heading 2]: 3.2  Experience-Based Operation
+P237 [style=None]: In many salt works, decisions about rainfall are made by experienced operators who read the sky, track regional weather forecasts and know the behaviour of each pan. The advantages of this approach are considerable. The operator knows the local conditions, can respond immediately, requires no infrastructure, and can integrate information that no formal system captures, such as the feel of the brine or the condition of a bund.
+P238 [style=None]: The disadvantages are equally clear. The knowledge is tacit and resides in individuals, so it is difficult to transfer, audit or improve systematically. Decisions are rarely recorded together with the information on which they were based, so it is hard to learn from a good or bad outcome. Quantitative reasoning about how much a given rainfall will dilute a given pan is approximate. And the approach scales poorly when the number of pans and the number of operators grow.
+P239 [style=Heading 2]: 3.3  Notebook and Spreadsheet Records
+P240 [style=None]: Paper notebooks and spreadsheets are the most common record-keeping tools. They are cheap and flexible, and the North Pan case in this project shows that a field notebook can be a valuable source of pre-event readings. Their disadvantages concern consistency and provenance. Times are often approximate, units and sampling locations may be unstated, entries can be edited without a trace, and the relationship between an observation, a forecast and a decision is not captured in the structure of the record. When a value is later found to be unsupported, as happened with a hand-typed timestamp during this project, a simple spreadsheet has no mechanism to retain the displaced value and its claimed origin.
+P241 [style=Heading 2]: 3.4  Weather Forecasts Used Alone
+P242 [style=None]: Operators can obtain rainfall forecasts from meteorological services and weather applications. Forecasts are valuable and widely available, and they give advance notice. Their limitation, which motivates this project, is that a forecast describes the atmosphere and not the pond. Translating a forecast of rainfall in millimetres into a change in the salinity and depth of a particular pan requires the pan's state and a calculation. Forecasts also carry uncertainty in amount, timing and location, and a forecast issued before an event may differ from the rainfall that is later reported, as the March case in this project illustrates: the March event record carries a 40 mm event forecast and a reported actual rainfall of 90 mm.
+P243 [style=Heading 2]: 3.5  Remote Sensing and Environmental Monitoring
+P244 [style=None]: Remote sensing can monitor the wetting and drying of salt pans and the dynamics of surface crusts over large areas, as the studies in Chapter 2 show [7], [11]. The advantages are spatial coverage and the ability to build long records without field visits. The disadvantages, for pond-level management, are the revisit interval, sensitivity to cloud cover during rainfall events, limited ability to measure the salinity and depth of an individual shallow pan, and the fact that the output is a state map and not a decision. Satellite observation also does not record what the operator did.
+P245 [style=Heading 2]: 3.6  Physics-Based and Hydrological Models
+P246 [style=None]: A physics-based approach computes the effect of rainfall from a water and salt balance. At the simplest level the rainfall-only mass balance dilutes the brine in proportion to depth; richer models add evaporation, seepage, runoff, transfers and mixing. The advantages are transparency, reproducibility and the possibility of hand verification. A mass balance can be checked on paper, its assumptions can be written down, and its failures can be diagnosed.
+P247 [style=None]: The disadvantages are that the model is only as good as its assumptions and inputs. A rainfall-only mass balance does not represent transfers, drainage, overflow, seepage, non-uniform mixing or measurement uncertainty. If an intervention has occurred and its volume is unknown, the model cannot be validated against the outcome. A more detailed model needs more inputs, and these inputs are often not recorded in routine salt-works practice.
+P248 [style=Heading 2]: 3.7  Machine-Learning Predictors
+P249 [style=None]: Machine-learning predictors have been applied to salinity in soils and rivers [6], [12], [15]. They can capture patterns that are difficult to write as equations, and they can combine many inputs. Their advantages depend entirely on the availability of a suitable labelled dataset. Their disadvantages in the salt-pan setting are the absence, at present, of such a dataset; the risk of leakage between training and test partitions when events from the same pan appear in both; the opacity of some models; and the danger that a numerical score is displayed to an operator before any independent evaluation has been done.
+P250 [style=Heading 2]: 3.8  Generic Digital Twins and Decision-Support Platforms
+P251 [style=None]: Digital-twin and decision-support platforms for agriculture and infrastructure [1], [8], [14] provide architectures in which sensor data, models and decisions are connected. Their advantage is integration. Their disadvantage for the present problem is generality: a generic platform does not by itself enforce a distinction between observed, forecast, simulated, recommended and decided information, does not by itself keep a history of corrections, and does not by itself prevent a model's output from being treated as a measurement.
+P252 [style=Heading 2]: 3.9  Summary Comparison of Existing Techniques
+P253 [style=None]: Table 3.1 summarises the techniques described above.
+P254 [style=None]: Table 3.1: Summary of existing techniques for salt-pan rainfall management
+P256 [style=Heading 2]: 3.10  Limitations That Motivate the Proposed Approach
+P257 [style=None]: Four structural limitations recur across the techniques in Table 3.1. First, the evidentiary status of a value, whether it is observed, forecast or calculated, is usually implicit. Second, the relationship among an observation, a forecast, a calculation, a recommendation and a decision is not recorded. Third, corrections overwrite history, so a later reader cannot tell what was previously claimed. Fourth, field outcomes affected by interventions are reported as if they were clean evidence, or are discarded without trace. The proposed approach is designed around these four limitations.
+P258 [style=Heading 2]: 3.11  How the Proposed Approach Addresses the Limitations
+P259 [style=None]: SaltLens DSS does not replace the operator's judgement, remote sensing or a future machine-learning model. It provides a layer that holds the evidence and the decision together. Table 3.2 maps each limitation to the mechanism implemented in the system.
+P260 [style=None]: Table 3.2: Limitations of existing techniques and the corresponding SaltLens mechanism
+P262 [style=Heading 2]: 3.12  What the Proposed Approach Does Not Overcome
+P263 [style=None]: It is important to be equally explicit about what the proposed approach does not do. It does not improve the accuracy of rainfall forecasts. It does not model evaporation, seepage, runoff, transfers or non-uniform mixing; the rainfall-only mass balance excludes them by design, and its output must be read as a reproducible counterfactual and not as a validated prediction. It does not provide a trained machine-learning model. It does not by itself make field measurements more accurate: an entered observation is not thereby independently verified. And it does not demonstrate that decisions made with its help are better than decisions made without it.
+P264 [style=None]: These non-claims are part of the design, not an afterthought. The proposed approach overcomes the disadvantages of the existing techniques that concern traceability, evidence separation and auditability. It leaves the disadvantages that concern physical accuracy and operational benefit as explicit research boundaries, to be addressed by the studies described in Chapters 5 and 6.
+P265 [style=Heading 2]: 3.13  Summary
+P266 [style=None]: Existing techniques each offer something useful, from the operator's local knowledge to the transparency of a mass balance, but none of them alone provides a record that connects observations, forecasts, calculations, rules, decisions and field outcomes with their evidentiary status. The proposed approach targets that structural gap. The next chapter describes the system that implements it.
+P267 [style=Heading 1]: CHAPTER 4
+THE SALTLENS DSS: DESIGN AND IMPLEMENTATION
+P268 [style=Heading 2]: 4.1  Introduction
+P269 [style=None]: This chapter describes the proposed system in detail. It begins with the requirements that follow from the problem statement, presents the architecture and the evidence categories that organise the whole system, and then describes each component: the data model, the digital twin, the rainfall-only mass balance, the versioned rule engine, the machine-learning evidence gate, the operator-decision record and the field-event reconciliation workflow. The chapter closes with the user interface, the exports, the integrity controls and the testing approach. Diagrams, equations and condensed code listings are included to document the logic.
+P270 [style=None]: A note on the code listings is appropriate. The listings in this chapter are condensed illustrations written to document the logic of each component in a readable form. They state the rules and equations the system applies, but they are not offered as verbatim extracts of the deployed source files.
+P271 [style=Heading 2]: 4.2  Requirements Analysis
+P272 [style=Heading 3]: 4.2.1  Stakeholders and Use Context
+P273 [style=None]: The primary user is the operator of a salt works who must decide, with limited time and uncertain information, what to do with one or more pans when rain is forecast. Secondary users are a supervisor or salt-production specialist who reviews rule configurations and thresholds, and a researcher or auditor who reviews the field-event records and their provenance. The system is used from a browser, so that data can be entered and reviewed from an office or a field device.
+P274 [style=Heading 3]: 4.2.2  Functional Requirements
+P275 [style=None]: The functional requirements are listed in Table 4.1.
+P276 [style=None]: Table 4.1: Functional requirements
+P278 [style=Heading 3]: 4.2.3  Non-Functional Requirements
+P279 [style=None]: The non-functional requirements are given in Table 4.2. They are dominated by auditability and honesty of presentation rather than by raw performance.
+P280 [style=None]: Table 4.2: Non-functional requirements
+P282 [style=Heading 2]: 4.3  System Architecture
+P283 [style=None]: SaltLens DSS follows a three-tier architecture, shown in Figure 4.1. The presentation tier is a Next.js user interface that supports pan registration, observations, weather entry, digital-twin assembly, rainfall simulation, recommendation review, operator feedback and field validation. The service tier is implemented in FastAPI and retains pan identity, UTC timestamps and site-local representations, provenance fields, simulation inputs and versions, rule configurations and append-only correction history; it also implements validation, deterministic calculations and reconciliation. The storage tier is MongoDB Atlas, which stores linked pan records, operator decisions and correction history.
+P285 [style=None]: Figure 4.1: Layered architecture of SaltLens DSS
+P286 [style=None]: Table 4.3 summarises the technologies and the role of each. The choice of a document database suits the heterogeneous, provenance-rich records of the system, in which an observation, a weather record and a field event carry different fields but are linked by pan identity and timestamps.
+P287 [style=None]: Table 4.3: Technology stack and roles
+P289 [style=None]: The separation of tiers has a direct consequence for the evidence model. Calculations and reconciliation are performed in the service tier, not in the browser, so that the same inputs and versions always produce the same recorded outputs, and so that the user interface cannot alter an evidence status.
+P290 [style=Heading 2]: 4.4  Evidence Categories and Provenance
+P291 [style=None]: The organising idea of the system is that every value belongs to exactly one evidence category, and that the category is visible wherever the value appears. The interface distinguishes OBSERVED, FORECAST, SIMULATED, RECOMMENDED and DECIDED categories; a trained model's estimate would carry a further ML-PREDICTED category, which the interface shows as unavailable when no validated model exists. Table 4.4 states the meaning of each.
+P292 [style=None]: Table 4.4: Evidence categories used by the interface
+P294 [style=None]: Figure 4.2 shows the chain of evidence the system supports. The chain ends with a reported field outcome, which has its own verification state. Each handoff in the chain is recorded, so that a reader can trace a recommendation back to the rule version and inputs that produced it, and can see whether the physical outcome was independently verified.
+P296 [style=None]: Figure 4.2: Evidence chain: each stage carries its own evidentiary status
+P297 [style=None]: Provenance fields travel with the records. An observation carries its source label, observer and evidence reference; a weather record carries its issue time and source; a simulation carries its inputs and equation version; a rule result carries the rule version; and a field event carries the origin and verification state of each milestone. Observation forms can open on demonstration values; anything saved from such values is stored as a demonstration, shown on the dashboard with a label stating that it is not a measurement of the pan, and excluded from research datasets.
+P298 [style=Heading 2]: 4.5  Data Model
+P299 [style=None]: The data model is organised around the pan. Table 4.5 lists the principal record types and the fields that matter for provenance. The listing is conceptual: it names the information held in each record, not the exact field names of the stored documents.
+P300 [style=None]: Table 4.5: Principal record types (conceptual)
+P302 [style=Heading 2]: 4.6  Pan-Specific Digital Twin
+P303 [style=None]: The digital twin is the assembled, pan-specific state against which every other card on the dashboard is resolved. For a given pan it gathers the most recent observation, the most recent weather observation and the most recent weather forecast, records the time each was last updated, states whether each is current, and carries a twin version. In the September demonstration shown in Figure 4.3, the twin is assembled from an observation and a forecast entered by hand, with the weather observation shown as having no reading, and the oldest contributing reading is reported as current.
+P305 [style=None]: Figure 4.3: North Pan dashboard with pan-specific recorded state and evidence labels
+P306 [style=None]: Two properties of the twin matter. First, it is built only from recorded records, each with its source and timestamp visible, so that the state shown is traceable. Second, it is a representation of what was recorded, not a claim about the present physical state of the pan: the displayed ages and freshness labels make clear how old each contributing reading is. A pan can be configured with a maximum observation age so that stale evidence is refused; in the demonstration rule run, no such limit was configured and the system said so.
+P307 [style=Heading 2]: 4.7  Rainfall-Only Mass Balance
+P308 [style=Heading 3]: 4.7.1  Formulation
+P309 [style=None]: The physical core of the system is a deterministic rainfall-only mass balance. Let C₀ denote the initial brine salinity in g/L, D₀ the initial water depth in cm and R the rainfall in cm. Under uniform mixing, constant dissolved salt mass and no other water flows, the dissolved salt per unit area is proportional to C₀D₀ before the rain and to C₁D₁ after it, where D₁ = D₀ + R is the depth after the rain. Equating the two gives the predicted post-rain salinity.
+P310 [style=None]: 	C₁ = C₀ D₀ / (D₀ + R)	(4.1)
+P311 [style=None]: 	D₁ = D₀ + R	(4.2)
+P312 [style=None]: 	δ = 100 (1 − C₁ / C₀) %	(4.3)
+P313 [style=None]: Here C₁ is the predicted post-rain salinity (g/L), D₁ the predicted depth (cm) and δ the predicted percentage dilution. Rainfall reported in millimetres is divided by ten before use. Substituting Equation (4.1) into Equation (4.3) shows that the dilution depends only on the ratio R/D₀:
+P314 [style=None]: 	δ = 100 R / (D₀ + R) %	(4.4)
+P315 [style=None]: The dilution is therefore independent of the initial salinity; a pan of any concentration loses the same fraction of its salinity for the same rainfall and initial depth. This is a useful sanity check on the implementation and is visible in Figure 4.5.
+P316 [style=Heading 3]: 4.7.2  Volume and Salt-Mass Form
+P317 [style=None]: The same balance can be written in terms of volume and mass, which is convenient for checking against a pan of known area A. The water volume is V = A D, and the dissolved salt mass is M = C V. Under the model assumptions the rainfall adds a volume ΔV = A R while the salt mass is unchanged:
+P318 [style=None]: 	V₁ = A (D₀ + R),   M₁ = M₀ = C₀ A D₀	(4.5)
+P319 [style=None]: For the North Pan, with a registered area of 1.23 ha (12,300 m²), a depth of 20 cm corresponds to a water volume of 12,300 × 0.20 = 2,460 m³, and, at 250 g/L (equivalently 250 kg/m³), a dissolved salt mass of 615,000 kg, that is 615 tonnes. These quantities are used in Chapter 5 to examine the reported March outcome.
+P320 [style=Heading 3]: 4.7.3  Assumptions and Exclusions
+P321 [style=None]: The mass balance is valid only under its stated assumptions. It assumes uniform mixing of rain and brine; it assumes constant dissolved salt mass; and it assumes that no other water flows occur. It therefore excludes transfer, drainage, overflow, seepage, non-uniform mixing and measurement uncertainty. It also excludes evaporation during the event, runoff into the pan, and the possibility that rain falls unevenly across the pan. These exclusions are not hidden: the interface states what the model leaves out, as shown in the September simulation screen of Figure 4.9, which explains that the calculation assumes complete mixing so that a single concentration describes the whole pan.
+P322 [style=Heading 3]: 4.7.4  Worked Examples
+P323 [style=None]: For the March scenario, R = 90 mm = 9 cm, C₀ = 250 g/L and D₀ = 20 cm. Then D₁ = 20 + 9 = 29 cm and C₁ = 250 × 20 / 29 = 172.414 g/L. The dilution is δ = 100 × (1 − 172.414/250) = 31.03 %. For the September scenario, R = 25 mm = 2.5 cm with the same initial state: D₁ = 22.5 cm, C₁ = 250 × 20 / 22.5 = 222.22 g/L and δ = 11.11 %. Both calculations can be reproduced with a pocket calculator, which is the point of choosing a deterministic mass balance.
+P324 [style=Heading 3]: 4.7.5  Sensitivity of the Result
+P325 [style=None]: Figure 4.4 shows the predicted salinity as a function of rainfall for several initial depths, with C₀ = 250 g/L. A shallower pan is diluted far more strongly by the same rainfall: at 10 cm initial depth, 90 mm of rain halves the salinity, whereas at 40 cm the same rain reduces it by about a fifth. This explains why shallow pans, which evaporate quickly and concentrate quickly, are also the most exposed to rainfall.
+P327 [style=None]: Figure 4.4: Predicted salinity versus rainfall for several initial depths (C₀ = 250 g/L)
+P329 [style=None]: Figure 4.5: Percentage dilution versus rainfall; independent of initial salinity
+P330 [style=Heading 3]: 4.7.6  Reference Implementation
+P331 [style=None]: Listing 4.1 gives a condensed illustration of the calculation. It validates its inputs, converts rainfall from millimetres to centimetres, and returns the three quantities of Equations (4.1) to (4.3).
+P332 [style=None]: def rainfall_only_balance(c0_g_l, d0_cm, rain_mm):
+P333 [style=None]:     """Return post-rain salinity, depth and dilution (no-flow model)."""
+P334 [style=None]:     if c0_g_l < 0 or d0_cm <= 0 or rain_mm < 0:
+P335 [style=None]:         raise ValueError("invalid input")
+P336 [style=None]:     r_cm = rain_mm / 10.0          # mm -> cm
+P337 [style=None]:     d1 = d0_cm + r_cm              # Eq. (4.2)
+P338 [style=None]:     c1 = c0_g_l * d0_cm / d1       # Eq. (4.1)
+P339 [style=None]:     dilution = 100.0 * (1.0 - c1 / c0_g_l) if c0_g_l > 0 else 0.0
+P340 [style=None]:     return {"salinity_g_l": c1,    # Eq. (4.3)
+P341 [style=None]:             "depth_cm": d1,
+P342 [style=None]:             "dilution_pct": dilution}
+P344 [style=None]: # Hand-checkable cases
+P345 [style=None]: # rainfall_only_balance(250, 20, 90) -> 172.414 g/L, 29 cm, 31.03 %
+P346 [style=None]: # rainfall_only_balance(250, 20, 25) -> 222.222 g/L, 22.5 cm, 11.11 %
+P347 [style=None]: Listing 4.1: Condensed illustration of the rainfall-only mass balance
+P348 [style=Heading 2]: 4.8  Versioned Rule Engine
+P349 [style=None]: The rule engine converts a simulated or observed value into a recommended action through an explicit, written rule. A rule is configured by the operator and has a name, a version, a compared variable, a comparison operator, a threshold, an action and a priority. When it is evaluated, the engine reads the variable from explicit inputs, applies the comparison and records the result. Figure 4.6 shows the logic.
+P351 [style=None]: Figure 4.6: Rule evaluation flow for the harvest/flood rule
+P352 [style=None]: The rule used in the demonstration is the operator-configured harvest and flood rule, version 2. It compares the simulated post-rain salinity with a configured target harvest salinity of 280 g/L using the “less than or equal to” condition. The recommendation record retains the compared variable, the value read from the simulation, the threshold, the rule version and the outcome. The recommendation screen in Figure 4.7 also states that the rule decided the action and that neither the model nor the simulation chose it.
+P354 [style=None]: Figure 4.7: Versioned rule recommendation; the interface explicitly reports that no trained ML estimate was used
+P355 [style=None]: Versioning is important for auditability. If the threshold or direction of a rule is changed, a new version is created, and earlier recommendations remain linked to the version that produced them. A later reader can therefore reconstruct why a recommendation was made without relying on the current configuration.
+P356 [style=None]: import operator
+P357 [style=None]: OPS = {"<=": operator.le, "<": operator.lt,
+P358 [style=None]:        ">=": operator.ge, ">": operator.gt}
+P360 [style=None]: def evaluate_rule(rule, inputs):
+P361 [style=None]:     var = rule["variable"]
+P362 [style=None]:     if var not in inputs:
+P363 [style=None]:         return {"status": "unavailable", "rule_version": rule["version"]}
+P364 [style=None]:     value = inputs[var]
+P365 [style=None]:     matched = OPS[rule["comparison"]](value, rule["threshold"])
+P366 [style=None]:     return {
+P367 [style=None]:         "status": "evaluated",
+P368 [style=None]:         "rule": rule["name"], "rule_version": rule["version"],
+P369 [style=None]:         "compared_variable": var, "value": value,
+P370 [style=None]:         "comparison": rule["comparison"],
+P371 [style=None]:         "threshold": rule["threshold"],
+P372 [style=None]:         "action": rule["action"] if matched else None,
+P373 [style=None]:         "ml_estimate_read": False,   # no trained model is read
+P374 [style=None]:     }
+P375 [style=None]: Listing 4.2: Condensed illustration of versioned rule evaluation
+P376 [style=None]: The rule is not presented as agronomic truth. The configured direction and threshold are configuration values, and the report states that they should be reviewed with salt-production specialists before any real operational use. This point is taken up again in Chapter 5, because the demonstration rule returns HARVEST NOW for a simulated salinity of 222.22 g/L against a 280 g/L threshold, which shows rule execution but also shows why specialist review of the comparison direction is required.
+P377 [style=Heading 2]: 4.9  Machine-Learning Evidence Gate
+P378 [style=None]: The machine-learning component of SaltLens is an evidence gate and a deployment boundary, not a trained model. The gate checks whether genuine labelled training data and a validated deployed model exist. When they do not, it blocks predictive output, reports that ML prediction is unavailable, and ensures that no recommendation silently reads an ML estimate. In the audited state, the gate reports zero genuine labelled training rows, so no trained classifier or model-performance estimate is claimed.
+P379 [style=None]: The reason for building a gate before a model is that a numerical score, once shown, tends to be treated as a result. The gate encodes the research policy that a score must not be shown before the evidence to support it exists. Consequently this report does not contain any ML accuracy, precision, recall, F1-score, RMSE, MAE, calibration, risk score or SHAP result. The conditions under which such results could legitimately be produced are specified in Section 5.13.
+P380 [style=Heading 2]: 4.10  Operator Decision Recording
+P381 [style=None]: A recommendation is not a measured outcome, and an operator's acceptance of a recommendation is not a performed action. The system therefore records the operator's response as a separate decision with its own card. A decision has a disposition (accepted, modified or rejected), an actor, a time and a reason, and it is linked to the recommendation it answers. Figure 4.8 shows the decision recorded for the September demonstration: the recommendation was accepted for workflow testing and the record states that no physical harvesting was performed.
+P383 [style=None]: Figure 4.8: Operator acceptance recorded for workflow testing; no physical harvest occurred
+P384 [style=None]: The separation allows a future evaluation to compare recommendations, decisions and actions independently. It also allows the system to be evaluated when an operator deliberately rejects the suggestion, because the rejection is itself a recorded decision. Counting an acceptance as a harvest would overstate what the system has demonstrated, so the system requires a separate physical-action record before an action is treated as performed.
+P385 [style=Heading 2]: 4.11  Field-Event Reconciliation
+P386 [style=Heading 3]: 4.11.1  Purpose and Record Structure
+P387 [style=None]: The field-validation module records rainfall events as structured, auditable records. A field event holds the event milestones, the pre-event and post-event measurements with their provenance, any interventions, the reported versus simulated results, the verification state and an audit history. The North Pan event links a distinct March pre-event observation rather than reusing a September observation, which prevents a different scenario's data from being attached to the event.
+P388 [style=Heading 3]: 4.11.2  Timestamp Resolution
+P389 [style=None]: During development, the March event's rainfall start was found to carry a timestamp of 14 March 2026 at 19:30 IST that had been typed by hand into a seed script, with no supporting rain-gauge record. The original North Pan field notebook, in contrast, gave the rainfall start as 14 March 2026 at 23:30 IST. The system provides a controlled timestamp-resolution workflow for such cases. The workflow adopts the supported value as the effective timestamp, retains the displaced value as superseded history together with its claimed origin, and prevents the operator-reported timestamp from being promoted to instrument verification. The event chronology is then marked reconciled, while the event and its measurements remain operator-reported and not independently verified.
+P390 [style=None]: def resolve_timestamp(event, field, new_utc, origin, actor, reason):
+P391 [style=None]:     old = event["milestones"][field]
+P392 [style=None]:     event["audit_history"].append({      # append-only
+P393 [style=None]:         "field": field,
+P394 [style=None]:         "superseded_value": old["value_utc"],
+P395 [style=None]:         "claimed_origin": old["origin"],
+P396 [style=None]:         "replaced_by": new_utc,
+P397 [style=None]:         "new_origin": origin,
+P398 [style=None]:         "actor": actor, "reason": reason,
+P399 [style=None]:     })
+P400 [style=None]:     event["milestones"][field] = {
+P401 [style=None]:         "value_utc": new_utc,
+P402 [style=None]:         "origin": origin,
+P403 [style=None]:         "verification": "operator_reported",  # never promoted
+P404 [style=None]:     }
+P405 [style=None]:     event["chronology_reconciled"] = True
+P406 [style=None]:     event["independently_verified"] = False
+P407 [style=None]:     return event
+P408 [style=None]: Listing 4.3: Condensed illustration of a controlled timestamp resolution
+P409 [style=Heading 3]: 4.11.3  Verification State
+P410 [style=None]: The verification state of an event is recorded explicitly. In the March case, independently_verified is false: the pre-event observation is notebook-sourced, the post-event reading is operator-reported, and neither has been corroborated by an independent instrument or sheet. A label such as “manual rain gauge” on a seed record is not accepted as independent instrument evidence. The distinction between chronological software reconciliation and verification of the physical measurements is essential: reconciliation makes the record internally consistent, but it does not make the reported values correct.
+P411 [style=Heading 3]: 4.11.4  Interventions
+P412 [style=None]: Interventions such as outbound brine transfers are recorded in the event with their timestamps and volumes. In the March event, an outbound transfer is recorded at 15 March 2026, 00:30 IST, but its volume is unknown. The module keeps such events visible and labelled, so that they can be excluded from quantitative validation rather than treated as zero error.
+P413 [style=Heading 2]: 4.12  Exports
+P414 [style=None]: Records can be exported for review. Exports carry UTC and IST representations of every timestamp, distinguish effective instants from superseded values, and preserve material caveats such as the unquantified transfer and the absence of independent verification. The corrected March export, for example, presents the notebook-supported rainfall start of 18:00 UTC (23:30 IST), the superseded 14:00 UTC (19:30 IST) value, and the event's operator-reported verification state. An export that dropped these caveats would allow the record to be misread, so the caveats are part of the export format.
+P415 [style=Heading 2]: 4.13  Security, Authorisation and Integrity
+P416 [style=None]: Because the system holds decisions and evidence, its operations are subject to authorisation checks and its records to integrity checks. The service tier enforces authorisation for operations that change records, and the software verification described in Section 4.16 includes checks of authorisation, audit integrity and exports. Audit history is append-only, so corrections add entries and do not overwrite earlier ones. Pan identity is retained with every record, so records cannot be silently reassigned from one pan to another.
+P417 [style=Heading 2]: 4.14  User Interface
+P418 [style=None]: The interface is designed to make the evidence status of each value impossible to miss. Figure 4.3 shows the operational view for North Pan. A legend at the top defines the six categories, and each card carries a category badge: the current pan condition is OBSERVED, the weather forecast is FORECAST and the digital twin is OBSERVED with a CURRENT freshness indicator. Brine salinity, water depth, brine temperature and humidity are displayed with the time and source of each reading, and the forecast card shows the forecast rainfall, probability and issue time.
+P419 [style=None]: The rainfall simulation screen, shown in Figure 4.9 for the September scenario, displays the predicted post-rain salinity of 222.2 g/L, the expected dilution of 11.1 % and a curve of predicted salinity against rainfall. The forecast value is marked on the curve, each plotted point is a rainfall depth at which the balance was evaluated, and a panel states what the model leaves out. The screen is labelled SIMULATED.
+P421 [style=None]: Figure 4.9: September 25 mm forecast simulation showing 222.22 g/L predicted salinity; this is not the March field event
+P422 [style=None]: The recommendation and decision cards (Figure 4.7 and Figure 4.8) follow the same pattern of explicit labelling. The input form for readings states that nothing entered is a figure until it is typed and that whatever is typed declares its own provenance when saved, which reinforces the principle that an entered observation is not thereby independently verified.
+P423 [style=Heading 2]: 4.15  Operator Workflow Walkthrough
+P424 [style=None]: To show how the components fit together, this section walks through the sequence of operations an operator follows for one pan, using the September demonstration as the example. Each step is tied to the evidence category it produces.
+P425 [style=List Paragraph]: Record an observation (OBSERVED). The operator opens the North Pan view and records a reading of 250 g/L salinity, 20 cm depth and 32.0 °C brine temperature. The form states that nothing entered is a figure until it is typed and that the entry declares its own provenance when saved. The reading is stored against pan_orginal with its UTC timestamp, source and observer.
+P426 [style=List Paragraph]: Enter a weather forecast (FORECAST). The operator enters a 25 mm rainfall forecast with a 70 % probability and its issue time. The forecast is stored as a forecast and is never converted into an observation.
+P427 [style=List Paragraph]: Review the digital twin (OBSERVED, with freshness). The twin is assembled from the recorded observation and forecast. Each contributing record is listed with its source and age, and the interface reports whether it is current.
+P428 [style=List Paragraph]: Run the rainfall simulation (SIMULATED). The mass balance is run on the recorded state and the forecast rainfall. The screen reports 222.2 g/L and 11.1 % dilution and states what the model leaves out.
+P429 [style=List Paragraph]: Review the recommendation (RECOMMENDED). The versioned rule is evaluated against the simulated value. The recommendation card shows the rule, its version, the compared variable, the value read, the threshold and the outcome, and states that no ML estimate was read.
+P430 [style=List Paragraph]: Record the decision (DECIDED). The operator accepts, modifies or rejects the recommendation. The decision is stored on its own card with a reason. In the demonstration the acceptance was recorded for workflow testing, with an explicit note that no physical harvesting was performed.
+P431 [style=List Paragraph]: File and reconcile the field event (reported outcome). After a real event, the operator or an auditor files a field event that links the pre-event observation, the rainfall milestones, any interventions and the post-event readings. Corrections to timestamps go through the controlled workflow, and the verification state is kept honest.
+P432 [style=None]: The walkthrough illustrates the property on which the design depends: at every step, the record states what kind of thing it is. A reader who opens any record later can tell whether it is a reading, a forecast, a calculation, a rule outcome, a decision or a reported field outcome, and can follow the links back to its inputs.
+P433 [style=Heading 2]: 4.16  Testing and Verification Approach
+P434 [style=None]: Software verification in this project covers four things: that the equations are implemented as specified, that chronology constraints are respected, that authorisation, audit integrity and exports behave as specified, and that the machine-learning gate rejects a non-genuine dataset. Developer-reported tests and build checks support these checks. They demonstrate that a function rejects a non-genuine dataset, preserves an audit field, calculates a stated equation, or records a decision transition.
+P435 [style=None]: It is equally important to state what the tests cannot show. They cannot show that a rainfall amount was measured correctly in the field, or that a threshold is universally appropriate. The reported test counts were obtained at different development checkpoints and are not represented as a single independently reproduced end-to-end run. The testing approach therefore supports the claim of computational validity, and it does not support claims of physical validity or operational benefit.
+P436 [style=Heading 2]: 4.17  Summary
+P437 [style=None]: This chapter has described a system in which evidence categories organise the whole design. The twin assembles source-labelled state; the mass balance computes a hand-verifiable counterfactual; the rule engine records why an action was suggested; the ML gate withholds unsupported predictions; operator decisions are recorded as decisions; and the field-event module records outcomes with their provenance and corrections. The next chapter presents the results obtained with this system and discusses what they do and do not establish.
+P438 [style=Heading 1]: CHAPTER 5
+RESULTS AND DISCUSSION
+P439 [style=Heading 2]: 5.1  Introduction
+P440 [style=None]: This chapter presents the results obtained with SaltLens DSS and discusses their meaning. The results are of different kinds, and the chapter is organised so that the kind of evidence behind each is stated before the result is discussed. The results comprise the reproducible scenario calculations, the March North Pan field comparison, the September forecast demonstration, the software verification and the audit and export behaviour. The chapter then compares the approach with the existing techniques of Chapter 3, examines threats to validity, and defines the boundaries for machine-learning evaluation, multi-event validation and operational benefit.
+P441 [style=Heading 2]: 5.2  Evaluation Framework: Three Validity Dimensions
+P442 [style=None]: The evidence in this study has three distinct validity dimensions, summarised in Figure 5.1. Computational validity concerns whether the implemented equations, state transitions, provenance rules and decision branches behave consistently with their specifications. Physical validity concerns whether the rainfall-only assumptions adequately describe an actual salt-pan event. Operational validity concerns whether the recommendations improve decisions or production outcomes in practice. The current evidence is strongest for the first dimension and deliberately limited for the other two.
+P444 [style=None]: Figure 5.1: Status of the validity dimensions in the present study
+P445 [style=None]: Keeping the dimensions separate is the discipline that the rest of the chapter applies. A result that is strong on one dimension is not allowed to stand in for another.
+P446 [style=Heading 2]: 5.3  Reproducible Scenario Calculations
+P447 [style=None]: The deterministic mass balance was applied to two separate scenarios. For March, R = 9 cm gives C₁ = 250(20)/29 = 172.414 g/L, D₁ = 29 cm and δ = 31.03 %. For September, R = 2.5 cm gives C₁ = 250(20)/22.5 = 222.22 g/L, D₁ = 22.5 cm and δ = 11.11 %. The results are collected in Table 5.1.
+P448 [style=None]: Table 5.1: Separate deterministic rainfall-only scenarios
+P450 [style=None]: The two scenarios are separate and must not be conflated. The March scenario uses the reported actual rainfall of 90 mm and the March pre-event observation. The September scenario uses a hand-entered 25 mm forecast and a separate September observation of the same numerical state, 250 g/L and 20 cm. The September forecast is not the March event's original forecast; the March export separately reports a 40 mm event forecast whose issue time and source are retained from the event record. Treating the two scenarios as two independent experiments would overstate the evidence.
+P451 [style=None]: These results establish computational reproducibility: the software output matches an independent hand calculation from the recorded inputs. They do not, by themselves, say anything about how well the model describes a real pond.
+P452 [style=Heading 2]: 5.4  March North Pan Field Comparison
+P453 [style=Heading 3]: 5.4.1  The Recorded Event
+P454 [style=None]: Table 5.2 summarises the March North Pan event record as it stands after reconciliation. The pan, North Pan (pan_orginal) in Salem, Tamil Nadu, has a registered area of 1.23 ha (12,300 m²). The pre-event observation is notebook-sourced and recorded by a “site operator”.
+P455 [style=None]: Table 5.2: March North Pan event record (as reported)
+P457 [style=Heading 3]: 5.4.2  Predicted Versus Reported
+P458 [style=None]: The rainfall-only replay predicts 172.41 g/L and 29 cm. The operator-reported post-event readings are 20 g/L and 50 cm. Figure 5.2 and Figure 5.3 reproduce the dashboard comparisons of salinity and depth, and Figure 5.4 redraws the same numbers for clarity. The field-validation dashboard records one filed event and one salinity comparison; its displayed absolute differences are 152.41 g/L for salinity and 21.00 cm for depth, with one intervention of unknown volume and zero events independently verified.
+P460 [style=None]: Figure 5.2: March North Pan salinity: rainfall-only prediction of 172.41 g/L versus operator-reported 20 g/L
+P462 [style=None]: Figure 5.3: March North Pan depth: rainfall-only prediction of 29 cm versus operator-reported 50 cm
+P464 [style=None]: Figure 5.4: March event: rainfall-only prediction compared with operator-reported values
+P465 [style=None]: The descriptive absolute differences are 152.414 g/L and 21 cm. These numbers must be read with care. Because the reported outbound transfer has unknown volume and the post-event measurements are not independently verified, the differences are not validated model-error metrics. A single intervention-affected event must not be reported as an independently validated accuracy statistic, and the corrected exports present the notebook-supported rainfall start, the superseded unsupported timestamp and the event's operator-reported verification state alongside the comparison.
+P466 [style=Heading 2]: 5.5  Water and Salt Inventory Analysis
+P467 [style=None]: The salinity and depth figures can be translated into water volume and dissolved-salt mass for the 12,300 m² pan. This translation does not add evidence; it is arithmetic on the recorded values that helps to see how large the discrepancy is. Table 5.3 gives the implied quantities under the uniform-mixing reading of each state.
+P468 [style=None]: Table 5.3: Implied water volume and dissolved-salt mass for the March event (12,300 m² pan)
+P471 [style=None]: Figure 5.5: Implied water volume and dissolved-salt mass for the March event
+P472 [style=None]: Rainfall of 90 mm on 12,300 m² delivers 1,107 m³ of water, which takes the pan from 2,460 m³ to 3,567 m³ in the no-flow model. A uniform reported depth of 50 cm would imply 6,150 m³, so the reported depth exceeds the no-flow value by 2,583 m³. The difference is not a measured inflow; it is the amount by which the reported depth, if it described the whole pan uniformly, differs from the no-flow calculation. The reported salinity of 20 g/L at 6,150 m³ would correspond to about 123 tonnes of dissolved salt, compared with 615 tonnes before the event, a difference of about 492 tonnes.
+P473 [style=None]: These implied numbers show that the reported post-event state is not a small perturbation of the no-flow state. Both the water volume and the salt mass differ strongly from the no-flow expectation, and they differ in opposite directions in the sense that the reported depth is above the no-flow value while the reported salinity is far below it. Under the stated uniform-mixing reading, no outbound transfer alone can account for both, since removing brine would reduce depth. The numbers are therefore a reason for caution about interpreting the post-event readings, and not a conclusion about what happened.
+P474 [style=Heading 2]: 5.6  Why the Difference Cannot Be Uniquely Attributed
+P475 [style=None]: The reported discrepancy cannot be assigned uniquely to model error, transfer, freshwater inflow, spatial heterogeneity or instrument error. The possible contributors can be listed, but the present record cannot separate them.
+P476 [style=List Paragraph]: Model error. The rainfall-only model excludes evaporation, seepage, runoff and non-uniform mixing. If the real pond experienced any of these, the no-flow result would differ from the outcome, but the size of the effect is unknown.
+P477 [style=List Paragraph]: Unquantified transfer. An outbound brine transfer occurred, but its volume is unknown. Whether any other inflow or transfer occurred is not documented.
+P478 [style=List Paragraph]: Additional freshwater inflow. Water from sources other than direct rainfall on the pan, such as runoff or inflow from neighbouring pans, could raise depth and lower salinity, but no record supports a specific inflow.
+P479 [style=List Paragraph]: Spatial heterogeneity. A fresher surface layer or a measurement taken at a particular point can differ from the pan-wide average, so a point reading may not describe the whole pan.
+P480 [style=List Paragraph]: Measurement or instrument error. The post-event readings are operator-reported, and their instrument, method and sampling location have not been independently documented.
+P481 [style=None]: Because the contributors cannot be separated, the March case is classified as descriptive only. It exercises the complete reconciliation path, and it shows the system exposing a disagreement without converting it into a misleading accuracy claim, but it cannot establish rainfall-only model accuracy.
+P482 [style=Heading 2]: 5.7  September Forecast Demonstration
+P483 [style=None]: The September demonstration shows the forecast-to-decision path. A September 2026 North Pan observation records 250 g/L salinity and 20 cm depth. A separate hand-entered 25 mm forecast yields C₁ = 250 × 20/(20 + 2.5) = 222.22 g/L and D₁ = 22.5 cm, or 11.11 % dilution. Figure 4.9 shows the simulation as it appears in the interface. In volume terms, 25 mm of rain on the 12,300 m² pan adds 307.5 m³, taking the pan from 2,460 m³ to 2,767.5 m³; the 615 tonnes of dissolved salt in 2,767.5 m³ gives 222.2 g/L, which agrees with the formula.
+P484 [style=None]: The demonstration verifies that a separate forecast can be transformed into a deterministic post-rain state, evaluated against a configured versioned rule, and followed by a recorded operator response. It is not an additional physical validation event, because it uses a manually entered state and no field outcome is recorded for it.
+P485 [style=Heading 2]: 5.8  Recommendation and Operator Response
+P486 [style=None]: For the September simulation, the versioned operator-configured harvest and flood rule, version 2, compared simulated_post_rain_salinity_g_l = 222.22 with the configured target_harvest_salinity_g_l = 280 using the “less than or equal to” condition. The condition was met and the rule returned HARVEST NOW at medium priority (Figure 4.7). The recommendation did not read an ML estimate, and the interface said so. The operator recorded acceptance for workflow testing (Figure 4.8); no physical harvesting was documented.
+P487 [style=None]: This documents rule execution, not an independently validated agronomic recommendation. It also surfaces an issue that the system deliberately exposes rather than hides: the configured direction and threshold should be reviewed with salt-production specialists, because a recommendation to harvest at a simulated salinity of 222.22 g/L is a consequence of the comparison direction and threshold configured for the demonstration. The screen also notes that no observation-freshness limit was configured. These are findings about configuration, which the transparent rule record made visible.
+P488 [style=Heading 2]: 5.9  Software Verification Results
+P489 [style=None]: Developer-reported tests and build checks support implementation testing, not physical field accuracy. They cover the equation implementation, chronology constraints, authorisation, audit integrity, exports and the behaviour of the ML gate. Table 5.4 relates each verified property to the evidence it supports and the claim it does not support.
+P490 [style=None]: Table 5.4: What software verification supports and does not support
+P492 [style=None]: The reported test and build counts were obtained at different development checkpoints and are not represented as one independently reproduced end-to-end test run. The results are therefore presented as supporting implementation testing only.
+P493 [style=Heading 2]: 5.10  Audit and Export Consistency
+P494 [style=None]: The effective March rainfall instant is 2026-03-14 18:00 UTC, which is 23:30 IST. The displaced 14:00 UTC value (19:30 IST) remains in the superseded audit history. The exports distinguish effective instants, superseded values and evidence limitations, so a reader of an export sees both the current effective timestamp and the fact that an earlier, unsupported value was displaced. This behaviour is a direct test of the design requirement that corrections must be append-only.
+P495 [style=None]: The pre-event observation is dated 13 March 2026 at 13:30 IST and the post-event entry 15 March 2026 at 13:30 IST, so the chronology of the event is: pre-event reading, rainfall start at 23:30 IST on 14 March, outbound transfer at 00:30 IST on 15 March, post-event reading at 13:30 IST on 15 March. The chronology constraint that the post-event reading follows the rainfall start is satisfied. The software marks the chronology reconciled, while the measurements remain operator-reported.
+P496 [style=Heading 2]: 5.11  Comparison with Existing Techniques
+P497 [style=None]: Table 5.5 compares the proposed approach with the existing techniques of Chapter 3 on the properties this project was designed around. The comparison is qualitative. It describes what each approach provides by design, and it is not a measured performance comparison.
+P498 [style=None]: Table 5.5: Qualitative comparison of approaches by design property
+P500 [style=None]: The comparison shows where the proposed approach adds value, namely traceability, evidence separation and auditability, and where it does not claim to, namely physical accuracy and operational benefit. The comparison describes research scope and not demonstrated superiority of one system over another.
+P501 [style=Heading 2]: 5.12  Threats to Validity
+P502 [style=None]: Several threats to validity apply, and they are treated as explicit research boundaries and not as hidden assumptions.
+P503 [style=List Paragraph]: Single field event. The study has one intervention-affected field event. It cannot support generalisation across rainfall regimes, initial conditions or pans.
+P504 [style=List Paragraph]: Operator-reported measurements. Post-event salinity and depth are operator-reported and uncorroborated. Instrument, calibration and sampling location are not documented.
+P505 [style=List Paragraph]: Unquantified intervention. The outbound transfer has unknown volume, so the post-event state cannot be interpreted as a rainfall-only response.
+P506 [style=List Paragraph]: Idealised model. The mass balance excludes transfer, drainage, overflow, seepage and non-uniform mixing.
+P507 [style=List Paragraph]: Scenario separation. The September scenario uses manually entered state and a configured rule. It must not be counted as a second validation event.
+P508 [style=List Paragraph]: Configuration dependence. The 280 g/L threshold and comparison direction are configuration values requiring specialist review.
+P509 [style=List Paragraph]: Software tests. Passing tests demonstrate software behaviour and cannot demonstrate field measurement accuracy.
+P510 [style=List Paragraph]: Interface as evidence. Clear visual separation of evidence categories reduces ambiguity, but the interface does not create evidence absent from the underlying record.
+P511 [style=Heading 2]: 5.13  Machine-Learning Evaluation Boundary
+P512 [style=None]: The ML component is an evidence gate and deployment boundary, not a completed predictive model. The audited state contains no trained classifier, no validated ML experiment and no genuine salt-pan training set. Consequently accuracy, precision, recall, F1-score, AUROC, RMSE, MAE, calibration, SHAP values, feature importance and other model-performance statistics are deliberately absent. Reporting a numerical ML score without a genuine labelled dataset would create a false impression of validation and would contradict the provenance policy implemented by the system.
+P513 [style=None]: If a future field campaign supplies a sufficiently large and semantically consistent dataset, the ML task should first be defined in operational terms. For classification, the target must be an independently observed outcome, such as a documented intervention or risk category, and not a label inferred from the same recommendation rule that the model is supposed to replace. Training, validation and test splits should prevent records from the same event or pan, and future information, from leaking across partitions. Missing-value handling, scaling, feature selection and hyperparameter tuning must be confined to the training process, and the final held-out test set must remain untouched until model selection is complete.
+P514 [style=None]: Only after those conditions are satisfied should predictive metrics be reported. Class imbalance should be reflected in the choice of metrics, and calibration should be checked if the model outputs probabilities used by a decision gate. For regression targets, MAE and RMSE should be accompanied by the sample count and a description of the measurement uncertainty. SHAP or another explanation method can then describe model associations, but it should not be interpreted as causal evidence.
+P515 [style=Heading 2]: 5.14  Multi-Event Validation Protocol
+P516 [style=None]: The March record is useful because it exercises the complete reconciliation path, but it cannot establish generalisation. A defensible multi-event study should register each rainfall event before the post-event result is inspected. Table 5.6 lists the information that should be retained for every event.
+P517 [style=None]: Table 5.6: Information to retain for each event in a multi-event validation study
+P519 [style=None]: With multiple independently verified events, the rainfall-only simulator can be evaluated using signed error, absolute error, MAE, RMSE, bias and residual analysis. Results should be stratified by rainfall magnitude, initial concentration, initial depth, pan and intervention status where the sample size permits. Repeated measurements from the same pan should not automatically be treated as independent sites, and a temporal or pan-level holdout should be retained for any later predictive model. These requirements define a future experiment; they are not presented as completed results.
+P520 [style=Heading 2]: 5.15  Operational Benefit Boundary
+P521 [style=None]: The present work does not demonstrate operational benefit. The September workflow records an operator acceptance for software testing, but acceptance of a recommendation is not evidence that a physical harvest occurred or that the selected action improved production. No controlled comparison of SaltLens-assisted decisions against ordinary operator practice, no measured change in salt recovery, no reduction in brine loss, and no reduction in decision time has been established.
+P522 [style=None]: A future operational evaluation should define benefit measures before deployment. Candidate measures include decision time from forecast receipt to recorded action, frequency of avoidable transfers or drainage events, salt recovery or yield over comparable production periods, brine loss, number of decisions requiring manual reconciliation, and operator-reported workload. A controlled before/after or matched-period study would be preferable to isolated testimonials. Weather severity, pan state, operator experience and seasonal effects should be recorded because they can confound apparent benefit. The recommendation and the final physical action should remain separate records so that the system can be evaluated even when an operator rejects the suggested action.
+P523 [style=None]: The demonstrated benefit of the prototype is therefore software-level traceability: an observation can be distinguished from a forecast, a calculation from a recommendation, and an operator decision from a physical outcome. That property supports reproducibility and safer future experimentation, but it must not be converted into a claim of improved salt production until field evidence demonstrates such an effect.
+P524 [style=Heading 2]: 5.16  Claim-to-Evidence Discipline
+P525 [style=None]: A central design requirement of SaltLens, and a principle of this report, is that each claim is linked to the evidence required to support it. Table 5.7 states the discipline.
+P526 [style=None]: Table 5.7: Claim types and the evidence required to support them
+P528 [style=None]: The same principle governs generalisation. More records alone are not sufficient if they lack comparable measurement semantics, if interventions are unrecorded, or if the same event appears in both development and evaluation data. A future dataset should preserve provenance at row and event level, document measurement methods and maintain event identifiers that permit leakage checks.
+P529 [style=Heading 2]: 5.17  Summary
+P530 [style=None]: The results show reproducible software behaviour and strong evidence control. The mass balance reproduces hand calculations; the March case exposes a large disagreement between a no-flow counterfactual and an intervention-affected field report without turning it into an accuracy claim; the September case demonstrates the rule-and-decision workflow; and the audit history preserves a corrected timestamp. The results do not establish generalised physical prediction, trained-ML performance or operational benefit. The final chapter summarises the conclusions and sets out the future work needed to establish those claims.
+P531 [style=Heading 1]: CHAPTER 6
+CONCLUSION AND FUTURE SCOPE
+P532 [style=Heading 2]: 6.1  Conclusion
+P533 [style=None]: This project set out to build a decision-support prototype for salt-pan rainfall management in which the evidentiary status of every figure and every decision is explicit. SaltLens DSS implements a provenance-labelled digital twin, a deterministic rainfall mass balance, versioned rule recommendations, recorded operator decisions and auditable field-event reconciliation, using a Next.js interface, FastAPI services and MongoDB Atlas storage.
+P534 [style=None]: The March North Pan replay predicts 172.41 g/L and 29 cm from the reported 90 mm of rainfall, whereas the operator-reported outcomes of 20 g/L and 50 cm are materially different in an event that was affected by an outbound brine transfer of unknown volume. The separate September 25 mm forecast predicts 222.22 g/L and demonstrates the rule-and-decision workflow without documenting a physical harvest. The prototype therefore demonstrates reproducible software behaviour and evidence control. It does not establish generalised physical prediction, trained machine-learning performance or operational benefit. These three claims require separate empirical evidence and are intentionally left unclaimed.
+P535 [style=Heading 2]: 6.2  Summary of Findings
+P536 [style=List Paragraph]: The rainfall-only mass balance is hand-verifiable: 250 g/L at 20 cm with 90 mm of rain gives 172.414 g/L, 29 cm and 31.03 % dilution, and with 25 mm gives 222.22 g/L, 22.5 cm and 11.11 % dilution.
+P537 [style=List Paragraph]: Percentage dilution depends only on rainfall relative to initial depth and is independent of initial salinity, so shallow pans are the most exposed to rainfall.
+P538 [style=List Paragraph]: The March case is a descriptive, intervention-affected event. The 152.414 g/L and 21 cm differences are not validated model-error metrics, and the contributing causes cannot be separated with the present record.
+P539 [style=List Paragraph]: The reported March post-event state implies a depth 2,583 m³ above the no-flow volume and a dissolved-salt mass about 492 tonnes below the pre-event value under a uniform-mixing reading, which is a reason for caution about interpreting the post-event readings.
+P540 [style=List Paragraph]: The provenance workflow corrected an unsupported seed timestamp without erasing audit history, and exports carry the effective instant, the superseded value and the evidence limitations.
+P541 [style=List Paragraph]: The September demonstration showed rule execution and a recorded operator acceptance, and exposed that the comparison direction, threshold and observation-freshness limit require specialist review.
+P542 [style=List Paragraph]: The machine-learning gate reports zero genuine labelled training rows, so no ML performance is claimed.
+P543 [style=Heading 2]: 6.3  Limitations
+P544 [style=None]: The limitations of the work are the same as the evidence boundaries stated throughout this report. The field evidence is a single, operator-reported, intervention-affected event. The model is a rainfall-only no-flow balance. No machine-learning model exists. No controlled evaluation of operational benefit has been carried out. The rule threshold and direction are configuration values awaiting domain review. The software tests support implementation testing and not physical accuracy. These limitations do not reduce the value of the prototype as an auditable research platform, but they do determine what may be claimed from it.
+P545 [style=Heading 2]: 6.4  Future Scope
+P546 [style=Heading 3]: 6.4.1  Multi-Event Field Validation Campaign
+P547 [style=None]: The most important next step is a field campaign that supplies multiple independently verified rainfall events, following the protocol in Section 5.14. Each event should be registered before its outcome is inspected; pre- and post-event salinity and depth should be measured with calibrated instruments at documented locations; rainfall should be recorded with a documented gauge; and every water-moving intervention should be logged with its volume and time. Events with missing intervention records should remain visible but be excluded from quantitative validation. Such a dataset would allow signed error, absolute error, MAE, RMSE and bias of the rainfall-only simulator to be reported with a sample count and measurement uncertainty.
+P548 [style=Heading 3]: 6.4.2  Extended Physical Model
+P549 [style=None]: The rainfall-only balance can be extended to include the flows it currently excludes. Let A be the pan area, E the evaporation depth over the period, and Q_in, Q_out, Q_drain and Q_seep the inflow, outbound transfer, drainage and seepage volumes, with salinities C_in, C_out, C_drain and C_seep. A more general no-crystallisation balance is:
+P550 [style=None]: 	V₁ = V₀ + A R + Q_in − Q_out − Q_drain − Q_seep − A E	(6.1)
+P551 [style=None]: 	M₁ = M₀ + C_in Q_in − C_out Q_out − C_drain Q_drain − C_seep Q_seep	(6.2)
+P552 [style=None]: 	C₁ = M₁ / V₁	(6.3)
+P553 [style=None]: With all flow terms and evaporation set to zero, Equation (6.1) to Equation (6.3) reduce to the rainfall-only balance of Equation (4.1) and Equation (4.2). The extended model has more inputs, and each must be recorded for the model to be validated; this is why the logging of interventions is a prerequisite and not an optional extra. Crystallisation of salt near saturation, and the non-uniform mixing of a fresher surface layer, would be further refinements that need dedicated measurements.
+P554 [style=Heading 3]: 6.4.3  Instrumentation and Data Capture
+P555 [style=None]: Integration with calibrated salinity and depth sensors and a documented rain gauge would reduce reliance on hand-recorded values and would raise the evidentiary status of observations, provided the system continues to record the instrument, calibration and sampling location as provenance. Mobile-friendly data entry, with offline capture and later synchronisation, would help in the field. A field data-capture template is given in Appendix C.
+P556 [style=Heading 3]: 6.4.4  Machine-Learning Study
+P557 [style=None]: If a sufficiently large and semantically consistent dataset is obtained, a machine-learning study can be undertaken under the conditions of Section 5.13. The target must be an independently observed outcome, splits must prevent leakage by event and by pan, and the final test set must remain untouched until model selection is complete. The evidence gate should then be released only when the dataset, the evaluation and the deployed model all satisfy the stated conditions, and predicted outputs should continue to be labelled ML-PREDICTED and kept apart from observed and simulated values.
+P558 [style=Heading 3]: 6.4.5  Operational Evaluation
+P559 [style=None]: A controlled before/after or matched-period study should compare assisted decisions with ordinary practice, using benefit measures defined before deployment: decision time, avoidable transfers or drainage events, salt recovery, brine loss, manual reconciliations and operator workload. Weather severity, pan state, operator experience and season should be recorded as potential confounders. A separate physical-action record should be introduced and used, so that recommendations, decisions and actions can each be analysed.
+P560 [style=Heading 3]: 6.4.6  Rule Review and Decision-Support Enhancements
+P561 [style=None]: The harvest and flood rule's threshold and comparison direction should be reviewed with salt-production specialists, and rules for other actions, such as pre-rain transfer, drainage and bund management, could be added as versioned configurations. An observation-freshness limit should be configured so that stale evidence is refused. Forecast uncertainty, including rainfall probability and the difference between forecast and reported rainfall, could be represented by running the mass balance over a range of rainfall values, as the sensitivity analysis of Chapter 4 suggests.
+P562 [style=Heading 3]: 6.4.7  Deployment and Usability
+P563 [style=None]: Before any operational deployment, the system should undergo a usability review with operators, an access-control and backup review of the storage tier, and a documented procedure for rule changes. Multi-pan and multi-site support would allow the pan-level audit to scale to a salt works with many pans.
+P564 [style=Heading 2]: 6.5  Concluding Remarks
+P565 [style=None]: SaltLens DSS should be regarded as an auditable research prototype and not as a validated production decision system. Its value is that it makes the difference between what was recorded, calculated, recommended, decided and verified visible and permanent. That property is a precondition for the later studies on physical accuracy, machine-learning performance and operational benefit, and it prevents a successful software demonstration from being mistaken for a completed scientific validation.
+P566 [style=Heading 1]: REFERENCES
+P567 [style=None]: [1]	M. Qin, C. Zhang, G. Ma, Y. Ma, X. Feng, P. Li, and K. Feng, “Digital twin-enabled intelligent irrigation-drainage system for precision water-salt management in saline agroecosystems,” Agricultural Water Management, vol. 322, art. no. 109957, Dec. 2025, doi: 10.1016/j.agwat.2025.109957.
+P568 [style=None]: [2]	L. Xiong, D. Yu, and H. Li, “Artificial intelligence-based strain screening and optimization strategies: Technical framework, current status, and future prospects,” Advances in Resources Research, vol. 5, no. 3, pp. 1571–1588, Jul. 2025, doi: 10.50908/arr.5.3_1571.
+P569 [style=None]: [3]	G. Mastronardi et al., “Experimental evaluation of anti-rain agricultural nets: Structural parameters and functional efficiency,” doi: 10.3390/agriculture15212194.
+P570 [style=None]: [4]	R. M. Abou Samra and R. R. Ali, “Explainable artificial intelligence in smart agriculture: A comprehensive review of interpretable remote sensing for sustainable decision-making,” doi: 10.3390/agriengineering8070270.
+P571 [style=None]: [5]	D. M. Neumeister and D. B. Pape, “Automated Vehicles and Adverse Weather: Final Report,” Federal Highway Administration, U.S. Department of Transportation, Report No. FHWA-JPO-19-755, Jun. 2019.
+P572 [style=None]: [6]	Z. Jiang et al., “Simulating soil salinity dynamics, cotton yield and evapotranspiration under drip irrigation by ensemble machine learning,” doi: 10.3389/fpls.2023.1143462.
+P573 [style=None]: [7]	H. Schauer, S. Schlaffer, E. Bueechi, and W. Dorigo, “Inundation-desiccation state prediction for salt pans in the Western Pannonian Basin using remote sensing, groundwater, and meteorological data,” Remote Sensing, vol. 15, no. 19, art. no. 4659, 2023, doi: 10.3390/rs15194659.
+P574 [style=None]: [8]	K. B. Phulpoto, O. J. Alkhatib, M. Hassan, S. Qamar, and M. S. Mahmood, “AI-driven digital twin infrastructure for climate-resilient smart cities and sustainable civil engineering systems,” Spectrum of Engineering Sciences, vol. 4, no. 3, pp. 2783–2811, 2026.
+P575 [style=None]: [9]	S. K. Balasundram et al., “The role of digital agriculture in mitigating climate change and ensuring food security: An overview,” doi: 10.3390/su15065325.
+P576 [style=None]: [10]	C. Shen et al., “Salt dynamics in coastal marshes: Formation of hypersaline zones,” doi: 10.1029/2017WR022021.
+P577 [style=None]: [11]	P. Lemenkova, “Machine learning methods of remote sensing data processing for mapping salt pan crust dynamics in Sebkha de Ndrhamcha, Mauritania,” doi: 10.2478/arsa-2025-0003.
+P578 [style=None]: [12]	F. Wang et al., “Advancements and perspective in the quantitative assessment of soil salinity utilizing remote sensing and machine learning algorithms: A review,” doi: 10.3390/rs16244812.
+P579 [style=None]: [13]	J. Wang et al., “Soil salinization in drylands: Measure, monitor, and manage,” doi: 10.1016/j.ecolind.2025.113608.
+P580 [style=None]: [14]	M. Awais et al., “Advancing precision agriculture through digital twins and smart farming technologies: A review,” doi: 10.3390/agriengineering7050137.
+P581 [style=None]: [15]	A. M. Melesse et al., “River water salinity prediction using hybrid machine learning models,” doi: 10.3390/w12102951.
+P582 [style=None]: [16]	R. N. V. J. Mohan et al., “Next-gen agriculture: Integrating AI and XAI for precision crop yield predictions,” doi: 10.3389/fpls.2024.1451607.
+P583 [style=None]: [17]	L. Jarecki and M. Walkey, “Variable hydrology and salinity of salt ponds in the British Virgin Islands,” Saline Systems, vol. 2, art. no. 2, 2006, doi: 10.1186/1746-1448-2-2.
+P584 [style=Heading 1]: APPENDIX A: SENSITIVITY TABLES
+P585 [style=None]: The tables in this appendix are computed directly from Equations (4.1) to (4.3) with C₀ = 250 g/L. They can be reproduced by hand and are included to let a reader look up the rainfall-only response of a pan without running the software. They are scenario calculations under the no-flow assumptions and are not field results.
+P586 [style=None]: Table A.1: Predicted post-rain salinity C₁ (g/L) for C₀ = 250 g/L
+P588 [style=None]: Table A.2: Predicted percentage dilution δ (%) (independent of C₀)
+P590 [style=None]: Table A.3: Predicted post-rain depth D₁ (cm)
+P592 [style=None]: As a check, the entries for R = 25 mm and D₀ = 20 cm in the three tables are 222.2 g/L, 11.1 % and 22.5 cm, which agree with the September scenario, and the entries for R = 90 mm and D₀ = 20 cm are 172.4 g/L, 31.0 % and 29.0 cm, which agree with the March scenario.
+P593 [style=Heading 1]: APPENDIX B: HAND-VERIFICATION WORKSHEET
+P594 [style=None]: The following worksheet records the steps for verifying a rainfall-only result by hand for the North Pan area of 12,300 m². The same sequence can be applied to any pan with known area, salinity and depth.
+P595 [style=List Paragraph]: Record the pre-event salinity C₀ (g/L) and depth D₀ (cm) and the source and time of the reading.
+P596 [style=List Paragraph]: Convert rainfall to centimetres: R (cm) = R (mm) / 10.
+P597 [style=List Paragraph]: Compute the post-rain depth: D₁ = D₀ + R.
+P598 [style=List Paragraph]: Compute the post-rain salinity: C₁ = C₀ D₀ / D₁.
+P599 [style=List Paragraph]: Compute dilution: δ = 100 (1 − C₁ / C₀).
+P600 [style=List Paragraph]: Cross-check with volumes: V₀ = A D₀ (with D₀ in metres), V₁ = A D₁, and confirm that C₀ V₀ = C₁ V₁.
+P601 [style=List Paragraph]: State the exclusions: transfer, drainage, overflow, seepage, non-uniform mixing and measurement uncertainty.
+P602 [style=None]: Table B.1: Worked verification for the two scenarios (A = 12,300 m², C₀ = 250 g/L, D₀ = 20 cm)
+P604 [style=Heading 1]: APPENDIX C: FIELD DATA-CAPTURE TEMPLATE
+P605 [style=None]: The following template lists the fields that should be captured for each rainfall event in a future multi-event validation campaign. It follows the protocol of Section 5.14 and is intended to be completed before and after each event so that provenance is retained at row and event level.
+P606 [style=None]: Table C.1: Per-event field data-capture template
+P608 [style=Heading 1]: APPENDIX D: GLOSSARY AND ABBREVIATIONS
+P609 [style=None]: Table D.1: Glossary and abbreviations
+P611 [style=Heading 1]: APPENDIX E: NOTATION
+P612 [style=None]: Table E.1: Symbols used in the equations
+
+--- TABLE 0 (rows=5, cols=2) ---
+R0: ['Signature of the Supervisor', 'Signature of the Head of the Department']
+R1: ['Mr. B. Mohanraj', 'Name: ____________________']
+R2: ['Project Guide', 'Head of the Department']
+R3: ['Department of Information Technology', 'Department of Information Technology']
+R4: ['Sona College of Technology, Salem – 636005', 'Sona College of Technology, Salem – 636005']
+
+--- TABLE 1 (rows=1, cols=2) ---
+R0: ['INTERNAL EXAMINER', 'EXTERNAL EXAMINER']
+
+--- TABLE 2 (rows=6, cols=3) ---
+R0: ['Research area', 'Documented focus', 'SaltLens distinction']
+R1: ['Salt-pan sensing [7], [11]', 'Remote state or crust mapping of natural salt pans', 'Pan-level event audit for a managed pan']
+R2: ['Water–salt studies [1], [17]', 'Hydrology and salinity; irrigation–drainage water–salt management', 'Reported-event comparison with explicit provenance']
+R3: ['Digital twins [8], [14]', 'State representation and decision frameworks', 'Evidence-gated rules and labelled evidence categories']
+R4: ['ML studies [6], [12], [15]', 'Predictive modelling in soil, river and remote-sensing settings', 'No unsupported ML output; ML gate withholds prediction']
+R5: ['Explainable decision support [4], [16]', 'Interpretability of data-driven recommendations', 'Versioned rule record: variable, threshold, version, outcome']
+
+--- TABLE 3 (rows=8, cols=3) ---
+R0: ['Technique', 'Principal advantages', 'Principal disadvantages']
+R1: ['Experience-based operation', 'Local knowledge; immediate response; no infrastructure', 'Tacit and unaudited; decisions not recorded with their basis; approximate quantification']
+R2: ['Notebooks and spreadsheets', 'Cheap and flexible; source of pre-event readings', 'Inconsistent timestamps and units; edits leave no trace; no link between observation, forecast and decision']
+R3: ['Forecasts used alone', 'Widely available; advance notice', 'Describes the atmosphere not the pond; amount and timing uncertain']
+R4: ['Remote sensing', 'Spatial coverage; long records', 'Revisit interval; cloud cover; limited pond-level salinity and depth; no decision record']
+R5: ['Physics-based models', 'Transparent; reproducible; hand-verifiable', 'Limited by assumptions; needs intervention records to be validated']
+R6: ['Machine-learning predictors', 'Can capture complex patterns', 'Needs genuine labelled data; leakage risk; opacity; premature scores mislead']
+R7: ['Generic digital twins', 'Integration of sensing, models and decisions', 'Do not enforce evidence separation or correction history']
+
+--- TABLE 4 (rows=8, cols=3) ---
+R0: ['Limitation', 'SaltLens mechanism', 'Where described']
+R1: ['Evidence status is implicit', 'Interface and records distinguish OBSERVED, FORECAST, SIMULATED, RECOMMENDED and DECIDED; a simulated state cannot silently replace a measured observation', 'Sections 4.4, 4.6']
+R2: ['Forecast does not describe the pond', 'Pan-specific digital twin plus deterministic rainfall-only mass balance, with a worked hand-verifiable result', 'Sections 4.6, 4.7']
+R3: ['Rules are tacit', 'Versioned operator-configured rules; each result retains compared variable, threshold, version and outcome', 'Section 4.8']
+R4: ['Premature model scores', 'ML evidence gate withholds predictions; reports zero genuine labelled training rows', 'Section 4.9']
+R5: ['Recommendation mistaken for action', 'Operator decision is recorded as its own card; acceptance is not counted as a performed harvest', 'Section 4.10']
+R6: ['Corrections erase history', 'Append-only correction history; displaced values retained as superseded with claimed origin', 'Section 4.11']
+R7: ['Intervention-affected outcomes reported as accuracy', 'Field-event module records interventions, verification state and caveats; descriptive differences are not presented as validated error metrics', 'Sections 4.11, 5.4']
+
+--- TABLE 5 (rows=12, cols=2) ---
+R0: ['ID', 'Requirement']
+R1: ['FR1', 'Register a pan with identity, name, location and area.']
+R2: ['FR2', 'Record timestamped observations of brine salinity, water depth, brine temperature and related fields, with a source label and observer.']
+R3: ['FR3', 'Record weather forecasts and weather observations with issue time and source.']
+R4: ['FR4', 'Assemble a pan-specific digital twin that resolves every displayed value to a recorded source and states its freshness.']
+R5: ['FR5', 'Compute a deterministic rainfall-only response for a stated pan state and rainfall amount.']
+R6: ['FR6', 'Evaluate versioned, operator-configured rules against explicit inputs and record the compared variable, threshold, version and outcome.']
+R7: ['FR7', 'Withhold machine-learning output unless a genuine labelled dataset and a validated deployed model exist, and report that state.']
+R8: ['FR8', 'Record operator decisions (accepted, modified or rejected) separately from recommendations and from physical action records.']
+R9: ['FR9', 'Record field events with milestones, pre- and post-event measurement provenance, interventions, reported versus simulated results and verification state.']
+R10: ['FR10', 'Support controlled correction of recorded values while retaining superseded values and their claimed origins as append-only history.']
+R11: ['FR11', 'Export records with UTC and IST representations and material caveats.']
+
+--- TABLE 6 (rows=9, cols=3) ---
+R0: ['ID', 'Requirement', 'Rationale']
+R1: ['NFR1', 'Every figure displayed must state what produced it.', 'Prevents a computed value being read as a measured one.']
+R2: ['NFR2', 'A simulated state must never silently replace a measured observation.', 'Protects the integrity of the observed record.']
+R3: ['NFR3', 'Corrections must be append-only; superseded values remain retrievable.', 'Preserves the audit trail.']
+R4: ['NFR4', 'Timestamps are stored in UTC and shown with site-local (IST) representation.', 'Avoids ambiguity across systems and exports.']
+R5: ['NFR5', 'Deterministic calculations must be reproducible from recorded inputs and versions.', 'Enables hand verification and re-running.']
+R6: ['NFR6', 'Demonstration values must be flagged and excluded from research datasets.', 'Prevents seed or demo data contaminating evidence.']
+R7: ['NFR7', 'Operations must be authorised and integrity-checked.', 'Protects records and decisions.']
+R8: ['NFR8', 'The interface must remain usable on ordinary browsers.', 'Operator access from office or field.']
+
+--- TABLE 7 (rows=4, cols=3) ---
+R0: ['Layer', 'Technology', 'Role']
+R1: ['Presentation', 'Next.js', 'Forms, dashboards, evidence labels, recommendation and decision cards, field-validation views']
+R2: ['Service', 'FastAPI', 'Validation, deterministic mass balance, rule evaluation, ML gate, reconciliation, exports, authorisation']
+R3: ['Storage', 'MongoDB Atlas', 'Pans, observations, weather records, simulations, rules, recommendations, decisions, field events, correction history']
+
+--- TABLE 8 (rows=7, cols=3) ---
+R0: ['Category', 'Meaning', 'What it is not']
+R1: ['OBSERVED', 'Measured from a physical reading and recorded against the pan or the site', 'Not independently verified merely because it was entered']
+R2: ['FORECAST', 'A weather service statement about rainfall that has not fallen yet', 'Not a measurement; not observed anywhere']
+R3: ['SIMULATED', 'Computed by the mass balance from the recorded state using stated equations', 'Not a prediction of the real pond; not a measurement']
+R4: ['ML-PREDICTED', 'A trained classifier’s stored estimate for the pan, copied from a recorded prediction', 'Never produced by the interface; unavailable without a validated model']
+R5: ['RECOMMENDED', 'The action a versioned written rule selected from the evidence', 'Not chosen by the model or the simulator; not a completed action']
+R6: ['DECIDED', 'The operator’s recorded disposition: accepted, modified or rejected', 'Not a figure; not a physical action record']
+
+--- TABLE 9 (rows=11, cols=3) ---
+R0: ['Record', 'Key information held', 'Provenance role']
+R1: ['Pan', 'Pan identifier, name, location, registered area, optional maximum observation age', 'Anchors all other records to one physical pan']
+R2: ['Observation', 'Salinity, depth, brine temperature, UTC timestamp, source label, observer, evidence reference, demonstration flag', 'Separates measured readings from everything else']
+R3: ['Weather record', 'Forecast or observation type, issue time, rainfall amount, probability, source', 'Keeps forecast apart from observed weather']
+R4: ['Twin snapshot', 'Contributing records, last-updated time, twin version, freshness of each source', 'States what the twin was assembled from']
+R5: ['Simulation', 'Inputs, equation version, outputs, creation time', 'Reproducible calculation record']
+R6: ['Rule configuration', 'Rule name and version, compared variable, comparison, threshold, action, priority', 'Versioned, operator-configured decision logic']
+R7: ['Recommendation', 'Rule version, compared variable and value, threshold, outcome, ML-estimate-read flag', 'Explains why an action was suggested']
+R8: ['Operator decision', 'Disposition, actor, time, reason, linked recommendation, physical-action link (if any)', 'Distinguishes decision from action']
+R9: ['Field event', 'Milestones, linked pre- and post-event observations, interventions, reported versus simulated results, verification state', 'Holds field-validation evidence']
+R10: ['Correction entry', 'Field, superseded value, claimed origin, new value, actor, time, reason', 'Append-only audit history']
+
+--- TABLE 10 (rows=3, cols=7) ---
+R0: ['Scenario', 'Rain (mm)', 'Initial salinity (g/L)', 'Initial depth (cm)', 'Salinity (g/L)', 'Depth (cm)', 'Dilution (%)']
+R1: ['March event', '90', '250', '20', '172.414', '29', '31.03']
+R2: ['September forecast', '25', '250', '20', '222.22', '22.5', '11.11']
+
+--- TABLE 11 (rows=9, cols=3) ---
+R0: ['Item', 'Recorded value', 'Status']
+R1: ['Pre-event observation', '250 g/L salinity, 20 cm depth; 13 March 2026, 13:30 IST (08:00 UTC)', 'Notebook-sourced; observer “site operator”']
+R2: ['Effective rainfall start', '14 March 2026, 23:30 IST (18:00 UTC)', 'Notebook-sourced; chronology reconciled']
+R3: ['Superseded rainfall start', '14 March 2026, 19:30 IST (14:00 UTC)', 'Traced to a hand-typed seed-script literal; retained in audit history']
+R4: ['Reported rainfall', '90 mm', 'Operator-reported; no independent gauge evidence']
+R5: ['Event forecast on record', '40 mm', 'Issue time and source retained from the event record']
+R6: ['Outbound brine transfer', '15 March 2026, 00:30 IST; volume unknown', 'Intervention; unquantified']
+R7: ['Post-event entry', '20 g/L salinity, 50 cm depth; 15 March 2026, 13:30 IST (08:00 UTC)', 'Operator-reported; not independently corroborated']
+R8: ['Verification', 'independently_verified = false', 'Chronology reconciled; measurements not verified']
+
+--- TABLE 12 (rows=4, cols=5) ---
+R0: ['State', 'Depth (cm)', 'Salinity (g/L)', 'Volume (m³)', 'Dissolved salt (tonnes)']
+R1: ['Pre-event (recorded)', '20', '250', '2,460', '615']
+R2: ['No-flow prediction after 90 mm', '29', '172.41', '3,567', '615']
+R3: ['Reported post-event', '50', '20', '6,150', '123']
+
+--- TABLE 13 (rows=6, cols=3) ---
+R0: ['Verified property', 'Supports', 'Does not support']
+R1: ['Equations produce the hand-calculated values', 'Computational reproducibility', 'That the model describes a real pond']
+R2: ['Chronology constraints enforced', 'Internally consistent event records', 'That the reported times are physically accurate']
+R3: ['Authorisation and audit integrity checks', 'Record integrity and traceability', 'Correctness of the entered measurements']
+R4: ['ML gate rejects a non-genuine dataset', 'No unsupported ML output', 'Any ML performance']
+R5: ['Decision transition recorded', 'Workflow behaviour', 'That an action was executed or beneficial']
+
+--- TABLE 14 (rows=9, cols=6) ---
+R0: ['Property', 'Experience / notebooks', 'Forecast alone', 'Remote sensing', 'ML predictor', 'SaltLens DSS']
+R1: ['Pan-specific state', 'Informal', 'No', 'Partial', 'Depends', 'Yes']
+R2: ['Evidence status labelled', 'No', 'No', 'No', 'Rarely', 'Yes']
+R3: ['Hand-verifiable calculation', 'No', 'No', 'No', 'No', 'Yes (mass balance)']
+R4: ['Versioned, readable rule', 'No', 'No', 'No', 'No', 'Yes']
+R5: ['Decision recorded separately', 'Rarely', 'No', 'No', 'No', 'Yes']
+R6: ['Append-only correction history', 'No', 'No', 'No', 'Rarely', 'Yes']
+R7: ['Physical accuracy demonstrated', 'n/a', 'n/a', 'Other media', 'Other media', 'No (one descriptive event)']
+R8: ['Operational benefit demonstrated', 'n/a', 'n/a', 'n/a', 'n/a', 'No']
+
+--- TABLE 15 (rows=8, cols=2) ---
+R0: ['Item', 'What should be recorded']
+R1: ['Pan', 'Pan identifier and area']
+R2: ['Pre-event state', 'Calibrated salinity and depth, with method, instrument and sampling location']
+R3: ['Rainfall', 'Amount, source (for example a documented rain gauge), event start and end times']
+R4: ['Post-event state', 'Salinity and depth with measurement locations and instrument or laboratory method']
+R5: ['Interventions', 'Every transfer, drainage, overflow, pumping and harvest quantity with timestamps']
+R6: ['Verification', 'Who verified each value and how; independent corroboration where available']
+R7: ['Status', 'Events with missing or ambiguous intervention records remain visible but excluded from quantitative validation']
+
+--- TABLE 16 (rows=6, cols=3) ---
+R0: ['Claim', 'Evidence required', 'Status in this study']
+R1: ['Mathematical reproducibility', 'Equation, units, inputs and independently repeatable calculation', 'Supported']
+R2: ['Software correctness', 'Tests, build checks and reproducible behaviour', 'Supported at implementation-testing level']
+R3: ['Field accuracy', 'Multiple independently verified paired measurements and complete intervention records', 'Not established']
+R4: ['ML performance', 'Genuine labelled dataset, leakage-safe protocol and held-out metrics', 'Not claimed; no model']
+R5: ['Operational benefit', 'Measured outcomes against a defined baseline', 'Not demonstrated']
+
+--- TABLE 17 (rows=12, cols=6) ---
+R0: ['Rain (mm)', 'D₀ = 10 cm', 'D₀ = 15 cm', 'D₀ = 20 cm', 'D₀ = 30 cm', 'D₀ = 40 cm']
+R1: ['0', '250.0', '250.0', '250.0', '250.0', '250.0']
+R2: ['10', '227.3', '234.4', '238.1', '241.9', '243.9']
+R3: ['20', '208.3', '220.6', '227.3', '234.4', '238.1']
+R4: ['25', '200.0', '214.3', '222.2', '230.8', '235.3']
+R5: ['30', '192.3', '208.3', '217.4', '227.3', '232.6']
+R6: ['40', '178.6', '197.4', '208.3', '220.6', '227.3']
+R7: ['50', '166.7', '187.5', '200.0', '214.3', '222.2']
+R8: ['60', '156.3', '178.6', '192.3', '208.3', '217.4']
+R9: ['75', '142.9', '166.7', '181.8', '200.0', '210.5']
+R10: ['90', '131.6', '156.3', '172.4', '192.3', '204.1']
+R11: ['100', '125.0', '150.0', '166.7', '187.5', '200.0']
+
+--- TABLE 18 (rows=12, cols=6) ---
+R0: ['Rain (mm)', 'D₀ = 10 cm', 'D₀ = 15 cm', 'D₀ = 20 cm', 'D₀ = 30 cm', 'D₀ = 40 cm']
+R1: ['0', '0.0', '0.0', '0.0', '0.0', '0.0']
+R2: ['10', '9.1', '6.3', '4.8', '3.2', '2.4']
+R3: ['20', '16.7', '11.8', '9.1', '6.3', '4.8']
+R4: ['25', '20.0', '14.3', '11.1', '7.7', '5.9']
+R5: ['30', '23.1', '16.7', '13.0', '9.1', '7.0']
+R6: ['40', '28.6', '21.1', '16.7', '11.8', '9.1']
+R7: ['50', '33.3', '25.0', '20.0', '14.3', '11.1']
+R8: ['60', '37.5', '28.6', '23.1', '16.7', '13.0']
+R9: ['75', '42.9', '33.3', '27.3', '20.0', '15.8']
+R10: ['90', '47.4', '37.5', '31.0', '23.1', '18.4']
+R11: ['100', '50.0', '40.0', '33.3', '25.0', '20.0']
+
+--- TABLE 19 (rows=12, cols=6) ---
+R0: ['Rain (mm)', 'D₀ = 10 cm', 'D₀ = 15 cm', 'D₀ = 20 cm', 'D₀ = 30 cm', 'D₀ = 40 cm']
+R1: ['0', '10.0', '15.0', '20.0', '30.0', '40.0']
+R2: ['10', '11.0', '16.0', '21.0', '31.0', '41.0']
+R3: ['20', '12.0', '17.0', '22.0', '32.0', '42.0']
+R4: ['25', '12.5', '17.5', '22.5', '32.5', '42.5']
+R5: ['30', '13.0', '18.0', '23.0', '33.0', '43.0']
+R6: ['40', '14.0', '19.0', '24.0', '34.0', '44.0']
+R7: ['50', '15.0', '20.0', '25.0', '35.0', '45.0']
+R8: ['60', '16.0', '21.0', '26.0', '36.0', '46.0']
+R9: ['75', '17.5', '22.5', '27.5', '37.5', '47.5']
+R10: ['90', '19.0', '24.0', '29.0', '39.0', '49.0']
+R11: ['100', '20.0', '25.0', '30.0', '40.0', '50.0']
+
+--- TABLE 20 (rows=9, cols=3) ---
+R0: ['Step', 'March (90 mm)', 'September (25 mm)']
+R1: ['R (cm)', '9', '2.5']
+R2: ['D₁ = D₀ + R (cm)', '29', '22.5']
+R3: ['C₁ = C₀D₀/D₁ (g/L)', '250 × 20 / 29 = 172.414', '250 × 20 / 22.5 = 222.22']
+R4: ['δ (%)', '31.03', '11.11']
+R5: ['V₀ (m³)', '2,460', '2,460']
+R6: ['V₁ (m³)', '3,567', '2,767.5']
+R7: ['Salt mass C₀V₀ (tonnes)', '615', '615']
+R8: ['Check C₁V₁ (tonnes)', '172.414 × 3,567 / 1,000 = 615', '222.22 × 2,767.5 / 1,000 = 615']
+
+--- TABLE 21 (rows=15, cols=3) ---
+R0: ['Field', 'Entry', 'Notes']
+R1: ['Event identifier', '', 'Unique; registered before the outcome is inspected']
+R2: ['Pan identifier and area', '', '']
+R3: ['Pre-event salinity (g/L)', '', 'Instrument, calibration date, sampling location']
+R4: ['Pre-event depth (cm)', '', 'Gauge or staff reading, location']
+R5: ['Pre-event time (IST and UTC)', '', 'Source of the time']
+R6: ['Forecast rainfall (mm), issue time, source', '', '']
+R7: ['Rainfall start and end time', '', 'Documented rain gauge or sheet']
+R8: ['Measured rainfall (mm)', '', 'Gauge identifier']
+R9: ['Interventions (type, volume, time)', '', 'Transfer, drainage, overflow, pumping, harvest']
+R10: ['Post-event salinity (g/L)', '', 'Instrument, sampling location(s), depth of sample']
+R11: ['Post-event depth (cm)', '', 'Gauge reading, location(s)']
+R12: ['Post-event time (IST and UTC)', '', '']
+R13: ['Observer and verifier', '', 'Independent corroboration where available']
+R14: ['Verification state', '', 'Operator-reported or independently verified']
+
+--- TABLE 22 (rows=16, cols=2) ---
+R0: ['Term', 'Meaning']
+R1: ['Pan', 'A shallow evaporation pond in a solar salt works']
+R2: ['Brine', 'Concentrated saline water in a pan']
+R3: ['Salinity', 'Concentration of dissolved salts, expressed here in g/L']
+R4: ['Mass balance', 'Calculation that equates the dissolved-salt mass before and after a stated change']
+R5: ['Digital twin', 'Continuously updated digital representation of a physical asset used for monitoring and decision support']
+R6: ['Provenance', 'Record of the source and history of a piece of information']
+R7: ['Evidence gate', 'Control that withholds an output until stated evidence conditions are met']
+R8: ['Superseded value', 'A value displaced by a correction and retained in audit history']
+R9: ['Intervention', 'A human action that moves water or salt, such as transfer, drainage, pumping or harvest']
+R10: ['DSS', 'Decision-support system']
+R11: ['IST / UTC', 'Indian Standard Time / Coordinated Universal Time (IST = UTC + 5:30)']
+R12: ['ML', 'Machine learning']
+R13: ['MAE / RMSE', 'Mean absolute error / root mean squared error']
+R14: ['SHAP', 'SHapley Additive exPlanations, a model-explanation method']
+R15: ['API', 'Application programming interface']
+
+--- TABLE 23 (rows=11, cols=3) ---
+R0: ['Symbol', 'Meaning', 'Unit']
+R1: ['C₀, C₁', 'Brine salinity before and after the rainfall event', 'g/L']
+R2: ['D₀, D₁', 'Water depth before and after the rainfall event', 'cm']
+R3: ['R', 'Rainfall depth (reported in mm, divided by ten before use)', 'cm']
+R4: ['δ', 'Predicted percentage dilution', '%']
+R5: ['A', 'Pan area (North Pan: 12,300 m²)', 'm²']
+R6: ['V₀, V₁', 'Water volume before and after the event', 'm³']
+R7: ['M₀, M₁', 'Dissolved-salt mass before and after the event', 'kg or tonnes']
+R8: ['E', 'Evaporation depth over the period (extended model only)', 'cm']
+R9: ['Q_in, Q_out, Q_drain, Q_seep', 'Inflow, outbound transfer, drainage and seepage volumes (extended model only)', 'm³']
+R10: ['C_in, C_out, C_drain, C_seep', 'Salinities of the corresponding flows (extended model only)', 'g/L']

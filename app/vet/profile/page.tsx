@@ -183,9 +183,6 @@ export default function VetProfilePage() {
         <h1 className="text-xl sm:text-2xl font-bold text-slate-950 font-display">
           Veterinarian Profile &amp; Settings
         </h1>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Manage your contact information, assigned field district, and account credentials.
-        </p>
       </div>
 
       {/* Profile Overview Card */}
@@ -214,35 +211,19 @@ export default function VetProfilePage() {
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-slate-500 font-mono mt-0.5">{profile.email}</p>
+                <div className="flex items-center gap-2 mt-1 flex-wrap">
+                  <span className="text-xs text-slate-500 font-mono">{profile.email}</span>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-xs text-slate-600">
+                    District: <span className="font-bold text-slate-900">{profile.assignedRegion || "Salem"}</span>
+                  </span>
+                </div>
               </div>
             </div>
 
             <div className="flex sm:flex-col items-end justify-between sm:justify-center border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100">
               <span className="text-[10px] font-mono text-slate-400 uppercase font-semibold">Active Since</span>
               <span className="text-xs font-mono font-bold text-slate-700">{fmtDate(profile.createdAt)}</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-100">
-            <div className="bg-[#f8faf9] p-3 rounded-lg border border-slate-200">
-              <p className="text-[10px] font-mono uppercase text-slate-500 font-bold">Assigned Region</p>
-              <p className="text-xs font-bold text-slate-900 mt-0.5 truncate">
-                {profile.assignedRegion || "Tamil Nadu - Coimbatore"}
-              </p>
-            </div>
-            <div className="bg-[#f8faf9] p-3 rounded-lg border border-slate-200">
-              <p className="text-[10px] font-mono uppercase text-slate-500 font-bold">Cases Handled</p>
-              <p className="text-xs font-bold text-slate-900 mt-0.5">
-                {profile._count?.vetCases ?? 0} cases
-              </p>
-            </div>
-            <div className="bg-[#f8faf9] p-3 rounded-lg border border-slate-200 col-span-2 sm:col-span-1">
-              <p className="text-[10px] font-mono uppercase text-slate-500 font-bold">Duty Status</p>
-              <p className="text-xs font-bold text-emerald-800 flex items-center gap-1.5 mt-0.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Active on Field Duty
-              </p>
             </div>
           </div>
         </div>
@@ -254,9 +235,6 @@ export default function VetProfilePage() {
           <h3 className="text-sm font-bold text-slate-900 uppercase font-mono tracking-wider">
             Edit Contact &amp; District
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Keep your profile photo, phone number, and veterinary assigned area up to date.
-          </p>
         </div>
 
         {detailsMsg && (
@@ -377,9 +355,6 @@ export default function VetProfilePage() {
           <h3 className="text-sm font-bold text-slate-900 uppercase font-mono tracking-wider">
             Security &amp; Password
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Change your password to keep your veterinary portal secure.
-          </p>
         </div>
 
         {passMsg && (

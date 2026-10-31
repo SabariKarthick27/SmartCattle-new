@@ -125,10 +125,6 @@ export default function VetVaccinationsClient({ cattleList, initialRecords, vetR
               CLINIC
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Assign checkup dates and schedule vaccination drives for cattle in{" "}
-            <span className="font-bold text-slate-800">{vetRegion || "Your District"}</span>
-          </p>
         </div>
 
         <button

@@ -1,7 +1,9 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import prisma from "@/lib/prisma";
 import FarmerSidebar from "@/components/FarmerSidebar";
+import SessionGuard from "@/components/SessionGuard";
 
 export default async function FarmerLayout({
   children,
@@ -11,13 +13,20 @@ export default async function FarmerLayout({
   const session = await getServerSession(authOptions);
   if (!session || session.user.role !== "farmer") redirect("/login");
 
+  const dbUser = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { photoUrl: true, image: true },
+  });
+  const userImage = dbUser?.photoUrl || dbUser?.image || session.user.image || null;
+
   return (
     <div className="min-h-screen bg-[#f6f8f7] flex">
+      <SessionGuard requiredRole="farmer" />
       {/* Sidebar (handles desktop rail and mobile drawer) */}
       <FarmerSidebar
         userName={session.user.name}
         userEmail={session.user.email}
-        userImage={session.user.image}
+        userImage={userImage}
       />
 
       {/* Main content */}

@@ -13,6 +13,7 @@ import {
   IconSignOut,
 } from "@/components/icons";
 import { SmartCattleLogo } from "@/components/SmartCattleLogo";
+import SignOutModal from "@/components/SignOutModal";
 
 interface FarmerSidebarProps {
   userName?: string | null;
@@ -23,6 +24,7 @@ interface FarmerSidebarProps {
 export default function FarmerSidebar({ userName, userEmail, userImage }: FarmerSidebarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
 
   const links = [
     { href: "/farmer", label: "My Farm Dashboard", icon: IconOverview, exact: true },
@@ -37,7 +39,7 @@ export default function FarmerSidebar({ userName, userEmail, userImage }: Farmer
     <div className="flex flex-col h-full bg-slate-950 text-slate-200 border-r border-slate-800">
       {/* Brand Header */}
       <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-        <Link href="/farmer" className="flex items-center gap-2 group">
+        <Link href="/farmer" prefetch={true} className="flex items-center gap-2 group">
           <SmartCattleLogo variant="light" subtitle="Farmer Portal" />
         </Link>
         <button
@@ -54,6 +56,7 @@ export default function FarmerSidebar({ userName, userEmail, userImage }: Farmer
       <div className="px-3 pt-3">
         <Link
           href="/farmer/scan"
+          prefetch={true}
           onClick={() => setMobileOpen(false)}
           className="btn btn-primary w-full btn-sm flex items-center justify-center gap-2 font-mono text-xs font-bold shadow-sm"
         >
@@ -75,6 +78,7 @@ export default function FarmerSidebar({ userName, userEmail, userImage }: Farmer
             <Link
               key={link.href}
               href={link.href}
+              prefetch={true}
               onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                 isActive
@@ -93,6 +97,7 @@ export default function FarmerSidebar({ userName, userEmail, userImage }: Farmer
       <div className="p-3 border-t border-slate-800 bg-slate-900/60">
         <Link
           href="/farmer/profile"
+          prefetch={true}
           onClick={() => setMobileOpen(false)}
           className="flex items-center gap-2.5 mb-2.5 p-1.5 rounded-lg hover:bg-slate-800/80 transition-colors"
         >
@@ -114,16 +119,24 @@ export default function FarmerSidebar({ userName, userEmail, userImage }: Farmer
             <p className="text-[10px] font-mono text-slate-400 truncate">{userEmail ?? ""}</p>
           </div>
         </Link>
-        <form action="/api/auth/signout" method="POST">
-          <button
-            type="submit"
-            className="btn btn-secondary btn-sm w-full justify-center text-slate-300 bg-slate-800 border-slate-700 hover:bg-slate-700 text-xs py-1"
-          >
-            <IconSignOut className="w-3.5 h-3.5 text-slate-400" />
-            <span>Sign Out</span>
-          </button>
-        </form>
+        <button
+          type="button"
+          onClick={() => setShowSignOutModal(true)}
+          className="btn btn-secondary btn-sm w-full justify-center text-slate-300 bg-slate-800 border-slate-700 hover:bg-slate-700 text-xs py-1.5 cursor-pointer"
+        >
+          <IconSignOut className="w-3.5 h-3.5 text-slate-400" />
+          <span>Sign Out</span>
+        </button>
       </div>
+
+      <SignOutModal
+        isOpen={showSignOutModal}
+        onClose={() => setShowSignOutModal(false)}
+        userName={userName}
+        userEmail={userEmail}
+        userImage={userImage}
+        userRole="Farmer"
+      />
     </div>
   );
 

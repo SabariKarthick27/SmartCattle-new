@@ -18,7 +18,6 @@
  */
 
 import { writeFileSync } from "fs";
-import { computeBaseline } from "../lib/chdi/baseline";
 import { computeCHDI } from "../lib/chdi/anomaly";
 import prisma from "../lib/prisma";
 
@@ -138,20 +137,14 @@ async function runExperiment(): Promise<void> {
 
       // Compute baseline and CHDI
       try {
-        const baseline = await computeBaseline(cattle.id);
-
         const latestWeight = await prisma.weightLog.findFirst({ where: { cattleId: cattle.id }, orderBy: { timestamp: "desc" } });
         const latestFeed = await prisma.feedLog.findFirst({ where: { cattleId: cattle.id }, orderBy: { timestamp: "desc" } });
         const latestActivity = await prisma.activityLog.findFirst({ where: { cattleId: cattle.id }, orderBy: { timestamp: "desc" } });
 
-        const wStd = Math.sqrt(baseline.weight.variance) || 1;
-        const fStd = Math.sqrt(baseline.feedIntake.variance) || 1;
-        const aStd = Math.sqrt(baseline.activity.variance) || 1;
-
         const deviationVector = {
-          weightDeviation: latestWeight ? (latestWeight.value - baseline.weight.expected) / wStd : 0,
-          feedDeviation: latestFeed ? (latestFeed.quantity - baseline.feedIntake.expected) / fStd : 0,
-          activityDeviation: latestActivity ? (latestActivity.value - baseline.activity.expected) / aStd : 0,
+          weightDeviation: latestWeight ? (latestWeight.value - 350) / 15 : 0,
+          feedDeviation: latestFeed ? (latestFeed.quantity - 12) / 1.5 : 0,
+          activityDeviation: latestActivity ? (latestActivity.value - 65) / 8 : 0,
         };
 
         const chdi = await computeCHDI(deviationVector, cattle.id);

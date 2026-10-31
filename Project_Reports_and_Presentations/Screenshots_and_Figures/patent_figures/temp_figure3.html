@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 1200px;
+    height: 860px;
+    background-color: #ffffff;
+    font-family: Calibri, Arial, 'Segoe UI', sans-serif;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .main-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .canvas-area {
+    width: 1160px;
+    height: 790px;
+    position: relative;
+  }
+
+  /* MS Word Style Flowchart Boxes */
+  .box {
+    position: absolute;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .box-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+  }
+
+  .box-desc {
+    font-size: 12.5px;
+    color: #111111;
+    line-height: 1.35;
+  }
+
+  /* Diamond Inner Text Container */
+  .diamond-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  .diamond-title {
+    font-size: 13.5px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .diamond-desc {
+    font-size: 12px;
+    color: #222222;
+  }
+
+  /* Branch Labels */
+  .branch-label {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    padding: 1px 5px;
+    font-size: 11.5px;
+    font-weight: bold;
+    color: #000000;
+    z-index: 15;
+    text-align: center;
+  }
+
+  /* SVG Layer */
+  .svg-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+  <div class="main-title">FIGURE 3: CHDI HEALTH SCORE COMPUTATION &amp; DECISION LOGIC</div>
+
+  <div class="canvas-area">
+    <svg class="svg-layer">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Diamond 1: Center x=580, y=205. W=360, H=90. Top=160, Bottom=250, Left=400, Right=760 -->
+      <polygon points="580,160 760,205 580,250 400,205" fill="#ffffff" stroke="#000000" stroke-width="2" />
+
+      <!-- Diamond 2: Center x=580, y=450. W=360, H=90. Top=405, Bottom=495, Left=400, Right=760 -->
+      <polygon points="580,405 760,450 580,495 400,450" fill="#ffffff" stroke="#000000" stroke-width="2" />
+
+      <!-- Arrow 1: Input Box (bottom y=120) -> Diamond 1 (top y=160) -->
+      <line x1="580" y1="120" x2="580" y2="158" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 1 Right (x=760, y=205) -> Hold Box Left (x=850, y=205) -->
+      <line x1="760" y1="205" x2="848" y2="205" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 1 Bottom (x=580, y=250) -> Preprocessing Box Top (x=580, y=295) -->
+      <line x1="580" y1="250" x2="580" y2="293" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Preprocessing Box Bottom (y=365) -> Diamond 2 Top (y=405) -->
+      <line x1="580" y1="365" x2="580" y2="403" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 2 Left (x=400, y=450) -> Stabilization Box Right (x=310, y=450) -->
+      <line x1="400" y1="450" x2="312" y2="450" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Stabilization Box Bottom (x=175, y=495) down to y=575, then right to Metric Box Left (x=330, y=575) -->
+      <polyline points="175,495 175,575 328,575" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 2 Bottom (x=580, y=495) -> Metric Box Top (x=580, y=540) -->
+      <line x1="580" y1="495" x2="580" y2="538" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Arrows to 3 Bottom Severity Bands: From Metric Box Bottom (y=615) -->
+      <!-- Left Band (top center x=190, y=675) -->
+      <polyline points="420,615 420,645 190,645 190,673" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Center Band (top center x=580, y=675) -->
+      <line x1="580" y1="615" x2="580" y2="673" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Right Band (top center x=970, y=675) -->
+      <polyline points="740,615 740,645 970,645 970,673" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+    </svg>
+
+    <!-- TOP BOX: INPUT -->
+    <div class="box" style="left: 330px; top: 48px; width: 500px; height: 72px; padding: 10px 16px;">
+      <div class="box-title">INPUT: DAILY COW HEALTH MEASUREMENTS</div>
+      <div class="box-desc">Body Weight, Feed Intake, Milk Yield, Rumination Time &amp; Activity Log</div>
+    </div>
+
+    <!-- DIAMOND 1 TEXT (Center x=580, y=205) -->
+    <div class="diamond-text" style="left: 420px; top: 175px; width: 320px; height: 60px;">
+      <div class="diamond-title">ENOUGH DATA COLLECTED?</div>
+      <div class="diamond-desc">At least 7 daily records available (N &ge; 7)</div>
+    </div>
+
+    <!-- BRANCH LABEL NO (Diamond 1 to Hold Box) -->
+    <div class="branch-label" style="left: 792px; top: 188px;">NO</div>
+
+    <!-- HOLD / ABSTAIN BOX (Right Column) -->
+    <div class="box" style="left: 850px; top: 165px; width: 280px; height: 80px; padding: 8px 12px;">
+      <div class="box-title">HOLD HEALTH ALERT</div>
+      <div class="box-desc">Insufficient history to establish baseline.<br>Withholds verdict to prevent false alarms.</div>
+    </div>
+
+    <!-- BRANCH LABEL YES (Diamond 1 to Preprocessing) -->
+    <div class="branch-label" style="left: 592px; top: 262px;">YES</div>
+
+    <!-- BOX 2: PREPROCESSING -->
+    <div class="box" style="left: 330px; top: 295px; width: 500px; height: 70px; padding: 10px 16px;">
+      <div class="box-title">DATA PREPROCESSING &amp; CLEANING</div>
+      <div class="box-desc">Align daily timestamps and smoothly fill missing sensor readings</div>
+    </div>
+
+    <!-- DIAMOND 2 TEXT (Center x=580, y=450) -->
+    <div class="diamond-text" style="left: 420px; top: 420px; width: 320px; height: 60px;">
+      <div class="diamond-title">DATA QUALITY ISSUE DETECTED?</div>
+      <div class="diamond-desc">Highly correlated sensors or unstable variance</div>
+    </div>
+
+    <!-- BRANCH LABEL YES (Diamond 2 to Stabilization) -->
+    <div class="branch-label" style="left: 345px; top: 433px;">YES</div>
+
+    <!-- STABILIZATION BOX (Left Column) -->
+    <div class="box" style="left: 30px; top: 410px; width: 280px; height: 85px; padding: 8px 12px;">
+      <div class="box-title">APPLY DATA STABILIZATION</div>
+      <div class="box-desc">Adds small numerical buffer to correlation matrix to prevent calculation errors.</div>
+    </div>
+
+    <!-- BRANCH LABEL NO (Diamond 2 to Metric Computation) -->
+    <div class="branch-label" style="left: 592px; top: 506px;">NO</div>
+
+    <!-- BOX 3: METRIC COMPUTATION -->
+    <div class="box" style="left: 330px; top: 540px; width: 500px; height: 75px; padding: 10px 16px;">
+      <div class="box-title">CALCULATE CATTLE HEALTH DEFICIT INDEX (CHDI)</div>
+      <div class="box-desc">Measures overall deviation against cow's established baseline.<br>Generates standardized composite health score from 0 to 100.</div>
+    </div>
+
+    <!-- BOTTOM 3 SEVERITY BANDS -->
+    <!-- LEFT: NORMAL BAND -->
+    <div class="box" style="left: 20px; top: 675px; width: 345px; height: 100px; padding: 10px 14px;">
+      <div class="box-title">HEALTHY BAND (SCORE: 80 – 100)</div>
+      <div class="box-desc"><strong>Status:</strong> Low Risk / Optimal Condition<br>All vitals within normal expected baseline.<br>Action: Continue routine daily logging.</div>
+    </div>
+
+    <!-- CENTER: WATCH BAND -->
+    <div class="box" style="left: 405px; top: 675px; width: 350px; height: 100px; padding: 10px 14px;">
+      <div class="box-title">WATCH BAND (SCORE: 60 – 79)</div>
+      <div class="box-desc"><strong>Status:</strong> Moderate Risk / Early Warning<br>Mild deviations detected in feed or milk yield.<br>Action: Send advisory notification to farmer.</div>
+    </div>
+
+    <!-- RIGHT: AT-RISK BAND -->
+    <div class="box" style="left: 795px; top: 675px; width: 345px; height: 100px; padding: 10px 14px;">
+      <div class="box-title">AT-RISK BAND (SCORE: BELOW 60)</div>
+      <div class="box-desc"><strong>Status:</strong> High Risk / Critical Deviation<br>Significant multi-vital health anomaly.<br>Action: Auto-dispatch urgent case to veterinarian.</div>
+    </div>
+  </div>
+
+</body>
+</html>

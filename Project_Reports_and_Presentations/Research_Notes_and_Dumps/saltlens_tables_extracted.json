@@ -1,0 +1,1298 @@
+[
+  {
+    "table_index": 0,
+    "rows_count": 5,
+    "cols_count": 2,
+    "data": [
+      [
+        "Signature of the Supervisor",
+        "Signature of the Head of the Department"
+      ],
+      [
+        "Mr. B. Mohanraj",
+        "Name: ____________________"
+      ],
+      [
+        "Project Guide",
+        "Head of the Department"
+      ],
+      [
+        "Department of Information Technology",
+        "Department of Information Technology"
+      ],
+      [
+        "Sona College of Technology,\nSalem – 636005",
+        "Sona College of Technology,\nSalem – 636005"
+      ]
+    ]
+  },
+  {
+    "table_index": 1,
+    "rows_count": 1,
+    "cols_count": 2,
+    "data": [
+      [
+        "INTERNAL EXAMINER",
+        "EXTERNAL EXAMINER"
+      ]
+    ]
+  },
+  {
+    "table_index": 2,
+    "rows_count": 6,
+    "cols_count": 3,
+    "data": [
+      [
+        "Research area",
+        "Documented focus",
+        "SaltLens distinction"
+      ],
+      [
+        "Salt-pan sensing [7], [11]",
+        "Remote state or crust mapping of natural salt pans",
+        "Pan-level event audit for a managed pan"
+      ],
+      [
+        "Water–salt studies [1], [17]",
+        "Hydrology and salinity; irrigation–drainage water–salt management",
+        "Reported-event comparison with explicit provenance"
+      ],
+      [
+        "Digital twins [8], [14]",
+        "State representation and decision frameworks",
+        "Evidence-gated rules and labelled evidence categories"
+      ],
+      [
+        "ML studies [6], [12], [15]",
+        "Predictive modelling in soil, river and remote-sensing settings",
+        "No unsupported ML output; ML gate withholds prediction"
+      ],
+      [
+        "Explainable decision support [4], [16]",
+        "Interpretability of data-driven recommendations",
+        "Versioned rule record: variable, threshold, version, outcome"
+      ]
+    ]
+  },
+  {
+    "table_index": 3,
+    "rows_count": 8,
+    "cols_count": 3,
+    "data": [
+      [
+        "Technique",
+        "Principal advantages",
+        "Principal disadvantages"
+      ],
+      [
+        "Experience-based operation",
+        "Local knowledge; immediate response; no infrastructure",
+        "Tacit and unaudited; decisions not recorded with their basis; approximate quantification"
+      ],
+      [
+        "Notebooks and spreadsheets",
+        "Cheap and flexible; source of pre-event readings",
+        "Inconsistent timestamps and units; edits leave no trace; no link between observation, forecast and decision"
+      ],
+      [
+        "Forecasts used alone",
+        "Widely available; advance notice",
+        "Describes the atmosphere not the pond; amount and timing uncertain"
+      ],
+      [
+        "Remote sensing",
+        "Spatial coverage; long records",
+        "Revisit interval; cloud cover; limited pond-level salinity and depth; no decision record"
+      ],
+      [
+        "Physics-based models",
+        "Transparent; reproducible; hand-verifiable",
+        "Limited by assumptions; needs intervention records to be validated"
+      ],
+      [
+        "Machine-learning predictors",
+        "Can capture complex patterns",
+        "Needs genuine labelled data; leakage risk; opacity; premature scores mislead"
+      ],
+      [
+        "Generic digital twins",
+        "Integration of sensing, models and decisions",
+        "Do not enforce evidence separation or correction history"
+      ]
+    ]
+  },
+  {
+    "table_index": 4,
+    "rows_count": 8,
+    "cols_count": 3,
+    "data": [
+      [
+        "Limitation",
+        "SaltLens mechanism",
+        "Where described"
+      ],
+      [
+        "Evidence status is implicit",
+        "Interface and records distinguish OBSERVED, FORECAST, SIMULATED, RECOMMENDED and DECIDED; a simulated state cannot silently replace a measured observation",
+        "Sections 4.4, 4.6"
+      ],
+      [
+        "Forecast does not describe the pond",
+        "Pan-specific digital twin plus deterministic rainfall-only mass balance, with a worked hand-verifiable result",
+        "Sections 4.6, 4.7"
+      ],
+      [
+        "Rules are tacit",
+        "Versioned operator-configured rules; each result retains compared variable, threshold, version and outcome",
+        "Section 4.8"
+      ],
+      [
+        "Premature model scores",
+        "ML evidence gate withholds predictions; reports zero genuine labelled training rows",
+        "Section 4.9"
+      ],
+      [
+        "Recommendation mistaken for action",
+        "Operator decision is recorded as its own card; acceptance is not counted as a performed harvest",
+        "Section 4.10"
+      ],
+      [
+        "Corrections erase history",
+        "Append-only correction history; displaced values retained as superseded with claimed origin",
+        "Section 4.11"
+      ],
+      [
+        "Intervention-affected outcomes reported as accuracy",
+        "Field-event module records interventions, verification state and caveats; descriptive differences are not presented as validated error metrics",
+        "Sections 4.11, 5.4"
+      ]
+    ]
+  },
+  {
+    "table_index": 5,
+    "rows_count": 12,
+    "cols_count": 2,
+    "data": [
+      [
+        "ID",
+        "Requirement"
+      ],
+      [
+        "FR1",
+        "Register a pan with identity, name, location and area."
+      ],
+      [
+        "FR2",
+        "Record timestamped observations of brine salinity, water depth, brine temperature and related fields, with a source label and observer."
+      ],
+      [
+        "FR3",
+        "Record weather forecasts and weather observations with issue time and source."
+      ],
+      [
+        "FR4",
+        "Assemble a pan-specific digital twin that resolves every displayed value to a recorded source and states its freshness."
+      ],
+      [
+        "FR5",
+        "Compute a deterministic rainfall-only response for a stated pan state and rainfall amount."
+      ],
+      [
+        "FR6",
+        "Evaluate versioned, operator-configured rules against explicit inputs and record the compared variable, threshold, version and outcome."
+      ],
+      [
+        "FR7",
+        "Withhold machine-learning output unless a genuine labelled dataset and a validated deployed model exist, and report that state."
+      ],
+      [
+        "FR8",
+        "Record operator decisions (accepted, modified or rejected) separately from recommendations and from physical action records."
+      ],
+      [
+        "FR9",
+        "Record field events with milestones, pre- and post-event measurement provenance, interventions, reported versus simulated results and verification state."
+      ],
+      [
+        "FR10",
+        "Support controlled correction of recorded values while retaining superseded values and their claimed origins as append-only history."
+      ],
+      [
+        "FR11",
+        "Export records with UTC and IST representations and material caveats."
+      ]
+    ]
+  },
+  {
+    "table_index": 6,
+    "rows_count": 9,
+    "cols_count": 3,
+    "data": [
+      [
+        "ID",
+        "Requirement",
+        "Rationale"
+      ],
+      [
+        "NFR1",
+        "Every figure displayed must state what produced it.",
+        "Prevents a computed value being read as a measured one."
+      ],
+      [
+        "NFR2",
+        "A simulated state must never silently replace a measured observation.",
+        "Protects the integrity of the observed record."
+      ],
+      [
+        "NFR3",
+        "Corrections must be append-only; superseded values remain retrievable.",
+        "Preserves the audit trail."
+      ],
+      [
+        "NFR4",
+        "Timestamps are stored in UTC and shown with site-local (IST) representation.",
+        "Avoids ambiguity across systems and exports."
+      ],
+      [
+        "NFR5",
+        "Deterministic calculations must be reproducible from recorded inputs and versions.",
+        "Enables hand verification and re-running."
+      ],
+      [
+        "NFR6",
+        "Demonstration values must be flagged and excluded from research datasets.",
+        "Prevents seed or demo data contaminating evidence."
+      ],
+      [
+        "NFR7",
+        "Operations must be authorised and integrity-checked.",
+        "Protects records and decisions."
+      ],
+      [
+        "NFR8",
+        "The interface must remain usable on ordinary browsers.",
+        "Operator access from office or field."
+      ]
+    ]
+  },
+  {
+    "table_index": 7,
+    "rows_count": 4,
+    "cols_count": 3,
+    "data": [
+      [
+        "Layer",
+        "Technology",
+        "Role"
+      ],
+      [
+        "Presentation",
+        "Next.js",
+        "Forms, dashboards, evidence labels, recommendation and decision cards, field-validation views"
+      ],
+      [
+        "Service",
+        "FastAPI",
+        "Validation, deterministic mass balance, rule evaluation, ML gate, reconciliation, exports, authorisation"
+      ],
+      [
+        "Storage",
+        "MongoDB Atlas",
+        "Pans, observations, weather records, simulations, rules, recommendations, decisions, field events, correction history"
+      ]
+    ]
+  },
+  {
+    "table_index": 8,
+    "rows_count": 7,
+    "cols_count": 3,
+    "data": [
+      [
+        "Category",
+        "Meaning",
+        "What it is not"
+      ],
+      [
+        "OBSERVED",
+        "Measured from a physical reading and recorded against the pan or the site",
+        "Not independently verified merely because it was entered"
+      ],
+      [
+        "FORECAST",
+        "A weather service statement about rainfall that has not fallen yet",
+        "Not a measurement; not observed anywhere"
+      ],
+      [
+        "SIMULATED",
+        "Computed by the mass balance from the recorded state using stated equations",
+        "Not a prediction of the real pond; not a measurement"
+      ],
+      [
+        "ML-PREDICTED",
+        "A trained classifier’s stored estimate for the pan, copied from a recorded prediction",
+        "Never produced by the interface; unavailable without a validated model"
+      ],
+      [
+        "RECOMMENDED",
+        "The action a versioned written rule selected from the evidence",
+        "Not chosen by the model or the simulator; not a completed action"
+      ],
+      [
+        "DECIDED",
+        "The operator’s recorded disposition: accepted, modified or rejected",
+        "Not a figure; not a physical action record"
+      ]
+    ]
+  },
+  {
+    "table_index": 9,
+    "rows_count": 11,
+    "cols_count": 3,
+    "data": [
+      [
+        "Record",
+        "Key information held",
+        "Provenance role"
+      ],
+      [
+        "Pan",
+        "Pan identifier, name, location, registered area, optional maximum observation age",
+        "Anchors all other records to one physical pan"
+      ],
+      [
+        "Observation",
+        "Salinity, depth, brine temperature, UTC timestamp, source label, observer, evidence reference, demonstration flag",
+        "Separates measured readings from everything else"
+      ],
+      [
+        "Weather record",
+        "Forecast or observation type, issue time, rainfall amount, probability, source",
+        "Keeps forecast apart from observed weather"
+      ],
+      [
+        "Twin snapshot",
+        "Contributing records, last-updated time, twin version, freshness of each source",
+        "States what the twin was assembled from"
+      ],
+      [
+        "Simulation",
+        "Inputs, equation version, outputs, creation time",
+        "Reproducible calculation record"
+      ],
+      [
+        "Rule configuration",
+        "Rule name and version, compared variable, comparison, threshold, action, priority",
+        "Versioned, operator-configured decision logic"
+      ],
+      [
+        "Recommendation",
+        "Rule version, compared variable and value, threshold, outcome, ML-estimate-read flag",
+        "Explains why an action was suggested"
+      ],
+      [
+        "Operator decision",
+        "Disposition, actor, time, reason, linked recommendation, physical-action link (if any)",
+        "Distinguishes decision from action"
+      ],
+      [
+        "Field event",
+        "Milestones, linked pre- and post-event observations, interventions, reported versus simulated results, verification state",
+        "Holds field-validation evidence"
+      ],
+      [
+        "Correction entry",
+        "Field, superseded value, claimed origin, new value, actor, time, reason",
+        "Append-only audit history"
+      ]
+    ]
+  },
+  {
+    "table_index": 10,
+    "rows_count": 3,
+    "cols_count": 7,
+    "data": [
+      [
+        "Scenario",
+        "Rain (mm)",
+        "Initial salinity (g/L)",
+        "Initial depth (cm)",
+        "Salinity (g/L)",
+        "Depth (cm)",
+        "Dilution (%)"
+      ],
+      [
+        "March event",
+        "90",
+        "250",
+        "20",
+        "172.414",
+        "29",
+        "31.03"
+      ],
+      [
+        "September forecast",
+        "25",
+        "250",
+        "20",
+        "222.22",
+        "22.5",
+        "11.11"
+      ]
+    ]
+  },
+  {
+    "table_index": 11,
+    "rows_count": 9,
+    "cols_count": 3,
+    "data": [
+      [
+        "Item",
+        "Recorded value",
+        "Status"
+      ],
+      [
+        "Pre-event observation",
+        "250 g/L salinity, 20 cm depth; 13 March 2026, 13:30 IST (08:00 UTC)",
+        "Notebook-sourced; observer “site operator”"
+      ],
+      [
+        "Effective rainfall start",
+        "14 March 2026, 23:30 IST (18:00 UTC)",
+        "Notebook-sourced; chronology reconciled"
+      ],
+      [
+        "Superseded rainfall start",
+        "14 March 2026, 19:30 IST (14:00 UTC)",
+        "Traced to a hand-typed seed-script literal; retained in audit history"
+      ],
+      [
+        "Reported rainfall",
+        "90 mm",
+        "Operator-reported; no independent gauge evidence"
+      ],
+      [
+        "Event forecast on record",
+        "40 mm",
+        "Issue time and source retained from the event record"
+      ],
+      [
+        "Outbound brine transfer",
+        "15 March 2026, 00:30 IST; volume unknown",
+        "Intervention; unquantified"
+      ],
+      [
+        "Post-event entry",
+        "20 g/L salinity, 50 cm depth; 15 March 2026, 13:30 IST (08:00 UTC)",
+        "Operator-reported; not independently corroborated"
+      ],
+      [
+        "Verification",
+        "independently_verified = false",
+        "Chronology reconciled; measurements not verified"
+      ]
+    ]
+  },
+  {
+    "table_index": 12,
+    "rows_count": 4,
+    "cols_count": 5,
+    "data": [
+      [
+        "State",
+        "Depth (cm)",
+        "Salinity (g/L)",
+        "Volume (m³)",
+        "Dissolved salt (tonnes)"
+      ],
+      [
+        "Pre-event (recorded)",
+        "20",
+        "250",
+        "2,460",
+        "615"
+      ],
+      [
+        "No-flow prediction after 90 mm",
+        "29",
+        "172.41",
+        "3,567",
+        "615"
+      ],
+      [
+        "Reported post-event",
+        "50",
+        "20",
+        "6,150",
+        "123"
+      ]
+    ]
+  },
+  {
+    "table_index": 13,
+    "rows_count": 6,
+    "cols_count": 3,
+    "data": [
+      [
+        "Verified property",
+        "Supports",
+        "Does not support"
+      ],
+      [
+        "Equations produce the hand-calculated values",
+        "Computational reproducibility",
+        "That the model describes a real pond"
+      ],
+      [
+        "Chronology constraints enforced",
+        "Internally consistent event records",
+        "That the reported times are physically accurate"
+      ],
+      [
+        "Authorisation and audit integrity checks",
+        "Record integrity and traceability",
+        "Correctness of the entered measurements"
+      ],
+      [
+        "ML gate rejects a non-genuine dataset",
+        "No unsupported ML output",
+        "Any ML performance"
+      ],
+      [
+        "Decision transition recorded",
+        "Workflow behaviour",
+        "That an action was executed or beneficial"
+      ]
+    ]
+  },
+  {
+    "table_index": 14,
+    "rows_count": 9,
+    "cols_count": 6,
+    "data": [
+      [
+        "Property",
+        "Experience / notebooks",
+        "Forecast alone",
+        "Remote sensing",
+        "ML predictor",
+        "SaltLens DSS"
+      ],
+      [
+        "Pan-specific state",
+        "Informal",
+        "No",
+        "Partial",
+        "Depends",
+        "Yes"
+      ],
+      [
+        "Evidence status labelled",
+        "No",
+        "No",
+        "No",
+        "Rarely",
+        "Yes"
+      ],
+      [
+        "Hand-verifiable calculation",
+        "No",
+        "No",
+        "No",
+        "No",
+        "Yes (mass balance)"
+      ],
+      [
+        "Versioned, readable rule",
+        "No",
+        "No",
+        "No",
+        "No",
+        "Yes"
+      ],
+      [
+        "Decision recorded separately",
+        "Rarely",
+        "No",
+        "No",
+        "No",
+        "Yes"
+      ],
+      [
+        "Append-only correction history",
+        "No",
+        "No",
+        "No",
+        "Rarely",
+        "Yes"
+      ],
+      [
+        "Physical accuracy demonstrated",
+        "n/a",
+        "n/a",
+        "Other media",
+        "Other media",
+        "No (one descriptive event)"
+      ],
+      [
+        "Operational benefit demonstrated",
+        "n/a",
+        "n/a",
+        "n/a",
+        "n/a",
+        "No"
+      ]
+    ]
+  },
+  {
+    "table_index": 15,
+    "rows_count": 8,
+    "cols_count": 2,
+    "data": [
+      [
+        "Item",
+        "What should be recorded"
+      ],
+      [
+        "Pan",
+        "Pan identifier and area"
+      ],
+      [
+        "Pre-event state",
+        "Calibrated salinity and depth, with method, instrument and sampling location"
+      ],
+      [
+        "Rainfall",
+        "Amount, source (for example a documented rain gauge), event start and end times"
+      ],
+      [
+        "Post-event state",
+        "Salinity and depth with measurement locations and instrument or laboratory method"
+      ],
+      [
+        "Interventions",
+        "Every transfer, drainage, overflow, pumping and harvest quantity with timestamps"
+      ],
+      [
+        "Verification",
+        "Who verified each value and how; independent corroboration where available"
+      ],
+      [
+        "Status",
+        "Events with missing or ambiguous intervention records remain visible but excluded from quantitative validation"
+      ]
+    ]
+  },
+  {
+    "table_index": 16,
+    "rows_count": 6,
+    "cols_count": 3,
+    "data": [
+      [
+        "Claim",
+        "Evidence required",
+        "Status in this study"
+      ],
+      [
+        "Mathematical reproducibility",
+        "Equation, units, inputs and independently repeatable calculation",
+        "Supported"
+      ],
+      [
+        "Software correctness",
+        "Tests, build checks and reproducible behaviour",
+        "Supported at implementation-testing level"
+      ],
+      [
+        "Field accuracy",
+        "Multiple independently verified paired measurements and complete intervention records",
+        "Not established"
+      ],
+      [
+        "ML performance",
+        "Genuine labelled dataset, leakage-safe protocol and held-out metrics",
+        "Not claimed; no model"
+      ],
+      [
+        "Operational benefit",
+        "Measured outcomes against a defined baseline",
+        "Not demonstrated"
+      ]
+    ]
+  },
+  {
+    "table_index": 17,
+    "rows_count": 12,
+    "cols_count": 6,
+    "data": [
+      [
+        "Rain (mm)",
+        "D₀ = 10 cm",
+        "D₀ = 15 cm",
+        "D₀ = 20 cm",
+        "D₀ = 30 cm",
+        "D₀ = 40 cm"
+      ],
+      [
+        "0",
+        "250.0",
+        "250.0",
+        "250.0",
+        "250.0",
+        "250.0"
+      ],
+      [
+        "10",
+        "227.3",
+        "234.4",
+        "238.1",
+        "241.9",
+        "243.9"
+      ],
+      [
+        "20",
+        "208.3",
+        "220.6",
+        "227.3",
+        "234.4",
+        "238.1"
+      ],
+      [
+        "25",
+        "200.0",
+        "214.3",
+        "222.2",
+        "230.8",
+        "235.3"
+      ],
+      [
+        "30",
+        "192.3",
+        "208.3",
+        "217.4",
+        "227.3",
+        "232.6"
+      ],
+      [
+        "40",
+        "178.6",
+        "197.4",
+        "208.3",
+        "220.6",
+        "227.3"
+      ],
+      [
+        "50",
+        "166.7",
+        "187.5",
+        "200.0",
+        "214.3",
+        "222.2"
+      ],
+      [
+        "60",
+        "156.3",
+        "178.6",
+        "192.3",
+        "208.3",
+        "217.4"
+      ],
+      [
+        "75",
+        "142.9",
+        "166.7",
+        "181.8",
+        "200.0",
+        "210.5"
+      ],
+      [
+        "90",
+        "131.6",
+        "156.3",
+        "172.4",
+        "192.3",
+        "204.1"
+      ],
+      [
+        "100",
+        "125.0",
+        "150.0",
+        "166.7",
+        "187.5",
+        "200.0"
+      ]
+    ]
+  },
+  {
+    "table_index": 18,
+    "rows_count": 12,
+    "cols_count": 6,
+    "data": [
+      [
+        "Rain (mm)",
+        "D₀ = 10 cm",
+        "D₀ = 15 cm",
+        "D₀ = 20 cm",
+        "D₀ = 30 cm",
+        "D₀ = 40 cm"
+      ],
+      [
+        "0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0"
+      ],
+      [
+        "10",
+        "9.1",
+        "6.3",
+        "4.8",
+        "3.2",
+        "2.4"
+      ],
+      [
+        "20",
+        "16.7",
+        "11.8",
+        "9.1",
+        "6.3",
+        "4.8"
+      ],
+      [
+        "25",
+        "20.0",
+        "14.3",
+        "11.1",
+        "7.7",
+        "5.9"
+      ],
+      [
+        "30",
+        "23.1",
+        "16.7",
+        "13.0",
+        "9.1",
+        "7.0"
+      ],
+      [
+        "40",
+        "28.6",
+        "21.1",
+        "16.7",
+        "11.8",
+        "9.1"
+      ],
+      [
+        "50",
+        "33.3",
+        "25.0",
+        "20.0",
+        "14.3",
+        "11.1"
+      ],
+      [
+        "60",
+        "37.5",
+        "28.6",
+        "23.1",
+        "16.7",
+        "13.0"
+      ],
+      [
+        "75",
+        "42.9",
+        "33.3",
+        "27.3",
+        "20.0",
+        "15.8"
+      ],
+      [
+        "90",
+        "47.4",
+        "37.5",
+        "31.0",
+        "23.1",
+        "18.4"
+      ],
+      [
+        "100",
+        "50.0",
+        "40.0",
+        "33.3",
+        "25.0",
+        "20.0"
+      ]
+    ]
+  },
+  {
+    "table_index": 19,
+    "rows_count": 12,
+    "cols_count": 6,
+    "data": [
+      [
+        "Rain (mm)",
+        "D₀ = 10 cm",
+        "D₀ = 15 cm",
+        "D₀ = 20 cm",
+        "D₀ = 30 cm",
+        "D₀ = 40 cm"
+      ],
+      [
+        "0",
+        "10.0",
+        "15.0",
+        "20.0",
+        "30.0",
+        "40.0"
+      ],
+      [
+        "10",
+        "11.0",
+        "16.0",
+        "21.0",
+        "31.0",
+        "41.0"
+      ],
+      [
+        "20",
+        "12.0",
+        "17.0",
+        "22.0",
+        "32.0",
+        "42.0"
+      ],
+      [
+        "25",
+        "12.5",
+        "17.5",
+        "22.5",
+        "32.5",
+        "42.5"
+      ],
+      [
+        "30",
+        "13.0",
+        "18.0",
+        "23.0",
+        "33.0",
+        "43.0"
+      ],
+      [
+        "40",
+        "14.0",
+        "19.0",
+        "24.0",
+        "34.0",
+        "44.0"
+      ],
+      [
+        "50",
+        "15.0",
+        "20.0",
+        "25.0",
+        "35.0",
+        "45.0"
+      ],
+      [
+        "60",
+        "16.0",
+        "21.0",
+        "26.0",
+        "36.0",
+        "46.0"
+      ],
+      [
+        "75",
+        "17.5",
+        "22.5",
+        "27.5",
+        "37.5",
+        "47.5"
+      ],
+      [
+        "90",
+        "19.0",
+        "24.0",
+        "29.0",
+        "39.0",
+        "49.0"
+      ],
+      [
+        "100",
+        "20.0",
+        "25.0",
+        "30.0",
+        "40.0",
+        "50.0"
+      ]
+    ]
+  },
+  {
+    "table_index": 20,
+    "rows_count": 9,
+    "cols_count": 3,
+    "data": [
+      [
+        "Step",
+        "March (90 mm)",
+        "September (25 mm)"
+      ],
+      [
+        "R (cm)",
+        "9",
+        "2.5"
+      ],
+      [
+        "D₁ = D₀ + R (cm)",
+        "29",
+        "22.5"
+      ],
+      [
+        "C₁ = C₀D₀/D₁ (g/L)",
+        "250 × 20 / 29 = 172.414",
+        "250 × 20 / 22.5 = 222.22"
+      ],
+      [
+        "δ (%)",
+        "31.03",
+        "11.11"
+      ],
+      [
+        "V₀ (m³)",
+        "2,460",
+        "2,460"
+      ],
+      [
+        "V₁ (m³)",
+        "3,567",
+        "2,767.5"
+      ],
+      [
+        "Salt mass C₀V₀ (tonnes)",
+        "615",
+        "615"
+      ],
+      [
+        "Check C₁V₁ (tonnes)",
+        "172.414 × 3,567 / 1,000 = 615",
+        "222.22 × 2,767.5 / 1,000 = 615"
+      ]
+    ]
+  },
+  {
+    "table_index": 21,
+    "rows_count": 15,
+    "cols_count": 3,
+    "data": [
+      [
+        "Field",
+        "Entry",
+        "Notes"
+      ],
+      [
+        "Event identifier",
+        "",
+        "Unique; registered before the outcome is inspected"
+      ],
+      [
+        "Pan identifier and area",
+        "",
+        ""
+      ],
+      [
+        "Pre-event salinity (g/L)",
+        "",
+        "Instrument, calibration date, sampling location"
+      ],
+      [
+        "Pre-event depth (cm)",
+        "",
+        "Gauge or staff reading, location"
+      ],
+      [
+        "Pre-event time (IST and UTC)",
+        "",
+        "Source of the time"
+      ],
+      [
+        "Forecast rainfall (mm), issue time, source",
+        "",
+        ""
+      ],
+      [
+        "Rainfall start and end time",
+        "",
+        "Documented rain gauge or sheet"
+      ],
+      [
+        "Measured rainfall (mm)",
+        "",
+        "Gauge identifier"
+      ],
+      [
+        "Interventions (type, volume, time)",
+        "",
+        "Transfer, drainage, overflow, pumping, harvest"
+      ],
+      [
+        "Post-event salinity (g/L)",
+        "",
+        "Instrument, sampling location(s), depth of sample"
+      ],
+      [
+        "Post-event depth (cm)",
+        "",
+        "Gauge reading, location(s)"
+      ],
+      [
+        "Post-event time (IST and UTC)",
+        "",
+        ""
+      ],
+      [
+        "Observer and verifier",
+        "",
+        "Independent corroboration where available"
+      ],
+      [
+        "Verification state",
+        "",
+        "Operator-reported or independently verified"
+      ]
+    ]
+  },
+  {
+    "table_index": 22,
+    "rows_count": 16,
+    "cols_count": 2,
+    "data": [
+      [
+        "Term",
+        "Meaning"
+      ],
+      [
+        "Pan",
+        "A shallow evaporation pond in a solar salt works"
+      ],
+      [
+        "Brine",
+        "Concentrated saline water in a pan"
+      ],
+      [
+        "Salinity",
+        "Concentration of dissolved salts, expressed here in g/L"
+      ],
+      [
+        "Mass balance",
+        "Calculation that equates the dissolved-salt mass before and after a stated change"
+      ],
+      [
+        "Digital twin",
+        "Continuously updated digital representation of a physical asset used for monitoring and decision support"
+      ],
+      [
+        "Provenance",
+        "Record of the source and history of a piece of information"
+      ],
+      [
+        "Evidence gate",
+        "Control that withholds an output until stated evidence conditions are met"
+      ],
+      [
+        "Superseded value",
+        "A value displaced by a correction and retained in audit history"
+      ],
+      [
+        "Intervention",
+        "A human action that moves water or salt, such as transfer, drainage, pumping or harvest"
+      ],
+      [
+        "DSS",
+        "Decision-support system"
+      ],
+      [
+        "IST / UTC",
+        "Indian Standard Time / Coordinated Universal Time (IST = UTC + 5:30)"
+      ],
+      [
+        "ML",
+        "Machine learning"
+      ],
+      [
+        "MAE / RMSE",
+        "Mean absolute error / root mean squared error"
+      ],
+      [
+        "SHAP",
+        "SHapley Additive exPlanations, a model-explanation method"
+      ],
+      [
+        "API",
+        "Application programming interface"
+      ]
+    ]
+  },
+  {
+    "table_index": 23,
+    "rows_count": 11,
+    "cols_count": 3,
+    "data": [
+      [
+        "Symbol",
+        "Meaning",
+        "Unit"
+      ],
+      [
+        "C₀, C₁",
+        "Brine salinity before and after the rainfall event",
+        "g/L"
+      ],
+      [
+        "D₀, D₁",
+        "Water depth before and after the rainfall event",
+        "cm"
+      ],
+      [
+        "R",
+        "Rainfall depth (reported in mm, divided by ten before use)",
+        "cm"
+      ],
+      [
+        "δ",
+        "Predicted percentage dilution",
+        "%"
+      ],
+      [
+        "A",
+        "Pan area (North Pan: 12,300 m²)",
+        "m²"
+      ],
+      [
+        "V₀, V₁",
+        "Water volume before and after the event",
+        "m³"
+      ],
+      [
+        "M₀, M₁",
+        "Dissolved-salt mass before and after the event",
+        "kg or tonnes"
+      ],
+      [
+        "E",
+        "Evaporation depth over the period (extended model only)",
+        "cm"
+      ],
+      [
+        "Q_in, Q_out, Q_drain, Q_seep",
+        "Inflow, outbound transfer, drainage and seepage volumes (extended model only)",
+        "m³"
+      ],
+      [
+        "C_in, C_out, C_drain, C_seep",
+        "Salinities of the corresponding flows (extended model only)",
+        "g/L"
+      ]
+    ]
+  }
+]

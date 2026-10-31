@@ -49,9 +49,6 @@ export default function AdminAuditPage() {
               {total} EVENTS
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Security audit trail of user logins, cattle registrations, and clinical diagnoses.
-          </p>
         </div>
         <button
           onClick={fetchLogs}

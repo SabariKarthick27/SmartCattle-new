@@ -1,0 +1,608 @@
+P4 [Normal]: A Project Report
+P6 [Heading 2]: [Course Code] – [Course Name]
+P8 [Heading 3]: Submitted by
+P11 [Normal]: in partial fulfillment for the award of the degree of
+P12 [Heading 1]: BACHELOR OF ENGINEERING
+P14 [Normal]: in
+P15 [Normal]: INFORMATION TECHNOLOGY
+P17 [Normal]: SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS), SALEM – 636005
+P18 [Normal]: ANNA UNIVERSITY: CHENNAI 600 025
+P20 [Normal]: OCTOBER 2026
+P22 [Normal]: SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS) ANNA UNIVERSITY: CHENNAI – 600 025
+P24 [Normal]: BONAFIDE CERTIFICATE
+P26 [Normal]: Certified that this Project titled “ADAPTIVE CROSS-LAYER SECURITY FRAMEWORK FOR 5G/6G NETWORK SLICING
+P27 [Normal]: USING REINFORCEMENT LEARNING” is the bonafide work of “RAJAKUMARAN P ([Register No.]), SAKTHIVEL R ([Register No.]), UDITH KUMAR P ([Register No.])” who carried out the project work [Course Code] & [Course Name] under my supervision.
+P32 [Body Text]: Submitted for the Project Viva-Voce Examination held on
+P38 [Heading 1]: DECLARATION
+P40 [Normal]: We hereby declare that the project report entitled “Adaptive Cross-Layer Security Framework for 5G/6G Network Slicing Using Reinforcement Learning”, submitted to Sona College of Technology (Autonomous), Salem, affiliated to Anna University, Chennai, in partial fulfilment of the requirements for the award of the degree of Bachelor of Engineering in Information Technology, is a record of the original work carried out by us under the guidance of Dr. P. Iyyanar, Department of Information Technology, Sona College of Technology, Salem.
+P41 [Body Text]: We further declare that the work reported in this project has not been submitted, either in part or in full, to any other institution or university for the award of any degree, diploma or similar title. All the sources of information that have been used in this report have been duly acknowledged in the references.
+P43 [Body Text]: Place: Salem
+P44 [Body Text]: Date: [DD-MM-2026]
+P46 [Normal]: RAJAKUMARAN P ([Register No.])
+P47 [Normal]: SAKTHIVEL R ([Register No.]) UDITH KUMAR P ([Register No.])
+P49 [Heading 1]: ACKNOWLEDGEMENT
+P51 [Body Text]: We express our sincere gratitude to the Management of Sona College of Technology (Autonomous), Salem, for providing the facilities and the academic environment that were required to carry out this project successfully.
+P52 [Body Text]: We are thankful to the Principal of the college for the encouragement and support extended to us throughout the course of this work. We also thank the Head of the Department of Information Technology for the constant motivation and for the permission to use the departmental laboratories and computing resources.
+P53 [Body Text]: We are deeply indebted to our project guide, Dr. P. Iyyanar, Department of Information Technology, for the valuable guidance, constructive suggestions and continuous encouragement that he gave us during the development and documentation of this project. His advice helped us to shape the work into a well-structured research prototype.
+P54 [Body Text]: We extend our thanks to all the faculty members and the non-teaching staff of the department for their help at various stages of the project. Finally, we thank our parents and friends for their patience, moral support and good wishes, without which this work would not have been completed.
+P56 [Heading 1]: ABSTRACT
+P58 [Body Text]: Network slicing allows 5G and emerging 6G networks to deliver heterogeneous services such as Enhanced Mobile Broadband (eMBB), Ultra-Reliable Low-Latency Communication (URLLC) and massive Machine-Type Communication (mMTC) over a shared physical infrastructure. This flexibility, however, creates a new and evolving multilevel attack surface that static, single-layer security policies cannot defend effectively. This project presents the Adaptive Cross-Layer Security (ACLS) framework, a simulation-based research prototype that integrates a configurable 5G/6G slice simulator, a synthetic threat generator, an Isolation Forest anomaly detector, a privacy-preserving federated learning network across three simulated edge nodes, a four-agent multi-agent reinforcement learning (MARL) decision engine, an adaptive security controller and a real-time Security Operations Centre (SOC) dashboard. The threat generator reproduces denial-of-service (DoS) flooding, identity spoofing and cross-slice isolation breach scenarios. ACLS is compared with a static rule-based baseline and a single-agent Deep Q-Network (DQN) baseline over 50 simulation episodes that use the same random seed (42) and identical attack sequences. In this benchmark, ACLS achieves 100.0% attack detection and mitigation, a response time of
+P59 [Body Text]: 1.0 simulation step, 32.5% CPU usage, no false positives or false negatives,
+P60 [Body Text]: and a security posture score of 96.5 out of 100, ahead of both baselines. The average network latency rises to 31.1 ms, compared with 18.5 ms for the static baseline, which shows a clear trade-off between protection and latency. The results are benchmark observations from a controlled simulation and do not represent a real 5G/6G deployment.
+P61 [Body Text]: Keywords: 5G, 6G, network slicing, cross-layer security, multi-agent reinforcement learning, federated learning, anomaly detection, Isolation Forest, adaptive security control.
+P63 [Normal]: CONTENTS
+P65 [Normal]: TITLE	PAGE NO.
+P68 [Heading 1]: LIST OF TABLES
+P70 [Normal]: TITLE	PAGE NO.
+P71 [Body Text]: Table 1.1 Characteristics of the Three Service Classes	2
+P72 [Body Text]: Table 2.1 Summary of Related Work	10
+P73 [Body Text]: Table 3.1 Comparison of Existing Security Techniques	17
+P74 [Body Text]: Table 4.1 Core Algorithmic Procedures of ACLS	31
+P75 [Body Text]: Table 4.2 Action Space of the Adaptive Security Controller	31
+P76 [Body Text]: Table 5.1 Three-Way Benchmark Results	38
+P77 [Heading 1]: LIST OF FIGURES
+P78 [Normal]: TITLE	PAGE NO.
+P79 [Body Text]: Fig. 1.1 Network Slicing over a Shared Physical Infrastructure	1
+P80 [Body Text]: Fig. 4.1 Closed-Loop Architecture of the ACLS Framework	21
+P81 [Body Text]: Fig. 5.1 Detection, Mitigation and Security Posture Comparison	38
+P82 [Body Text]: Fig. 5.2 Response Time, Latency and CPU Usage Comparison	40
+P84 [Heading 1]: LIST OF ABBREVIATIONS
+P87 [Heading 1]: CHAPTER 1 INTRODUCTION
+P88 [Heading 2]: Background of 5G/6G Network Slicing
+P89 [Body Text]: The rapid growth of connected devices, data-intensive applications and mission-critical services has pushed mobile networks beyond what a single, uniform network design can support. The fifth generation (5G) of mobile networks addresses this diversity through softwarisation technologies such as Software-Defined Networking (SDN), Network Function Virtualisation (NFV) and cloud-native core networks. Among these, network slicing is regarded as one of the most important enablers. A network slice is a logical, end-to-end network that is created on top of a common physical infrastructure and is configured to meet the requirements of a particular service, customer or application.
+P90 [Body Text]: The sixth generation (6G) is expected to extend this idea further. Studies of future networks anticipate an era of heterogeneous and increasingly autonomous networks in which artificial intelligence is embedded in network management, resource allocation and security [1], [2]. In such networks, slices will be created, modified and removed dynamically, and many of them will be served from edge nodes located close to the users. Because radio, transport and computing resources are shared among the slices, the boundary between one service and another is logical and not physical. The security of the whole system therefore depends on how well these logical boundaries are enforced and monitored. Fig. 1.1 illustrates the idea of several isolated slices running over one shared infrastructure.
+P93 [Heading 2]: Fig. 1.1 Network Slicing over a Shared Physical Infrastructure
+P94 [Heading 2]: Service Classes: eMBB, URLLC and mMTC
+P95 [Body Text]: The 5G architecture defines three principal service classes, and the ACLS project models one slice for each of them. Enhanced Mobile Broadband (eMBB) supports high-throughput traffic such as video streaming and immersive media. Ultra-Reliable Low-Latency Communication (URLLC) supports applications such as industrial automation, remote control and vehicular services, in which a delayed response can be as harmful as a lost one. Massive Machine-Type Communication (mMTC) connects a very large and dense population of low-power sensors and meters that send
+P97 [Body Text]: small amounts of data. Table 1.1 summarises the three classes and the security implications that follow from them.
+P98 [Heading 2]: Table 1.1 Characteristics of the Three Service Classes
+P100 [Body Text]: These differences make it hard to justify a single, uniform security posture. The controls that suit a throughput-oriented class add computation and delay, which a latency-oriented class cannot tolerate, while relaxing the controls in order to protect latency leaves a constrained class more exposed to attack.
+P101 [Heading 2]: Security Challenges in Network Slicing
+P102 [Body Text]: Network slicing improves flexibility but it also enlarges the attack surface. Surveys of slicing security [4], [5] describe attacks that target the shared infrastructure, the slice management and orchestration functions, and the interfaces between slices. This project concentrates on three representative scenarios that are commonly discussed in 5G/6G threat modelling [3]:
+P103 [List Paragraph]: Denial-of-Service (DoS) flooding: an attacker generates excessive traffic or processing load so that a target slice is pushed into a
+P105 [Body Text]: stressed state and legitimate users are starved of bandwidth or CPU capacity.
+P106 [List Paragraph]: Identity spoofing: an attacker forges or alters node identities or signatures in order to defeat authentication and gain access to services or to a slice.
+P107 [List Paragraph]: Cross-slice isolation breach: an attacker exploits the common infrastructure to break the logical separation between slices and to reach resources that belong to another slice.
+P108 [Body Text]: In addition to the variety of attacks, the sliced environment makes defence harder because security-relevant events occur at several levels at once. A flood may first appear as unusual behaviour at the physical or MAC level, then as congestion in the network layer and finally as degraded application performance. Each layer sees only a fragment of the same incident.
+P109 [Heading 2]: Need for Adaptive Cross-Layer Security
+P110 [Body Text]: Security does not occur at one protocol layer. A fault or malfunction at the physical or Medium Access Control (MAC) layer can spread to the network and application layers in the form of slow reactions, inconsistent control or a failure to recognise that symptoms at different layers describe the same incident. A detector that works in a single layer can report an anomaly within its own feature space, but it cannot supply the context that is needed to relate that anomaly to anomalies elsewhere in the protocol stack [3]. This project therefore treats security as a cross-layer control problem.
+P111 [Body Text]: A second limitation of conventional practice is that security policies are static. A static policy applies the same configuration to every slice, irrespective of the state of that slice. It is simple and predictable, but it cannot react to the intensity of an attack or to resource pressure, and for
+P113 [Body Text]: URLLC services unnecessary security processing may directly conflict with latency requirements. An adaptive approach is therefore needed, in which the security configuration itself is treated as an action that is chosen according to the observed state of the network.
+P114 [Body Text]: A third concern is privacy. Telemetry that is generated at edge nodes associated with different slices may contain sensitive information, and centralising raw feature vectors increases the exposure of that information. Federated learning offers a way of training a shared model while the raw data remain at the edge nodes.
+P115 [Heading 2]: Problem Statement
+P116 [Body Text]: Consider a network that consists of three slices, namely eMBB, URLLC and mMTC. The problem is to choose, at every simulation step, a set of security actions covering authentication, encryption, intrusion-detection depth and slice isolation, such that attacks are detected and mitigated quickly while the CPU cost, the latency overhead and the residual threat exposure remain as low as possible. The decision has to use evidence from the physical, MAC, network and application layers, and the training of the detection model must not require raw telemetry to be moved from the edge nodes to a central location.
+P117 [Heading 2]: Objectives of the Project
+P118 [Body Text]: The objectives of this project are as follows:
+P119 [List Paragraph]: To design a configurable 5G/6G network slice simulator that generates telemetry for eMBB, URLLC and mMTC slices.
+P120 [List Paragraph]: To develop a synthetic threat generator that produces controlled and repeatable DoS flood, identity spoofing and cross-slice isolation breach scenarios.
+P122 [List Paragraph]: To build an unsupervised Isolation Forest anomaly detector that provides an anomaly signal without requiring labelled attack data.
+P123 [List Paragraph]: To train detection models across three simulated edge nodes using federated learning with Federated Averaging (FedAvg), so that raw telemetry is not centralised.
+P124 [List Paragraph]: To implement a four-agent multi-agent reinforcement learning engine, with one agent each for the physical, MAC, network and application layers, that chooses security actions jointly.
+P125 [List Paragraph]: To implement an adaptive security controller that enforces the chosen actions in terms of authentication, encryption, intrusion-detection depth and slice isolation.
+P126 [List Paragraph]: To provide a real-time SOC dashboard for monitoring, and to compare ACLS with a static rule-based baseline and a single-agent DQN baseline using seven evaluation metrics.
+P127 [Heading 2]: Scope and Contributions
+P128 [Body Text]: The scope of this work is a simulation-based research prototype. The primary purpose is not to prove the operational readiness of 5G/6G networks. It is to test whether a multi-agent, cross-layer approach can achieve better security outcomes than static and single-agent baselines under controlled attack sequences, and whether the integrated architecture can give a consistent response.
+P129 [Body Text]: The main contribution of the project is the integrated and reproducible closed-loop control framework in which simulation, threat injection, anomaly detection, federated learning, multi-agent reinforcement learning and adaptive enforcement operate together. Individual techniques such as Isolation Forest, FedAvg and DQN are established methods and are not claimed as new in isolation. The framework is modular, so the simulator,
+P131 [Body Text]: detector, learning engine, controller and dashboard can be evaluated or replaced independently.
+P132 [Body Text]: The evaluation uses a synthetic environment, one benchmark configuration and a single fixed random seed (42) over 50 episodes. The reported results are therefore benchmark observations and not statistically generalised estimates. These limitations are discussed in Chapters 5 and 6.
+P133 [Heading 2]: Overview of the Proposed Approach
+P134 [Body Text]: ACLS is designed as a closed loop in which every stage feeds the next. The simulator produces telemetry for the three slices, and the threat generator injects attacks into this telemetry. The telemetry is converted into a threat state, and the Isolation Forest, whose training is carried out through federated learning at the edge nodes, adds an anomaly signal to this state. Four layer-specific agents observe the state and propose their components of a joint security action. The adaptive security controller then enforces the chosen authentication, encryption, intrusion-detection depth and isolation settings, the dashboard displays the outcome, and the resulting condition becomes the input of the next simulation step.
+P135 [Body Text]: In every step the learned policy is rewarded for the security benefit that it achieves and is penalised for latency, CPU cost and residual threat exposure. The controller does not have to keep the highest protection level at all times. Under attack the policy can select stronger authentication, stronger encryption, deeper inspection or stricter isolation, and at other times it can relax them. The idea that the architecture sets out to test is this dynamic allocation of protection according to the observed state, as opposed to the uniform application of the same controls to every slice. The complete design is described in Chapter 4.
+P137 [Heading 2]: Organisation of the Report
+P138 [Body Text]: The remainder of this report is organised as follows:
+P139 [List Paragraph]: Chapter 2 reviews the literature on network slicing security, reinforcement learning, anomaly detection and federated learning, and identifies the research gap.
+P140 [List Paragraph]: Chapter 3 describes the existing techniques with their advantages and disadvantages, and explains how the proposed approach overcomes their limitations.
+P141 [List Paragraph]: Chapter 4 presents the proposed ACLS framework, including its architecture, algorithms, implementation and source code.
+P142 [List Paragraph]: Chapter 5 discusses the experimental results and compares them with the existing techniques.
+P143 [List Paragraph]: Chapter 6 gives the conclusion and the future scope of the work.
+P145 [Heading 1]: CHAPTER 2 LITERATURE REVIEW
+P146 [Body Text]: This chapter reviews the published work that is related to the ACLS framework. The review is arranged by topic: surveys of slicing security, learning-based defences, reinforcement learning for slicing, multi-agent intrusion detection, unsupervised anomaly detection, federated learning, and 6G security. The chapter ends with a summary table and a statement of the research gap that this project addresses.
+P147 [Heading 2]: Network Slicing Security Surveys
+P148 [Body Text]: A considerable number of surveys have been written on the security of network slicing. De Alwis et al. [4] survey slicing security in terms of attacks, challenges, solutions and research directions, while Dangi et al. [5] review machine-learning-based approaches to slicing security. Wijethilaka and Liyanage [7] study network slicing for the realisation of the Internet of Things (IoT) in 5G networks, which is directly relevant to the mMTC class, and Khan et al. [8] survey the security and privacy of 5G technologies, including authentication, isolation and privacy solutions.
+P149 [Body Text]: Taken together, these works show that security has to be treated as a first-class, cross-cutting design concern in network slicing and not as an add-on. They are, however, mainly surveys. They organise the threats and the available countermeasures, but they do not propose a closed-loop controller that adapts the security configuration to the observed state of the sliced network.
+P150 [Heading 2]: Learning-Based Security for Network Slicing
+P151 [Body Text]: Thantharate et al. [6] present Secure5G, a deep-learning framework towards secure network slicing in 5G and beyond. Defences of this kind use classification models together with slice-aware policy enforcement,
+P153 [Body Text]: and they show that learning-based methods can support the protection of individual slices. A common limitation of classification-based defences is that they depend on labelled examples of each attack type, and that detection and response are tightly coupled to what a single classifier reports.
+P154 [Body Text]: ACLS differs in two respects. First, it uses an unsupervised detector, so a full catalogue of attack types is not required. Second, the anomaly signal is only one input to the decision process: the appropriate security configuration is chosen by a separate decision engine and applied by a separate controller.
+P155 [Heading 2]: Reinforcement Learning for Slicing Resource Management
+P156 [Body Text]: Deep reinforcement learning has been used extensively for resource management in network slicing. Hua et al. [12] apply a generative-adversarial-network-powered deep distributional reinforcement learning method to resource management in network slicing. Zhou et al. [13] propose deep transfer reinforcement learning to share experience between agents for joint radio and cache resource allocation in 5G RAN slicing. Hurtado Sánchez et al. [14] provide a survey of deep reinforcement learning for resource management on network slicing, which covers the main phases of resource management, namely admission, allocation, scheduling and orchestration.
+P157 [Body Text]: ACLS adopts this resource-management viewpoint and applies it to security. In ACLS, the “resources” that a learned policy controls are the strength of authentication, the encryption scheme, the depth of intrusion inspection and the strictness of slice isolation, and not radio or compute capacity. The reward function therefore balances the security benefit against the latency cost, the CPU cost and the residual threat exposure.
+P159 [Heading 2]: Multi-Agent Reinforcement Learning for Intrusion Detection
+P160 [Body Text]: Multi-agent reinforcement learning has also been applied to intrusion detection outside the slicing context. Tellache et al. [9] propose a network intrusion detection system based on multi-agent reinforcement learning and report that a multi-agent architecture improves detection robustness in comparison with single-agent DQN baselines. Ren et al. [10] present MAFSIDS, a reinforcement-learning-based intrusion detection model in which multiple agents perform feature selection, and they show improved classification of imbalanced attack classes.
+P161 [Body Text]: These studies support the idea that cooperating agents can outperform a single agent in detection tasks. Their focus is on classifying traffic in general networks, and not on choosing security configurations for slices. ACLS therefore adopts a cross-layer multi-agent structure in which four layer-specific agents, for the physical, MAC, network and application layers, each contribute one component of a joint security action. Reinforcement learning is not assumed to be the best possible method; the single-agent DQN baseline is included so that the value of cross-layer multi-agent coordination can be measured separately from the value of learning in general.
+P162 [Heading 2]: Isolation Forest for Anomaly Detection
+P163 [Body Text]: Isolation Forest is an unsupervised, tree-based method for anomaly detection. It builds an ensemble of random trees that recursively partition the observations. An observation that can be separated from the rest with only a small number of partitions is considered more anomalous than an observation that lies close to the majority of the data. Because the method does not need labelled attack data, it is suitable for traffic in which the attack patterns are not known in advance. Feng et al. [11] describe an
+P165 [Body Text]: improved methodology for network traffic anomaly detection that combines X-Means clustering with Isolation Forest.
+P166 [Body Text]: Unusual behaviour is not necessarily malicious. A normal eMBB traffic burst may also appear anomalous. In ACLS the Isolation Forest score is therefore treated as one source of evidence in the larger closed loop and not as a final verdict.
+P167 [Heading 2]: Federated Learning for Privacy-Preserving Detection
+P168 [Body Text]: Federated learning allows several clients to train a shared model without sending their raw data to a central server. Only model parameters are exchanged and aggregated. Vyas et al. [15] survey privacy-preserving federated learning for intrusion detection in IoT environments and show that this approach has been studied extensively for edge deployments. For this reason, ACLS keeps the training data of each of its three simulated edge nodes local and aggregates only the model updates with FedAvg.
+P169 [Body Text]: Federated learning by itself is not a formal privacy guarantee. Techniques such as differential privacy and secure aggregation, and protection against malicious or poisoning clients, are needed for stronger assurances. The ACLS prototype does not yet implement these techniques, and its privacy contribution should be read as a data-locality design. This is listed as future work.
+P170 [Heading 2]: 6G Security, Artificial Intelligence and Zero Trust
+P171 [Body Text]: Looking beyond 5G, Nguyen et al. [16] survey security and privacy for 6G, including prospective technologies and challenges, and note that new threat vectors arise from disaggregated, AI-based architectures, which calls for adaptive and real-time security measures. Siriwardhana et al. [17] examine the opportunities and challenges of artificial intelligence in 6G security, where AI can be a threat as well as a defence.
+P173 [Body Text]: The zero-trust principle, in which trust is continuously re-evaluated and is not granted once at authentication, is widely discussed as a foundation for 6G security. It is compatible with the state-dependent behaviour of ACLS, in which the level of authentication, encryption, inspection and isolation is re-evaluated at every simulation step.
+P174 [Heading 2]: Summary of the Literature and Research Gap
+P175 [Body Text]: Table 2.1 summarises the related work and states its relevance to the ACLS framework.
+P176 [Heading 2]: Table 2.1 Summary of Related Work
+P179 [Body Text]: The review shows that the individual building blocks of ACLS are well studied. The following gaps remain:
+P180 [List Paragraph]: Slicing security work is mostly descriptive, and few studies provide a closed loop from detection to enforcement.
+P181 [List Paragraph]: Detectors usually operate in a single layer and do not combine evidence from the physical, MAC, network and application layers.
+P182 [List Paragraph]: Reinforcement learning for slicing is aimed at resource allocation and not at the choice of security configuration.
+P183 [List Paragraph]: Multi-agent intrusion detection is not slice-aware and does not control authentication, encryption, inspection depth and isolation together.
+P184 [List Paragraph]: Federated learning for intrusion detection is rarely integrated with a decision engine and an enforcement controller.
+P185 [Body Text]: The ACLS framework addresses these gaps by integrating all of these elements in one reproducible, modular and measurable closed loop.
+P187 [Heading 1]: CHAPTER 3
+P188 [Normal]: EXISTING TECHNIQUES AND PROPOSED APPROACH
+P190 [Body Text]: This chapter describes the techniques that are commonly used to secure sliced networks and that serve as the background and the baselines of this project. For every technique, the working principle is explained and its advantages and disadvantages are listed. The chapter then compares the techniques and explains how the proposed Adaptive Cross-Layer Security (ACLS) framework overcomes the disadvantages that were identified.
+P191 [Heading 2]: Static Rule-Based Security Policies
+P192 [Body Text]: The most widely used way of protecting a network is to configure a fixed set of security rules and to apply them to the traffic in the same way at all times. Typical examples are fixed firewall rules, a fixed authentication method, a fixed encryption algorithm and a fixed depth of packet inspection. In a sliced network, a static policy applies one configuration to every slice, or one configuration to each slice that never changes during operation, irrespective of the current state of that slice. The administrator decides the configuration in advance, and the configuration is changed only when a person edits it.
+P193 [Body Text]: A static policy is attractive because it is simple to design, easy to understand and fully predictable. Its behaviour can be verified before deployment, and it does not need any training data or any learning phase. In this project, the static rule baseline represents this approach and is evaluated under exactly the same attack sequences as the other strategies.
+P194 [Heading 3]: Advantages
+P195 [List Paragraph]: Simplicity: the rules are easy to write, audit and explain to operators.
+P197 [List Paragraph]: Predictability: the same input always gives the same response, so the behaviour is repeatable.
+P198 [List Paragraph]: Low design cost: no training data, no model and no learning infrastructure are needed.
+P199 [List Paragraph]: Low runtime overhead: a fixed rule check does not require continuous analysis of the state of the network.
+P200 [Heading 3]: Disadvantages
+P201 [List Paragraph]: No adaptation: a static policy cannot react to the intensity of an attack or to resource pressure, because its configuration does not depend on the observed state.
+P202 [List Paragraph]: Conflict with latency requirements: for URLLC services, unnecessary security processing may directly conflict with latency requirements, while a light configuration that protects latency leaves the slice weakly defended.
+P203 [List Paragraph]: Slow response: a person has to notice the attack and change the rules, which increases the time between the start of an attack and its mitigation.
+P204 [List Paragraph]: Poor coverage of new attack patterns: rules describe what is already known, and variations of an attack can pass unnoticed.
+P205 [Body Text]: The measured behaviour of the static baseline in this project is consistent with these disadvantages. Under the common benchmark of 50 episodes, it reaches an attack detection and mitigation rate of 35.8%, needs 4.0 simulation steps to respond, and produces 12 false positives and 16 false negatives (Chapter 5).
+P206 [Heading 2]: Single-Layer Anomaly Detection
+P207 [Body Text]: Anomaly detection tries to find behaviour that differs from the normal behaviour of the network. A single-layer detector observes the features of
+P209 [Body Text]: one protocol layer only, for example the physical layer measurements, the MAC-layer statistics or the flow statistics of the network layer, and it raises an alarm when the values in that layer depart from the learned normal pattern. Statistical methods, clustering methods and tree-based methods such as Isolation Forest are commonly used for this purpose.
+P210 [Body Text]: Such a detector is useful because it can find attacks that have not been seen before. However, it can report an anomaly only within its own feature space. It cannot provide the context that is needed to link that anomaly with anomalies in the other layers of the protocol stack [3]. A flood may begin as unusual behaviour at the physical or MAC level, appear next as congestion in the network layer and finally as degraded application performance. A single-layer detector sees only one of these fragments.
+P211 [Heading 3]: Advantages
+P212 [List Paragraph]: No attack labels are needed: an unsupervised detector learns the normal behaviour and flags departures from it.
+P213 [List Paragraph]: Ability to find new patterns: attacks that have not been catalogued can still be noticed if they change the observed features.
+P214 [List Paragraph]: Lightweight operation: a detector that watches a single layer needs fewer features and less computation.
+P215 [Heading 3]: Disadvantages
+P216 [List Paragraph]: Limited context: evidence from other layers is not used, so related symptoms are not connected to each other.
+P217 [List Paragraph]: False alarms: unusual behaviour is not necessarily malicious. A normal eMBB traffic burst may also appear anomalous.
+P218 [List Paragraph]: Detection without response: the detector reports an anomaly but does not decide which security configuration should be applied. A separate and usually manual process has to choose the response.
+P220 [List Paragraph]: Inconsistent control: because every layer reacts to its own fragment of the incident, the overall response can be inconsistent.
+P221 [Heading 2]: Centralised Machine-Learning Intrusion Detection
+P222 [Body Text]: In a centralised machine-learning intrusion detection system, the telemetry that is produced at the different nodes of the network is collected at one central location, where a classification model is trained and executed. Supervised classifiers, deep neural networks and ensemble methods are typical choices. Deep-learning defences for slicing, such as the framework of Thantharate et al. [6], belong to this group and are normally combined with slice-aware policy enforcement.
+P223 [Body Text]: Centralised training gives the model a complete view of the data and usually gives good accuracy when representative labelled data exist. The approach has, however, several weaknesses in a distributed 5G/6G environment. Telemetry is generated at edge nodes that are associated with different slices. Moving all the raw feature vectors to a central location increases the exposure of potentially sensitive information, increases the communication load and creates a single point of failure and attack.
+P224 [Heading 3]: Advantages
+P225 [List Paragraph]: Global view of the data: the central model learns from the telemetry of all nodes together.
+P226 [List Paragraph]: High accuracy with labelled data: supervised classifiers can reach good classification accuracy for the attack types that are present in the training set.
+P227 [List Paragraph]: Mature tools: the training and deployment of such models is well understood.
+P229 [Heading 3]: Disadvantages
+P230 [List Paragraph]: Privacy exposure: raw telemetry has to leave the edge nodes, so centralising raw feature vectors leads to increased exposure.
+P231 [List Paragraph]: Communication overhead: large volumes of data are transferred to the centre.
+P232 [List Paragraph]: Dependence on labelled data: classification-based defences need examples of every attack type, and detection and response are tightly coupled to what one classifier reports.
+P233 [List Paragraph]: Single point of failure: the central server becomes an attractive target and a bottleneck.
+P234 [Heading 2]: Single-Agent Deep Reinforcement Learning
+P235 [Body Text]: Reinforcement learning (RL) lets a decision maker learn a policy by interacting with an environment. At every step the agent observes a state, selects an action and receives a reward, and its aim is to maximise the expected discounted sum of rewards. Deep reinforcement learning (DRL) uses neural networks to approximate the value function or the policy, so that large and continuous state spaces can be handled. DRL has been used extensively for resource management in network slicing, for example for the allocation of radio resources, cache and compute resources, and for the admission, allocation, scheduling and orchestration phases [12]–[14].
+P236 [Body Text]: In a Deep Q-Network (DQN), a neural network estimates the action-value function Q(s, a), which is the expected return of taking action a in state s and following the policy afterwards. The network is trained so that its prediction approaches the target given by the Bellman equation:
+P237 [Body Text]: y = r + γ · max Q(s′, a′; θ⁻)	(3.1)
+P238 [Body Text]: where r is the reward, γ is the discount factor, s′ is the next state and θ⁻ denotes the parameters of a periodically updated target network. In a
+P240 [Body Text]: single-agent formulation, one agent observes the whole aggregated state and selects one joint action. In this project, a single-agent DQN is used as the second baseline, so that the value of learning in general can be separated from the value of cross-layer multi-agent coordination.
+P241 [Heading 3]: Advantages
+P242 [List Paragraph]: Learning from experience: the policy improves through interaction and does not require a hand-written rule for every situation.
+P243 [List Paragraph]: State-dependent	decisions:	the	action	can	change	with	the observed state, which makes the response adaptive.
+P244 [List Paragraph]: Reward-based trade-offs: the reward can combine several goals, such as security benefit, latency and resource cost.
+P245 [Heading 3]: Disadvantages
+P246 [List Paragraph]: Single aggregated decision path: one agent has to process the complete state, so the observations of the physical, MAC, network and application layers are not handled by specialised decision makers.
+P247 [List Paragraph]: Large joint action space: as the number of controllable settings grows, one agent has to choose among all of their combinations.
+P248 [List Paragraph]: Slower convergence to good policies: a single learner has to discover the coordination of all controls on its own.
+P249 [List Paragraph]: Limited interpretability: the relation between the observed threat and the chosen configuration is less transparent.
+P250 [Body Text]: In the benchmark of this project, the single-agent DQN reaches an attack detection and mitigation rate of 61.2%, which is better than the static baseline (35.8%) but clearly below the multi-agent ACLS (100.0%). Its response time is 2.1 steps, and it records 5 false positives and 8 false negatives (Chapter 5).
+P252 [Heading 2]: Comparison of Existing Techniques
+P253 [Body Text]: Table 3.1 compares the four existing techniques that were discussed above with the proposed ACLS framework. The comparison is qualitative and summarises the main strengths and weaknesses of each technique with respect to the requirements of a sliced 5G/6G network. The quantitative comparison for the static and single-agent baselines is presented in Chapter 5.
+P254 [Heading 2]: Table 3.1 Comparison of Existing Security Techniques
+P257 [Body Text]: The table shows that every existing technique solves a part of the problem but leaves another part open. Static policies are predictable but rigid. Single-layer detectors are flexible but isolated. Centralised learning is accurate  but  exposes  the  data.  Single-agent  learning  adapts  but
+P259 [Body Text]: concentrates all decisions in one component. No single technique combines privacy, cross-layer evidence and adaptive enforcement in one loop, and this is the gap that ACLS addresses.
+P260 [Heading 2]: How ACLS Overcomes the Limitations
+P261 [Body Text]: The ACLS framework is built as a response to the disadvantages that were listed in the previous sections. The following points explain, one by one, how each limitation is addressed.
+P262 [List Paragraph]: Against the rigidity of static policies: in ACLS the security configuration itself is treated as an action space that reacts to the observed state. Under attack the learned policy can choose stronger authentication, stronger encryption, deeper inspection or stricter isolation, and in normal conditions it can relax them. Protection is therefore allocated dynamically and is not applied in the same way to every slice at all times.
+P263 [List Paragraph]: Against single-layer blindness: four layer-specific agents, for the physical, MAC, network and application layers, each observe the part of the state that is relevant to their layer and contribute one component of a joint action. Evidence from all layers is therefore used together in every decision, which is consistent with the view that threats can span multiple layers.
+P264 [List Paragraph]: Against the privacy exposure of centralised learning: the three simulated edge nodes, for eMBB, URLLC and mMTC, train their models on locally stored telemetry. Only the model parameters are exchanged, and they are combined by Federated Averaging (FedAvg). Raw telemetry does not move to a central node. This is a data-locality design and not a formal privacy proof, because differential privacy and secure aggregation are not yet implemented.
+P266 [List Paragraph]: Against the dependence on labelled attacks: the Isolation Forest provides an unsupervised anomaly signal that does not need a full catalogue of attack types. Because the anomaly score is not a confirmed attack classification, it is used as one input to the decision engine and not as the final verdict.
+P267 [List Paragraph]: Against the limits of single-agent learning: the decomposition into cooperating agents reduces the burden on any one decision maker, and the single-agent DQN baseline makes it possible to measure the extra value that multi-agent coordination brings beyond reinforcement learning in general.
+P268 [List Paragraph]: Against the lack of coupling between detection and response: detection and enforcement are decoupled on purpose. The anomaly signal does not define the security configuration. The MARL engine maps the observed state to an action, and the Adaptive Security Controller applies that action, so that the complete loop from telemetry to enforcement is closed and measurable.
+P269 [Body Text]: The proposed approach does not remove every disadvantage. Stronger protection is not free: ACLS records an average latency of 31.1 ms, compared with 22.4 ms for the single-agent DQN and 18.5 ms for the static baseline. For URLLC-like workloads, in which latency is a primary service requirement, this overhead may still be significant. For this reason the reward function includes explicit latency and resource-cost terms and does not reward attack suppression alone. The evaluation is also limited to a synthetic environment and one fixed seed. These points are discussed further in Chapters 5 and 6.
+P270 [Body Text]: In summary, the improvement that ACLS offers does not come from a new algorithm. Isolation Forest, FedAvg and DQN are established methods. The improvement comes from the integration of these methods into one
+P272 [Body Text]: modular, reproducible and interpretable closed-loop control framework, whose complete design is presented in the next chapter.
+P274 [Heading 1]: CHAPTER 4
+P275 [Normal]: PROPOSED SYSTEM: DESIGN AND IMPLEMENTATION
+P277 [Body Text]: This chapter presents the proposed Adaptive Cross-Layer Security (ACLS) framework. It begins with an overview of the design goals and the overall architecture, and then describes each component in turn: the network slice simulator, the synthetic threat generator, the Isolation Forest anomaly detector, the federated learning network and the multi-agent reinforcement learning engine. The adaptive security controller, the SOC dashboard, the implementation details and the source code listings are described in the remaining sections of the chapter.
+P278 [Heading 2]: Overview of the ACLS Framework
+P279 [Body Text]: ACLS is a simulation-based research prototype in which a sliced 5G/6G network, an attacker, a set of detectors, a learning-based decision engine and an enforcement controller are connected in a closed loop. At every simulation step the network produces telemetry, the threat generator may inject an attack, the detectors convert the telemetry into evidence, the decision engine chooses a security action, the controller enforces that action, and the resulting condition becomes the input of the next step.
+P280 [Heading 3]: Design goals
+P281 [Body Text]: The framework was designed with the following goals in mind:
+P282 [List Paragraph]: Adaptivity: the protection level should follow the observed state of the network and should not be fixed in advance.
+P283 [List Paragraph]: Cross-layer awareness: the decision should use evidence from the physical, MAC, network and application layers together.
+P284 [List Paragraph]: Privacy by data locality: the training data of each edge node should remain at that node, and only model parameters should be shared.
+P286 [List Paragraph]: Balance of protection and cost: attack suppression should be balanced against latency, CPU cost and residual threat exposure.
+P287 [List Paragraph]: Interpretability: the chosen security configuration should be a readable combination of authentication, encryption, inspection depth and isolation settings.
+P288 [List Paragraph]: Modularity and reproducibility: every component should have a stable interface so that it can be evaluated or replaced independently, and every experiment should be repeatable with a fixed random seed.
+P289 [Heading 3]: Software modules
+P290 [Body Text]: The prototype software is structured into five modules, which correspond to the stages of the closed loop: (1) the Simulation module, which contains the slice simulator and the threat generator; (2) the AI Detection module, which contains the Isolation Forest and the federated learning components;
+P291 [Body Text]: (3) the Decision Engine, which contains the four-agent MARL system; (4) the Security Controller, which enforces the selected actions; and (5) the SOC user interface, which displays the state of the system. A documented quick-start workflow and training scripts for the Isolation Forest, the federated learning and the MARL components are provided so that the prototype environment can be reproduced.
+P292 [Body Text]: The primary objective of the experiments is not to test the operational readiness of a real 5G/6G network. It is to find out whether the proposed multi-agent approach can achieve better security outcomes than the static and single-agent baselines under controlled attack sequences, and whether the integrated architecture can give a consistent response.
+P294 [Heading 2]: System Architecture and Threat Model
+P295 [Heading 3]: Closed-loop architecture
+P296 [Body Text]: Fig. 4.1 illustrates the pipeline of ACLS. It consists of a 5G/6G network slice simulator, a synthetic traffic and threat generator, an anomaly and privacy-preserving detection stage, a cross-layer MARL decision engine, an adaptive security controller, and enforcement and monitoring through a real-time dashboard. The enforced state is fed back into the next simulated network condition, which closes the loop.
+P297 [Body Text]: The stages of the loop can be summarised in the following order: Telemetry
+P298 [Body Text]: → Threat State → Anomaly and Privacy Detection → Cross-Layer MARL
+P299 [Body Text]: → Adaptive Security Action → Enforcement → Monitoring → Next State. Each stage is implemented as a separate module with a stable interface, which allows the individual components to be tested, ablated or replaced without changing the rest of the system.
+P302 [Heading 2]: Fig. 4.1 Closed-Loop Architecture of the ACLS Framework
+P304 [Heading 3]: Threat model
+P305 [Body Text]: The threat model of this project is deliberately simple and controlled, so that every experiment can be repeated. The following assumptions are made:
+P306 [List Paragraph]: The network consists of three slices, S = {s1, s2, s3}, which are eMBB, URLLC and mMTC.
+P307 [List Paragraph]: The attacker can generate load, forge identities and attempt to cross the logical boundary between slices. Three attack scenarios are modelled: a DoS flood, identity spoofing and a cross-slice isolation breach.
+P308 [List Paragraph]: The attack events are synthetic. They are adapted from existing practice in 5G/6G threat modelling and are produced by a generator that can be repeated with a fixed random seed.
+P309 [List Paragraph]: The defender can observe telemetry from the slices and can change four security settings: authentication, encryption, intrusion-detection depth and slice isolation.
+P310 [List Paragraph]: The detector is not assumed to be perfect. The anomaly signal is only one source of evidence, and a normal traffic burst may also look anomalous.
+P311 [Body Text]: The following are outside the scope of the current prototype: physical testbed attacks, adversarial attackers who adapt to the learned policy, poisoning of the federated learning updates by malicious clients, and attacks against the dashboard or the model files. These topics are listed as future work in Chapter 6.
+P312 [Heading 2]: Network Slice Simulator
+P313 [Body Text]: The simulator is the environment in which the security policies are evaluated. It models virtual slice-state changes and continuously generates
+P315 [Body Text]: telemetry for the three service classes. The eMBB slice produces high-throughput traffic, such as video streaming. The URLLC slice produces traffic with low latency requirements, so security actions that need additional processing have a higher service impact on it. The mMTC slice represents a large and dense population of lightweight, low-power devices.
+P316 [Body Text]: The simulator can be regarded as a state-transition system. If xt is the state of the network at step t, at is the security action chosen by the controller and ξt represents the stochastic traffic and threat conditions, then the next state is given by
+P317 [Body Text]: xt+1 = T(xt, at, ξt)	(4.1)
+P318 [Body Text]: where T is the simulated transition function. The state xt consists of three groups of information: traffic-related telemetry, resource-related telemetry and anomaly-related telemetry. The transition depends on the action at, because a stronger security setting changes the latency, the CPU usage and the success of an attack in the next step.
+P319 [Heading 3]: Simulation step
+P320 [Body Text]: Every simulation step follows the same sequence:
+P321 [List Paragraph]: The simulator updates the slice states and generates the normal telemetry of the eMBB, URLLC and mMTC slices.
+P322 [List Paragraph]: The threat generator may inject an attack into the telemetry of a target slice.
+P323 [List Paragraph]: The telemetry is converted into the state vector and the Isolation Forest adds its anomaly signal.
+P324 [List Paragraph]: The four agents of the decision engine observe their parts of the state and propose their action components.
+P326 [List Paragraph]: The controller enforces the joint action and the resulting measurements, such as latency, CPU usage and the outcome of the attack, are recorded.
+P327 [List Paragraph]: The reward is computed and the simulator moves to the next state.
+P328 [Body Text]: The simulator is seeded, so that the same random seed gives the same sequence of traffic and attack conditions. This property is essential for the comparison of strategies, because the static baseline, the single-agent DQN and ACLS can then be evaluated under identical conditions. The benchmark of this project uses 50 episodes with seed 42.
+P329 [Body Text]: The backend also exposes the network state to the dashboard through a WebSocket telemetry stream that is updated every 1.5 seconds. This interval keeps the dashboard responsive and is simple enough for an academic-level demonstration.
+P330 [Heading 2]: Synthetic Threat Generator
+P331 [Body Text]: The synthetic threat generator introduces three scenarios with controlled and repeatable attacks. They are adapted from existing practice in 5G/6G threat modelling, and each of them stresses a different part of the system and calls for a different kind of response.
+P332 [Heading 3]: DoS flood
+P333 [Body Text]: In the DoS flood scenario, the attacker tries to push a target slice towards stressed conditions by varying the bandwidth or CPU utilisation. The effect on the telemetry is a sudden and sustained rise in load that degrades the service of legitimate users. A high-volume DoS event may justify deeper investigation and resource-aware control, so the response is likely to involve a deeper intrusion-detection level while the CPU cost is kept under observation.
+P335 [Heading 3]: Identity spoofing
+P336 [Body Text]: In the identity spoofing scenario, the node signatures are modified in order to compromise authentication. The traffic volume may remain normal, so the attack is visible mainly through inconsistent identity information and not through load. Identity spoofing may require more rigorous authentication, so the response is likely to move towards a stronger authentication mechanism.
+P337 [Heading 3]: Cross-slice isolation breach
+P338 [Body Text]: In the cross-slice isolation breach scenario, the attacker tries to exploit the common infrastructure and to break the logical separation between slices. The threat is serious in a sliced network, because the whole idea of slicing depends on isolation. A breach across slices may require more rigorous isolation, so the response is likely to move towards a stricter isolation level.
+P339 [Heading 3]: Reproducibility and limits
+P340 [Body Text]: The attack events are synthetic and therefore can be repeated with a fixed random seed and used identically for every strategy that is evaluated. In this project, the benchmark is repeated for 50 episodes with seed 42. This helps the reproducibility of the results, but it is not used to prove statistical generalisation across random seeds. The generator also does not cover the full range of behaviour, timing, intensity, distribution or identity that a real attacker may use. Testing against unseen and adversarial attacker patterns is required and is part of the future work.
+P341 [Heading 2]: Isolation Forest Anomaly Detector
+P342 [Heading 3]: Principle
+P343 [Body Text]: Isolation Forest is an unsupervised, tree-based anomaly detector. Instead of describing what normal data look like, it tries to isolate every observation. An ensemble of random trees is built, and each tree
+P345 [Body Text]: recursively partitions the observations by choosing a random feature and a random split value. An observation that is different from the majority can be separated from the rest with only a few partitions, so it has a short path from the root of the tree. An observation that lies close to the majority needs many partitions and has a long path.
+P346 [Body Text]: For an observation x and a sample size n, the anomaly score is defined as
+P347 [Normal]: s(x, n) = 2−E[h(x)] / c(n)	(4.2)
+P349 [Body Text]: where h(x) is the path length of x in a tree, E[h(x)] is its average over all trees of the forest, and c(n) is the average path length of an unsuccessful search in a binary search tree, which is used to normalise the score. A score that is close to 1 indicates a likely anomaly, while a score that is much smaller than 0.5 indicates a normal observation.
+P350 [Heading 3]: Role in ACLS
+P351 [Body Text]: The detector allows the system to run without a supervised label for every attack variant. This is useful because the attacks in a sliced network are varied and new variants may appear. The detector is, however, only one evidence source in the larger closed loop. Unusual behaviour is not necessarily malicious, and a normal eMBB traffic burst may also look anomalous. For this reason the anomaly score is not treated as a confirmed attack classification. The score is added to the state, and the MARL layer and the controller process the general state and not the individual anomalies.
+P352 [Heading 3]: Processing steps
+P353 [List Paragraph]: Normal and attack-affected telemetry is converted into feature vectors by the state-processing stage.
+P354 [List Paragraph]: The Isolation Forest model is trained on the feature vectors of the edge nodes, as described in Section 4.6.
+P356 [List Paragraph]: At run time, every new state is scored by the trained model and the anomaly signal is appended to the state.
+P357 [List Paragraph]: The extended state is passed to the decision engine. The decision engine, and not the detector, selects the security action.
+P358 [Body Text]: The trained model is saved and loaded with Joblib, and the implementation uses the Scikit-Learn library. The model file needs access control and integrity checks in an operational deployment, because an altered model would change the behaviour of the detector. This is mentioned as a limitation in Chapter 5.
+P359 [Heading 2]: Federated Learning Across Edge Nodes
+P360 [Heading 3]: Motivation
+P361 [Body Text]: A distributed 5G/6G environment generates telemetry at edge nodes that are associated with different slices. Centralising raw feature vectors increases the exposure of that data. ACLS addresses this constraint by keeping the training data of every simulated edge node local and by exchanging only model updates. Federated learning has been studied extensively for the training of intrusion detection models without collecting raw telemetry, especially in IoT and edge deployments [15], which is why it is selected for the three edge nodes of this project.
+P362 [Heading 3]: Setup
+P363 [Body Text]: Three virtual edge nodes are deployed in the eMBB, URLLC and mMTC telemetry domains of the prototype. Every node trains a local neural network that is built in PyTorch on its own telemetry. No raw data move between the nodes or to the central aggregator. Only the parameters of the local models are sent to the central node, where they are aggregated.
+P365 [Heading 3]: Federated Averaging
+P366 [Body Text]: The aggregation follows the FedAvg rule. If Wk denotes the local parameters of edge node k, nk is the number of local samples of node k, and N = Σ nk is the total number of samples, then the global parameters are the weighted average
+P367 [Body Text]: Wglobal = Σk (nk / N) · Wk	(4.3)
+P368 [Body Text]: Nodes with more local samples therefore have a larger influence on the global model, which is the dependence on the size of the local dataset that is used in the prototype.
+P369 [Heading 3]: Training round
+P370 [List Paragraph]: The central node sends the current global parameters to the three edge nodes.
+P371 [List Paragraph]: Every edge node trains its local model on its own telemetry.
+P372 [List Paragraph]: Every edge node sends its updated parameters Wk and its sample count nk to the aggregator.
+P373 [List Paragraph]: The aggregator computes Wglobal according to equation (4.3) and the new global model becomes the shared model state.
+P374 [List Paragraph]: The procedure is repeated for the number of rounds that is configured in the training script.
+P375 [Heading 3]: Privacy position
+P376 [Body Text]: The prototype keeps the raw telemetry at the client. It does not currently provide differential privacy or secure aggregation, and a formal threat model for malicious or poisoning clients has not been developed. The privacy contribution should therefore be interpreted as a data-locality scheme and not as a privacy proof. It reduces the amount of raw telemetry that is transferred to the central aggregator, which is the design intention.
+P378 [Body Text]: Differential privacy, secure aggregation and robust aggregation against low-quality or malicious updates are planned as future work, and their effect on detection accuracy and learning convergence should be measured and not only stated.
+P379 [Heading 2]: Multi-Agent Reinforcement Learning Engine
+P380 [Heading 3]: Problem formulation
+P381 [Body Text]: The decision engine is the central adaptive element of ACLS. The decision problem is formulated for the slices S = {s1, s2, s3}. In every simulation step t, the environment presents a state xt that consists of traffic-related, resource-related and anomaly-related telemetry. The controller chooses an action at from a set of security actions A. The learned policy is written π(at
+P382 [Body Text]: | xt). The reward is not given only for the suppression of attacks. It is a balance of the security benefit, the resource cost and the latency:
+P383 [Body Text]: Rt = ws · Sect − wl · Latt − wc · CPUt − wr · Riskt	(4.4)
+P384 [Body Text]: In this equation Sect is a security-benefit term, Latt is a latency cost, CPUt is a resource cost and Riskt is the residual threat exposure. The weights ws, wl, wc and wr are design parameters of the MARL environment, and the equation reflects the design intention of balancing security against service quality. The learning objective is to maximise the expected discounted reward
+P385 [Body Text]: J(π) = E_π [ Σt γt · Rt ]	(4.5)
+P386 [Body Text]: where γ is the discount factor. The explicit latency and CPU terms are important. Without them the policy would learn to apply the strongest controls continuously, which would damage latency-sensitive slices such as URLLC.
+P388 [Heading 3]: Four layer-specific agents
+P389 [Body Text]: The cross-layer coordination is represented by four agents, P = {p, m, n, a}, which correspond to the physical, MAC, network and application layers. Each agent receives the part of the simulated state that is relevant to its layer and proposes a component of the overall action. The joint action is formed from the four components:
+P390 [Body Text]: at = (atp, atm, atn, ata)	(4.6)
+P391 [Body Text]: After the joint action is enforced, the environment moves from xt to xt+1. The agents run together in a MARL environment that is similar to a Gymnasium environment, which provides the state information and accepts the multi-agent action vector at every time step. Because every agent sees the evidence of its own layer, a single incident that appears in several layers can be recognised as one incident, and the response of the four agents is coordinated through the shared reward.
+P392 [Heading 3]: Action space
+P393 [Body Text]: The action space of the engine is coupled to the controller. The security configuration is described by four settings, and every setting has a small number of discrete levels:
+P394 [List Paragraph]: Authentication: none, basic, mutual CHAP and 5G-AKA.
+P395 [List Paragraph]: Encryption: none, AES-128-GCM, ASCON-128 and PRESENT-80.
+P396 [List Paragraph]: Intrusion-detection depth: passive, standard and deep.
+P397 [List Paragraph]: Slice isolation: shared, soft and hard.
+P398 [Body Text]: The learned policy can therefore choose among 4 × 4 × 3 × 3 = 144 different configurations of the controller. The space is discrete and interpretable, so a human operator can read the chosen configuration directly, and the policy does not have to control a continuous configuration
+P400 [Body Text]: space. The lightweight ciphers ASCON-128 and PRESENT-80 are provided as prototype options for resource-constrained mMTC and IoT devices, to show that the strength of the encryption can be an adaptive state variable and not a fixed choice. No hardware-level cryptographic benchmarking is claimed.
+P401 [Heading 3]: Single-agent baseline
+P402 [Body Text]: A single-agent DQN baseline is included in order to separate the value of learning in general from the value of cross-layer multi-agent coordination. In the baseline, one agent observes the aggregated state and chooses the whole configuration. In the benchmark, the single-agent DQN reaches an attack detection and mitigation accuracy of 61.2% and needs 2.1 steps to respond, whereas ACLS reaches 100.0% with a response time of 1.0 step. This difference indicates that the multi-agent decomposition brings an additional measurable value beyond reinforcement learning alone. The result is limited to a synthetic environment and one benchmark configuration. Testing with novel attack sequences, with multiple random seeds and with other simulator configurations remains to be done.
+P403 [Heading 3]: Interpretability and control
+P404 [Body Text]: The decisions of the learned policy are applied directly by the controller, and only these decisions change the security state. The authentication, encryption, intrusion-detection and isolation states that are chosen can therefore be related directly to the observed threat and to the reward behaviour. This gives greater interpretability than a system in which the learned model acts as a black box between the telemetry and the network.
+P405 [Heading 3]: Training procedure
+P406 [Body Text]: The decision engine is trained inside the simulator by repeated interaction. The training follows the usual structure of a reinforcement learning loop,
+P408 [Body Text]: and the same simulator, the same attack scenarios and the same reward of equation (4.4) are used for all the learning-based strategies so that the comparison is fair.
+P409 [List Paragraph]: The environment is reset and the first state x0 is generated, with the attack sequence of the episode defined by the random seed.
+P410 [List Paragraph]: The four agents receive their layer-specific observations, and every agent selects its action component, either by following its current policy or by exploring.
+P411 [List Paragraph]: The components are joined into the joint action of equation (4.6), and the controller enforces it in the simulator.
+P412 [List Paragraph]: The simulator returns the next state and the reward Rt, which includes the security benefit, the latency cost, the CPU cost and the residual risk.
+P413 [List Paragraph]: The experience of the step is stored and is used to update the networks of the agents, so that actions which lead to a higher discounted reward become more likely.
+P414 [List Paragraph]: The loop continues until the end of the episode and is repeated for the configured number of training episodes. The trained policy is then saved and loaded by the decision engine of the running prototype.
+P415 [Body Text]: The evaluation is carried out separately, with the learned policy applied without exploration, and the benchmark of 50 episodes with seed 42 is used to compare it with the static rule baseline and the single-agent DQN. Because the same simulator configuration is used for training and evaluation, the reported results are benchmark observations and should not be read as evidence of the same performance on unseen real-world traffic.
+P417 [Body Text]: The next section describes how the adaptive security controller realises the chosen action as an enforced security state.
+P419 [Heading 2]: Adaptive Security Controller
+P420 [Heading 3]: Role of the controller
+P421 [Body Text]: The Adaptive Security Controller turns the decision of the MARL engine into an enforced security state. The engine and the controller are kept separate on purpose. The engine decides which configuration is appropriate, and the controller maps that decision to the realised state of the slice, applies it, and exposes it for monitoring. Because only the decisions that are made by the learned policy are performed by the controller, the behaviour of the system stays interpretable.
+P422 [Body Text]: When the engine chooses an action at, the controller maps it to a realised security state
+P423 [Body Text]: qt = (autht, enct, idst, isot)	(4.7) which is updated at every step according to the chosen action:
+P424 [Body Text]: qt+1 = G(qt, at)	(4.8)
+P425 [Body Text]: Here G is the transition of the controller state under the discrete choices that are revealed by the prototype (Section 4.7.3). The four components of qt are the authentication level, the encryption scheme, the intrusion-detection depth and the isolation strictness of the slice.
+P426 [Heading 3]: Action space and its meaning
+P427 [Body Text]: Table 4.2 lists the levels of every control and the way in which they are used. The multidimensional space is important because different attacks require different responses.
+P429 [Heading 2]: Table 4.2 Action Space of the Adaptive Security Controller
+P432 [Body Text]: The total number of configurations is 4 × 4 × 3 × 3 = 144. Identity spoofing may require more rigorous authentication. A breach across slices may require more rigorous isolation. A high-volume DoS event may justify deeper investigation and resource-aware control. The controller does not have to keep the highest level at all times. Under attack, the learned policy can choose stronger security, stronger encryption, deeper inspection or stricter isolation, and in normal conditions it can return to lighter settings, which is the source of the lower CPU usage of ACLS in the benchmark.
+P433 [Heading 3]: Core algorithmic procedures
+P434 [Body Text]: The four basic procedures that carry out the closed loop from telemetry to the next simulated state are summarised in Table 4.1.
+P436 [Heading 2]: Table 4.1 Core Algorithmic Procedures of ACLS
+P439 [Body Text]: The complete pipeline is: Telemetry → Threat State → Anomaly and Privacy Detection → Cross-Layer MARL → Adaptive Security Action → Enforcement → Monitoring → Next State. The individual techniques are not presented as new in isolation. They are presented as parts of this closed-loop framework and are measured as a whole against the two reference techniques in Chapter 5.
+P440 [Heading 3]: One control step in pseudocode
+P443 [Heading 2]: Real-Time SOC Dashboard
+P444 [Body Text]: The dashboard gives a Security Operations Centre (SOC) style view of the running system, so that an operator can see what the framework observes and what it decides. Without such a view, a learning-based controller would be difficult to trust, because its actions could not be related to the situation in which they were taken.
+P445 [Body Text]: The backend provides REST endpoints and a WebSocket telemetry stream that sends the network state every 1.5 seconds. The frontend subscribes to this stream and refreshes its views as new states arrive. The interval is short enough for the display to be responsive and simple enough for an academic-level demonstration.
+P446 [Body Text]: The dashboard is used for the following purposes:
+P447 [List Paragraph]: Network state: the state of the eMBB, URLLC and mMTC slices, with telemetry such as latency and CPU usage.
+P448 [List Paragraph]: Threat visibility: the anomaly signal of the Isolation Forest and the attack that is currently injected in the simulation.
+P449 [List Paragraph]: Enforced configuration: the authentication, encryption, intrusion-detection depth and isolation level that the controller has applied.
+P450 [List Paragraph]: Strategy comparison: the metrics of the static baseline, the single-agent DQN and ACLS, so that the trade-off between protection and latency can be examined.
+P451 [Body Text]: The dashboard is a monitoring and demonstration component. It does not take part in the decisions of the policy, and it can be replaced without changing the detector, the engine or the controller, because the components communicate through stable interfaces.
+P453 [Heading 2]: Implementation Details
+P454 [Body Text]: The prototype is implemented with the following technology stack. The choice of widely used open-source tools makes the environment easy to reproduce.
+P455 [Heading 2]: Table 4.3 Technology Stack of the Prototype
+P458 [Heading 3]: Software organisation
+P459 [Body Text]: The software is structured into five modules, which correspond to the pipeline of Fig. 4.1: Simulation, AI Detection, Decision Engine, Security Controller and SOC UI. The backend exposes REST endpoints for control and configuration and a WebSocket stream for telemetry. Training scripts for the Isolation Forest, the federated learning and the MARL components are provided, together with a documented quick-start workflow that starts both the Uvicorn backend and the Next.js user interface.
+P460 [Heading 3]: Testing
+P461 [Body Text]: Pytest is used for the automated tests of the backend, and the Starlette TestClient is used to exercise the REST endpoints without starting a separate server. Fixed random seeds make the simulation deterministic, so a test can check that the same seed produces the same sequence of conditions.
+P463 [Heading 3]: Reproducibility
+P464 [Body Text]: The experimental evaluation uses a fixed and reproducible baseline of 50 simulation episodes with random seed 42 and the same attack sequences for every strategy. Provided that the same versions of the libraries are used, the reported experiment can be repeated. The reproducibility of a single seed should not be confused with statistical generalisation, which requires several seeds (Chapter 6).
+P465 [Heading 3]: Deployment note
+P466 [Body Text]: Model file access control and integrity checks, protection of training artefacts and federated updates, and careful handling of telemetry logs that could contain sensitive information are concerns for an operational deployment. They are not claimed as capabilities of the current academic prototype.
+P467 [Heading 2]: Source Code Listings
+P468 [Body Text]: This section lists the key parts of the implementation. The listings are shortened to show the structure of every component. Python code follows the module layout of Section 4.10.
+P470 [Heading 2]: Listing 4.1 Slice simulator and state transition
+P473 [Heading 2]: Listing 4.2 Synthetic threat generator
+P476 [Heading 2]: Listing 4.3 Isolation Forest training and scoring
+P479 [Heading 2]: Listing 4.4 Local training and FedAvg aggregation
+P482 [Heading 2]: Listing 4.5 Multi-agent environment and layer agents
+P485 [Heading 2]: Listing 4.6 Adaptive controller and WebSocket telemetry
+P488 [Heading 1]: CHAPTER 5 RESULTS AND DISCUSSION
+P489 [Body Text]: This chapter reports the experiments that were carried out to evaluate ACLS. The framework is compared with the static rule baseline and with the single-agent DQN under identical conditions. The results are discussed in terms of detection, mitigation, response time, CPU usage and latency, and the limitations of the evaluation are stated so that the numbers are not over-interpreted.
+P490 [Heading 2]: Experimental Setup
+P491 [Body Text]: The experimental evaluation uses a fixed and reproducible baseline of 50 simulation episodes with the same random seed (42) and the same attack sequences for every strategy. The three strategies that are compared head to head are:
+P492 [List Paragraph]: Static rule baseline: a fixed security configuration that is applied irrespective of the state of the slice.
+P493 [List Paragraph]: Single-agent DQN: one learning agent that observes the aggregated state and chooses the complete configuration.
+P494 [List Paragraph]: ACLS: the proposed framework, with four layer-specific cooperating agents, Isolation Forest evidence, federated edge training and the adaptive controller.
+P495 [Body Text]: The attack conditions of the three strategies are identical: DoS flood, identity spoofing and cross-slice isolation breach, generated by the synthetic threat generator. The software environment is the Python 3.12 backend with the PyTorch, Gymnasium and Scikit-Learn stack that was described in Chapter 4. Because the same seed and the same attack sequences are used, any difference between the strategies comes from the policy and not from the traffic.
+P497 [Heading 2]: Evaluation Metrics
+P498 [Body Text]: Seven metrics are reported:
+P499 [List Paragraph]: Attack detection rate (%) is the percentage of attacks that the strategy detects.
+P500 [List Paragraph]: Attack mitigation rate (%) is the percentage of attacks that the strategy mitigates.
+P501 [List Paragraph]: Response time (simulation steps) is the number of steps between the start of an attack and the mitigation decision.
+P502 [List Paragraph]: Average network latency (ms) is the mean latency of the slices during the evaluation.
+P503 [List Paragraph]: CPU resource usage (%) is the mean CPU cost of the security processing.
+P504 [List Paragraph]: False positives / false negatives are the number of benign events that are flagged as attacks and the number of attacks that are missed.
+P505 [List Paragraph]: Security posture score (0 to 100) is an overall score of the protection level of the system.
+P506 [Body Text]: The first two metrics can be written as
+P507 [Body Text]: Detection rate = (attacks detected / total attacks) × 100	(5.1) Mitigation rate = (attacks mitigated / total attacks) × 100	(5.2)
+P508 [Body Text]: The exact construction of the security posture score is not described in further detail in the project materials. It is therefore reported as a measured value without an additional probabilistic interpretation, and its formal definition and decomposition are listed as future work.
+P509 [Heading 2]: Detection and Mitigation Results
+P510 [Body Text]: Table 5.1 gives the three-way benchmark results.
+P512 [Heading 2]: Table 5.1 Three-Way Benchmark Results
+P515 [Body Text]: ACLS reaches 100.0% attack detection and mitigation, against 61.2% for the single-agent DQN and 35.8% for the static baseline (Fig. 5.1). The improvement over the static baseline is 64.2 percentage points, and the improvement over the single-agent DQN is 38.8 percentage points. The security posture score follows the same ordering: 96.5 for ACLS, 68.0 for the DQN and 42.5 for the static baseline.
+P517 [Heading 2]: Fig. 5.1 Detection, Mitigation and Security Posture Comparison
+P519 [Body Text]: The largest gain occurs between the single-agent and the multi-agent configurations. This is consistent with the hypothesis that threats can span several layers and benefit from cross-layer evidence. In ACLS every layer-
+P521 [Body Text]: specific agent contributes a component of the joint action, whereas the single agent has to derive the whole configuration from one aggregated view.
+P522 [Heading 2]: Response Time, CPU Usage and Latency
+P523 [Heading 3]: Response time
+P524 [Body Text]: ACLS reaches a mitigation decision in 1.0 step, compared with 2.1 steps for the single-agent DQN and 4.0 steps for the static baseline (Fig. 5.2). This is roughly four times faster than the static baseline and about twice as fast as the single-agent DQN. The result is consistent with a multi-agent controller that uses physical, MAC, network and application observations simultaneously and does not rely on a single aggregated decision path.
+P526 [Heading 2]: Fig. 5.2 Response Time, Latency and CPU Usage Comparison
+P528 [Heading 3]: CPU usage
+P529 [Body Text]: CPU usage is not simply higher for the stronger strategy. ACLS uses 32.5%, which is the lowest of the three, below the 38.2% of the static baseline and the 42.0% of the single-agent DQN. This suggests that the learned policy selects among discrete control levels and does not escalate every control continuously. The reduction is 5.7 percentage points compared with the static baseline and 9.5 percentage points compared with the DQN.
+P531 [Heading 3]: Latency
+P532 [Body Text]: Average latency is the main counter-result. ACLS records 31.1 ms, which is higher than 22.4 ms for the single-agent DQN and 18.5 ms for the static baseline, an increase of 12.6 ms over the static baseline. Stronger protection is therefore not free. For URLLC-like workloads, where latency is a primary service requirement, the strongest threat-mitigation policy may still risk violating an application SLA. This is why the reward of equation (4.4) explicitly weights latency and resource cost and does not reward attack suppression alone.
+P533 [Body Text]: The aggregate figure also does not reveal the behaviour of the individual slices. An average of 31.1 ms may hide different effects on eMBB, URLLC and mMTC. Slice-specific latency distributions and SLA-violation rates are therefore a needed extension.
+P534 [Heading 3]: False positives and false negatives
+P535 [Body Text]: The false positives and false negatives fall from 12 and 16 for the static baseline, and from 5 and 8 for the DQN, to 0 and 0 for ACLS in the reported benchmark. Because the same simulator configuration is used for training and evaluation, this should be read as a benchmark observation and not as evidence of zero errors on unseen real-world traffic.
+P536 [Heading 2]: Comparison with Existing Techniques
+P537 [Body Text]: Table 5.2 expresses the differences of ACLS relative to the two baselines that were measured. The values are calculated from Table 5.1.
+P538 [Heading 2]: Table 5.2 Improvement of ACLS over the Baselines
+P542 [Body Text]: The comparison with the techniques of Chapter 3 can be summarised as follows. Against the static policy, ACLS adds adaptivity, and the cost is a higher latency. Against single-layer detection, it adds cross-layer evidence and a response decision. Against centralised learning, it keeps the raw telemetry at the edge nodes, which is a design property and not a measured quantity in this benchmark. Against the single-agent DQN, it shows an additional, measurable benefit of multi-agent decomposition.
+P543 [Body Text]: The benchmark does not ablate the Isolation Forest, the federated learning, the MARL engine and the adaptive controller individually. The results therefore evaluate the integrated ACLS framework and do not establish which single component contributes most. Overall, the results support the proposition that an integrated cross-layer adaptive controller can outperform static and single-agent strategies under this controlled simulation, without proving equivalent performance on commercial networks or against previously unseen attacks.
+P544 [Heading 2]: Limitations of the Evaluation
+P545 [List Paragraph]: Simulation only: the reported values describe the tested software environment and not arbitrary 5G/6G networks. Real deployments involve protocols, hardware behaviour, traffic diversity and mobility that a synthetic simulator cannot fully replicate.
+P546 [List Paragraph]: One seed: one fixed seed (42) over 50 episodes helps reproducibility but does not allow the variance to be estimated. Several repeats with means and confidence intervals would strengthen the evidence.
+P548 [List Paragraph]: Synthetic threats: the generator does not cover the full range of behaviour, timing, intensity and identity of a real attacker. Testing against unseen and adversarial patterns is required.
+P549 [List Paragraph]: Privacy: federated learning keeps raw telemetry at the client, but differential privacy and secure aggregation are not provided, and a formal threat model for malicious or poisoning clients has not been developed. The privacy contribution is a data-locality scheme and not a privacy proof.
+P550 [List Paragraph]: Metric transparency: the reward coefficients and the full construction of the security posture score are not described in detail.
+P551 [List Paragraph]: No physical validation: no testbed validation with srsRAN or OpenAirInterface has been done.
+P552 [List Paragraph]: Component contribution: the relative contribution of the Isolation Forest, the federated learning, the MARL engine and the controller is not yet known.
+P554 [Heading 1]: CHAPTER 6 CONCLUSION AND FUTURE SCOPE
+P555 [Heading 2]: Conclusion
+P556 [Body Text]: This project introduced the Adaptive Cross-Layer Security (ACLS) framework for 5G/6G network slicing. The framework consists of a virtual slice simulator, a synthetic threat generator, an Isolation Forest anomaly detector, a privacy-preserving federated learning scheme across three simulated edge nodes, a four-agent cross-layer MARL decision engine, an adaptive security controller and a real-time SOC dashboard. It extends the security of the sliced network from a fixed policy to one in which authentication, encryption, intrusion detection and slice isolation are chosen according to the observed state.
+P557 [Body Text]: On the primary security measures, adaptive protection outperformed the static and single-agent baselines over 50 simulation episodes with a fixed seed. ACLS achieved 100.0% attack detection and mitigation, a response time of 1.0 step, 32.5% CPU usage, no reported false positives or false negatives and a security posture score of 96.5 out of 100. The static baseline and the single-agent DQN obtained posture scores of 42.5 and
+P558 [Body Text]: 68.0. The average latency of ACLS was 31.1 ms, compared with 18.5 ms for the static baseline, so adaptive protection carries a measurable service-quality cost.
+P559 [Body Text]: The main contribution of the prototype is the integrated and reproducible control loop and not any individual algorithm. The results should be used as a guide for further research and should not be read as the deployment performance of a real 5G/6G network.
+P561 [Heading 2]: Future Scope
+P562 [Body Text]: The following directions would move ACLS from an academic simulation to a better tested adaptive security platform:
+P563 [List Paragraph]: Physical testbeds: integration with OpenAirInterface or srsRAN, software-defined radio, or virtualised network functions, so that measurements are collected in addition to synthetic simulation.
+P564 [List Paragraph]: Stronger privacy: differential privacy and secure aggregation, assessed not only as architectural labels but also for their effect on anomaly-detection accuracy and learning convergence.
+P565 [List Paragraph]: Robust aggregation: a comparison of the standard FedAvg with robust aggregation against malicious or low-quality updates from the edges.
+P566 [List Paragraph]: Graph-based modelling: topology-aware learning with graph neural networks (GNN) to model the dynamic dependencies between slices, edge nodes, network functions and communication paths in 6G.
+P567 [List Paragraph]: Hardware acceleration: NVIDIA CUDA and TensorRT for MARL inference in scenarios with low latency requirements.
+P568 [List Paragraph]: Better experimental design: multiple random seeds, unseen attack sequences, slice-specific latency and SLA metrics, federated communication overhead and robustness to noisy telemetry.
+P569 [List Paragraph]: Formal security posture score: a definition that is decomposed into detection, mitigation, false-error, response-time, resource and SLA terms and is normalised so that comparison with future methods is meaningful.
+P570 [List Paragraph]: Ablation study: at least four configurations, namely the static baseline, the single-agent DQN, MARL without federated learning
+P572 [Body Text]: and the full ACLS architecture, to clarify the contribution of each component.
+P574 [Heading 1]: REFERENCES
+P576 [List Paragraph]: S. A. Abdel Hakeem et al., Sensors, vol. 22, no. 5, Art. no. 1969, 2022.
+P577 [List Paragraph]: Z. Allaw et al., Sensors, vol. 25, no. 11, Art. no. 3335, 2025.
+P578 [List Paragraph]: M. Khan, “Threat Modeling in 5G/6G Networks,” ResearchGate.
+P579 [List Paragraph]: C. De Alwis, P. Porambage, K. Dev, T. R. Gadekallu, and M. Liyanage, “A Survey on Network Slicing Security: Attacks, Challenges, Solutions and Research Directions,” IEEE Communications Surveys & Tutorials, vol. 26, no. 1, pp. 534–570, 2024.
+P580 [List Paragraph]: R. Dangi, A. Jadhav, G. Choudhary, N. Dragoni, M. K. Mishra, and
+P581 [Body Text]: P. Lalwani, “ML-Based 5G Network Slicing Security: A Comprehensive Survey,” Future Internet, vol. 14, no. 4, p. 116, 2022.
+P582 [List Paragraph]: A. Thantharate, R. Paropkari, V. Walunj, C. Beard, and P. Kankariya, “Secure5G: A Deep Learning Framework Towards a Secure Network Slicing in 5G and Beyond,” in Proc. IEEE 10th Annual Computing and Communication Workshop and Conference (CCWC), 2020, pp. 852–857.
+P583 [List Paragraph]: S. Wijethilaka and M. Liyanage, “Survey on Network Slicing for Internet of Things Realization in 5G Networks,” IEEE Communications Surveys & Tutorials, vol. 23, no. 2, pp. 957–994, 2021.
+P584 [List Paragraph]: R. Khan, P. Kumar, D. N. K. Jayakody, and M. Liyanage, “A Survey on Security and Privacy of 5G Technologies: Potential Solutions, Recent  Advancements,  and  Future  Directions,”  IEEE
+P586 [Body Text]: Communications Surveys & Tutorials, vol. 22, no. 1, pp. 196–248, 2020.
+P587 [List Paragraph]: A. Tellache, A. Mokhtari, A. A. Korba, and Y. Ghamri-Doudane, “Multi-Agent Reinforcement Learning-Based Network Intrusion Detection System,” in Proc. IEEE/IFIP Network Operations and Management Symposium (NOMS), 2024, pp. 1–9.
+P588 [List Paragraph]: K. Ren et al., “MAFSIDS: A Reinforcement Learning-Based Intrusion Detection Model for Multi-Agent Feature Selection Networks,” Journal of Big Data, vol. 10, article 137, 2023.
+P589 [List Paragraph]: Y. Feng, W. Cai, H. Yue, J. Xu, Y. Lin, J. Chen, and Z. Hu, “An Improved X-Means and Isolation Forest Based Methodology for Network Traffic Anomaly Detection,” PLOS ONE, vol. 17, no. 1, e0263423, 2022.
+P590 [List Paragraph]: Y. Hua, R. Li, Z. Zhao, X. Chen, and H. Zhang, “GAN-Powered Deep Distributional Reinforcement Learning for Resource Management in Network Slicing,” arXiv:1905.03929, 2019.
+P591 [List Paragraph]: H. Zhou, M. Erol-Kantarci, and H. V. Poor, “Learning from Peers: Deep Transfer Reinforcement Learning for Joint Radio and Cache Resource Allocation in 5G RAN Slicing,” arXiv:2109.07999, 2021.
+P592 [List Paragraph]: J. A. Hurtado Sánchez, K. Casilimas, and O. M. Caicedo Rendon, “Deep Reinforcement Learning for Resource Management on Network Slicing: A Survey,” Sensors, vol. 22, no. 8, article 3031, 2022.
+P593 [List Paragraph]: A. Vyas, P.-C. Lin, R.-H. Hwang, and M. Tripathi, “Privacy-Preserving Federated Learning for Intrusion Detection in IoT Environments: A Survey,” IEEE Access, vol. 12, pp. 127018–127050, 2024.
+P595 [List Paragraph]: V.-L. Nguyen, P.-C. Lin, B.-C. Cheng, R.-H. Hwang, and Y.-D. Lin, “Security and Privacy for 6G: A Survey on Prospective Technologies and Challenges,” IEEE Communications Surveys & Tutorials, vol. 23, no. 4, pp. 2384–2428, 2021.
+P596 [List Paragraph]: Y. Siriwardhana, P. Porambage, M. Liyanage, and M. Ylianttila, “AI and 6G Security: Opportunities and Challenges,” in Proc. Joint European Conference on Networks and Communications & 6G Summit (EuCNC/6G Summit), 2021, pp. 616–621.
+P598 [Heading 1]: APPENDIX
+P600 [Heading 2]: Summary of Notation
+P603 [Heading 2]: Evaluation Protocol Summary
+P607 [Heading 2]: Reproducibility Checklist
+P608 [List Paragraph]: Use the same Python version (3.12) and the library versions that were used for the reported experiment.
+P609 [List Paragraph]: Set the random seed to 42 in the simulator, the threat generator and the learning components.
+P610 [List Paragraph]: Train the Isolation Forest, the federated learning model and the MARL policy with the provided training scripts before the evaluation.
+P611 [List Paragraph]: Evaluate all three strategies under the same attack sequences, for 50 episodes.
+P612 [List Paragraph]: Record the seven metrics for every strategy and compare them with Table 5.1.
+
+=== TABLES ===
+
+--- Table 0 ---
+ | ADAPTIVE CROSS-LAYER SECURITY FRAMEWORK FOR 5G/6G NETWORK SLICING USING REINFORCEMENT LEARNING | 
+
+--- Table 1 ---
+RAJAKUMARAN P | ([Register No.])
+SAKTHIVEL R | ([Register No.])
+UDITH KUMAR P | ([Register No.])
+
+--- Table 2 ---
+Signature of the Supervisor Dr. P. Iyyanar [Designation] Department of Information Technology Sona College of Technology, Salem – 636005 | Head of the Department [Faculty Name] [Designation] Department of Information Technology Sona College of Technology, Salem – 636005
+
+--- Table 3 ---
+INTERNAL EXAMINER | EXTERNAL EXAMINER
+
+--- Table 4 ---
+5G | Fifth Generation Mobile Network
+6G | Sixth Generation Mobile Network
+ACLS | Adaptive Cross-Layer Security
+AES-GCM | Advanced Encryption Standard in Galois/Counter Mode
+AKA | Authentication and Key Agreement
+CHAP | Challenge-Handshake Authentication Protocol
+CPU | Central Processing Unit
+DoS | Denial of Service
+DQN | Deep Q-Network
+DRL | Deep Reinforcement Learning
+eMBB | Enhanced Mobile Broadband
+FedAvg | Federated Averaging
+IDS | Intrusion Detection System
+IoT | Internet of Things
+MAC | Medium Access Control
+MARL | Multi-Agent Reinforcement Learning
+mMTC | Massive Machine-Type Communication
+NFV | Network Function Virtualisation
+RL | Reinforcement Learning
+SDN | Software-Defined Networking
+SLA | Service Level Agreement
+SOC | Security Operations Centre
+URLLC | Ultra-Reliable Low-Latency Communication
+VNF | Virtualised Network Function
+
+--- Table 5 ---
+Slice | Typical traffic and devices | Security implication
+eMBB | High-volume streaming and downloads; smartphones, AR/VR devices | Bandwidth-based flooding is the main concern; heavy inspection can reduce throughput.
+URLLC | Control and safety traffic; industrial and vehicular systems | The latency budget is strict; extra security processing may violate the service requirement.
+mMTC | Dense populations of low-power sensors and meters | Devices are constrained and numerous; lightweight protection is needed and identity spoofing is a major risk.
+
+--- Table 6 ---
+Ref. | Focus of the work | Relevance to ACLS
+[4], [5] | Surveys of network slicing security and ML-based slicing security | Define the attack landscape and show that slicing security is a cross-cutting concern.
+[6] | Deep-learning framework for secure slicing | Learning-based, slice-aware defence; depends on labelled attack data.
+[7], [8] | Slicing for IoT; security and privacy of 5G | Motivate the mMTC slice, authentication and isolation controls.
+[9], [10] | Multi-agent RL for intrusion detection | Support the use of cooperating agents instead of one agent.
+[11] | X-Means and Isolation Forest for traffic anomalies | Basis for the unsupervised anomaly signal.
+[12]–[14] | Deep RL for slicing resource management | RL viewpoint extended from resources to security controls.
+[15] | Federated learning for IDS in IoT | Basis for the data-locality design at edge nodes.
+[16], [17] | 6G security and AI | Motivate adaptive, real-time and state-dependent protection.
+
+--- Table 7 ---
+Technique | Main advantages | Main disadvantages
+Static rule-based policy | Simple, predictable, no training needed, low overhead | Cannot adapt to attack intensity or resource pressure; may conflict with URLLC latency
+Single-layer anomaly detection | Needs no attack labels; can find unseen patterns | Sees one layer only; false alarms; no response decision
+Centralised ML intrusion detection | Global view of data; accurate with labelled data | Privacy exposure; communication load; depends on labelled attacks
+Single-agent DRL (DQN) | Learns state-dependent policy; reward trade-offs | One aggregated decision path; large joint action space
+Proposed ACLS framework | Cross-layer, adaptive, data stays at the edge, interpretable controls | Higher average latency (31.1 ms); evaluated only in simulation
+
+--- Table 8 ---
+Control | Available levels | Intended use
+Authentication | None, Basic, Mutual CHAP, 5G-AKA | Stronger levels are selected when identity spoofing is suspected.
+Encryption | None, AES-128-GCM, ASCON-128, PRESENT-80 | Strength is an adaptive variable; lightweight ciphers suit constrained mMTC/IoT devices.
+IDS depth | Passive, Standard, Deep | Deeper inspection is selected for high-volume DoS events, at a CPU cost.
+Slice isolation | Shared, Soft, Hard | Stricter isolation is selected when a cross-slice breach is suspected.
+
+--- Table 9 ---
+Module | Process / Input | Output
+A1 State and Anomaly Processing | Input telemetry → construct state → Isolation Forest anomaly signal | Edge-local learning state
+A2 MARL Decision | Layer observations → Physical/MAC/Network/Application agent actions → joint action → reward and state transition | Joint decision / action
+A3 Adaptive Control | Joint action → authentication + encryption + IDS depth + isolation | Enforced security controls and monitoring
+A4 Federated Aggregation | Local edge models → weighted parameter updates → FedAvg aggregation | Shared model state
+
+--- Table 10 ---
+Layer | Technology
+Backend | Python 3.12, FastAPI, Uvicorn, WebSockets
+AI and RL | PyTorch, Gymnasium, Scikit-Learn, Joblib, NumPy
+SOC dashboard | Next.js, TypeScript, React, Tailwind CSS, Recharts
+Testing | Pytest and Starlette TestClient
+
+--- Table 11 ---
+Metric | Static | DQN | ACLS
+Attack Detection (%) | 35.8 | 61.2 | 100.0
+Attack Mitigation (%) | 35.8 | 61.2 | 100.0
+Response Time (steps) | 4.0 | 2.1 | 1.0
+Avg. Latency (ms) | 18.5 | 22.4 | 31.1
+CPU Usage (%) | 38.2 | 42.0 | 32.5
+False Pos. / Neg. | 12 / 16 | 5 / 8 | 0 / 0
+Security Posture (/100) | 42.5 | 68.0 | 96.5
+
+--- Table 12 ---
+Metric | ACLS vs Static | ACLS vs DQN
+Detection / mitigation | +64.2 points | +38.8 points
+Response time | 4.0 times faster | 2.1 times faster
+
+--- Table 13 ---
+Metric | ACLS vs Static | ACLS vs DQN
+CPU usage | 5.7 points lower | 9.5 points lower
+Security posture | +54.0 points | +28.5 points
+Average latency | +12.6 ms (higher) | +8.7 ms (higher)
+
+--- Table 14 ---
+Symbol | Meaning
+S = {s1, s2, s3} | Set of slices: eMBB, URLLC and mMTC
+xt | State of the simulated network at step t
+at | Joint security action (ap, am, an, aa) of the four agents
+qt | Realised security state (authentication, encryption, IDS depth, isolation)
+Rt | Reward at step t, balancing security benefit, latency, CPU cost and residual risk
+π(at | xt) | Learned policy
+Wk, nk | Local parameters and sample count of edge node k
+Wglobal | FedAvg-aggregated global parameters
+γ | Discount factor of the reinforcement learning objective
+
+--- Table 15 ---
+Item | Setting
+Episodes | 50
+Random seed | 42 (single fixed seed)
+Strategies compared | Static rule baseline, single-agent DQN, ACLS
+Attack scenarios | DoS flood, identity spoofing, cross-slice isolation breach
+Edge nodes | 3 (eMBB, URLLC, mMTC), FedAvg aggregation
+Controller configurations | 4 × 4 × 3 × 3 = 144
+
+--- Table 16 ---
+Item | Setting
+Telemetry update interval | 1.5 seconds (dashboard WebSocket stream)
+Metrics | Detection, mitigation, response time, latency, CPU, FP/FN, posture score

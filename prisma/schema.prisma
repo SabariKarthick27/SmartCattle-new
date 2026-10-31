@@ -66,12 +66,15 @@ model User {
   createdAt      DateTime @default(now())
 
   // Relations
-  cattle         Cattle[]              @relation("FarmerCattle")
-  vetCases       VetCase[]             @relation("VetCases")
-  farmerCases    VetCase[]             @relation("FarmerCases")
-  feedback       VetFeedback[]         @relation("VetFeedback")
-  auditLogs      AuditLog[]            @relation("ActorLogs")
-  resetTokens    PasswordResetToken[]
+  cattle      Cattle[]             @relation("FarmerCattle")
+  vetCases    VetCase[]            @relation("VetCases")
+  farmerCases VetCase[]            @relation("FarmerCases")
+  feedback    VetFeedback[]        @relation("VetFeedback")
+  auditLogs   AuditLog[]           @relation("ActorLogs")
+  resetTokens PasswordResetToken[]
+
+  @@index([role, isActive])
+  @@index([assignedRegion])
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -79,34 +82,39 @@ model User {
 // ─────────────────────────────────────────────────────────────
 
 model Cattle {
-  id           String   @id @default(cuid())
-  farmerId     String
-  tagId        String   @unique
-  qrToken      String   @unique
-  breed        String
-  dob          DateTime
-  name         String?
-  gender       String?   @default("female")
-  photoUrl     String?
-  region       String?
-  purpose      String    @default("dairy") // "dairy" | "breeding" | "draft"
-  ageGroup     String?   // "calf" | "adult" | "senior"
-  previousCalvings Int   @default(0)
+  id               String   @id @default(cuid())
+  farmerId         String
+  tagId            String   @unique
+  qrToken          String   @unique
+  breed            String
+  dob              DateTime
+  name             String?
+  gender           String?  @default("female")
+  photoUrl         String?
+  region           String?
+  purpose          String   @default("dairy") // "dairy" | "breeding" | "draft"
+  ageGroup         String? // "calf" | "adult" | "senior"
+  previousCalvings Int      @default(0)
   pastVaccinations String[] @default([])
-  isActive     Boolean   @default(true)
-  createdAt    DateTime  @default(now())
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
 
   // Relations
-  farmer          User          @relation("FarmerCattle", fields: [farmerId], references: [id])
+  farmer          User                @relation("FarmerCattle", fields: [farmerId], references: [id])
   weightLogs      WeightLog[]
   feedLogs        FeedLog[]
   activityLogs    ActivityLog[]
   scanLogs        ScanLog[]
   milkLogs        MilkLog[]
+  temperatureLogs TemperatureLog[]
+  ruminationLogs  RuminationLog[]
   chdiHistory     CHDIEntry[]
   vetCases        VetCase[]
   vaccinations    VaccinationRecord[]
   vaccinationLogs VaccinationLog[]
+
+  @@index([farmerId, isActive])
+  @@index([region])
 }
 
 /// Every logged data point carries a `source` field so sparse-vs-rich accuracy
@@ -114,55 +122,91 @@ model Cattle {
 model WeightLog {
   id        String   @id @default(cuid())
   cattleId  String
-  value     Float    // kg
+  value     Float // kg
   timestamp DateTime @default(now())
   /// "manual" | "qr_scan" | "sensor"
   source    String
 
-  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, timestamp(sort: Desc)])
 }
 
 model FeedLog {
   id        String   @id @default(cuid())
   cattleId  String
-  quantity  Float    // kg
+  quantity  Float // kg
   feedType  String
   timestamp DateTime @default(now())
   /// "manual" | "qr_scan" | "sensor"
   source    String
 
-  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, timestamp(sort: Desc)])
 }
 
 model ActivityLog {
   id        String   @id @default(cuid())
   cattleId  String
-  value     Float    // arbitrary activity score 0–100
+  value     Float // arbitrary activity score 0–100 or locomotion step count
   timestamp DateTime @default(now())
   /// "manual" | "qr_scan" | "sensor"
   source    String
 
-  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, timestamp(sort: Desc)])
 }
 
 model MilkLog {
   id        String   @id @default(cuid())
   cattleId  String
-  litres    Float    // daily milk yield in litres
+  litres    Float // daily milk yield in litres
   timestamp DateTime @default(now())
   /// "manual" | "qr_scan" | "sensor"
   source    String   @default("manual")
 
-  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, timestamp(sort: Desc)])
+}
+
+model TemperatureLog {
+  id        String   @id @default(cuid())
+  cattleId  String
+  value     Float // Core body temperature in °C (e.g. 38.6 normal, 39.5+ fever)
+  timestamp DateTime @default(now())
+  /// "manual" | "qr_scan" | "sensor"
+  source    String   @default("manual")
+
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, timestamp(sort: Desc)])
+}
+
+model RuminationLog {
+  id        String   @id @default(cuid())
+  cattleId  String
+  minutes   Float // Daily rumination duration in minutes (e.g. 450-550 normal)
+  timestamp DateTime @default(now())
+  /// "manual" | "qr_scan" | "sensor"
+  source    String   @default("manual")
+
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, timestamp(sort: Desc)])
 }
 
 model ScanLog {
   id        String   @id @default(cuid())
   cattleId  String
   timestamp DateTime @default(now())
-  gps       String?  // "lat,lng" string
+  gps       String? // "lat,lng" string
 
-  cattle    Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, timestamp(sort: Desc)])
 }
 
 model VaccinationLog {
@@ -173,7 +217,9 @@ model VaccinationLog {
   nextDueDate DateTime?
   createdAt   DateTime  @default(now())
 
-  cattle      Cattle    @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+
+  @@index([cattleId, createdAt(sort: Desc)])
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -185,14 +231,14 @@ model VaccinationLog {
 model CHDIEntry {
   id         String   @id @default(cuid())
   cattleId   String
-  score      Float?   // 0–100; higher = healthier; null when abstaining
-  status     String   // healthy | watch | at-risk | abstain
-  confidence Float    // 0–1
+  score      Float? // 0–100; higher = healthier; null when abstaining
+  status     String // healthy | watch | at-risk | abstain
+  confidence Float // 0–1
   /// JSON array of { factor: string, contribution: number, direction: "up"|"down" }
   topFactors Json
   timestamp  DateTime @default(now())
 
-  cattle     Cattle   @relation(fields: [cattleId], references: [id], onDelete: Cascade)
+  cattle Cattle @relation(fields: [cattleId], references: [id], onDelete: Cascade)
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -200,26 +246,31 @@ model CHDIEntry {
 // ─────────────────────────────────────────────────────────────
 
 model VetCase {
-  id            String    @id @default(cuid())
-  cattleId      String
-  farmerId      String
-  vetId         String?
-  status        CaseStatus @default(open)
-  urgency       Urgency    @default(medium)
+  id           String     @id @default(cuid())
+  cattleId     String
+  farmerId     String
+  vetId        String?
+  status       CaseStatus @default(open)
+  urgency      Urgency    @default(medium)
   /// Snapshot of the CHDIEntry at case creation time
-  chdiSnapshot  Json
-  symptoms      String?
-  diagnosis     String?
-  treatment     String?
-  medication    String?
-  followUpDate  DateTime?
-  createdAt     DateTime  @default(now())
-  resolvedAt    DateTime?
+  chdiSnapshot Json
+  symptoms     String?
+  diagnosis    String?
+  treatment    String?
+  medication   String?
+  followUpDate DateTime?
+  createdAt    DateTime   @default(now())
+  resolvedAt   DateTime?
 
-  cattle        Cattle       @relation(fields: [cattleId], references: [id])
-  farmer        User         @relation("FarmerCases", fields: [farmerId], references: [id])
-  vet           User?        @relation("VetCases", fields: [vetId], references: [id])
-  feedback      VetFeedback?
+  cattle   Cattle       @relation(fields: [cattleId], references: [id])
+  farmer   User         @relation("FarmerCases", fields: [farmerId], references: [id])
+  vet      User?        @relation("VetCases", fields: [vetId], references: [id])
+  feedback VetFeedback?
+
+  @@index([farmerId, status])
+  @@index([vetId, status])
+  @@index([cattleId])
+  @@index([status, urgency])
 }
 
 model VetFeedback {
@@ -227,12 +278,12 @@ model VetFeedback {
   cattleId         String
   vetId            String
   caseId           String   @unique
-  predictedStatus  String   // CHDI status that triggered the case
-  confirmedOutcome String   // what the vet confirmed actually happened
+  predictedStatus  String // CHDI status that triggered the case
+  confirmedOutcome String // what the vet confirmed actually happened
   timestamp        DateTime @default(now())
 
-  vet              User     @relation("VetFeedback", fields: [vetId], references: [id])
-  case             VetCase  @relation(fields: [caseId], references: [id])
+  vet  User    @relation("VetFeedback", fields: [vetId], references: [id])
+  case VetCase @relation(fields: [caseId], references: [id])
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -240,15 +291,18 @@ model VetFeedback {
 // ─────────────────────────────────────────────────────────────
 
 model VaccinationRecord {
-  id           String   @id @default(cuid())
-  cattleId     String
-  vaccineType  String
+  id             String    @id @default(cuid())
+  cattleId       String
+  vaccineType    String
   administeredAt DateTime?
-  dueAt        DateTime
-  status       String   @default("upcoming") // upcoming | done | overdue
-  notes        String?
+  dueAt          DateTime
+  status         String    @default("upcoming") // upcoming | done | overdue
+  notes          String?
 
-  cattle       Cattle   @relation(fields: [cattleId], references: [id])
+  cattle Cattle @relation(fields: [cattleId], references: [id])
+
+  @@index([cattleId, status])
+  @@index([status, dueAt])
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -256,15 +310,17 @@ model VaccinationRecord {
 // ─────────────────────────────────────────────────────────────
 
 model RegionAlert {
-  id             String      @id @default(cuid())
-  region         String
-  triggeredAt    DateTime    @default(now())
+  id              String        @id @default(cuid())
+  region          String
+  triggeredAt     DateTime      @default(now())
   /// JSON array of farm IDs affected
   affectedFarmIds Json
-  severity       AlertSeverity
-  status         AlertStatus  @default(active)
+  severity        AlertSeverity
+  status          AlertStatus   @default(active)
   /// Aggregation metadata: { animalCount, farmCount, avgCHDIDrop, windowHours }
-  metadata       Json?
+  metadata        Json?
+
+  @@index([status, triggeredAt(sort: Desc)])
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -280,22 +336,24 @@ model AuditLog {
   timestamp DateTime @default(now())
   metadata  Json?
 
-  actor     User     @relation("ActorLogs", fields: [actorId], references: [id])
+  actor User @relation("ActorLogs", fields: [actorId], references: [id])
+
+  @@index([actorId, timestamp(sort: Desc)])
 }
 
 /// Admin-configurable CHDI thresholds (no hardcoded constants in engine code).
 model Settings {
-  id                   String  @id @default(cuid())
-  key                  String  @unique
-  value                String
-  description          String?
-  updatedAt            DateTime @updatedAt
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
 }
 
 /// ML model version history for the admin dashboard.
 model ModelVersion {
   id             String   @id @default(cuid())
-  stage          Int      // 1 | 2 | 3
+  stage          Int // 1 | 2 | 3
   version        String
   precision      Float?
   recall         Float?
@@ -319,5 +377,5 @@ model PasswordResetToken {
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  user      User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }

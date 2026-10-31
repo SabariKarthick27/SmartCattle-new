@@ -1,0 +1,302 @@
+import os
+import subprocess
+import shutil
+
+def generate_figure3_bw_large():
+    workspace_fig_dir = os.path.abspath("patent_figures")
+    artifact_dir = r"C:\Users\SABARIKARTHICK\.gemini\antigravity-ide\brain\5ea3760d-61ec-4b9d-a301-3985c4c1874a"
+    os.makedirs(workspace_fig_dir, exist_ok=True)
+    os.makedirs(artifact_dir, exist_ok=True)
+
+    edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+
+    html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 1260px;
+    height: 1060px;
+    background-color: #ffffff;
+    font-family: Arial, Calibri, 'Segoe UI', sans-serif;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 10px;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .main-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #000000;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .canvas-area {
+    width: 1240px;
+    height: 990px;
+    position: relative;
+  }
+
+  /* MS Word Style Flowchart Boxes */
+  .box {
+    position: absolute;
+    border: 2.5px solid #000000;
+    border-radius: 4px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .box-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 5px;
+  }
+
+  .box-desc {
+    font-size: 17px;
+    color: #000000;
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  /* Diamond Inner Text Container */
+  .diamond-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  .diamond-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .diamond-desc {
+    font-size: 17px;
+    color: #000000;
+    font-weight: 600;
+  }
+
+  /* Branch Labels */
+  .branch-label {
+    position: absolute;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 3px;
+    padding: 2px 9px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #000000;
+    z-index: 15;
+    text-align: center;
+  }
+
+  /* SVG Layer */
+  .svg-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+  <div class="main-title">FIGURE 3: CHDI HEALTH SCORE COMPUTATION &amp; DECISION LOGIC</div>
+
+  <div class="canvas-area">
+    <svg class="svg-layer">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Diamond 1: Center x=620, y=250. W=500, H=130. Top=185, Bottom=315, Left=370, Right=870 -->
+      <polygon points="620,185 870,250 620,315 370,250" fill="#ffffff" stroke="#000000" stroke-width="2.5" />
+
+      <!-- Diamond 2: Center x=620, y=565. W=520, H=130. Top=500, Bottom=630, Left=360, Right=880 -->
+      <polygon points="620,500 880,565 620,630 360,565" fill="#ffffff" stroke="#000000" stroke-width="2.5" />
+
+      <!-- Arrow 1: Input Box (bottom y=140) -> Diamond 1 (top y=185) -->
+      <line x1="620" y1="140" x2="620" y2="183" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 1 Right (x=870, y=250) -> Hold Box Left (x=940, y=250) -->
+      <line x1="870" y1="250" x2="938" y2="250" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 1 Bottom (x=620, y=315) -> Preprocessing Box Top (x=620, y=365) -->
+      <line x1="620" y1="315" x2="620" y2="363" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Preprocessing Box Bottom (y=455) -> Diamond 2 Top (y=500) -->
+      <line x1="620" y1="455" x2="620" y2="498" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 2 Left (x=360, y=565) -> Stabilization Box Right (x=295, y=565) -->
+      <line x1="360" y1="565" x2="297" y2="565" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Stabilization Box Bottom (x=155, y=620) down to y=720, then right to Metric Box Left (x=268, y=720) -->
+      <polyline points="155,620 155,720 268,720" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrow: Diamond 2 Bottom (x=620, y=630) -> Metric Box Top (x=620, y=675) -->
+      <line x1="620" y1="630" x2="620" y2="673" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Arrows to 3 Bottom Severity Bands: From Metric Box Bottom (y=765) -->
+      <!-- Left Band (top center x=200, y=835) -->
+      <polyline points="430,765 430,800 200,800 200,833" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Center Band (top center x=620, y=835) -->
+      <line x1="620" y1="765" x2="620" y2="833" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Right Band (top center x=1035, y=835) -->
+      <polyline points="810,765 810,800 1035,800 1035,833" fill="none" stroke="#000000" stroke-width="2.5" marker-end="url(#arrow)" />
+    </svg>
+
+    <!-- TOP BOX: INPUT -->
+    <div class="box" style="left: 270px; top: 48px; width: 700px; height: 92px; padding: 10px 18px;">
+      <div class="box-title">INPUT: DAILY COW HEALTH MEASUREMENTS</div>
+      <div class="box-desc">Body Weight, Daily Feed Intake, Milk Yield &amp; Activity Log</div>
+    </div>
+
+    <!-- DIAMOND 1 TEXT (Center x=620, y=250) -->
+    <div class="diamond-text" style="left: 420px; top: 215px; width: 400px; height: 70px;">
+      <div class="diamond-title">ENOUGH DATA COLLECTED?</div>
+      <div class="diamond-desc">(At Least 7 Daily Records Available)</div>
+    </div>
+
+    <!-- BRANCH LABEL NO (Diamond 1 to Hold Box) -->
+    <div class="branch-label" style="left: 885px; top: 234px;">NO</div>
+
+    <!-- HOLD / ABSTAIN BOX (Right Column) -->
+    <div class="box" style="left: 940px; top: 195px; width: 285px; height: 110px; padding: 10px 14px;">
+      <div class="box-title">HOLD HEALTH ALERT</div>
+      <div class="box-desc">Not enough history yet.<br>Withholds verdict to<br>prevent false alarms.</div>
+    </div>
+
+    <!-- BRANCH LABEL YES (Diamond 1 to Preprocessing) -->
+    <div class="branch-label" style="left: 635px; top: 326px;">YES</div>
+
+    <!-- BOX 2: PREPROCESSING -->
+    <div class="box" style="left: 270px; top: 365px; width: 700px; height: 90px; padding: 10px 18px;">
+      <div class="box-title">DATA PREPROCESSING &amp; CLEANING</div>
+      <div class="box-desc">Align daily timestamps and smoothly fill missing sensor readings</div>
+    </div>
+
+    <!-- DIAMOND 2 TEXT (Center x=620, y=565) -->
+    <div class="diamond-text" style="left: 410px; top: 530px; width: 420px; height: 70px;">
+      <div class="diamond-title">DATA QUALITY ISSUE?</div>
+      <div class="diamond-desc">(Correlated or Unstable Sensors)</div>
+    </div>
+
+    <!-- BRANCH LABEL YES (Diamond 2 to Stabilization) -->
+    <div class="branch-label" style="left: 310px; top: 549px;">YES</div>
+
+    <!-- STABILIZATION BOX (Left Column) -->
+    <div class="box" style="left: 15px; top: 510px; width: 280px; height: 110px; padding: 10px 14px;">
+      <div class="box-title">DATA STABILIZATION</div>
+      <div class="box-desc">Adds numerical buffer to correlation matrix to prevent calculation errors.</div>
+    </div>
+
+    <!-- BRANCH LABEL NO (Diamond 2 to Metric Computation) -->
+    <div class="branch-label" style="left: 635px; top: 640px;">NO</div>
+
+    <!-- BOX 3: METRIC COMPUTATION -->
+    <div class="box" style="left: 270px; top: 675px; width: 700px; height: 90px; padding: 10px 18px;">
+      <div class="box-title">CALCULATE HEALTH DEFICIT INDEX (CHDI)</div>
+      <div class="box-desc">Compares vitals to cow baseline and outputs score from 0 to 100</div>
+    </div>
+
+    <!-- BOTTOM 3 SEVERITY BANDS -->
+    <!-- LEFT: NORMAL BAND -->
+    <div class="box" style="left: 10px; top: 835px; width: 380px; height: 135px; padding: 12px 14px;">
+      <div class="box-title">HEALTHY BAND (80 – 100)</div>
+      <div class="box-desc">
+        <strong>Status:</strong> Low Risk / Normal Range<br>
+        All vitals within normal expected baseline.<br>
+        <strong>Action:</strong> Continue routine daily logging.
+      </div>
+    </div>
+
+    <!-- CENTER: WATCH BAND -->
+    <div class="box" style="left: 430px; top: 835px; width: 380px; height: 135px; padding: 12px 14px;">
+      <div class="box-title">WATCH BAND (60 – 79)</div>
+      <div class="box-desc">
+        <strong>Status:</strong> Moderate Risk / Warning<br>
+        Mild deviation in feed or milk yield.<br>
+        <strong>Action:</strong> Send alert notice to farmer.
+      </div>
+    </div>
+
+    <!-- RIGHT: AT-RISK BAND -->
+    <div class="box" style="left: 845px; top: 835px; width: 380px; height: 135px; padding: 12px 14px;">
+      <div class="box-title">AT-RISK BAND (BELOW 60)</div>
+      <div class="box-desc">
+        <strong>Status:</strong> High Risk / Critical Deviation<br>
+        Significant drop across multiple vitals.<br>
+        <strong>Action:</strong> Auto-dispatch urgent ticket to vet.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+"""
+
+    temp_html = os.path.join(workspace_fig_dir, "temp_figure3_large.html")
+    with open(temp_html, "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+    output_png = os.path.join(workspace_fig_dir, "figure3_chdi_abstention_logic_bw.png")
+
+    cmd = [
+        edge_path,
+        "--headless",
+        "--disable-gpu",
+        "--force-device-scale-factor=2",
+        f"--window-size=1260,1060",
+        f"--screenshot={output_png}",
+        temp_html
+    ]
+
+    print(f"Rendering Figure 3 to {output_png}...")
+    subprocess.run(cmd, check=True)
+
+    orig_fig = os.path.join(workspace_fig_dir, "figure3_chdi_abstention_logic.png")
+    shutil.copy2(output_png, orig_fig)
+    print(f"Updated {orig_fig}")
+
+    artifact_png = os.path.join(artifact_dir, "figure3_chdi_abstention_logic_bw.png")
+    shutil.copy2(output_png, artifact_png)
+    print(f"Copied to artifact dir: {artifact_png}")
+
+if __name__ == "__main__":
+    generate_figure3_bw_large()

@@ -15,19 +15,13 @@ import {
 export default async function FarmerOverview() {
   const session = await getServerSession(authOptions);
 
-  const [cattle, recentCHDI, openCases, regionAlerts, upcomingVaccinations] = await Promise.all([
+  const [cattle, openCases, regionAlerts, upcomingVaccinations] = await Promise.all([
     prisma.cattle.findMany({
       where: { farmerId: session!.user.id, isActive: true },
       include: {
         chdiHistory: { orderBy: { timestamp: "desc" }, take: 7 },
         vaccinations: { where: { status: "upcoming" }, orderBy: { dueAt: "asc" }, take: 1 },
       },
-    }),
-    prisma.cHDIEntry.findMany({
-      where: { cattle: { farmerId: session!.user.id } },
-      orderBy: { timestamp: "desc" },
-      take: 5,
-      include: { cattle: { select: { name: true, tagId: true } } },
     }),
     prisma.vetCase.count({
       where: { farmerId: session!.user.id, status: { in: ["open", "in_progress"] } },
@@ -173,6 +167,7 @@ export default async function FarmerOverview() {
                   <Link
                     key={c.id}
                     href={`/farmer/cattle/${c.id}`}
+                    prefetch={true}
                     id={`cattle-row-${c.id}`}
                     className="flex items-center justify-between p-3.5 hover:bg-slate-50 transition-colors group"
                   >
@@ -264,48 +259,7 @@ export default async function FarmerOverview() {
             </div>
           </div>
 
-          {/* Recent CHDI Inference Stream */}
-          <div className="card border border-slate-200 bg-white overflow-hidden shadow-xs">
-            <div className="p-3.5 bg-[#f8faf9] border-b border-slate-200 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <IconActivity className="w-4 h-4 text-[#123326]" />
-                <h2 className="font-bold text-xs text-slate-900 uppercase font-mono tracking-wider">
-                  Recent Health Checks
-                </h2>
-              </div>
-              <span className="text-[10px] font-mono text-emerald-800 font-bold">LATEST</span>
-            </div>
 
-            <div className="divide-y divide-slate-100">
-              {recentCHDI.map((e: any) => {
-                const badge = getCHDIBadgeConfig(e.status);
-                return (
-                  <div key={e.id} className="p-3 flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className={`w-2 h-2 rounded-full ${badge.dot}`}></span>
-                      <div className="min-w-0">
-                        <p className="text-xs font-semibold text-slate-800 truncate">
-                          {e.cattle.name ?? e.cattle.tagId}
-                        </p>
-                        <p className="text-[10px] font-mono text-slate-400">{timeAgo(e.timestamp)}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <span className={`badge-${e.status} text-[10px]`}>
-                        {e.score != null ? `${Math.round(e.score)} pts` : "—"}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-
-              {recentCHDI.length === 0 && (
-                <p className="p-4 text-xs font-mono text-slate-400 text-center">
-                  No health checks logged recently
-                </p>
-              )}
-            </div>
-          </div>
         </div>
       </div>
     </div>

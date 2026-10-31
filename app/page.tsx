@@ -15,14 +15,12 @@ import HeroTelemetryPill from "@/components/HeroTelemetryPill";
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  if (session) {
-    const dashMap: Record<string, string> = {
-      farmer: "/farmer",
-      vet: "/vet",
-      admin: "/admin",
-    };
-    redirect(dashMap[session.user.role] ?? "/login");
-  }
+  const dashMap: Record<string, string> = {
+    farmer: "/farmer",
+    vet: "/vet",
+    admin: "/admin",
+  };
+  const userDashUrl = session?.user?.role ? (dashMap[session.user.role] ?? "/login") : null;
 
   const capabilities = [
     {
@@ -79,20 +77,37 @@ export default async function Home() {
           </Link>
 
           <div className="flex items-center gap-3 sm:gap-4 text-xs font-mono">
-            <Link
-              href="/login"
-              id="nav-login-btn"
-              className="text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-slate-800 transition-colors font-medium text-xs"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/register"
-              id="nav-register-btn"
-              className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-xs"
-            >
-              Create Account →
-            </Link>
+            {session ? (
+              <>
+                <span className="text-slate-400 hidden sm:inline">
+                  Signed in as <strong className="text-emerald-400 font-semibold">{session.user.name}</strong>
+                </span>
+                <Link
+                  href={userDashUrl ?? "/login"}
+                  id="nav-dashboard-btn"
+                  className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-xs"
+                >
+                  Go to Dashboard →
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  id="nav-login-btn"
+                  className="text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-slate-800 transition-colors font-medium text-xs"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  id="nav-register-btn"
+                  className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-xs"
+                >
+                  Create Account →
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -118,18 +133,29 @@ export default async function Home() {
 
               {/* Quick Jump Matrix */}
               <div className="pt-2 flex flex-wrap gap-3">
-                <Link
-                  href="/login"
-                  className="btn btn-primary btn-lg shadow-sm"
-                >
-                  Open Dashboard
-                </Link>
-                <Link
-                  href="/register"
-                  className="btn btn-secondary btn-lg"
-                >
-                  Create Account
-                </Link>
+                {session ? (
+                  <Link
+                    href={userDashUrl ?? "/login"}
+                    className="btn btn-primary btn-lg shadow-sm"
+                  >
+                    Open {session.user.role.toUpperCase()} Dashboard →
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      className="btn btn-primary btn-lg shadow-sm"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="btn btn-secondary btn-lg"
+                    >
+                      Create Account
+                    </Link>
+                  </>
+                )}
               </div>
 
               {/* Lively Animated Telemetry Pill Accent */}

@@ -12,6 +12,7 @@ import {
   IconUser,
 } from "@/components/icons";
 import { SmartCattleLogo } from "@/components/SmartCattleLogo";
+import SignOutModal from "@/components/SignOutModal";
 
 interface VetSidebarProps {
   userName?: string | null;
@@ -22,6 +23,7 @@ interface VetSidebarProps {
 export default function VetSidebar({ userName, userEmail, userImage }: VetSidebarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
 
   const links = [
     { href: "/vet", label: "Urgent Cattle Cases", icon: IconStethoscope, exact: true },
@@ -35,7 +37,7 @@ export default function VetSidebar({ userName, userEmail, userImage }: VetSideba
     <div className="flex flex-col h-full bg-slate-950 text-slate-200 border-r border-slate-800">
       {/* Brand Header */}
       <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-        <Link href="/vet" className="flex items-center gap-2 group">
+        <Link href="/vet" prefetch={true} className="flex items-center gap-2 group">
           <SmartCattleLogo variant="light" subtitle="Veterinarian Portal" />
         </Link>
         <button
@@ -60,12 +62,12 @@ export default function VetSidebar({ userName, userEmail, userImage }: VetSideba
             <Link
               key={link.href}
               href={link.href}
+              prefetch={true}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
-                isActive
+              className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${isActive
                   ? "bg-emerald-950/80 text-emerald-400 border border-emerald-500 shadow-xs font-bold"
                   : "text-slate-400 hover:bg-slate-900 hover:text-white border border-transparent"
-              }`}
+                }`}
             >
               <Icon className={`w-4 h-4 ${isActive ? "text-emerald-400" : "text-slate-500"}`} />
               <span className="flex-1 truncate">{link.label}</span>
@@ -78,6 +80,7 @@ export default function VetSidebar({ userName, userEmail, userImage }: VetSideba
       <div className="p-3 border-t border-slate-800 bg-slate-900/60">
         <Link
           href="/vet/profile"
+          prefetch={true}
           onClick={() => setMobileOpen(false)}
           className="flex items-center gap-2.5 mb-2.5 p-1.5 rounded-lg hover:bg-slate-800/80 transition-colors"
         >
@@ -97,16 +100,24 @@ export default function VetSidebar({ userName, userEmail, userImage }: VetSideba
             <p className="text-[10px] font-mono text-slate-400 truncate">{userEmail ?? "District Vet"}</p>
           </div>
         </Link>
-        <form action="/api/auth/signout" method="POST">
-          <button
-            type="submit"
-            className="btn btn-secondary btn-sm w-full justify-center text-slate-300 bg-slate-800 border-slate-700 hover:bg-slate-700 text-xs py-1"
-          >
-            <IconSignOut className="w-3.5 h-3.5 text-slate-400" />
-            <span>Sign Out</span>
-          </button>
-        </form>
+        <button
+          type="button"
+          onClick={() => setShowSignOutModal(true)}
+          className="btn btn-secondary btn-sm w-full justify-center text-slate-300 bg-slate-800 border-slate-700 hover:bg-slate-700 text-xs py-1.5 cursor-pointer"
+        >
+          <IconSignOut className="w-3.5 h-3.5 text-slate-400" />
+          <span>Sign Out</span>
+        </button>
       </div>
+
+      <SignOutModal
+        isOpen={showSignOutModal}
+        onClose={() => setShowSignOutModal(false)}
+        userName={userName}
+        userEmail={userEmail}
+        userImage={userImage}
+        userRole="Veterinarian"
+      />
     </div>
   );
 

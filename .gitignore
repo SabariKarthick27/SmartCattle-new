@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# office & temp lock files
+~$*
+~*.tmp
+*.tmp
+
+# local sqlite
+*.db
+*.db-journal
+

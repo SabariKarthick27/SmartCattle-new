@@ -1,0 +1,487 @@
+P0: HIGH WAY FREE ELECTRICTY	
+P1: 
+P2: 
+P3: 
+P4: A Project Report
+P5: 
+P6: Course Code – Course Name
+P7: 
+P8: 
+P9: Submitted by
+P10: 
+P11: 
+P12: 
+P13: 
+P14: 
+P15: in partial fulfillment for the award of the degree
+P16: 
+P17: of
+P18: BACHELOR OF ENGINEERING
+P19: 
+P20: in
+P21: 
+P22: Department Name
+P23: 
+P24: SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS), SALEM– 636005
+P25: ANNA UNIVERSITY: CHENNAI 600 025
+P26: OCTOBER 2026
+P27: 
+P28: SONA COLLEGE OF TECHNOLOGY (AUTONOMOUS) ANNA UNIVERSITY: CHENNAI – 600 025
+P29: 
+P30: BONAFIDE CERTIFICATE
+P31: 
+P32: 
+P33: Certified that this project titled “HIGH WAY FREE ELECTRICTY” is the bonafide work of “MUKESH T (61782323104056), NETHAJI A (61782323104059), MAHI THANGAVEL B (61782323104059)” who carried out the project work Course Code & Course Name under my supervision.
+P34: 
+P35: 
+P36: Signature of the Supervisor	Head of the Department
+P37: 
+P38: <Faculty Name>	< Faculty Name>
+P39: <Designation>	<Designation>
+P40: <Department>	<Department>
+P41: Sona College of Technology,	Sona College of Technology,
+P42: Salem – 636005	Salem – 636005
+P43: 
+P44: 
+P45: 
+P46: 
+P47: 
+P48: Submitted for the Project Viva-Voce Examination held on 	
+P49: 
+P50: 
+P51: 
+P52: 
+P53: 
+P54: INTERNAL EXAMINER	EXTERNAL EXAMINER
+P55: 
+P56: Sona College of Technology
+P57: Department of Information Technology
+P58: U23IT705/U23ADS705 - PROJECT - DECLARATION FORM
+P59: 
+P60: 
+P61: Declaration by the Student(s)
+P62: 
+P63: 
+P64: We hereby declare that the project titled "	" 
+P65: is an original  work  carried  out  by  me/us  under  the  guidance  of  Mr./Ms./Dr.             	. 
+P66: This project has not been submitted elsewhere for the award of any degree.
+P67: 
+P68: We also affirm that all the data and information used in this project are genuine and properly acknowledged. This project work is carried out with reference to the United Nations Sustainable Development Goal/Goals [Goal Number/s] – [Goal Name/s]
+P69: 
+P70: 
+P71: 
+P72: 
+P73: Date: 	
+P74: Place: Sona College of Technology
+P75: 
+P76: ACKNOWLEDGMENT
+P77: [Enter the required content here.]
+P78: 
+P79: ABSTRACT
+P80: [Enter the required content here.]
+P81: 
+P82: TABLE OF CONTENTS
+P83: 1. INTRODUCTION
+P84: 1.1 Background of the Project
+P85: 1.2 Problem Statement
+P86: 1.3 Motivation
+P87: 1.4 Objectives
+P88: 1.5 Scope of the Project
+P89: 2. LITERATURE REVIEW
+P90: 2.1 Introduction
+P91: 2.2 Review of Related Studies
+P92: 2.3 Techniques and Technologies Used in Existing Systems
+P93: 2.4 Research Gap
+P94: 2.5 Summary
+P95: 3. CHAPTER 1 –NEED FOR PROPOSED TECHNIQUE
+P96: 3.1 Existing Techniques
+P97: 3.2 Limitations of Existing Techniques
+P98: 3.3 Proposed Technique
+P99: 3.4 Objectives of the Proposed Technique
+P100: 3.5 Advantages of the Proposed Technique
+P101: 4. CHAPTER 2 – DESIGN OF PROPOSED SYSTEM AND ITS IMPLEMENTATION
+P102: 4.1 Introduction
+P103: 4.2 System Requirements
+P104: 4.2.1 Hardware Requirements
+P105: 4.2.2 Software Requirements
+P106: 4.3 System Architecture
+P107: 4.4 System Components/Modules
+P108: 4.4.1 Module 1
+P109: 4.4.2 Module 2
+P110: 4.4.3 Module 3
+P111: 4.4.4 Module 4
+P112:  (Add modules if necessary)
+P113: 4.5 Proposed Methodology
+P114: 4.6 System Workflow
+P115: 4.7 Algorithms/Techniques Used
+P116: 4.8 Dataset/Data Collection
+P117: 4.9 Data Preprocessing
+P118: 4.10 Model/System Development
+P119: 4.11 System Design Diagrams
+P120: 4.12 Implementation
+P121: 4.13 Coding/Program Implementation
+P122: 4.14 User Interface / Application Screens
+P123: 4.15 Chapter Summary
+P124: 5. CHAPTER 3 – RESULTS AND DISCUSSION
+P125: 5.1 Introduction
+P126: 5.2 Experimental Setup
+P127: 5.3 Evaluation Metrics
+P128: 5.4 Experimental Results
+P129: 5.5 Comparison with Existing Techniques
+P130: 5.6 Discussion of Results
+P131: 5.7 Chapter Summary
+P132: 6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE
+P133: 6.1 Summary of the Project
+P134: 6.2 Conclusion
+P135: 6.3 Future Scope
+P136: 
+P137: SDG GOALS  Minimum 1 Page
+P138: 
+P139: Publication if any
+P140: 
+P141: References (MINIMUM 20 REFERENCES) – SEE PAGE NO 22 FOR THE FORMAT
+P142: 
+P143: LIST OF FIGURES
+P144: [Insert entries as applicable.]
+P145: 
+P146: LIST OF TABLES
+P147: [Insert entries as applicable.]
+P148: 
+P149: LIST OF ABBREVIATIONS
+P150: [Insert entries as applicable.]
+P151: 
+P152: 1. INTRODUCTION
+P153: 1.1 Background of the Project
+P154: Introduce the broad problem area and provide the context in which the project is developed.
+P155: 1.2 Problem Statement
+P156: Clearly describe the problem that the project aims to address.
+P157: 1.3 Motivation
+P158: Explain why the problem is important and what motivated the development of the project.
+P159: 1.4 Objectives
+P160: List the specific objectives of the project.
+P161: 1.5 Scope of the Project
+P162: Explain what the project covers and, where appropriate, what is outside its scope.
+P163: 2. LITERATURE REVIEW
+P164: 2.1 Introduction
+P165: Introduce the research area and purpose of the literature review.
+P166: 2.2 Review of Related Studies
+P167: Present relevant research papers and previous implementations.
+P168: 2.3 Techniques and Technologies Used in Existing Systems
+P169: Discuss important algorithms, frameworks, tools, hardware, or technologies.
+P170: 2.4 Research Gap
+P171: Identify limitations or gaps observed in the literature.
+P172: 2.5 Summary
+P173: Summarize the important findings and establish the need for the proposed work.
+P174: 
+P175: 3. CHAPTER 1 – NEED FOR PROPOSED TECHNIQUE
+P176: 3.1 Existing Techniques
+P177: Describe working principle, architecture/algorithm, advantages, and disadvantages.
+P178: 3.2 Limitations of Existing Techniques
+P179: Consolidate the major disadvantages identified from existing techniques.
+P180: 3.3 Proposed Technique
+P181: Introduce the new technique/system proposed in the project.
+P182: 3.4 Objectives of the Proposed Technique
+P183: Explain how the proposed approach addresses identified limitations.
+P184: 3.5 Advantages of the Proposed Technique
+P185: Describe expected improvements over existing approaches.
+P186: 4. CHAPTER 2 – DESIGN OF PROPOSED SYSTEM AND ITS IMPLEMENTATION 
+P187: 4.1 Introduction
+P188: Provide an overview of the proposed system and implementation.
+P189: 4.2 System Requirements
+P190: Specify requirements for implementing the system.
+P191: 4.2.1 Hardware Requirements
+P192: Describe hardware required.
+P193: 4.2.2 Software Requirements
+P194: List languages, frameworks, libraries, databases, OS, and other software.
+P195: 4.3 System Architecture
+P196: Present and explain the overall architecture.
+P197: 4.4 System Components/Modules
+P198: Describe each major module.
+P199: 4.4.1 Module 1
+P200: Replace with the actual module name and description.
+P201: 4.4.2 Module 2
+P202: Replace with the actual module name and description.
+P203: 4.4.3 Module 3
+P204: Replace with the actual module name and description.
+P205: 4.4.4 Module 4
+P206: Replace with the actual module name and description.
+P207: (Add modules if necessary)
+P208: 4.5 Proposed Methodology
+P209: Explain the step-by-step methodology.
+P210: 4.6 System Workflow
+P211: Present the overall workflow using a flowchart/activity diagram.
+P212: 4.7 Algorithms/Techniques Used
+P213: Explain important algorithms or computational techniques.
+P214: 4.8 Dataset/Data Collection
+P215: Describe source, collection procedure, characteristics, samples, and features, if applicable.
+P216: 4.9 Data Preprocessing
+P217: Explain cleaning, normalization, feature extraction, transformation, augmentation, etc., if applicable.
+P218: 4.10 Model/System Development
+P219: Explain the development and implementation process.
+P220: 4.11 System Design Diagrams
+P221: Include relevant use case, DFD, class, sequence, activity, ER, or architecture diagrams.
+P222: 4.12 Implementation
+P223: Describe how the proposed system was implemented.
+P224: 4.13 Coding/Program Implementation
+P225: Start the page by specifying github URL  and explaining the file structure in github uploaded folder ( mandatory)
+P226: Include important code snippets and explain their functionality.
+P227: 4.14 User Interface / Application Screens
+P228: Present important screenshots of the developed system/application.
+P229: 4.15 Chapter Summary
+P230: Summarize the chapter.
+P231: 5. CHAPTER 3 – RESULTS AND DISCUSSION
+P232: 5.1 Introduction
+P233: Introduce the evaluation and results.
+P234: 5.2 Experimental Setup
+P235: Describe hardware, software, datasets, parameters, and experimental conditions.
+P236: 5.3 Evaluation Metrics
+P237: Explain metrics such as accuracy, precision, recall, F1-score, error, processing time, etc., as applicable.
+P238: 5.4 Experimental Results
+P239: Present results obtained from the proposed system.
+P240: Discuss effects of important parameter changes, if applicable.
+P241: Present relevant graphs, charts, and plots.
+P242: 5. 5 Comparison with Existing Techniques
+P243: Compare the proposed technique with existing techniques.
+P244: 5.8 Discussion of Results
+P245: Interpret the results and explain the observed performance.
+P246: Relate results to the limitations identified earlier.
+P247: Discuss limitations identified during implementation or experimentation.
+P248: 5.11 Chapter Summary
+P249: Summarize the chapter.
+P250: 6. CHAPTER 4 – CONCLUSION AND FUTURE SCOPE
+P251: 6.1 Summary of the Project
+P252: Summarize the problem, methodology, implementation, and major findings.
+P253: List the important outcomes obtained from the project.
+P254: Explain how the proposed system satisfies the objectives.
+P255: 6.2 Conclusion
+P256: Present the overall conclusion of the project.
+P257: 6.3 Future Scope
+P258: Describe possible improvements and extensions.
+P259: 
+P260: 
+P261: SDG GOALS ( 1 Page)
+P262: 
+P263: PUBLICATIONS (IF ANY)
+P264: 
+P265: 
+P266: 
+P267: 
+P268: 
+P269: 
+P270: 
+P271: 
+P272: 
+P273: 
+P274: 
+P275: 
+P276: 
+P277: 
+P278: 
+P279: 
+P280: 
+P281: 
+P282: 
+P283: 
+P284: 
+P285: 
+P286: 
+P287: 
+P288: 
+P289: 
+P290: 
+P291: 
+P292: 
+P293: 
+P294: 
+P295: 
+P296: 
+P297: 
+P298: 
+P299: 
+P300: 
+P301: 
+P302: 
+P303: 
+P304: 
+P305: 
+P306: 
+P307: 
+P308: REFERENCES (Minimum 20 references)
+P309: 
+P310: (ENSURE MINIMUM OF 15 PAPERS REFERRING TO CONFERENCE AND JOURNAL (IN THE RECENT YEAR 2024, 2025 ,2026) AND ALL THESE PAPERS ARE CITED IN INTRODUCTION, LITERATURE OR WHEREVER APPLICABLE)
+P311: Font, Font Size, Margins and Line spacing instructions
+P312: The table and figures shall be introduced in the appropriate places.
+P313: 
+P314: PAGE DIMENSION AND BINDING SPECIFICATIONS:
+P315: 
+P316: The dimension of the project report should be in A4 size. The project report should be bound using flexible cover of the thick white art paper. The cover should be printed in black letters and the text for printing should be identical.
+P317: 
+P318: PREPARATION FORMAT:
+P319: 
+P320: Cover Page & Title Page – A specimen copy of the Cover page & Title page of the project report are given in Appendix 1.
+P321: 
+P322: Bonafide Certificate – The Bonafide Certificate shall be in double line spacing using Font Style Times New Roman and Font Size 14, as per the format in Appendix 2.
+P323: 
+P324: The certificate shall carry the supervisor’s signature and shall be followed by the supervisor’s name, academic designation (not any other responsibilities of administrative nature),department and full address of the institution where the supervisor has guided the student. The term ‘SUPERVISOR’ must be typed in capital letters between the supervisor’s name and academic designation.
+P325: 
+P326: Abstract – Abstract should be one page synopsis of the project report typed double line spacing, Font Style Times New Roman and Font Size 14.
+P327: 
+P328: Table of Contents – The table of contents should list all material following it as well as any material which precedes it. The title page and Bonafide Certificate will not find a place among the items listed in the Table of Contents but the page numbers of which are in lower case Roman letters. One and a half spacing should be adopted for typing the matter under this head. A specimen copy of the Table of Contents of the project report is given in Appendix 3.
+P329: 
+P330: List of Tables – The list should use exactly the same captions as they appear above the tables in the text. One and a half spacing should be adopted for typing the matter under this head.
+P331: 
+P332: List of Figures – The list should use exactly the same captions as they appear below the figures in the text. One and a half spacing should be adopted for typing the matter under this head.
+P333: 
+P334: List of Symbols, Abbreviations and Nomenclature – One and a half spacing should be adopted or typing the matter under this head. Standard symbols, abbreviations etc. should be used.
+P335: 
+P336: Appendices – Appendices are provided to give supplementary information, which is included in the main text may serve as a distraction and cloud the central theme.
+P337: 
+P338: Appendices should be numbered using Arabic numerals, e.g. Appendix 1, Appendix 2, etc.
+P339: Appendices, Tables and References appearing in appendices should be numbered and
+P340: 
+P341: referred to at appropriate places just as in the case of chapters.
+P342: 
+P343: Appendices shall carry the title of the work reported and the same title shall be made in the contents page also.
+P344: List of References –The listing of references should be typed 4 spaces below the heading “REFERENCES” in alphabetical order in single spacing left – justified. The reference material should be listed in the alphabetical order of the first author. The name of the author/authors should be immediately followed by the year and other details.
+P345: 
+P346: Table and figures - By the word Table, is meant tabulated numerical data in the body of the project report as well as in the appendices. All other non-verbal materials used in the body of the project work and appendices such as charts, graphs, maps, photographs and diagrams may be designated as figures.
+P347: 
+P348: TYPING INSTRUCTIONS:
+P349: 
+P350: The impression on the typed copies should be black in colour.
+P351: 
+P352: One and a half spacing should be used for typing the general text. The general text shall be typed in the Font style ‘Times New Roman’ and Font size 14.
+P353: 
+P354: 
+P355: * * * * *
+P356: 
+P357: SAMPLE
+P358: LITERATURE REVIEW (Minimum 5 pages with 20 references cited). (Citations should be in alphabetical order as given in the sample) 
+P359: This chapter reviews existing literature relevant to the project topic. It highlights previous work, methodologies, and findings that inform the current study.
+P360: 
+P361: The integration of face recognition technology into attendance systems has gained significant attention due to its potential to automate and secure attendance tracking in educational and corporate environments. Traditional methods such as manual roll calls and RFID-based systems are prone to errors, inefficiencies, and manipulation. Face recognition offers a contactless and reliable alternative.
+P362: Barla et al. [1] reviewed current methods and challenges in implementing face recognition-based attendance systems. Their study highlights the use of Haarcascade classifiers and NVIDIA Jetson Nano for real-time image processing in classrooms, emphasizing the shift from manual systems to AI-driven solutions.
+P363: 
+P364: Thakur and Chakre [2] conducted a systematic review focusing on deep learning-based face recognition techniques. They discussed the limitations of RFID systems and proposed CNN-based models for improved accuracy and scalability in attendance tracking.
+P365: 
+P366: Rudrawar [3] explored various algorithms such as Local Binary Patterns Histograms (LBPH), FaceNet, and YOLO for face detection and recognition. The study emphasized the importance of feature extraction and matching techniques like Euclidean distance and cosine similarity.
+P367: 
+P368: Falalu et al. [4] examined the challenges of implementing smart attendance systems in real-world scenarios, including lighting conditions and image quality. They also discussed alternative technologies like QR codes and RFID, comparing
+P369: 
+P370: their effectiveness with face recognition.
+P371: 
+P372: Singh et al. [5] reviewed multiple face recognition models including Dlib, ResNet, and Haar-Cascade classifiers. Their work focused on the deployment of these models in smart campus environments, highlighting their efficiency and accuracy.
+P373: 
+P374: REFERENCES (Minimum 20 references)
+P375: SAMPLE:
+P376: 
+P377: Australian   Securities   Exchange   2009,   Market   Information,   Available   from:
+P378: <http://www.asx.com.au/professionals/market_in> [Accessed 15 Oct 2025].
+P379: Barla, D. & Dikshit, A. 2023, ‘Face Recognition for Smart Attendance: A Review of Current Methods and Open Issues’, International Journal of Novel Research and Development, vol. 4, no. 6, pp. 112–118.
+P380: Cookson, A.H. 1985, Particle trap for compressed gas insulated transmission systems, US Patent 4554399.
+P381: Falalu, M.A., Abdullahi, M. & Usman, A. 2023, ‘A Smart Attendance System Based on Face Recognition: Challenges and Effects’, Journal of Mathematical Techniques in Computational Mathematics, vol. 9, no. 2, pp. 33–41.
+P382: Fan, W., Gordon, M.D. & Pathak, R. 2000, ‘Personalization of search engine services for effective retrieval and knowledge management’, Proceedings of the Twenty-First International Conference on Information Systems, pp. 20–34.
+P383: Gupta, N. 2020, ‘Biometric Authentication Using Facial Features’, Proceedings of the National Conference on Emerging Trends in Computing, pp. 90–95.
+P384: Holt, D.H. 1997, Management Principles and Practices, Prentice-Hall, Sydney.
+P385: Kumar, V. & Mehta, S. 2022, ‘Real-Time Face Recognition System for Automated Attendance’, Proceedings of the International Conference on Artificial Intelligence and Machine Learning, pp. 55–60.
+P386: Patel, R. & Joshi, M. 2021, ‘Deep Learning Approaches for Face Recognition in Smart Systems’, International Journal of Computer Applications, vol. 175, no. 7, pp. 22–28.
+P387: Rudrawar, S. 2025, ‘Developing an Attendance Management System using Face Recognition Technology’, International Journal of Scientific Research in Science and Technology, vol. 11, no. 3, pp. 101–107.
+P388: Singh, A., Kumar, R. & Sharma, P. 2024, ‘Smart Campus: Smart Attendance Management System Using Face Recognition’, International Journal for Modern Research, vol. 12, no. 2, pp. 45–52.
+P389: Soundarya, S., Priya, R. & Karthik, M. 2025, ‘A Review Paper on Attendance Management System Using Face Recognition’, International Journal of Creative Research Thoughts, vol. 10, no. 1, pp. 88–94.
+P390: 
+P391: Thakur, B. & Chakre, R. 2025, ‘A Systematic Review On Smart Attendance System Leveraging Deep Learning-Based Face Recognition Techniques’, IOSR Journal of Computer Engineering, vol. 27, no. 4, pp. 80–86.
+P392: Waldron, S. 2008, ‘Generalized Welch bound equality sequences are tight frames’, IEEE Transactions on Information Theory, vol. 49, no. 9, pp. 2307–2309.
+P393: TechVision Research 2023, AI in Education: Trends and Applications, Available from:
+P394: <https://www.techvisionresearch.com/ai-education-trends> [Accessed 10 Oct 2025].
+P395: 
+P396: 
+P397: 
+P398: 
+P399: 
+P400: 
+P401: 
+P402: 
+P403: 
+P404: 
+P405: 
+P406: 
+P407: 
+P408: 
+P409: 
+P410: 
+P411: 
+P412: 
+P413: 
+P414: 
+P415: 
+P416: 
+P417: 
+P418: 
+P419: 
+P420: 
+P421: 
+P422: 
+P423: 
+P424: 
+P425: 
+P426: 
+P427: 
+P428: 
+P429: Guidelines for References
+P430: Journal Article – Single Author
+P431: 
+P432: Format:
+P433: Author Surname, Initials Year, ‘Title of the article’, Journal Name, vol. xx, no. xx, pp. xxx–xxx.
+P434: Example:
+P435: Waldron, S 2008, ‘Generalized Welch bound equality sequences are tight frames’, IEEE Transactions on Information Theory, vol. 49, no. 9, pp. 2307–2309.
+P436: 
+P437: Journal Article – Two Authors
+P438: Format:
+P439: Author1 Surname, Initials & Author2 Surname, Initials Year, ‘Title of the article’, Journal Name, vol. xx, no. xx, pp. xxx–xxx.
+P440: Example:
+P441: Conley, TG & Galeson, DW 1998, ‘Nativity and wealth in mid-nineteenth century cities’,
+P442: Journal of Economic History, vol. 58, no. 2, pp. 468–493.
+P443: 
+P444: Journal Article – More than Two Authors
+P445: Format:
+P446: Author1 Surname, Initials, Author2 Initials, Author3 Initials & Author4 Initials Year, ‘Title of the article’, Journal Name, vol. xx, no. xx, pp. xxx–xxx.
+P447: Example:
+P448: Alishahi, K, Marvasti, F, Aref, VA & Pad, P 2009, ‘Bounds on the sum capacity of synchronous binary CDMA channels’, Journal of Chemical Education, vol. 55, no. 8, pp. 3577–3593.
+P449: Book
+P450: Format:
+P451: Author Surname, Initials Year, Title of the Book, Publisher, City.
+P452: Example:
+P453: Holt, DH 1997, Management Principles and Practices, Prentice-Hall, Sydney.
+P454: 
+P455: Conference Paper with Editors
+P456: Format:
+P457: Author Surname, Initials Year, ‘Title of the paper’, in Conference Title, ed. Editor Initials, Publisher, City, pp. xxx–xxx.
+P458: Example:
+P459: Riley, D 1992, ‘Industrial relations in Australian education’, in Contemporary Australasian industrial relations: proceedings of the sixth AIRAANZ conference, ed. D Blackmur, AIRAANZ, Sydney, pp. 124–140.
+P460: Conference Paper without Editors
+P461: Format:
+P462: Author Surname, Initials Year, ‘Title of the paper’, Conference Title, pp. xxx–xxx.
+P463: Example:
+P464: Fan, W, Gordon, MD & Pathak, R 2000, ‘Personalization of search engine services for effective retrieval and knowledge management’, Proceedings of the twenty-first international conference on information systems, pp. 20–34.
+P465: 
+P466: Website
+P467: Format:
+P468: Author/Organization Year, Title, Available from:
+P469: Example:
+P470: Exchange 2009, Market Information, Available from: http://www.asx.com.au/professionals/market_in
+P471: Patent
+P472: Format:
+P473: Inventor Surname, Initials Year, Title of Patent, Patent Number.
+P474: Example:
+P475: Cookson, AH 1985, Particle trap for compressed gas insulated transmission systems, US Patent 4554399.
+
+--- TABLE 0 ---
+['MUKESH T', '(61782323104056)']
+['NETHAJI A', '(61782323104059)']
+['MAHI THANGAVEL B', '(61782323104051)']
+
+--- TABLE 1 ---
+['S.No', 'Register Number', 'Name', 'Signature']
+['1.', '', '', '']
+['2.', '', '', '']
+['3.', '', '', '']
